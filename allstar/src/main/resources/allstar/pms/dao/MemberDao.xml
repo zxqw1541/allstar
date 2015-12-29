@@ -31,7 +31,8 @@
 	<insert id="insert" parameterType="member">
 		insert into member( id, pwd , name, email, tel , mphoto, zipcode, 
   address , gender, age, mevent, introduce )
-		values(#{id},sha1(#{password}),#{name},#{email},#{tel},#{mphoto},#{zipcode},#{address},#{gender},#{age},#{mevent},#{introduce})
+		values(#{id},sha1(#{pwd}),#{name},#{email},#{tel},#{mphoto},
+		#{zipcode},#{address},#{gender},#{age},#{mevent},#{introduce})
 	</insert>
 	
   <delete id="delete" parameterType="string">
@@ -44,13 +45,15 @@
 	</select>
 	
 	<update id="update" parameterType="member">
-		update member set name=#{name},tel=#{tel},cid=#{cid},photo=#{photo} where email=#{email}
+		update member set name=#{name},email=#{email},tel=#{tel},mphoto=#{mphoto},
+		zipcode=#{zipcode},address=#{address},gender=#{gender},age=#{age},
+		mevent=#{mevent},introduce=#{introduce} where id=#{id}
 	</update>
   
-  <select id="selectOneByEmailPassword" resultType="member" parameterType="map">
+  <select id="selectOneByIdPassword" resultType="member" parameterType="map">
     <include refid="select_inc"/> 
-    from member where email=#{email}
-    and pwd=sha1(#{password})
+    from member where id=#{id}
+    and pwd=sha1(#{pwd})
   </select>
 
 

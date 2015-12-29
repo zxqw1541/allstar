@@ -25,30 +25,30 @@ public class AuthController {
   @RequestMapping(value="login", method=RequestMethod.POST)
   public String login(
       String id,
-      String password,
+      String pwd,
       String saveId,
       HttpServletResponse response, 
       HttpSession session) {
 
     Cookie idCookie = null;
-    if (saveId != null) { // 이메일 저장을 체크했으면,
+    if (saveId != null) { 
       idCookie = new Cookie("id", id);
       idCookie.setMaxAge(60 * 60 * 24 * 15);
     } else {
       idCookie = new Cookie("id", "");
-      idCookie.setMaxAge(0); // 웹브라우저에게 email 쿠키 삭제를 명령한다.
+      idCookie.setMaxAge(0); 
     }
     response.addCookie(idCookie);
 
     Member member = memberService.retrieve(id, pwd);
 
-    if (member == null) { // 로그인 실패!
-      session.invalidate(); // 세션을 무효화시킴. => 새로 세션 객체 생성!
+    if (member == null) { 
+      session.invalidate(); 
       return "auth/LoginFail";
     }
 
     session.setAttribute("loginUser", member);
-    return "redirect:../header.jsp";
+    return "redirect:../header.jsp";                      //----------------
   }
   
   @RequestMapping("logout")
