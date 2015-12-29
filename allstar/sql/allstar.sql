@@ -193,6 +193,7 @@ DROP TABLE IF EXISTS `member`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `member` (
   `id` varchar(50) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
   `pwd` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `tel` varchar(50) DEFAULT NULL,
@@ -285,4 +286,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-29 11:38:44
+-- Dump completed on 2015-12-29 12:40:01
