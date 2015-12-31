@@ -1,9 +1,6 @@
 {
-  "name": "project03t",
-  "homepage": "https://github.com/eomjinyoung/Java76",
-  "authors": [
-    "Jinyoung <jinyoung.eom@gmail.com>"
-  ],
+  "name": "allstar",
+  "homepage": "https://github.com/zxqw1541/allstar",
   "description": "",
   "main": "",
   "moduleType": [],
@@ -26,5 +23,4 @@
 		"jquery": "bower_components/jquery/dist/**"
 	}
   }
-  
 }
