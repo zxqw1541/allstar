@@ -48,7 +48,7 @@
            #{competitionPhoto}, #{content}, #{hostId})
   </insert>
   
-  <delete id="delete" parameterType="map">
+  <delete id="delete" parameterType="int">
     delete from competition 
   	where cno=#{no} 
   </delete>
