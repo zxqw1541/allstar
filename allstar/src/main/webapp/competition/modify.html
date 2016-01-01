@@ -2,51 +2,57 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>대회-생성</title>
+<title>대회-상세</title>
 <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css">
 </head>
 <body>
 
 <section>
-<h1>대회 생성</h1>
+<h1>대회-상세</h1>
 
 
 <form id='form1' class="form-horizontal">
   <!-- 내용 div -->
   <div class="form-group">
+    <label for="fno" class="col-sm-2 control-label">번호</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="fno"readonly>
+    </div>
+  </div>
+  <div class="form-group">
     <label for="fname" class="col-sm-2 control-label">대회명</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="fname" placeholder="대회명을 입력하세요">
+      <input type="text" class="form-control" id="fname" placeholder="제목">
     </div>
   </div>
   <div class="form-group">
     <label for="ftype" class="col-sm-2 control-label">종목</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="ftype" placeholder="종목을 입력하세요">
+      <input type="text" class="form-control" id="ftype" placeholder="종목">
     </div>
   </div>
   <div class="form-group">
     <label for="fevent" class="col-sm-2 control-label">이벤트</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="fevent" placeholder="이벤트를 입력하세요">
+      <input type="text" class="form-control" id="fevent" placeholder="제목">
     </div>
   </div>
   <div class="form-group">
     <label for="fvenue" class="col-sm-2 control-label">개최지</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="fvenue" placeholder="개최지를 입력하세요">
+      <input type="text" class="form-control" id="fvenue" placeholder="제목">
     </div>
   </div>
   <div class="form-group">
     <label for="fteamNum" class="col-sm-2 control-label">팀수</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="fteamNum" placeholder="숫자를 입력하세요">
+      <input type="text" class="form-control" id="fteamNum" placeholder="제목">
     </div>
   </div>
   <div class="form-group">
     <label for="fjoinCost" class="col-sm-2 control-label">참가비</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="fjoinCost" placeholder="숫자를 입력하세요">
+      <input type="text" class="form-control" id="fjoinCost" placeholder="제목">
     </div>
   </div>
   <div class="form-group">
@@ -86,24 +92,51 @@
       <input type="text" class="form-control" id="fhostId" placeholder="제목">
     </div>
   </div>
+  <!-- 내용 div end -->
   <!-- 버튼 div -->
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button id='addBtn' type='button' 
-        class="btn btn-primary btn-xs">등록</button>
+      <button id='updateBtn' type='button' 
+        class="btn btn-primary btn-xs">수정</button>
+        <button id='deleteBtn' type='button' 
+        class="btn btn-primary btn-xs">삭제</button>
     </div>
   </div>
+  <!-- 버튼 div end -->
 </form>
 
 
 </section>
 <script type="text/javascript" src="../lib/jquery/jquery.js"></script>
 <script>
-//등록 버튼을 위한 이벤트 리스너 추가하기
-$('#addBtn').click(function(event) {
-  $.post('ajax/add.do', {
+//상세정보 출력
+var no = location.href.split('?')[1].split('=')[1];
+$.getJSON('ajax/detail.do?no=' + no, function(resultObj) {
+    var ajaxResult = resultObj.ajaxResult;
+    if (ajaxResult.status == "success") {
+      var competition = ajaxResult.data;
+      $("#fno").val(competition.no);
+      $('#fname').val(competition.name),
+      $('#ftype').val(competition.type),
+      $('#fevent').val(competition.event),
+      $('#fvenue').val(competition.venue),
+      $('#fteamNum').val(competition.teamNum),
+      $('#fjoinCost').val(competition.joinCost),
+      $('#fstartDate').val(competition.startDate),
+      $('#fendDate').val(competition.endDate),
+      $('#frecruitStartDate').val(competition.recruitStartDate),
+      $('#frecruitEndDate').val(competition.recruitEndDate),
+      $('#fcontent').val(competition.content),
+      $('#fhostId').val(competition.hostId)
+    }
+  });
+
+//변경 버튼을 위한 이벤트 리스너 추가하기
+$('#updateBtn').click(function(event) {
+  $.post('ajax/update.do', {
+	  no: $('#fno').val(),
     name: $('#fname').val(),
-	  type: $('#ftype').val(),
+    type: $('#ftype').val(),
     event: $('#fevent').val(),
     venue: $('#fvenue').val(),
     teamNum: $('#fteamNum').val(),
@@ -123,6 +156,20 @@ $('#addBtn').click(function(event) {
         alert("게시물 등록에 실패했습니다.");
     }
   }, 'json');
+});
+
+//삭제 버튼을 위한 이벤트 리스너 추가하기
+$('#deleteBtn').click(function(event) {
+  $.getJSON('ajax/delete.do?no=' + $('#fno').val() 
+           + '&password=' + $('#fpassword').val(), 
+    function(resultObj) {
+      var ajaxResult = resultObj.ajaxResult;
+      if (ajaxResult.status == "success") {
+        location.href = "index.html";
+      } else {
+          alert("게시물 삭제에 실패했습니다.");
+      }
+  });
 });
 
 

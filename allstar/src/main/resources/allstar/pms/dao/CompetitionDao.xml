@@ -43,7 +43,7 @@
     insert into competition(type, cevent, venue, cname, team_num, 
                             join_cost, sdt, edt, rsdt, redt, cphoto,
                             content, host_id) 
-    values('0', #{event}, #{venue}, #{name}, #{teamNum}, 
+    values(#{type}, #{event}, #{venue}, #{name}, #{teamNum}, 
            #{joinCost}, #{startDate}, #{endDate}, #{recruitStartDate}, #{recruitEndDate}, 
            #{competitionPhoto}, #{content}, #{hostId})
   </insert>
@@ -54,7 +54,8 @@
   </delete>
   
   <update id="update" parameterType="Competition">
-    update competition set 
+    update competition set
+      type = #{type}, 
       cevent = #{event},
       venue = #{venue},
       cname = #{name},
