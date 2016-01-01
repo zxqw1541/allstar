@@ -10,9 +10,9 @@ public interface CompetitionService {
 
   void register(Competition competition);
   
-  void remove(int no);
+  int remove(int no);
   
-  void change(Competition competition);
+  int change(Competition competition);
   
   Competition retrieve(int no);
   

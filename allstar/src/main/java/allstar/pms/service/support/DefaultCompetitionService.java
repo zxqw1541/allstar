@@ -31,14 +31,13 @@ public class DefaultCompetitionService implements CompetitionService {
   }
 
   @Override
-  public void remove(int id) {
-    competitionDao.delete(id);
-    
+  public int remove(int id) {
+    return competitionDao.delete(id);
   }
 
   @Override
-  public void change(Competition competition) {
-    competitionDao.update(competition);
+  public int change(Competition competition) {
+    return competitionDao.update(competition);
   }
 
   @Override

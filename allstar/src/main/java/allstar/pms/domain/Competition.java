@@ -3,7 +3,6 @@ package allstar.pms.domain;
 import java.sql.Date;
 
 public class Competition {
-  
   protected int no;
   protected String type;
   protected String event;
