@@ -15,47 +15,65 @@
 
 <jsp:include page="/Header.jsp"/>
 
-<h1>게시물 정보(with JSP + EL + JSTL)</h1>
+<h1>대회정보</h1>
 
-<c:if test="${not empty board}">
-<form id='form1' action='update.do' method='post'
-      enctype="multipart/form-data">
+<c:if test="${not empty competition}">
+<form id='form1' action='update.do' method='post'>
 <table border='1'>
 <tr>
   <th>번호</th>
-  <td><input type='text' name='no' value='${board.no}' readonly></td>
+  <td><input type='text' name='no' value='${competition.no}' readonly></td>
 </tr>
 <tr>
-  <th>제목</th>
-  <td><input type='text' name='title' value='${board.title}'></td>
+  <th>대회명</th>
+  <td><input type='text' name='name' value='${competition.name}'></td>
+</tr>
+<tr>
+  <th>이벤트</th>
+  <td><input type='text' name='event' value='${competition.event}'></td>
+</tr>
+<tr>
+  <th>개최지</th>
+  <td><input type='text' name='venue' value='${competition.venue}'></td>
+</tr>
+<tr>
+  <th>팀숫자</th>
+  <td><input type='text' name='teamNum' value='${competition.teamNum}'></td>
+</tr>
+<tr>
+  <th>참가비</th>
+  <td><input type='text' name='joinCost' value='${competition.joinCost}'></td>
+</tr>
+<tr>
+  <th>대회시작일</th>
+  <td><input type='date' name='startDate' value='${competition.startDate}'></td>
+</tr>
+<tr>
+  <th>대회종료일</th>
+  <td><input type='date' name='endDate' value='${competition.endDate}'></td>
+</tr>
+<tr>
+  <th>모집시작일</th>
+  <td><input type='date' name='recruitStartDate' value='${competition.recruitStartDate}'></td>
+</tr>
+<tr>
+  <th>모집마감일</th>
+  <td><input type='date' name='recruitEndDate' value='${competition.recruitEndDate}'></td>
 </tr>
 <tr>
   <th>내용</th>
   <td><textarea rows='10' name='content' 
-      cols='60'>${board.content}</textarea></td>
+      cols='60'>${competition.content}</textarea></td>
 </tr>
 <tr>
-  <th>조회수</th>
-  <td>${board.views}</td>
+  <th>개최자아이디</th>
+  <td><input type='text' name='hostId' value='${competition.hostId}'></td>
 </tr>
-<tr>
-  <th>등록일</th>
-  <td>${board.createdDate}</td>
-</tr>
-<tr>
-  <th>첨부파일</th>
-  <td><a href='../attachfile/${board.attachFile}'>${board.attachFile}</a><br>
-      <input type='file' name='file'>
-      <input type='hidden' name='attachFile' value='${board.attachFile}'></td>
-</tr>
-<tr>
-  <th>암호</th>
-  <td><input id='inputPassword' type='password' name='password'></td>
-</tr>
+
 </table>
 <p>
 <button name='update' type='submit' class='button1'>변경</button>
-<a id='aDelete' href='delete.do?no=${board.no}' class='button2' onclick='deleteBoard()'>삭제</a>
+<a id='aDelete' href='delete.do?no=${competition.no}' class='button2' onclick='deleteBoard()'>삭제</a>
 </p>
 </form>
 </c:if>

@@ -8,28 +8,45 @@
 <html>
 <head>
   <meta charset='UTF-8'>
-  <title>게시판-목록</title>
+  <title>대회-목록</title>
 </head>
 <body>
 
 <jsp:include page="/Header.jsp"/>
 
-<h1>게시판</h1>
-<a href='add.do'>새 글</a><br>
+<h1>대회</h1>
+<a href='add.do'>새 대회</a><br>
 <table border='1'>
   <tr>
     <th>번호</th>
-    <th>제목</th>
-    <th>조회수</th>
-    <th>등록일</th>
+    <th>대회명</th>
+    <th>타입</th>
+    <th>이벤트</th>
+    <th>개최지</th>
+    <th>팀숫자</th>
+    <th>참가비</th>
+    <th>대회시작일</th>
+    <th>대회종료일</th>
+    <th>모집시작일</th>
+    <th>모집마감일</th>
+    <th>내용</th>
+    <th>개최자아이디</th>
   </tr>
-
-<c:forEach var="board" items="${boards}">
+<c:forEach var="competition" items="${competitions}">
   <tr>
-    <td>${board.no}</td>
-    <td><a href='detail.do?no=${board.no}'>${board.title}</a></td>
-    <td>${board.views}</td>
-    <td>${board.createdDate}</td>
+    <td>${competition.no}</td> 
+    <td><a href='detail.do?no=${competition.no}'>${competition.name}</a></td>
+    <td>${competition.type}</td>
+    <td>${competition.event}</td>
+    <td>${competition.venue}</td>
+    <td>${competition.teamNum}</td>
+    <td>${competition.joinCost}</td>
+    <td>${competition.startDate}</td>
+    <td>${competition.endDate}</td>
+    <td>${competition.recruitStartDate}</td>
+    <td>${competition.recruitEndDate}</td>
+    <td>${competition.content}</td>
+    <td>${competition.hostId}</td>
   </tr>
 </c:forEach>  
 </table>

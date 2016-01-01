@@ -29,7 +29,7 @@ public class CompetitionController {
     
     List<Competition> competitions = competitionService.getCompetitionList(
         pageNo, pageSize, keyword, align);
-    
+    log.info(competitions);
     model.addAttribute("competitions", competitions);
     return "competition/CompetitionList";
   }
@@ -42,7 +42,7 @@ public class CompetitionController {
   @RequestMapping(value = "add", method = RequestMethod.POST)
   public String add(Competition competition) {
     competitionService.register(competition);    
-    return "competition/CompetitionList";
+    return "redirect:list.do";
   }
   
   @RequestMapping(value = "detail", method = RequestMethod.GET)
@@ -55,13 +55,13 @@ public class CompetitionController {
   @RequestMapping(value = "update", method = RequestMethod.POST)
   public String update(Competition competition) {
     competitionService.change(competition);
-    return "competition/CompetitionList";
+    return "redirect:list.do";
   }
   
   @RequestMapping(value = "delete", method = RequestMethod.GET)
   public String delete(int no) {
     competitionService.remove(no);
-    return "competition/CompetitionList";
+    return "redirect:list.do";
   }
   
   
