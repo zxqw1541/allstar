@@ -20,7 +20,7 @@
   </resultMap>
   
   <sql id="select_inc">
-  	select cno, type, cevent, venue, cname, team_num, join_cost, sdt, edt, rsdt, redt, cphoto,  content, host_id  	
+  	select cno, type, cevent, venue, cname, team_num, join_cost, sdt, edt, rsdt, redt, cphoto, content, host_id  	
   </sql>
 
   <select id="selectList" resultMap="CompetitionMap" parameterType="map">
@@ -48,14 +48,14 @@
            #{competitionPhoto}, #{content}, #{hostId})
   </insert>
   
-  <delete id="delete" parameterType="map">
+  <delete id="delete" parameterType="int">
     delete from competition 
   	where cno=#{no} 
   </delete>
   
   <update id="update" parameterType="Competition">
-    update competition set 
-      type = #{type},
+    update competition set
+      type = #{type}, 
       cevent = #{event},
       venue = #{venue},
       cname = #{name},
@@ -66,8 +66,7 @@
       rsdt = #{recruitStartDate},
       redt = #{recruitEndDate},
       cphoto = #{competitionPhoto},
-      content = #{content},
-      host_id = #{hostId}
+      content = #{content}
     where cno=#{no} 
   </update>
   
