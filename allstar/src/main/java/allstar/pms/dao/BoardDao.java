@@ -10,11 +10,11 @@ public interface BoardDao {
   
   int insert(Board board);
   
-  int delete(Map<String,Object> paramMap);
+  int delete(int bno);
   
   int update(Board board);
 
-  Board selectOne(int no);
+  Board selectOne(int bno);
 }
 
 

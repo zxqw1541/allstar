@@ -19,15 +19,18 @@
 
 <form id='form1' class="form-horizontal">
   <div class="detailForm form-group">
-    <label for="fbno" class="col-sm-2 control-label" readonly>번호</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="fbno">
-    </div>
+    
   </div>
   <div class="form-group">
     <label for="fbevent" class="col-sm-2 control-label">종목</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="fbevent" placeholder="종목">
+      <select class="form-control">
+			  <option>축구</option>
+			  <option>야구</option>
+			  <option>농구</option>
+			  <option>족구</option>
+			  <option>배드민턴</option>
+			</select>
     </div>
   </div>
   <div class="form-group">
@@ -40,13 +43,13 @@
     <label for="fcontent" class="col-sm-2 control-label">내용</label>
     <div class="col-sm-10">
       <textarea id="fcontent" class="form-control" 
-                rows='10' cols='60' placeholder="제목"></textarea>
+                rows='10' cols='60' placeholder="내용"></textarea>
     </div>
   </div>
   <div class="detailForm form-group">
     <label class="col-sm-2 control-label">등록일</label>
     <div class="col-sm-10">
-      <p id="fcreatedDate" class="form-control-static"></p>
+      <p id="fcre_dt" class="form-control-static"></p>
     </div>
   </div>
   
@@ -82,7 +85,7 @@ if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
 	$('.detailForm').css('display', '');
 	$('.newForm').css('display', 'none');
 	
-	$.getJSON(contextRoot + '/board/ajax/detail.do?bno=' + bno, function(resultObj) {
+	$.getJSON('ajax/detail.do?bno=' + no, function(resultObj) {
 		var ajaxResult = resultObj.ajaxResult;
 		if (ajaxResult.status == "success") {
       var board = ajaxResult.data;
@@ -97,7 +100,7 @@ if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
 
 // 등록 버튼을 위한 이벤트 리스너 추가하기
 $('#addBtn').click(function(event) {
-	$.post(contextRoot + '/board/ajax/add.do', {
+	$.post('ajax/add.do', {
 		bevent: $('#fbevent').val(),
 		title: $('#ftitle').val(),
 		content: $('#fcontent').val()
@@ -114,8 +117,8 @@ $('#addBtn').click(function(event) {
 
 //변경 버튼을 위한 이벤트 리스너 추가하기
 $('#updateBtn').click(function(event) {
-  $.post(contextRoot + '/board/ajax/update.do', {
-	    bno: $('#fbno').val(),
+  $.post('ajax/update.do', {
+	    bno: no,
 	    bevent: $('fbevent').val(),
 	    title: $('#ftitle').val(),
 	    content: $('#fcontent').val()
@@ -132,7 +135,7 @@ $('#updateBtn').click(function(event) {
 
 //삭제 버튼을 위한 이벤트 리스너 추가하기
 $('#deleteBtn').click(function(event) {
-	$.getJSON(contextRoot + '/board/ajax/delete.do?bno=' + $('#fbno').val(),
+	$.getJSON('ajax/delete.do?bno=' + no,
 	  function(resultObj) {
 	    var ajaxResult = resultObj.ajaxResult;
 	    if (ajaxResult.status == "success") {

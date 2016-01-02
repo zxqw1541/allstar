@@ -9,9 +9,9 @@ public interface BoardService {
       int pageNo, int pageSize, 
       String keyword, String align);
   void register(Board board);
-  void remove(int bno);
-  void change(Board board);
-  Board retieve(int bno);
+  int remove(int bno);
+  int change(Board board);
+  Board retrieve(int bno);
 }
 
 

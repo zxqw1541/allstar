@@ -18,8 +18,8 @@
     from board
     order by 
     <choose>
+      <when test="keyword == 'bevent'">bevent </when>
       <when test="keyword == 'title'">title </when>
-      <when test="keyword == 'views'">views </when>
       <otherwise>bno </otherwise>
     </choose>
     <choose>
@@ -34,7 +34,7 @@
     values(#{bevent},#{title},#{content},now())
   </insert>
   
-  <delete id="delete" parameterType="map">
+  <delete id="delete" parameterType="int">
     delete from board 
   	where bno=#{bno}
   </delete>
@@ -51,7 +51,7 @@
   <select id="selectOne" resultMap="boardMap" parameterType="int">
     select 
       bno,
-      bevent
+      bevent,
       title,
   	  content,
       cre_dt

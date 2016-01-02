@@ -14,6 +14,7 @@ import allstar.pms.service.BoardService;
 public class DefaultBoardService implements BoardService {
   @Autowired BoardDao boardDao;
   
+  @Override
   public List<Board> getBoardList(int pageNo, int pageSize, 
       String keyword, String align) {
     HashMap<String,Object> paramMap = new HashMap<>();
@@ -25,22 +26,23 @@ public class DefaultBoardService implements BoardService {
     return boardDao.selectList(paramMap);
   }
   
+  @Override
   public void register(Board board) {
     boardDao.insert(board);
   }
   
-  public void remove(int bno) {
-    HashMap<String,Object> paramMap = new HashMap<>();
-    paramMap.put("bno", bno);
-    
-    boardDao.delete(paramMap);
+  @Override
+  public int remove(int bno) {
+    return boardDao.delete(bno);
   }
   
-  public void change(Board board) {
-    boardDao.update(board);
+  @Override
+  public int change(Board board) {
+    return boardDao.update(board);
   }
-
-  public Board retieve(int bno) {
+  
+  @Override
+  public Board retrieve(int bno) {
     return boardDao.selectOne(bno);
   }
 }

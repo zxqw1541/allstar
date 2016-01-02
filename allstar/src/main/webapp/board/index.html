@@ -17,8 +17,15 @@
 <section>
 <h1>게시판</h1>
 
-<button id="newBtn" type="button" class="btn btn-primary btn-xs">새 글</button><br>
+<button id="newBtn" type="button" class="btn btn-primary btn-xs">새 글</button>
 
+<select class="form-control">
+        <option>축구</option>
+        <option>야구</option>
+        <option>농구</option>
+        <option>족구</option>
+        <option>배드민턴</option>
+      </select>
 <table id="listTable" class="table table-hover">
   <thead>
 	  <tr>
@@ -41,9 +48,9 @@
 <script type="text/javascript" src="../lib/jquery/jquery.js"></script>
 <script>
 
-$.getJSON(contextRoot + '/board/ajax/list.do', function(resultObj) {
+$.getJSON('ajax/list.do', function(resultObj) {
 	var table = $("#listTable");
-  for (var board of resultObj.data) {
+  for (var board of resultObj.ajaxResult.data) {
     $("<tr>")
       .html("<td>" + board.bno + 
 			      "</td><td><a class='detailLnk' href='#' boardBno='" 
@@ -58,11 +65,12 @@ $.getJSON(contextRoot + '/board/ajax/list.do', function(resultObj) {
 
 
 $('#newBtn').click(function(event){
-	alert("눌렀음");
-	location.href = "form.html?bno=-1";
+	location.href = "form.html?bno";
 });
 
-// 게시물 제목을 클릭했을 때 호출될 함수                                 
+
+// 게시물 제목을 클릭했을 때 호출될 함수
+
 function clickDetailLnk(event) {
 	event.preventDefault(); 
 	location.href = "form.html?bno=" + $(event.target).attr("boardBno");

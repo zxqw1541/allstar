@@ -1,27 +1,27 @@
 package allstar.pms.controller.ajax;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import allstar.pms.dao.BoardDao;
 import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Board;
+import allstar.pms.service.BoardService;
 
 @Controller("ajax.BoardController")
 @RequestMapping("/board/ajax/*")
 public class BoardController { 
   
-  public static final String SAVED_DIR = "/attachfile";
-  
-  @Autowired BoardDao boardDao;
+  //public static final String SAVED_DIR = "/attachfile";
+  public static Logger log = Logger.getLogger(BoardController.class);
+  @Autowired BoardService boardService;
   @Autowired ServletContext servletContext;
   
   @RequestMapping("list")
@@ -31,19 +31,10 @@ public class BoardController {
       @RequestParam(defaultValue="no") String keyword,
       @RequestParam(defaultValue="desc") String align) throws Exception {
     
-    HashMap<String,Object> paramMap = new HashMap<>();
-    paramMap.put("startIndex", (pageNo - 1) * pageSize);
-    paramMap.put("length", pageSize);
-    paramMap.put("keyword", keyword);
-    paramMap.put("align", align);
+    List<Board> boards = boardService.getBoardList(
+        pageNo, pageSize, keyword, align);
     
-    List<Board> boards = boardDao.selectList(paramMap);
-    
-    HashMap<String,Object> resultMap = new HashMap<>();
-    resultMap.put("status", "success");
-    resultMap.put("data", boards);
-    
-    return resultMap;
+    return new AjaxResult("success", boards);
   }
   
   @RequestMapping(value="add", method=RequestMethod.GET)
@@ -62,14 +53,15 @@ public class BoardController {
       board.setAttachFile(newFileName);
     }
     */
-    boardDao.insert(board);
-    
+    log.info("ajax/add");
+    boardService.register(board);
     return new AjaxResult("success", null);
   }
   
   @RequestMapping("detail")
-  public Object detail(int no) throws Exception {
-    Board board = boardDao.selectOne(no);
+  public AjaxResult detail(int bno) throws Exception {
+    Board board = boardService.retrieve(bno);
+    log.info("ajax/detail:" + board);
     return new AjaxResult("success", board);
   }
 
@@ -87,20 +79,14 @@ public class BoardController {
     }
     */
     
-    if (boardDao.update(board) <= 0) {
+    if (boardService.change(board) <= 0)
       return new AjaxResult("failure", null);
-    } 
-    
     return new AjaxResult("success", null);
   }
   
-  @RequestMapping("delete.do")
+  @RequestMapping(value = "delete", method = RequestMethod.GET)
   public AjaxResult delete(int bno) throws Exception {
-
-    HashMap<String,Object> paramMap = new HashMap<>();
-    paramMap.put("bno", bno);
-    
-    if (boardDao.delete(paramMap) <= 0) {
+    if (boardService.remove(bno) <= 0) {
       return new AjaxResult("failure", null);
     } 
 
