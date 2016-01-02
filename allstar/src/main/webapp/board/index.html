@@ -17,21 +17,14 @@
 <section>
 <h1>게시판</h1>
 
-<button id="newBtn" type="button" class="btn btn-primary btn-xs">새 글</button>
+<button id="newBtn" type="button" class="btn btn-primary btn-xs">새 글</button><br>
 
-<select class="form-control">
-        <option>축구</option>
-        <option>야구</option>
-        <option>농구</option>
-        <option>족구</option>
-        <option>배드민턴</option>
-      </select>
 <table id="listTable" class="table table-hover">
   <thead>
 	  <tr>
 	    <th>번호</th>
-	    <th>종목</th>
 	    <th>제목</th>
+	    <th>종목</th>
 	    <th>등록일</th>
 	  </tr>
   </thead>
@@ -54,8 +47,8 @@ $.getJSON('ajax/list.do', function(resultObj) {
     $("<tr>")
       .html("<td>" + board.bno + 
 			      "</td><td><a class='detailLnk' href='#' boardBno='" 
-			          + board.bno + "'>" + board.bevent + 
-			      "</a></td><td>" + board.title +
+			          + board.bno + "'>" + board.title + 
+			      "</a></td><td>" + board.bevent +
 			      "</td><td>" + board.cre_dt+ "</td>")
 			.appendTo(table);
   }
@@ -65,7 +58,7 @@ $.getJSON('ajax/list.do', function(resultObj) {
 
 
 $('#newBtn').click(function(event){
-	location.href = "form.html?bno";
+	location.href = "form.html?bno=-1";
 });
 
 
