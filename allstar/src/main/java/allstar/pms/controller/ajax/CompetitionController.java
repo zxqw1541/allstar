@@ -1,6 +1,5 @@
 package allstar.pms.controller.ajax;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -25,7 +24,7 @@ public class CompetitionController {
   @Autowired ServletContext servletContext;
 
   @RequestMapping("list")
-  public Object list(
+  public AjaxResult list(
       @RequestParam(defaultValue = "1") int pageNo,
       @RequestParam(defaultValue = "10") int pageSize,
       @RequestParam(defaultValue = "id") String keyword, 
@@ -34,11 +33,7 @@ public class CompetitionController {
     List<Competition> competitions = competitionService.getCompetitionList(
         pageNo, pageSize, keyword, align);
     
-    HashMap<String,Object> resultMap = new HashMap<>();
-    
-    resultMap.put("status", "success");
-    resultMap.put("data", competitions);
-    return resultMap;
+    return new AjaxResult("success", competitions);
   }
   
   @RequestMapping(value = "add", method = RequestMethod.GET)
