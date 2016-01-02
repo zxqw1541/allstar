@@ -6,6 +6,7 @@ import java.util.Map;
 import allstar.pms.domain.Member;
 
 public interface MemberDao {
+  
   List<Member> selectList(Map<String,Object> paramMap);
 
   int insert(Member member);

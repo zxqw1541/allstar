@@ -73,8 +73,8 @@ public class MemberController {
 
   @RequestMapping("delete")
   public AjaxResult delete(
-      String id,
-      String password) throws Exception {
+      String id
+/*     , String password*/) throws Exception {
 
 
     memberService.remove(id) ;

@@ -1,0 +1,81 @@
+
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>멤버목록</title>
+<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css"> 
+<link rel="stylesheet" href="../css/common.css"> 
+</head>
+<body align="center">
+	
+	<div class="container">
+	<header >
+		프로젝트 관리 시스템 : <a href="/project03/auth/login.do">Login</a>
+	</header>
+		<h1>게시판 JSP JavaScript HTML CSS Bootstrap JQuery Bower</h1>
+	<br>
+
+	<h1>
+		<button id="newBtn" type="button" class="btn btn-success">새 글</button>
+		<br>
+	</h1>
+<section>
+	<table id="listTable" border='1' align="center"
+		class="table table-condensed">
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>조회수</th>
+			<th>등록일</th>
+		</tr>
+	</table>
+	</section>
+	
+	
+	<footer>
+	<p align="center">
+	<address>010-9117-6091.&copy; Seungkuu @</address>
+	</p>
+	</footer>
+</div> <!-- container ends -->
+	<script type="text/javascript" src="../lib/jquery/jquery.js"></script>
+	<script>
+
+$.getJSON('ajax/list.do', function(resultObj) {
+		        var table = $("#listTable");
+		        for (var board of resultObj.data) {
+		            $("<tr>")
+		              .html("<td>" + board.no + 
+		                    "</td><td><a class='detailLnk' href='#' boardNo='" 
+		                        + board.no + "'>" + board.title + 
+		                    "</a></td><td>" + board.views +
+		                    "</td><td>" + board.createdDate + "</td>")
+		              .appendTo(table);
+		          }
+		        
+		        $("a.detailLnk").click(clickDetailLnk);
+
+		                        });
+		
+
+
+$('#newBtn').click(function(event){
+	location.href = "form.html?no=-1";
+});
+
+function clickDetailLnk(event) {
+	  event.preventDefault(); 
+	  location.href = "form.html?no=" + $(event.target).attr("boardNo");
+	}
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
