@@ -10,9 +10,6 @@
 <body align="center">
 	
 	<div class="container">
-	<header >
-		프로젝트 관리 시스템 : <a href="/project03/auth/login.do">Login</a>
-	</header>
 		<h1>게시판 JSP JavaScript HTML CSS Bootstrap JQuery Bower</h1>
 	<br>
 
@@ -24,10 +21,13 @@
 	<table id="listTable" border='1' align="center"
 		class="table table-condensed">
 		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>조회수</th>
-			<th>등록일</th>
+			<th>이름</th>
+			<th>아이디</th>
+			<th>tel</th>
+			<th>주소</th>
+			<th>이메일</th>
+		<th>나이</th>
+			<th>종목</th>
 		</tr>
 	</table>
 	</section>
@@ -44,13 +44,17 @@
 
 $.getJSON('ajax/list.do', function(resultObj) {
 		        var table = $("#listTable");
-		        for (var board of resultObj.data) {
+		        for (var member of resultObj.data) {
 		            $("<tr>")
-		              .html("<td>" + board.no + 
-		                    "</td><td><a class='detailLnk' href='#' boardNo='" 
-		                        + board.no + "'>" + board.title + 
-		                    "</a></td><td>" + board.views +
-		                    "</td><td>" + board.createdDate + "</td>")
+		              .html("<td>" + member.no + 
+		                    "</td><td><a class='detailLnk' href='#' memberId='" 
+		                        + member.id + "'>" + member.name + 
+		                    "</a></td><td>" + member.id +
+		                    "</td><td>" + member.tel + "</td><td>"
+		                    + member.address + 
+		                    "</td><td>" + member.email + "</td><td>" 
+		                    + member.age + "</td><td>"
+		                    + member.mevent + "</td>")
 		              .appendTo(table);
 		          }
 		        
@@ -66,7 +70,7 @@ $('#newBtn').click(function(event){
 
 function clickDetailLnk(event) {
 	  event.preventDefault(); 
-	  location.href = "form.html?no=" + $(event.target).attr("boardNo");
+	  location.href = "form.html?no=" + $(event.target).attr("memberId");
 	}
 
 

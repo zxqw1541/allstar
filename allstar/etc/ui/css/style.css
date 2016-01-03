@@ -1,11 +1,3 @@
-/*
-Theme Name: Delphic
-Theme URI: http://themes.iki-bir.com/delphic
-Author: elemis
-Author URI: http://elemis.iki-bir.com/
-Version: 1.0
-
------------------------------------------------------------------------------------*/
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -368,13 +360,7 @@ em {
 	height: 88px;
 	background: transparent url(style/images/header-bg.png) repeat-x center bottom;
 }
-#header {
-	width: 960px;
-	height: 88px;
-	margin: 0 auto;
-	position: relative;
-	z-index: 999;
-}
+
 #page-top {
 	padding-bottom: 70px;
 }

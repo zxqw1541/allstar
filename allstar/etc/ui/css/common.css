@@ -311,13 +311,3 @@ li.game{
   }
 
 
-
-.content {
-    
-    width:940px;
-    position:fixed;
-    z-index:999;
-    top:0px;
-    left:0px;
-    background-color:#ccc;
-}

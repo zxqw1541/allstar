@@ -65,7 +65,7 @@ nav{ position:relative;padding: 0px 0 0 0;}
 	color: #c5c3c3;
 	position: relative;
 	line-height: 20px;
-	z-index: 999;
+	z-index: 999; 
 	position: relative;
 }
 
@@ -81,7 +81,7 @@ nav{ position:relative;padding: 0px 0 0 0;}
 	top:27px;
 	left: 0px;
 	width: 70px;
-	z-index: 999; 
+  z-index: 999;  
 	padding-top: 15px;
 	padding-bottom: 10px;
 	/*background: url(../images/sub_bg.png) 0 0 repeat;*/
@@ -135,7 +135,7 @@ nav{ position:relative;padding: 0px 0 0 0;}
 }
 
 body {
-  min-width: 960px;
+  min-width: 1000px;
 }
 
 /* `Container
