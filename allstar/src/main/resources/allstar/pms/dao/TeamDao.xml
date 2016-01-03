@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="allstar.pms.dao.TeamDao">
+
+	<sql id="select_inc">
+		select tno, tname, captain, tevent, hometown, total_num,
+		win, draw, lose, join_num, fee, meet_day, introduce, tphoto
+	</sql>
+
+	<resultMap type="team" id="teamMap">
+		<id column="tno" property="no" />
+		<result column="tname" property="name" />
+		<result column="tevent" property="event" />
+		<result column="total_num" property="totalNum" />
+		<result column="join_num" property="joinNum" />
+		<result column="meet_day" property="meetDay" />
+		<result column="tphoto" property="photo" />
+	</resultMap>
+
+	<select id="selectList" resultMap="teamMap" parameterType="map">
+		<include refid="select_inc" />
+		from team
+		order by
+		<choose>
+			<when test="keyword == 'event'">tevent </when>
+			<otherwise>tno </otherwise>
+		</choose>
+		<choose>
+			<when test="align == 'desc'">desc</when>
+			<otherwise>asc</otherwise>
+		</choose>
+		limit #{startIndex}, #{length}
+
+	</select>
+
+	<insert id="insert" parameterType="team">
+		insert into team(tname,captain,tevent,hometown,total_num,
+		fee,meet_day,introduce)
+		values(#{name},#{captain},#{event},#{hometown},#{totalNum},
+		#{fee},#{meetDay},#{introduce})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from team where tno=#{no}
+	</delete>
+
+	<update id="update" parameterType="team">
+		update team set
+		tname=#{name},
+		captain=#{captain},
+		tevent=#{event},
+		hometown=#{hometown},
+		total_num=#{totalNum},
+		fee=#{fee},
+		meet_day=#{meetDay},
+		introduce=#{introduce}
+		where tno=#{no}
+	</update>
+
+	<select id="selectOne" resultMap="teamMap" parameterType="int">
+		<include refid="select_inc" />
+		from team
+		where tno=#{no}
+	</select>
+</mapper>
