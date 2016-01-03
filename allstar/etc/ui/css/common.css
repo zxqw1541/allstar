@@ -171,16 +171,29 @@ ul li {
                                 
                                 
 .tournament_img {
-    width:500px;
+    width:284px;
     background-color: white;
-    float: left;
+    float:left;
+    margin-left: 50px;
+    margin-bottom: 25px;
+    
 }                                
 .tournament_img img{
+   width:284px;
+}      
+.tournament_img2 {
     width:284px;
-    padding-left: 50px;
-    padding-bottom: 10px;    
+    background-color: white;
+    
+    margin-left: 50px;
+    margin-bottom: 25px;
+    
 }                                
-                
+.tournament_img2 img{
+   width:284px;
+}      
+
+     
 .tournament_img1 {
     width:500px;
     background-color: white;
@@ -212,11 +225,11 @@ a.btn {
 	background: black;
 	color: #fff;
 	/*margin-top: 38px;*/
-	padding: 7px 27px 13px 29px;
+	padding: 13px 27px 13px 27px;
 	font: 15px/10px 'Noto Sans', sans-serif;
     position:relative; 
     left: 834px; 
-    top: -35px;
+    top: -40px;
 }
 
 a.btn:hover {
@@ -296,3 +309,15 @@ li.game{
   li.game-bottom{ 
     border-top:1px solid #aaa;
   }
+
+
+
+.content {
+    
+    width:940px;
+    position:fixed;
+    z-index:999;
+    top:0px;
+    left:0px;
+    background-color:#ccc;
+}
