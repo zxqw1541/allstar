@@ -46,15 +46,14 @@ $.getJSON('ajax/list.do', function(resultObj) {
 		        var table = $("#listTable");
 		        for (var member of resultObj.data) {
 		            $("<tr>")
-		              .html("<td>" + member.no + 
+		              .html("<td>" + member.name + 
 		                    "</td><td><a class='detailLnk' href='#' memberId='" 
-		                        + member.id + "'>" + member.name + 
-		                    "</a></td><td>" + member.id +
-		                    "</td><td>" + member.tel + "</td><td>"
-		                    + member.address + 
-		                    "</td><td>" + member.email + "</td><td>" 
-		                    + member.age + "</td><td>"
-		                    + member.mevent + "</td>")
+		                        + member.id + "'>" + member.id + 
+		                    "</a></td><td>" + member.tel +
+		                    "</td><td>" + member.address +
+		                    "</td><td>" + member.email +
+		                    "</td><td>" + member.age + 
+		                    "</td><td>" + member.mevent + "</td>")
 		              .appendTo(table);
 		          }
 		        
@@ -65,12 +64,12 @@ $.getJSON('ajax/list.do', function(resultObj) {
 
 
 $('#newBtn').click(function(event){
-	location.href = "form.html?no=-1";
+	location.href = "form.html?id=-1";
 });
 
 function clickDetailLnk(event) {
 	  event.preventDefault(); 
-	  location.href = "form.html?no=" + $(event.target).attr("memberId");
+	  location.href = "form.html?id=" + $(event.target).attr("memberId");
 	}
 
 

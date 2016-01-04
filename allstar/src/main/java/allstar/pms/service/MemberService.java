@@ -10,9 +10,9 @@ public interface MemberService {
 
   void register(Member member);
 
-  void remove(String id);
+  int remove(String id, String pwd);
 
-  void change(Member member);
+  int change(Member member);
 
   Member retrieve(String id);
 

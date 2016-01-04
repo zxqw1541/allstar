@@ -62,23 +62,22 @@ public class MemberController {
   }
   
   @RequestMapping(value = "update", method = RequestMethod.POST)
-  public AjaxResult update(
-      Member member
-     ) throws Exception {
-
-
-    memberService.change(member); 
+  public AjaxResult update(Member member) throws Exception {
+    
+    if (memberService.change(member) <= 0) {
+      return new AjaxResult("failure", null);
+    }
+    
     return new AjaxResult("success", null);
   }
 
   @RequestMapping("delete")
   public AjaxResult delete(
-      String id
-/*     , String password*/) throws Exception {
-
-
-    memberService.remove(id) ;
-
+      String id, String pwd) throws Exception {
+    if (memberService.remove(id, pwd) <= 0) {
+      return new AjaxResult("failure", null);
+    }
+    
     return new AjaxResult("success", null);
   }
 }
