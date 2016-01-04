@@ -59,8 +59,8 @@ public class MemberController {
   }
   
   @RequestMapping(value = "delete", method = RequestMethod.GET)
-  public String delete(String id) {
-    memberService.remove(id);
+  public String delete(String id, String pwd) {
+    memberService.remove(id, pwd);
     return "redirect:list.do";
   }
   

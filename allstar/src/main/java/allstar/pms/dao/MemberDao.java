@@ -11,7 +11,7 @@ public interface MemberDao {
 
   int insert(Member member);
 
-  int delete(String id);
+  int delete(Map<String,Object> paramMap);
   
   int update(Member member);
 

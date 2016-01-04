@@ -84,5 +84,12 @@ public String getIntroduce() {
 public void setIntroduce(String introduce) {
   this.introduce = introduce;
 }
+public String getName() {
+  return name;
+}
+public void setName(String name) {
+  this.name = name;
+}
+
 
 }

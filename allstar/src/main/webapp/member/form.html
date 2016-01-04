@@ -11,10 +11,16 @@
 	<h1>게시물 정보</h1>
 	<section>
 	<form id='form1' class="form-horizontal">
-	<div class="detailForm form-group">
+	<div class="newForm form-group">
     <label for="fid" class="col-sm-2 control-label" >id</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="fid">
+    </div>
+  </div>
+  <div class="detailForm form-group">
+    <label for="fid1" class="col-sm-2 control-label">id</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="fid1" readonly>
     </div>
   </div>
   <div class="form-group">
@@ -29,13 +35,13 @@
       <input type="text" class="form-control" id="femail" placeholder="이메일">
     </div>
   </div>
-  <div class="detailForm form-group">
+  <div class="form-group">
     <label class="col-sm-2 control-label">전화</label>
     <div class="col-sm-10">
       <input type="text" id="ftel" class="form-control-static"></input>
     </div>
   </div>
-  <div class="detailForm form-group">
+  <div class="form-group">
     <label class="col-sm-2 control-label">주소</label>
     <div class="col-sm-10">
       <input type="text"  id="faddress" class="form-control-static"></input>
@@ -49,7 +55,7 @@
     </div>
   </div>
   
-    <div class="detailForm form-group">
+    <div class="form-group">
     <label class="col-sm-2 control-label">종목</label>
     <div class="col-sm-10">
       <input type="text" id="fmevent" class="form-control-static"></input>
@@ -95,34 +101,33 @@
 
 	<script type="text/javascript" src="../lib/jquery/jquery.js"></script>
 	<script>
-		var no = location.href.split('?')[1].split('=')[1];
-/* 
-		if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
+		var id = location.href.split('?')[1].split('=')[1];
+ 
+		if (id < 0) { // 새 글 입력을 위한 폼으로 전환한다.
 			// 상세정보 출력을 위한 폼 항목은 감춘다.
-			$('.detailForm').css('display', '');
+			$('.detailForm').css('display', 'none');
 			$('.newForm').css('display', '');
 
 		} else { // 상세정보 출력폼으로 전환한다.
 			$('.detailForm').css('display', '');
-			$('.newForm').css('display', 'none'); */
+			$('.newForm').css('display', 'none');
 
 			$.getJSON('ajax/detail.do?id=' + id, function(resultObj) {
 				var ajaxResult = resultObj.ajaxResult;
 				if (ajaxResult.status == "success") {
 					var member = ajaxResult.data;
 					$("#fid").val(member.id);
+					$("#fid1").val(member.id);
 					$("#fname").val(member.name);
 					$("#femail").val(member.email);
-					$("#ftel").text(member.tel);
-					$("#fpwd").text(member.pwd);
-					$("#faddress").text(member.address);
-					$("#fgender").text(member.gender);
+					$("#ftel").val(member.tel);
+					$("#faddress").val(member.address);
+					$("#fgender").val(member.gender);
 					$("#fmphoto").text(member.mphoto);
-					$("#fmevent").text(member.mevent);
-					$("#fintroduce").text(member.introduce);
+					$("#fmevent").val(member.mevent);
+					$("#fintroduce").val(member.introduce);
 				}
 			});
-		
 
 		// 등록 버튼을 위한 이벤트 리스너 추가하기
 		$('#addBtn').click(function(event) {
@@ -130,7 +135,7 @@
 				id : $('#fid').val(),
 				name : $('#fname').val(),
 				email : $('#femail').val(),
-				password : $('#fpwd').val(),
+				pwd : $('#fpwd').val(),
 				tel : $('#ftel').val(),
 				address : $('#faddress').val(),
 				gender : $('#fgender').val(),
@@ -144,7 +149,7 @@
 				if (ajaxResult.status == "success") {
 					location.href = "index.html";
 				} else {
-					alert("게시물 변경에 실패했습니다.");
+					alert("게시물 등록에 실패했습니다.");
 				}
 			}, 'json');
 		});
@@ -155,7 +160,11 @@
 				id : $('#fid').val(),
 				name : $('#fname').val(),
 				email : $('#femail').val(),
-				password : $('#fpwd').val()
+				tel : $('#ftel').val(),
+				address : $('#faddress').val(),
+				mevent : $('#fmevent').val(),
+				introduce : $('#fintroduce').val(),
+				pwd : $('#fpwd').val()
 			}, function(resultObj) {
 				var ajaxResult = resultObj.ajaxResult;
 				if (ajaxResult.status == "success") {
@@ -169,8 +178,8 @@
 		//삭제 버튼을 위한 이벤트 리스너 추가하기
 		$('#deleteBtn').click(
 				function(event) {
-					$.getJSON('ajax/delete.do?id=' + $('#id').val()
-							+ '&password=' + $('#pwd').val(), function(
+					$.getJSON('ajax/delete.do?id=' + $('#fid').val()
+							+ '&pwd=' + $('#fpwd').val(), function(
 							resultObj) {
 						var ajaxResult = resultObj.ajaxResult;
 						if (ajaxResult.status == "success") {

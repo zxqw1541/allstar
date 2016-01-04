@@ -28,12 +28,16 @@ public class DefaultMemberService implements MemberService{
     memberDao.insert(member);
   }
 
-  public  void remove(String id) {
-    memberDao.delete(id);
+  public  int remove(String id, String pwd) {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("id", id);
+    paramMap.put("pwd", pwd);
+    
+    return memberDao.delete(paramMap);
   }
 
-  public  void change (Member member) {
-    memberDao.update(member);
+  public  int change (Member member) {
+    return memberDao.update(member);
   }
 
   public  Member retrieve (String id) {

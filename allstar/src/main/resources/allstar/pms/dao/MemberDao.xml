@@ -13,7 +13,7 @@
 
 	<select id="selectList" resultType="member" parameterType="map">
 		<include refid="select_inc"/>
-		 from Member order by
+		 from member order by
 		<choose>
 			<when test="keyword == 'id'">id </when>
 			<when test="keyword == 'email'">email </when>
@@ -35,10 +35,10 @@
 		#{zipcode},#{address},#{gender},#{age},#{mevent},#{introduce})
 	</insert>
 	
-  <delete id="delete" parameterType="string">
-    delete from member where id =#{value}
+  <delete id="delete" parameterType="map">
+    delete from member where id=#{id} and pwd=sha1(#{pwd})
   </delete>
-	
+  
 	<select id="selectOne" resultType="member" parameterType="member">
 		<include refid="select_inc"/>
 		 from member where id=#{id}
@@ -47,7 +47,7 @@
 	<update id="update" parameterType="member">
 		update member set name=#{name},email=#{email},tel=#{tel},mphoto=#{mphoto},
 		zipcode=#{zipcode},address=#{address},gender=#{gender},age=#{age},
-		mevent=#{mevent},introduce=#{introduce} where id=#{id}
+		mevent=#{mevent},introduce=#{introduce} where id=#{id} and pwd=sha1(#{pwd})
 	</update>
   
   <select id="selectOneByIdPassword" resultType="member" parameterType="map">
