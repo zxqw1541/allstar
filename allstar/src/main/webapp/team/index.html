@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Team List</title>
+<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="../css/common.css">
+</head>
+<body>
+		<section>
+			<h1>Team List</h1>
+			<button id="newBtn" type="button" class="btn btn-primary btn-xs">새 팀</button>
+			<br>
+			<table id="listTable" class="table table-hover">
+				<thead>
+					<tr>
+						<th>팀명</th>
+						<th>팀장</th>
+						<th>종목</th>
+						<th>인원수</th>
+						<th>팀소개</th>
+						<th>연고지</th>
+						<th>전적</th>
+					</tr>
+				</thead>
+			</table>
+		</section>
+
+	<script type="text/javascript" src="../lib/jquery/jquery.js"></script>
+	<script>
+	$.getJSON('ajax/list.do', function(resultObj) {
+		  var table = $("#listTable");
+		  for (var team of resultObj.ajaxResult.data) {
+		    $("<tr>")
+		      .html("<td><a class='detailLnk' href='#' teamNo='" 
+	                    + team.no + "'>" + team.name + 
+		            "</a></td><td>" + team.captain + 
+		            "</td><td>" + team.event +
+		            "</td><td>" + team.joinNum + "/" + team.totalNum + 
+		            "</td><td>" + team.introduce +
+		            "</td><td>" + team.hometown +
+		            "</td><td>" + team.win + "승 " + team.draw + "무 " + team.lose + "패" + 
+		            "</td>")
+		      .appendTo(table);
+		  }
+		  // 제목 링크에 클릭 이벤트 리스너를 등록한다.
+		  $("a.detailLnk").click(clickDetailLnk);
+		});
+
+		$('#newBtn').click(function(event){
+		  location.href = "form.html?no=-1";
+		});
+
+		// 게시물 제목을 클릭했을 때 호출될 함수
+		function clickDetailLnk(event) {
+		  event.preventDefault(); 
+		  location.href = "form.html?no=" + $(event.target).attr("teamNo");
+		}
+	
+	</script>
+</body>
+</html>

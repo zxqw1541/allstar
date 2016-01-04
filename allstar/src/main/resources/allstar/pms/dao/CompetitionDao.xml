@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="allstar.pms.dao.CompetitionDao">
+
+  <resultMap type="Competition" id="CompetitionMap">
+    <id		column="cno"		property="no"/>
+    <result column="cevent"		property="event"/>
+    <result column="cname" 		property="name"/>
+    <result column="team_num" 	property="teamNum"/>
+    <result column="join_cost" 	property="joinCost"/>
+    <result column="sdt" 		property="startDate"/>
+    <result column="edt" 		property="endDate"/>
+    <result column="rsdt" 		property="recruitStartDate"/>
+    <result column="redt" 		property="recruitEndDate"/>
+    <result column="cphoto" 	property="competitionPhoto"/>
+    <result column="host_id" 	property="hostId"/>
+  </resultMap>
+  
+  <sql id="select_inc">
+  	select cno, type, cevent, venue, cname, team_num, join_cost, sdt, edt, rsdt, redt, cphoto, content, host_id  	
+  </sql>
+
+  <select id="selectList" resultMap="CompetitionMap" parameterType="map">
+  	<include refid="select_inc"/>
+    from competition
+    order by 
+    <choose>
+      <when test="keyword == 'type'">type </when>
+      <when test="keyword == 'sdt'">sdt </when>
+      <otherwise>cno </otherwise>
+    </choose>
+    <choose>
+      <when test="align == 'asc'">asc</when>
+      <otherwise>desc</otherwise>
+    </choose>
+    limit #{startIndex}, #{length}
+  </select>
+  
+  <insert id="insert" parameterType="Competition">
+    insert into competition(type, cevent, venue, cname, team_num, 
+                            join_cost, sdt, edt, rsdt, redt, cphoto,
+                            content, host_id) 
+    values(#{type}, #{event}, #{venue}, #{name}, #{teamNum}, 
+           #{joinCost}, #{startDate}, #{endDate}, #{recruitStartDate}, #{recruitEndDate}, 
+           #{competitionPhoto}, #{content}, #{hostId})
+  </insert>
+  
+  <delete id="delete" parameterType="int">
+    delete from competition 
+  	where cno=#{no} 
+  </delete>
+  
+  <update id="update" parameterType="Competition">
+    update competition set
+      type = #{type}, 
+      cevent = #{event},
+      venue = #{venue},
+      cname = #{name},
+      team_num = #{teamNum}, 
+      join_cost = #{joinCost},
+      sdt = #{startDate},
+      edt = #{endDate},
+      rsdt = #{recruitStartDate},
+      redt = #{recruitEndDate},
+      cphoto = #{competitionPhoto},
+      content = #{content}
+    where cno=#{no} 
+  </update>
+  
+  <select id="selectOne" resultMap="CompetitionMap" parameterType="int">
+    <include refid="select_inc"/>
+    from competition
+    where cno=#{no}
+  </select>
+</mapper>
+
+
+
+
+
+
+

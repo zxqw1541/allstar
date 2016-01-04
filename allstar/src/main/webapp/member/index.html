@@ -1,0 +1,85 @@
+
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>멤버목록</title>
+<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css"> 
+<link rel="stylesheet" href="../css/common.css"> 
+</head>
+<body align="center">
+	
+	<div class="container">
+		<h1>게시판 JSP JavaScript HTML CSS Bootstrap JQuery Bower</h1>
+	<br>
+
+	<h1>
+		<button id="newBtn" type="button" class="btn btn-success">새 글</button>
+		<br>
+	</h1>
+<section>
+	<table id="listTable" border='1' align="center"
+		class="table table-condensed">
+		<tr>
+			<th>이름</th>
+			<th>아이디</th>
+			<th>tel</th>
+			<th>주소</th>
+			<th>이메일</th>
+		<th>나이</th>
+			<th>종목</th>
+		</tr>
+	</table>
+	</section>
+	
+	
+	<footer>
+	<p align="center">
+	<address>010-9117-6091.&copy; Seungkuu @</address>
+	</p>
+	</footer>
+</div> <!-- container ends -->
+	<script type="text/javascript" src="../lib/jquery/jquery.js"></script>
+	<script>
+
+$.getJSON('ajax/list.do', function(resultObj) {
+		        var table = $("#listTable");
+		        for (var member of resultObj.data) {
+		            $("<tr>")
+		              .html("<td>" + member.no + 
+		                    "</td><td><a class='detailLnk' href='#' memberId='" 
+		                        + member.id + "'>" + member.name + 
+		                    "</a></td><td>" + member.id +
+		                    "</td><td>" + member.tel + "</td><td>"
+		                    + member.address + 
+		                    "</td><td>" + member.email + "</td><td>" 
+		                    + member.age + "</td><td>"
+		                    + member.mevent + "</td>")
+		              .appendTo(table);
+		          }
+		        
+		        $("a.detailLnk").click(clickDetailLnk);
+
+		                        });
+		
+
+
+$('#newBtn').click(function(event){
+	location.href = "form.html?no=-1";
+});
+
+function clickDetailLnk(event) {
+	  event.preventDefault(); 
+	  location.href = "form.html?no=" + $(event.target).attr("memberId");
+	}
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+

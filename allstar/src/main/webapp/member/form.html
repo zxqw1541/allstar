@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>게시판-상세정보</title>
+<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css"> 
+<link rel="stylesheet" type="text/css" href="../css/common.css">
+</head>
+<body>
+<div class="container">
+	<h1>게시물 정보</h1>
+	<section>
+	<form id='form1' class="form-horizontal">
+	<div class="detailForm form-group">
+    <label for="fid" class="col-sm-2 control-label" >id</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="fid">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fname" class="col-sm-2 control-label">이름</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="fname" placeholder="이름">
+    </div>
+  </div>
+   <div class="form-group">
+    <label for="femail" class="col-sm-2 control-label">이메일</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="femail" placeholder="이메일">
+    </div>
+  </div>
+  <div class="detailForm form-group">
+    <label class="col-sm-2 control-label">전화</label>
+    <div class="col-sm-10">
+      <input type="text" id="ftel" class="form-control-static"></input>
+    </div>
+  </div>
+  <div class="detailForm form-group">
+    <label class="col-sm-2 control-label">주소</label>
+    <div class="col-sm-10">
+      <input type="text"  id="faddress" class="form-control-static"></input>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fmphoto" class="col-sm-2 control-label">사진</label>
+    <div class="col-sm-10">
+      <input type='file' class="form-control" id="mphoto"><br>
+      <input type='hidden' class="form-control" id='fmphoto'>
+    </div>
+  </div>
+  
+    <div class="detailForm form-group">
+    <label class="col-sm-2 control-label">종목</label>
+    <div class="col-sm-10">
+      <input type="text" id="fmevent" class="form-control-static"></input>
+    </div>
+  </div>
+  
+    <div class="form-group">
+    <label for="fintroduce" class="col-sm-2 control-label">자기소개</label>
+    <div class="col-sm-10">
+      <textarea id="fintroduce" class="form-control" 
+                rows='10' cols='60' placeholder="소개"></textarea>
+    </div>
+    </div>
+  
+  <div class="form-group">
+    <label for="fpwd" class="col-sm-2 control-label">암호</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="fpwd" 
+             placeholder="Password">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button id='addBtn' type='button' 
+        class="newForm btn btn-primary btn-xs">등록</button>
+      <button id='updateBtn' type='button' 
+        class="detailForm btn btn-primary btn-xs">변경</button>
+      <button id='deleteBtn' type='button' 
+        class="detailForm btn btn-primary btn-xs">삭제</button>
+    </div>
+  </div>
+</form>
+</section>
+
+<footer>
+  <p align="center">
+  <address>010-9117-6091.&copy; Seungkuu @</address>
+  </p>
+  </footer>	
+	</div>   <!-- container ends -->
+	
+	
+
+	<script type="text/javascript" src="../lib/jquery/jquery.js"></script>
+	<script>
+		var no = location.href.split('?')[1].split('=')[1];
+/* 
+		if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
+			// 상세정보 출력을 위한 폼 항목은 감춘다.
+			$('.detailForm').css('display', '');
+			$('.newForm').css('display', '');
+
+		} else { // 상세정보 출력폼으로 전환한다.
+			$('.detailForm').css('display', '');
+			$('.newForm').css('display', 'none'); */
+
+			$.getJSON('ajax/detail.do?id=' + id, function(resultObj) {
+				var ajaxResult = resultObj.ajaxResult;
+				if (ajaxResult.status == "success") {
+					var member = ajaxResult.data;
+					$("#fid").val(member.id);
+					$("#fname").val(member.name);
+					$("#femail").val(member.email);
+					$("#ftel").text(member.tel);
+					$("#fpwd").text(member.pwd);
+					$("#faddress").text(member.address);
+					$("#fgender").text(member.gender);
+					$("#fmphoto").text(member.mphoto);
+					$("#fmevent").text(member.mevent);
+					$("#fintroduce").text(member.introduce);
+				}
+			});
+
+		}
+
+		// 등록 버튼을 위한 이벤트 리스너 추가하기
+		$('#addBtn').click(function(event) {
+			$.post('ajax/add.do', {
+				id : $('#fid').val(),
+				name : $('#fname').val(),
+				email : $('#femail').val(),
+				password : $('#fpwd').val(),
+				tel : $('#ftel').val(),
+				address : $('#faddress').val(),
+				gender : $('#fgender').val(),
+				age : $('#fage').val(),
+				mevent : $('#fmevent').val(),
+				mphoto : $('#fmphoto').val(),
+				introduce : $('#fintroduce').val()
+				
+			}, function(resultObj) {
+				var ajaxResult = resultObj.ajaxResult;
+				if (ajaxResult.status == "success") {
+					location.href = "index.html";
+				} else {
+					alert("게시물 변경에 실패했습니다.");
+				}
+			}, 'json');
+		});
+
+		//변경 버튼을 위한 이벤트 리스너 추가하기
+		$('#updateBtn').click(function(event) {
+			$.post('ajax/update.do', {
+				id : $('#fid').val(),
+				name : $('#fname').val(),
+				email : $('#femail').val(),
+				password : $('#fpwd').val()
+			}, function(resultObj) {
+				var ajaxResult = resultObj.ajaxResult;
+				if (ajaxResult.status == "success") {
+					location.href = "index.html";
+				} else {
+					alert("게시물 변경에 실패했습니다.");
+				}
+			}, 'json');
+		});
+
+		//삭제 버튼을 위한 이벤트 리스너 추가하기
+		$('#deleteBtn').click(
+				function(event) {
+					$.getJSON('ajax/delete.do?id=' + $('#id').val()
+							+ '&password=' + $('#pwd').val(), function(
+							resultObj) {
+						var ajaxResult = resultObj.ajaxResult;
+						if (ajaxResult.status == "success") {
+							location.href = "index.html";
+						} else {
+							alert("게시물 삭제에 실패했습니다.");
+						}
+					});
+				});
+	</script>
+</body>
+</html>
