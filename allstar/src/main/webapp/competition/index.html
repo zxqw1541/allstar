@@ -18,22 +18,23 @@
   <thead>
 		<tr>
 			<th>번호</th>
-			<th>대회명</th>
 			<th>종목</th>
-			<th>이벤트</th>
-			<th>개최지</th>
-			<th>팀숫자</th>
+			<th>팀명</th>
+			<th>대회명</th>
+			<th>인원수</th>
 			<th>참가비</th>
 			<th>대회시작일</th>
 			<th>대회종료일</th>
 			<th>모집시작일</th>
 			<th>모집마감일</th>
 			<th>내용</th>
-			<th>개최자아이디</th>
+			<th>사진주소</th>
+			<th>우편번호</th>
+			<th>기본주소</th>
+			<th>대회쿼리문</th>
 		</tr>
 	</thead>
 </table>
-
 </section>
 
 
@@ -43,20 +44,22 @@ $.getJSON('ajax/list.do', function(resultObj) {
 	  var table = $("#listTable");
 	  for (var c of resultObj.ajaxResult.data) {
 	    $("<tr>")
-	      .html("<td>" + c.no + 
+	      .html("<td>" + c.no +
+	            "</td><td>" + c.eno +
+	            "</td><td>" + c.tno + 
 	            "</td><td><a class='detailLnk' href='#' competitionNo='" 
 	                + c.no + "'>" + c.name + 
-	            "</a></td><td>" + c.type +
-	            "</td><td>" + c.event + 
-	            "</td><td>" + c.venue +
-	            "</td><td>" + c.teamNum +
-	            "</td><td>" + c.joinCost +
+	            "</a></td><td>" + c.joinNum + "/" + c.teamNum +
+	            "</td><td>" + c.cost +
 	            "</td><td>" + c.startDate +
 	            "</td><td>" + c.endDate +
 	            "</td><td>" + c.recruitStartDate +
 	            "</td><td>" + c.recruitEndDate +
 	            "</td><td>" + c.content +
-	            "</td><td>" + c.hostId +
+	            "</td><td>" + c.poster +
+	            "</td><td>" + c.postNo +
+	            "</td><td>" + c.baseAddr +
+	            "</td><td>" + c.operation +
 	            "</td>")
 	      .appendTo(table);
 	  }
