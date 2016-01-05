@@ -1,3 +1,9 @@
+DROP DATABASE allstar;
+
+CREATE DATABASE allstar;
+
+USE allstar;
+
 -- 종목게시판
 DROP TABLE IF EXISTS BOARD RESTRICT;
 
