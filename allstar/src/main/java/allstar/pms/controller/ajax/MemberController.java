@@ -15,8 +15,6 @@ import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Member;
 import allstar.pms.service.MemberService;
 
-
-
 @Controller("ajax.MemberController")
 @RequestMapping("/member/ajax/*")
 public class MemberController {

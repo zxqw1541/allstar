@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <title>게시판-목록</title>
 <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css">
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
 
@@ -36,7 +39,7 @@
 
 <script type="text/javascript" src="../lib/jquery/jquery.js"></script>
 <script>
-$.getJSON('ajax/list.do', function(resultObj) {
+$.getJSON('ajax/list.do', function(resultObj) {	
 	  var table = $("#listTable");
 	  for (var c of resultObj.ajaxResult.data) {
 	    $("<tr>")

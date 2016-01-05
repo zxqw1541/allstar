@@ -39,7 +39,7 @@
         <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
       </list>
     </property>
-  </bean>  
+  </bean>
   
   <!-- 인터셉터를 등록 -->
   <!--  
