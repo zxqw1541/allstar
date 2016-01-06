@@ -38,8 +38,8 @@ public class TeamController {
   }
   
   @RequestMapping("detail")
-  public Object detail(int no) throws Exception {
-    Team team = teamService.retrieve(no);
+  public Object detail(int tno) throws Exception {
+    Team team = teamService.retrieve(tno);
     return new AjaxResult("success", team);
   }
   
@@ -53,8 +53,8 @@ public class TeamController {
   }
   
   @RequestMapping("delete")
-  public AjaxResult delete(int no) throws Exception {
-    if (teamService.remove(no) <= 0) {
+  public AjaxResult delete(int tno) throws Exception {
+    if (teamService.remove(tno) <= 0) {
       return new AjaxResult("failure", null);
     }
     
