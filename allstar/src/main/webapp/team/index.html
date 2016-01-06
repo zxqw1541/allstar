@@ -15,9 +15,8 @@
 				<thead>
 					<tr>
 						<th>팀명</th>
-						<th>팀장</th>
 						<th>종목</th>
-						<th>인원수</th>
+						<th>인원</th>
 						<th>팀소개</th>
 						<th>연고지</th>
 						<th>전적</th>
@@ -33,12 +32,11 @@
 		  for (var team of resultObj.ajaxResult.data) {
 		    $("<tr>")
 		      .html("<td><a class='detailLnk' href='#' teamNo='" 
-	                    + team.no + "'>" + team.name + 
-		            "</a></td><td>" + team.captain + 
-		            "</td><td>" + team.event +
+	                    + team.tno + "'>" + team.name + 
+		            "</a></td><td>" + team.eno + 
 		            "</td><td>" + team.joinNum + "/" + team.totalNum + 
 		            "</td><td>" + team.introduce +
-		            "</td><td>" + team.hometown +
+		            "</td><td>" + team.baseAddr +
 		            "</td><td>" + team.win + "승 " + team.draw + "무 " + team.lose + "패" + 
 		            "</td>")
 		      .appendTo(table);
@@ -48,13 +46,13 @@
 		});
 
 		$('#newBtn').click(function(event){
-		  location.href = "form.html?no=-1";
+		  location.href = "form.html?tno=-1";
 		});
 
 		// 게시물 제목을 클릭했을 때 호출될 함수
 		function clickDetailLnk(event) {
 		  event.preventDefault(); 
-		  location.href = "form.html?no=" + $(event.target).attr("teamNo");
+		  location.href = "form.html?tno=" + $(event.target).attr("teamNo");
 		}
 	
 	</script>

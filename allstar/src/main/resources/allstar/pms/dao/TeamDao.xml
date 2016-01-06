@@ -6,18 +6,26 @@
 <mapper namespace="allstar.pms.dao.TeamDao">
 
 	<sql id="select_inc">
-		select tno, tname, captain, tevent, hometown, total_num,
-		win, draw, lose, join_num, fee, meet_day, introduce, tphoto
+		select tno, eno, name, total_num, join_num, win, draw, lose, fee, meet_day,
+		        introduce, emblem, aform, pst_no, bas_addr
 	</sql>
 
 	<resultMap type="team" id="teamMap">
-		<id column="tno" property="no" />
-		<result column="tname" property="name" />
-		<result column="tevent" property="event" />
+		<id column="tno" property="tno" />
+		<result column="eno" property="eno" />
+		<result column="name" property="name" />
 		<result column="total_num" property="totalNum" />
 		<result column="join_num" property="joinNum" />
+		<result column="win" property="win" />
+		<result column="draw" property="draw" />
+		<result column="lose" property="lose" />
+		<result column="fee" property="fee" />
 		<result column="meet_day" property="meetDay" />
-		<result column="tphoto" property="photo" />
+		<result column="introduce" property="introduce" />
+		<result column="emblem" property="emblem" />
+		<result column="aform" property="aForm" />
+		<result column="pst_no" property="postNo" />
+		<result column="bas_addr" property="baseAddr" />
 	</resultMap>
 
 	<select id="selectList" resultMap="teamMap" parameterType="map">
@@ -25,7 +33,7 @@
 		from team
 		order by
 		<choose>
-			<when test="keyword == 'event'">tevent </when>
+			<when test="keyword == 'name'">name </when>
 			<otherwise>tno </otherwise>
 		</choose>
 		<choose>
@@ -37,32 +45,33 @@
 	</select>
 
 	<insert id="insert" parameterType="team">
-		insert into team(tname,captain,tevent,hometown,total_num,
-		fee,meet_day,introduce)
-		values(#{name},#{captain},#{event},#{hometown},#{totalNum},
-		#{fee},#{meetDay},#{introduce})
+		insert into team(eno,name,total_num,fee,meet_day,introduce,
+		            emblem,aform,pst_no,bas_addr)
+		values(#{eno},#{name},#{totalNum},#{fee},#{meetDay},#{introduce},
+		            #{emblem},#{aForm},#{postNo},#{baseAddr})
 	</insert>
 
 	<delete id="delete" parameterType="int">
-		delete from team where tno=#{no}
+		delete from team where tno=#{tno}
 	</delete>
 
 	<update id="update" parameterType="team">
 		update team set
-		tname=#{name},
-		captain=#{captain},
-		tevent=#{event},
-		hometown=#{hometown},
-		total_num=#{totalNum},
-		fee=#{fee},
-		meet_day=#{meetDay},
-		introduce=#{introduce}
-		where tno=#{no}
+		  name=#{name},
+		  total_num=#{totalNum},
+		  fee=#{fee},
+		  meet_day=#{meetDay},
+		  introduce=#{introduce},
+		  emblem=#{emblem},
+		  aform=#{aForm},
+		  pst_no=#{postNo},
+		  bas_addr=#{baseAddr}
+		where tno=#{tno}
 	</update>
 
 	<select id="selectOne" resultMap="teamMap" parameterType="int">
 		<include refid="select_inc" />
 		from team
-		where tno=#{no}
+		where tno=#{tno}
 	</select>
 </mapper>
