@@ -156,6 +156,14 @@ body {
   
   
 }
+
+.container_bList {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  width: 800px;
+  background-color: black;
+}
 /* `Grid >> Global
 ----------------------------------------------------------------------------------------------------*/
 

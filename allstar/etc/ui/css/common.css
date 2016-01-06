@@ -215,6 +215,21 @@ ul li {
     padding-bottom: 10px;    
 }   
 
+.board_img {
+    width:150px;
+    background-color: white;
+    float:left;
+    margin-left: 50px;
+    margin-bottom: 25px;
+    
+}                                
+.board_img img {
+   width:150px;
+   height:150px;
+   position: relative;
+   z-index: 10;
+}
+
  /*--------------------------------  LINK ----------------------------------- */
 
 a {
