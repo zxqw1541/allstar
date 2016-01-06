@@ -46,8 +46,8 @@ public class MemberController {
   }
   
   @RequestMapping(value = "detail", method = RequestMethod.GET)
-  public String detail(String id, Model model) {
-    Member member = memberService.retrieve(id);
+  public String detail(int mno, Model model) {
+    Member member = memberService.retrieve(mno);
     model.addAttribute("member", member);
     return "member/MemberDetail";
   }

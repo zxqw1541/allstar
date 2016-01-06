@@ -14,7 +14,7 @@ public interface MemberService {
 
   int change(Member member);
 
-  Member retrieve(String id);
+  Member retrieve(int mno);
 
   Member retrieve(String id, String password);
 }

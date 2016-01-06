@@ -5,18 +5,28 @@
 <title>게시판-상세정보</title>
 <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css"> 
 <link rel="stylesheet" type="text/css" href="../css/common.css">
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
+
 <div class="container">
 	<h1>게시물 정보</h1>
 	<section>
 	<form id='form1' class="form-horizontal">
-	<div class="newForm form-group">
+	<div class="detailForm form-group">
+    <label for="fmno" class="col-sm-2 control-label" >회원번호</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="fmno" readonly>
+    </div>
+  </div>
+  <div class="newForm form-group">
     <label for="fid" class="col-sm-2 control-label" >id</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="fid">
     </div>
   </div>
+  
   <div class="detailForm form-group">
     <label for="fid1" class="col-sm-2 control-label">id</label>
     <div class="col-sm-10">
@@ -42,26 +52,97 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">주소</label>
+   <input type="text" id="fpst_no" placeholder="우편번호">
+<input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"><br>
+<input type="text" id="fbas_addr" placeholder="한글주소">
+<input type="text" id="sample2_addressEnglish" placeholder="영문주소">
+
+<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+<img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+</div>
+
+<script>
+    var element_layer = document.getElementById('layer');
+
+    function closeDaumPostcode() {
+        element_layer.style.display = 'none';
+    }
+
+    function sample2_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+
+                var fullAddr = data.address; 
+                var extraAddr = ''; 
+
+                if(data.addressType === 'R'){
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+
+                document.getElementById('fpst_no').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('fbas_addr').value = fullAddr;
+                document.getElementById('sample2_addressEnglish').value = data.addressEnglish;
+
+                element_layer.style.display = 'none';
+            },
+            width : '100%',
+            height : '100%'
+        }).embed(element_layer);
+
+        element_layer.style.display = 'block';
+
+        initLayerPosition();
+    }
+
+    function initLayerPosition(){
+        var width = 300; 
+        var height = 460;
+        var borderWidth = 5; 
+
+        element_layer.style.width = width + 'px';
+        element_layer.style.height = height + 'px';
+        element_layer.style.border = borderWidth + 'px solid';
+        element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+    }
+</script>
+
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">상세주소</label>
     <div class="col-sm-10">
       <input type="text"  id="faddress" class="form-control-static"></input>
     </div>
   </div>
   <div class="form-group">
-    <label for="fmphoto" class="col-sm-2 control-label">사진</label>
+    <label for="fphoto" class="col-sm-2 control-label">사진</label>
     <div class="col-sm-10">
-      <input type='file' class="form-control" id="mphoto"><br>
-      <input type='hidden' class="form-control" id='fmphoto'>
+      <input type='file' class="form-control" id="photo"><br>
+      <input type='hidden' class="form-control" id='fphoto'>
     </div>
   </div>
   
     <div class="form-group">
-    <label class="col-sm-2 control-label">종목</label>
+    <label class="col-sm-2 control-label">성별</label>
     <div class="col-sm-10">
-      <input type="text" id="fmevent" class="form-control-static"></input>
+      <select  id="fgender">
+      <option >남성</option>
+      <option >여성</option>
+      </select>
     </div>
   </div>
-  
+    <div class="form-group">
+    <label class="col-sm-2 control-label">나이</label>
+    <div class="col-sm-10">
+      <input type="text"  id="fage" class="form-control-static"></input>
+    </div>
+  </div>
     <div class="form-group">
     <label for="fintroduce" class="col-sm-2 control-label">자기소개</label>
     <div class="col-sm-10">
@@ -91,9 +172,7 @@
 </section>
 
 <footer>
-  <p align="center">
-  <address>010-9117-6091.&copy; Seungkuu @</address>
-  </p>
+  
   </footer>	
 	</div>   <!-- container ends -->
 	
@@ -101,9 +180,9 @@
 
 	<script type="text/javascript" src="../lib/jquery/jquery.js"></script>
 	<script>
-		var id = location.href.split('?')[1].split('=')[1];
+		var mno = location.href.split('?')[1].split('=')[1];
  
-		if (id < 0) { // 새 글 입력을 위한 폼으로 전환한다.
+		if (mno < 0) { // 새 글 입력을 위한 폼으로 전환한다.
 			// 상세정보 출력을 위한 폼 항목은 감춘다.
 			$('.detailForm').css('display', 'none');
 			$('.newForm').css('display', '');
@@ -112,19 +191,22 @@
 			$('.detailForm').css('display', '');
 			$('.newForm').css('display', 'none');
 
-			$.getJSON('ajax/detail.do?id=' + id, function(resultObj) {
+			$.getJSON('ajax/detail.do?mno=' + mno, function(resultObj) {
 				var ajaxResult = resultObj.ajaxResult;
 				if (ajaxResult.status == "success") {
 					var member = ajaxResult.data;
+					$("#fmno").val(member.mno);
 					$("#fid").val(member.id);
 					$("#fid1").val(member.id);
 					$("#fname").val(member.name);
 					$("#femail").val(member.email);
 					$("#ftel").val(member.tel);
+					$("#fpst_no").val(member.pst_no);
+					$("#fbas_addr").val(member.bas_addr);  
 					$("#faddress").val(member.address);
 					$("#fgender").val(member.gender);
-					$("#fmphoto").text(member.mphoto);
-					$("#fmevent").val(member.mevent);
+					$("#fage").val(member.age);
+					$("#fphoto").text(member.photo);
 					$("#fintroduce").val(member.introduce);
 				}
 			});
@@ -132,17 +214,30 @@
 		
 		// 등록 버튼을 위한 이벤트 리스너 추가하기
 		$('#addBtn').click(function(event) {
+			console.log("id" + $('#fid').val());
+			console.log("name" + $('#fname').val());
+			console.log("email" + $('#femail').val());
+			console.log("pwd" + $('#fpwd').val());
+			console.log("tel" + $('#ftel').val());
+			console.log("pst_no" + $('#fpst_no').val());
+			console.log("address" + $('#faddress').val());
+			console.log("gender" + $('#fgender').val());
+			console.log("age" + $('#fage').val());
+			console.log("photo" + $('#fphoto').val());
+			console.log("introduce" + $('#fintroduce').val());
+			
 			$.post('ajax/add.do', {
 				id : $('#fid').val(),
 				name : $('#fname').val(),
 				email : $('#femail').val(),
 				pwd : $('#fpwd').val(),
 				tel : $('#ftel').val(),
+				pst_no: $('#fpst_no').val(),
+				bas_addr: $('#fbas_addr').val(),
 				address : $('#faddress').val(),
 				gender : $('#fgender').val(),
 				age : $('#fage').val(),
-				mevent : $('#fmevent').val(),
-				mphoto : $('#fmphoto').val(),
+				photo : $('#fphoto').val(),
 				introduce : $('#fintroduce').val()
 				
 			}, function(resultObj) {
@@ -162,8 +257,9 @@
 				name : $('#fname').val(),
 				email : $('#femail').val(),
 				tel : $('#ftel').val(),
-				address : $('#faddress').val(),
-				mevent : $('#fmevent').val(),
+				pst_no: $('#fpst_no').val(),
+		        bas_addr: $('#fbas_addr').val(),
+		        address : $('#faddress').val(),
 				introduce : $('#fintroduce').val(),
 				pwd : $('#fpwd').val()
 			}, function(resultObj) {
