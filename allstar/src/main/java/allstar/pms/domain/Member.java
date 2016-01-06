@@ -14,7 +14,7 @@ protected String photo;
 protected String pst_no;
 protected String bas_addr;
 protected String address;
-protected int gender;
+protected String gender;
 protected int age;
 protected String introduce;
 public int getMno() {
@@ -77,10 +77,11 @@ public String getAddress() {
 public void setAddress(String address) {
   this.address = address;
 }
-public int getGender() {
+public String getGender() {
   return gender;
 }
-public void setGender(int gender) {
+
+public void setGender(String gender) {
   this.gender = gender;
 }
 public int getAge() {
