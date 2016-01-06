@@ -31,17 +31,19 @@ header {
 	background: #000;
 	padding-bottom: 48px;
 }
+
 footer {
   display: block;
   padding-top: 34px;
   position: relative;
-  z-index: -9999;
+  z-index: 999;
   background: #000;
   padding-bottom: 48px;
 }
 
 
-ul li {
+
+li {
     list-style: none;
 }
 
@@ -215,9 +217,35 @@ ul li {
     padding-bottom: 10px;    
 }   
 
- /*--------------------------------  LINK ----------------------------------- */
+.board_img {
+    width:150px;
+    background-color: white;
+    float:left;
+    margin-left: 50px;
+    margin-bottom: 25px;
+    
+}                                
+.board_img img {
+   width:150px;
+   height:150px;
+   position: relative;
+   z-index: 10;
+}
 
-a {
+ /*--------------------------------  LINK ----------------------------------- */
+a.taga{
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  -webkit-transition: 0.5s ease;
+}
+
+a.taga:hover {
+  color: black;
+}
+.grid_top a {
 	text-decoration: none;
 	color: inherit;
 	outline: none;
@@ -226,11 +254,22 @@ a {
 	-webkit-transition: 0.5s ease;
 }
 
-a:hover {
+.grid_top a:hover {
 	color: black;
 }
+.grid_12 a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  -webkit-transition: 0.5s ease;
+}
 
-a.btn {
+.grid_12 a:hover {
+  color: black;
+}
+.grid_top a.new_button {
 	display: inline-block;
 	background: black;
 	color: #fff;
@@ -242,7 +281,7 @@ a.btn {
     top: -40px;
 }
 
-a.btn:hover {
+ .grid_top a.new_button:hover {
 	background: gray;
 }
 
@@ -296,28 +335,5 @@ main{
 /*
  *  General Styles
 */
-
-li.game{
-  padding-left:20px;
-}
-
-  li.game.winner{
-    font-weight:bold;
-  }
-  li.game span{
-    float:right;
-    margin-right:5px;
-  }
-
-  li.game-top{ border-bottom:1px solid #aaa; }
-
-  li.game-spacer{ 
-    border-right:1px solid #aaa;
-    min-height:40px;
-  }
-
-  li.game-bottom{ 
-    border-top:1px solid #aaa;
-  }
 
 

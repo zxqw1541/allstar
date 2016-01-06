@@ -461,3 +461,5 @@ ALTER TABLE COMP_COMM
 		REFERENCES MEMBER ( -- 회원
 			mno -- 회원번호
 		);
+		
+insert event(name) values ('자유게시판');

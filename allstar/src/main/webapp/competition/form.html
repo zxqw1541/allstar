@@ -9,8 +9,6 @@
 
 <section>
 <h1>대회 생성</h1>
-
-
 <form id='form1' class="form-horizontal">
   <!-- 내용 div -->
   <div class="form-group">
@@ -20,33 +18,15 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="ftype" class="col-sm-2 control-label">종목</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="ftype" placeholder="종목을 입력하세요">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="fevent" class="col-sm-2 control-label">이벤트</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="fevent" placeholder="이벤트를 입력하세요">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="fvenue" class="col-sm-2 control-label">개최지</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="fvenue" placeholder="개최지를 입력하세요">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="fteamNum" class="col-sm-2 control-label">팀수</label>
+    <label for="fteamNum" class="col-sm-2 control-label">총 팀원수</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="fteamNum" placeholder="숫자를 입력하세요">
     </div>
   </div>
   <div class="form-group">
-    <label for="fjoinCost" class="col-sm-2 control-label">참가비</label>
+    <label for="fcost" class="col-sm-2 control-label">참가비</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="fjoinCost" placeholder="숫자를 입력하세요">
+      <input type="text" class="form-control" id="fcost" placeholder="숫자를 입력하세요">
     </div>
   </div>
   <div class="form-group">
@@ -81,9 +61,27 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="fhostId" class="col-sm-2 control-label">개최자아이디</label>
+    <label for="fposter" class="col-sm-2 control-label">사진주소</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="fhostId" placeholder="제목">
+      <input type="text" class="form-control" id="fposter" placeholder="제목">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fpostNo" class="col-sm-2 control-label">우편번호</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="fpostNo" placeholder="제목">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fbaseAddr" class="col-sm-2 control-label">기본주소</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="fbaseAddr" placeholder="제목">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="foperation" class="col-sm-2 control-label">대회쿼리문</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="foperation" placeholder="제목">
     </div>
   </div>
   <!-- 버튼 div -->
@@ -102,19 +100,21 @@
 //등록 버튼을 위한 이벤트 리스너 추가하기
 $('#addBtn').click(function(event) {
   $.post('ajax/add.do', {
+    eno: 0,
+    tno: 0,
     name: $('#fname').val(),
-	  type: $('#ftype').val(),
-    event: $('#fevent').val(),
-    venue: $('#fvenue').val(),
     teamNum: $('#fteamNum').val(),
-    joinCost: $('#fjoinCost').val(),
+    joinNum: $('#fjoinNum').val(),
+    cost: $('#fcost').val(),
     startDate: $('#fstartDate').val(),
     endDate: $('#fendDate').val(),
     recruitStartDate: $('#frecruitStartDate').val(),
     recruitEndDate: $('#frecruitEndDate').val(),
     content: $('#fcontent').val(),
-    hostId: $('#fhostId').val()
-    
+    poster: $('#fposter').val(),
+    postNo: $('#fpostNo').val(),
+    baseAddr: $('#fbaseAddr').val(),
+    operation: $('#foperation').val()
     }, function(resultObj) {
     var ajaxResult = resultObj.ajaxResult;
     if (ajaxResult.status == "success") {

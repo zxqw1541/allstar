@@ -4,42 +4,38 @@ import java.sql.Date;
 
 public class Competition {
   protected int no;
-  protected String type;
-  protected String event;
-  protected String venue;
+  protected int eno;
+  protected int tno; 
   protected String name;
   protected int teamNum;
-  protected int joinCost;
+  protected int joinNum;
+  protected int cost;
   protected Date startDate;
   protected Date endDate;
   protected Date recruitStartDate;
   protected Date recruitEndDate;
   protected String content;
-  protected String competitionPhoto;
-  protected String hostId;
+  protected String poster;
+  protected String postNo;
+  protected String baseAddr;
+  protected String operation;
   public int getNo() {
     return no;
   }
   public void setNo(int no) {
     this.no = no;
   }
-  public String getType() {
-    return type;
+  public int getEno() {
+    return eno;
   }
-  public void setType(String type) {
-    this.type = type;
+  public void setEno(int eno) {
+    this.eno = eno;
   }
-  public String getEvent() {
-    return event;
+  public int getTno() {
+    return tno;
   }
-  public void setEvent(String event) {
-    this.event = event;
-  }
-  public String getVenue() {
-    return venue;
-  }
-  public void setVenue(String venue) {
-    this.venue = venue;
+  public void setTno(int tno) {
+    this.tno = tno;
   }
   public String getName() {
     return name;
@@ -53,11 +49,17 @@ public class Competition {
   public void setTeamNum(int teamNum) {
     this.teamNum = teamNum;
   }
-  public int getJoinCost() {
-    return joinCost;
+  public int getJoinNum() {
+    return joinNum;
   }
-  public void setJoinCost(int joinCost) {
-    this.joinCost = joinCost;
+  public void setJoinNum(int joinNum) {
+    this.joinNum = joinNum;
+  }
+  public int getCost() {
+    return cost;
+  }
+  public void setCost(int cost) {
+    this.cost = cost;
   }
   public Date getStartDate() {
     return startDate;
@@ -89,25 +91,40 @@ public class Competition {
   public void setContent(String content) {
     this.content = content;
   }
-  public String getCompetitionPhoto() {
-    return competitionPhoto;
+  public String getPoster() {
+    return poster;
   }
-  public void setCompetitionPhoto(String competitionPhoto) {
-    this.competitionPhoto = competitionPhoto;
+  public void setPoster(String poster) {
+    this.poster = poster;
   }
-  public String getHostId() {
-    return hostId;
+  public String getPostNo() {
+    return postNo;
   }
-  public void setHostId(String hostId) {
-    this.hostId = hostId;
+  public void setPostNo(String postNo) {
+    this.postNo = postNo;
+  }
+  public String getBaseAddr() {
+    return baseAddr;
+  }
+  public void setBaseAddr(String baseAddr) {
+    this.baseAddr = baseAddr;
+  }
+  public String getOperation() {
+    return operation;
+  }
+  public void setOperation(String operation) {
+    this.operation = operation;
   }
   @Override
   public String toString() {
-    return "Competition [no=" + no + ", type=" + type + ", event=" + event + ", venue=" + venue + ", name=" + name
-        + ", teamNum=" + teamNum + ", joinCost=" + joinCost + ", startDate=" + startDate + ", endDate=" + endDate
+    return "Competition [no=" + no + ", eno=" + eno + ", tno=" + tno + ", name=" + name + ", teamNum=" + teamNum
+        + ", joinNum=" + joinNum + ", cost=" + cost + ", startDate=" + startDate + ", endDate=" + endDate
         + ", recruitStartDate=" + recruitStartDate + ", recruitEndDate=" + recruitEndDate + ", content=" + content
-        + ", competitionPhoto=" + competitionPhoto + ", hostId=" + hostId + "]";
+        + ", poster=" + poster + ", postNo=" + postNo + ", baseAddr=" + baseAddr + ", operation=" + operation + "]";
   }
   
- 
+  
+  
 }
+
+

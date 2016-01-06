@@ -7,20 +7,26 @@
 
   <resultMap type="Competition" id="CompetitionMap">
     <id		column="cno"		property="no"/>
-    <result column="cevent"		property="event"/>
-    <result column="cname" 		property="name"/>
+    <result column="eno"		property="eno"/>
+    <result column="tno"		property="tno"/>
+    <result column="name" 		property="name"/>
     <result column="team_num" 	property="teamNum"/>
-    <result column="join_cost" 	property="joinCost"/>
+    <result column="join_num" 	property="joinNum"/>
+    <result column="cost" 		property="cost"/>
     <result column="sdt" 		property="startDate"/>
     <result column="edt" 		property="endDate"/>
     <result column="rsdt" 		property="recruitStartDate"/>
     <result column="redt" 		property="recruitEndDate"/>
-    <result column="cphoto" 	property="competitionPhoto"/>
-    <result column="host_id" 	property="hostId"/>
-  </resultMap>
+    <result column="content" 	property="content"/>
+    <result column="poster" 	property="poster"/>
+    <result column="pst_no" 	property="postNo"/>
+    <result column="bas_addr" 	property="baseAddr"/>
+    <result column="oper" 		property="operation"/>
+  </resultMap><!-- 16 -->
   
   <sql id="select_inc">
-  	select cno, type, cevent, venue, cname, team_num, join_cost, sdt, edt, rsdt, redt, cphoto, content, host_id  	
+  	select cno, eno, tno, name, team_num, join_num, cost, sdt,
+  	edt, rsdt, redt, content, poster, pst_no, bas_addr, operation
   </sql>
 
   <select id="selectList" resultMap="CompetitionMap" parameterType="map">
@@ -40,12 +46,11 @@
   </select>
   
   <insert id="insert" parameterType="Competition">
-    insert into competition(type, cevent, venue, cname, team_num, 
-                            join_cost, sdt, edt, rsdt, redt, cphoto,
-                            content, host_id) 
-    values(#{type}, #{event}, #{venue}, #{name}, #{teamNum}, 
-           #{joinCost}, #{startDate}, #{endDate}, #{recruitStartDate}, #{recruitEndDate}, 
-           #{competitionPhoto}, #{content}, #{hostId})
+    insert into competition(eno, tno, name, team_num, join_num, cost, sdt,
+  				edt, rsdt, redt, content, poster, pst_no, bas_addr, operation) 
+    values(#{eno}, #{tno}, #{name}, #{teamNum}, #{joinNum}, #{cost}, 
+    	   #{startDate}, #{endDate}, #{recruitStartDate}, #{recruitEndDate}, 
+           #{content}, #{poster}, #{postNo}, #{baseAddr}, #{operation})
   </insert>
   
   <delete id="delete" parameterType="int">
@@ -55,18 +60,21 @@
   
   <update id="update" parameterType="Competition">
     update competition set
-      type = #{type}, 
-      cevent = #{event},
-      venue = #{venue},
-      cname = #{name},
-      team_num = #{teamNum}, 
-      join_cost = #{joinCost},
-      sdt = #{startDate},
-      edt = #{endDate},
-      rsdt = #{recruitStartDate},
-      redt = #{recruitEndDate},
-      cphoto = #{competitionPhoto},
-      content = #{content}
+    	eno = #{eno},
+    	tno = #{tno},
+    	name =  #{name},
+    	team_num = #{teamNum},
+    	join_num = #{joinNum},
+    	cost = #{cost},
+    	sdt = #{startDate},
+    	edt = #{endDate},
+    	rsdt = #{recruitStartDate},
+    	redt = #{recruitEndDate},
+    	content = #{content},
+    	poster = #{poster},
+    	pst_no = #{postNo},
+    	bas_addr = #{baseAddr},
+    	operation = #{operation}
     where cno=#{no} 
   </update>
   

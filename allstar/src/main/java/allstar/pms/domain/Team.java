@@ -5,11 +5,9 @@ import java.io.Serializable;
 public class Team implements Serializable {
   private static final long serialVersionUID = 1L;
   
-  protected int     no;
+  protected int     tno;
+  protected int     eno;
   protected String  name;
-  protected String  captain;
-  protected String  event;
-  protected String  hometown;
   protected int     totalNum;
   protected int     joinNum;
   protected int     win;
@@ -18,21 +16,33 @@ public class Team implements Serializable {
   protected int     fee;
   protected String  meetDay;
   protected String  introduce;
-  protected String  photo;
+  protected String  emblem;
+  protected String  aForm;
+  protected String  postNo;
+  protected String  baseAddr;
   
   @Override
   public String toString() {
-    return "Team [no=" + no + ", name=" + name + ", captain=" + captain + ", event=" + event + ", hometown=" + hometown
-        + ", totalNum=" + totalNum + ", joinNum=" + joinNum + ", win=" + win + ", draw=" + draw + ", lose=" + lose
-        + ", fee=" + fee + ", meetDay=" + meetDay + ", introduce=" + introduce + ", photo=" + photo + "]";
+    return "Team [tno=" + tno + ", eno=" + eno + ", name=" + name + ", totalNum=" + totalNum + ", joinNum=" + joinNum
+        + ", win=" + win + ", draw=" + draw + ", lose=" + lose + ", fee=" + fee + ", meetDay=" + meetDay
+        + ", introduce=" + introduce + ", emblem=" + emblem + ", aForm=" + aForm + ", postNo=" + postNo + ", baseAddr="
+        + baseAddr + "]";
   }
 
-  public int getNo() {
-    return no;
+  public int getTno() {
+    return tno;
   }
 
-  public void setNo(int no) {
-    this.no = no;
+  public void setTno(int tno) {
+    this.tno = tno;
+  }
+
+  public int getEno() {
+    return eno;
+  }
+
+  public void setEno(int eno) {
+    this.eno = eno;
   }
 
   public String getName() {
@@ -41,30 +51,6 @@ public class Team implements Serializable {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public String getCaptain() {
-    return captain;
-  }
-
-  public void setCaptain(String captain) {
-    this.captain = captain;
-  }
-
-  public String getEvent() {
-    return event;
-  }
-
-  public void setEvent(String event) {
-    this.event = event;
-  }
-
-  public String getHometown() {
-    return hometown;
-  }
-
-  public void setHometown(String hometown) {
-    this.hometown = hometown;
   }
 
   public int getTotalNum() {
@@ -131,12 +117,36 @@ public class Team implements Serializable {
     this.introduce = introduce;
   }
 
-  public String getPhoto() {
-    return photo;
+  public String getEmblem() {
+    return emblem;
   }
 
-  public void setPhoto(String photo) {
-    this.photo = photo;
+  public void setEmblem(String emblem) {
+    this.emblem = emblem;
+  }
+
+  public String getaForm() {
+    return aForm;
+  }
+
+  public void setaForm(String aForm) {
+    this.aForm = aForm;
+  }
+
+  public String getPostNo() {
+    return postNo;
+  }
+
+  public void setPostNo(String postNo) {
+    this.postNo = postNo;
+  }
+
+  public String getBaseAddr() {
+    return baseAddr;
+  }
+
+  public void setBaseAddr(String baseAddr) {
+    this.baseAddr = baseAddr;
   }
   
 }

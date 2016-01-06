@@ -54,8 +54,8 @@ public class MemberController {
   }
 
   @RequestMapping("detail")
-  public Object detail(String id) throws Exception {
-    Member member = memberService.retrieve(id);
+  public Object detail(int mno) throws Exception {
+    Member member = memberService.retrieve(mno);
     return new AjaxResult("success", member);
   }
   
