@@ -10,13 +10,13 @@
 	</resultMap>
 	
 	<select id="selectList" resultMap="freeBoardMap" parameterType="map">
-		select fno,title,views,cre_dt 
-		from freeboard 
+		select bno,title,views,cre_dt 
+		from board 
 		order by
 		<choose>
 			<when test="keyword == 'title'">title</when>
 			<when test="keyword == 'views'">views</when>
-			<otherwise>fno</otherwise>
+			<otherwise>bno</otherwise>
 		</choose>
 		<choose>
 			<when test="align == 'asc'">asc</when>
@@ -26,26 +26,26 @@
 	</select>
 	
 	<insert id="insert" parameterType="freeBoard">
-		insert into freeboard(title,content,pwd,cre_dt) 
-		values(#{title},#{content},#{password},now())
+		insert into board(title,content,cre_dt) 
+		values(#{title},#{content},now())
 	</insert>
 	
 	<delete id="delete" parameterType="map">
-		delete from freeboard
-		where fno=#{no} and (pwd is null or pwd=#{password})
+		delete from board
+		where bno=#{no}
 	</delete>
 	
 	<update id="update" parameterType="freeBoard">
-		update freeboard set 
+		update board set 
 		title=#{title},
 		content=#{content},
 		cre_dt=now() 
-		where fno=#{fno} and (pwd is null or pwd=#{password})
+		where bno=#{bno}
 	</update>
 	
 	<select id="selectOne" resultMap="freeBoardMap" parameterType="int">
-		select fno,title,content,views,cre_dt 
-		from freeboard 
-		where fno=#{fno}
+		select bno,title,content,views,cre_dt 
+		from board 
+		where bno=#{bno}
 	</select>
 </mapper>

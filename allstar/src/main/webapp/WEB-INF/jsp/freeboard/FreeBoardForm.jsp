@@ -21,10 +21,6 @@
   <td><textarea rows='10' name='content' cols='60'
        placeholder="내용을 입력하세요."></textarea></td>
 </tr>
-<tr>
-  <th>암호</th>
-  <td><input type='password' name='password'></td>
-</tr>
 </table>
 
 <p><button type='submit'>등록</button></p>

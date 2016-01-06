@@ -74,7 +74,6 @@ public class FreeBoardController {
     freeBoard.setFno(Integer.parseInt(request.getParameter("fno")));
     freeBoard.setTitle(request.getParameter("title"));
     freeBoard.setContent(request.getParameter("content"));
-    freeBoard.setPassword(request.getParameter("password"));
     
     if (freeBoardDao.update(freeBoard) <= 0) {
       model.addAttribute("errorCode", "401");

@@ -11,12 +11,11 @@ public class FreeBoard implements Serializable {
   protected String content;
   protected Date createdDate;
   protected int views;
-  protected String password;
   
   @Override
   public String toString() {
     return "FreeBoard [fno=" + fno + ", title=" + title + ", content=" + content + ", createDate=" + createdDate
-        + ", views=" + views + ", password=" + password + "]";
+        + ", views=" + views + "]";
   }
 
   public int getFno() {
@@ -48,12 +47,6 @@ public class FreeBoard implements Serializable {
   }
   public void setViews(int views) {
     this.views = views;
-  }
-  public String getPassword() {
-    return password;
-  }
-  public void setPassword(String password) {
-    this.password = password;
   }
   
   

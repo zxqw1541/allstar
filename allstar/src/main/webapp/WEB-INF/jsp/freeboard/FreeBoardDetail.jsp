@@ -42,14 +42,10 @@
   <th>등록일</th>
   <td>${freeBoard.createdDate}</td>
 </tr>
-<tr>
-  <th>암호</th>
-  <td><input id='inputPassword' type='password' name='password'></td>
-</tr>
 </table>
 <p>
 <button name='update' type='submit' class='button1'>변경</button>
-<a id='aDelete' href='delete.do?no=${freeBoard.fno}' class='button2' onclick='deleteFreeBoard()'>삭제</a>
+<a id='aDelete' href='delete.do?no=${freeBoard.fno}' class='button2'>삭제</a>
 </p>
 </form>
 </c:if>
