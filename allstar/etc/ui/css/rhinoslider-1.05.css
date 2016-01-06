@@ -113,8 +113,11 @@
 }
 
 #slider img {
-	position:relative;
-	margin-left:160px;
+	height:100%;
+	display:block;
+	margin-left: auto;
+	margin-right:auto;
+	
 }
 
 .rhino-bullets li a.rhino-bullet:hover, .rhino-bullets li a.rhino-bullet:focus {
