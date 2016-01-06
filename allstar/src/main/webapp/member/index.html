@@ -21,13 +21,16 @@
 	<table id="listTable" border='1' align="center"
 		class="table table-condensed">
 		<tr>
+		<th>번호</th>
 			<th>이름</th>
 			<th>아이디</th>
 			<th>tel</th>
+			<th>우편번호</th>
 			<th>주소</th>
+			<th>photo</th>
 			<th>이메일</th>
 		<th>나이</th>
-			<th>종목</th>
+		<th>gender</th>
 		</tr>
 	</table>
 	</section>
@@ -46,14 +49,17 @@ $.getJSON('ajax/list.do', function(resultObj) {
 		        var table = $("#listTable");
 		        for (var member of resultObj.data) {
 		            $("<tr>")
-		              .html("<td>" + member.name + 
-		                    "</td><td><a class='detailLnk' href='#' memberId='" 
-		                        + member.id + "'>" + member.id + 
-		                    "</a></td><td>" + member.tel +
-		                    "</td><td>" + member.address +
-		                    "</td><td>" + member.email +
+		              .html("<td>" + member.mno + 
+		                    "</td><td><a class='detailLnk' href='#' memberNo='" 
+		                        + member.mno + "'>" + member.name + 
+		                    "</a></td><td>" + member.id +
+		                    "</td><td>" + member.tel +
+		                    "</td><td>" + member.pst_no +
+		                    "</td><td>" + member.bas_addr + 
+		                    "</td><td>" + member.photo + 
+		                    "</td><td>" + member.email + 
 		                    "</td><td>" + member.age + 
-		                    "</td><td>" + member.mevent + "</td>")
+		                    "</td><td>" + member.gender + "</td>")
 		              .appendTo(table);
 		          }
 		        
@@ -64,12 +70,12 @@ $.getJSON('ajax/list.do', function(resultObj) {
 
 
 $('#newBtn').click(function(event){
-	location.href = "form.html?id=-1";
+	location.href = "form.html?mno=-1";
 });
 
 function clickDetailLnk(event) {
 	  event.preventDefault(); 
-	  location.href = "form.html?id=" + $(event.target).attr("memberId");
+	  location.href = "form.html?mno=" + $(event.target).attr("memberNo");
 	}
 
 

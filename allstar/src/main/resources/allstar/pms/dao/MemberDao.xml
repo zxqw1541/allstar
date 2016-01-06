@@ -6,8 +6,8 @@
 
 
 <sql id="select_inc">
-  select id, pwd , name, email, tel , mphoto, zipcode, 
-  address , gender, age, mevent, introduce 
+  select mno, id, pwd , name, email, tel , photo, pst_no, 
+  address ,bas_addr, gender, age, introduce 
 </sql>
 
 
@@ -16,9 +16,9 @@
 		 from member order by
 		<choose>
 			<when test="keyword == 'id'">id </when>
-			<when test="keyword == 'email'">email </when>
+			<when test="keyword == 'email'">name </when>
 			<otherwise>
-				name
+				mno
 			</otherwise>
 		</choose>
 		<choose>
@@ -29,10 +29,10 @@
 	</select>
 	
 	<insert id="insert" parameterType="member">
-		insert into member( id, pwd , name, email, tel , mphoto, zipcode, 
-  address , gender, age, mevent, introduce )
-		values(#{id},sha1(#{pwd}),#{name},#{email},#{tel},#{mphoto},
-		#{zipcode},#{address},#{gender},#{age},#{mevent},#{introduce})
+		insert into member( id, pwd , name, email, tel , photo, pst_no, 
+  address ,bas_addr, gender, age, introduce )
+		values(#{id},sha1(#{pwd}),#{name},#{email},#{tel},#{photo},
+		#{pst_no},#{address},#{bas_addr},#{gender},#{age},#{introduce})
 	</insert>
 	
   <delete id="delete" parameterType="map">
@@ -41,13 +41,13 @@
   
 	<select id="selectOne" resultType="member" parameterType="member">
 		<include refid="select_inc"/>
-		 from member where id=#{id}
+		 from member where mno=#{mno}
 	</select>
 	
 	<update id="update" parameterType="member">
-		update member set name=#{name},email=#{email},tel=#{tel},mphoto=#{mphoto},
-		zipcode=#{zipcode},address=#{address},gender=#{gender},age=#{age},
-		mevent=#{mevent},introduce=#{introduce} where id=#{id} and pwd=sha1(#{pwd})
+		update member set name=#{name},email=#{email},tel=#{tel},photo=#{photo},
+		pst_no=#{pst_no},address=#{address},bas_addr=#{bas_addr},gender=#{gender},age=#{age}
+		,introduce=#{introduce} where mno=#{mno} and pwd=sha1(#{pwd})
 	</update>
   
   <select id="selectOneByIdPassword" resultType="member" parameterType="map">

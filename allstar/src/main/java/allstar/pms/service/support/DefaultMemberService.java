@@ -40,8 +40,8 @@ public class DefaultMemberService implements MemberService{
     return memberDao.update(member);
   }
 
-  public  Member retrieve (String id) {
-    return memberDao.selectOne(id);
+  public  Member retrieve (int mno) {
+    return memberDao.selectOne(mno);
   }
 
   public  Member retrieve (String id, String pwd){
