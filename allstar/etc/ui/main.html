@@ -4,34 +4,53 @@
 <title>All Star</title>
 <meta charset="utf-8">
 
-
-<link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/common.css">
+<link type="text/css" rel="stylesheet" href="css/rhinoslider-1.05.css" />
+<link type="text/css" rel="stylesheet" href="css/common.css" />
+<link type="text/css" rel="stylesheet" href="css/header.css" />
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
-<link rel="stylesheet" href="css/tinycircleslider.css" type="text/css" media="screen"/>
 
 
-<script src="js/com_func.js"></script>
+
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/rhinoslider-1.05.js"></script>
+<script type="text/javascript" src="js/mousewheel.js"></script>
 <script src="js/superfish.js"></script>
 <script src="js/jquery.equalheights.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/jquery.ui.totop.js"></script>
 
+<script type="text/javascript">
+      $(document).ready(function(){
+        $('#slider').rhinoslider();
+      });
+    </script>
+    <style type="text/css">
+     
+      
+      #slider {
+        width:500px;
+        height:250px;
+        
+        /*IE bugfix*/
+        padding:0;
+        margin:0;
+      }
+      
+      #slider li { list-style:none; }
+      
+      #page {
+        width:500px;
+        margin:50px auto;
+      }
+    </style>
 
 
-  <script src="js/jquery.tinycircleslider.js"></script>
 <script>
 jQuery(document).ready(function () {
     $().UItoTop({
         easingType: 'easeOutQuart'
     });
 });
-
-$(document).ready(function()
-	    {
-	      $('#rotatescroll').tinycircleslider({ interval: true, dotsSnap: true, dotsHide: false });
-	    });
 </script>
 
 
@@ -97,21 +116,20 @@ $(document).ready(function()
  <!--///////////////////////// header 끝 /////////////////////////////// -->
 
 <!-- 메인 스타트 -->
-<div id="rotatescroll">
-    <div class="viewport">
-      <ul class="overview">
-        <li><a href="#"><img src="images/tour/bad1.jpeg" /></a></li>
-        <li><a href="#"><img src="images/tour/bad2.jpeg" /></a></li>
-        <li><a href="#"><img src="images/tour/base1.jpeg" /></a></li>
-        <li><a href="#"><img src="images/tour/base2.jpeg" /></a></li>
-        <li><a href="#"><img src="images/tour/basket1.jpeg" /></a></li>
+<div >
+
+
+
+<div id="page">
+      <ul id="slider">
+        <li><img src="images/tour/bad1.jpeg" alt="" /></li>
+        <li><img src="images/tour/bad2.jpeg" alt="" /></li>
+        <li><img src="images/tour/base1.jpeg" alt="" /></li>
+        <li><img src="images/tour/base2.jpeg" alt="" /></li>
+        <li><img src="images/tour/basket1.jpeg" alt="" /></li>
       </ul>
     </div>
 
-    <div class="dot"></div>
-    <div class="overlay"></div>
-    <div class="thumb"></div>
-  </div>
 
 
 
@@ -136,7 +154,7 @@ $(document).ready(function()
 
 
 
-
+</div>
 <a href="#" id="toTop" style="margin-right: -529px; right: 50%; display: inline;"><span id="toTopHover" style="opacity: 0;"></span></a>
 
 <header>
@@ -152,12 +170,8 @@ $(document).ready(function()
 
       </div>
       
-      <div class="clear"></div>
     </div>
   </div>
 </header>
-
-
-
 </body>
 </html>
