@@ -6,19 +6,24 @@
 <mapper namespace="allstar.pms.dao.BoardDao">
 
   <resultMap type="board" id="boardMap">
-    <id 		column="bno" 		property="bno"/>
+    <id 		column="bno" 		  property="no"/>
+    <result column="eno"      property="eno"/>
+    <result column="mno"      property="mno"/>
+    <result column="title"    property="title"/>
+    <result column="content"  property="content"/>
+    <result column="cre_dt"   property="createDate"/>
+    <result column="views"    property="views"/>
   </resultMap>
-
+  
+  <sql id="select_inc">
+    select bno, eno, mno, title, content, cre_dt, views
+  </sql>
   <select id="selectList" resultMap="boardMap" parameterType="map">
-    select 
-      bno,
-      bevent,
-      title,
-      cre_dt 
+    <include refid="select_inc"/>
     from board
     order by 
     <choose>
-      <when test="keyword == 'bevent'">bevent </when>
+      <when test="keyword == 'eno'">eno </when>
       <when test="keyword == 'title'">title </when>
       <otherwise>bno </otherwise>
     </choose>
@@ -30,33 +35,29 @@
   </select>
   
   <insert id="insert" parameterType="board">
-    insert into board(bevent,title,content,cre_dt) 
-    values(#{bevent},#{title},#{content},now())
+    insert into board(eno,mno,title,content,cre_dt) 
+    values(#{eno},#{mno},#{content},#{content},now())
   </insert>
   
   <delete id="delete" parameterType="int">
     delete from board 
-  	where bno=#{bno}
+  	where bno=#{no}
   </delete>
   
   <update id="update" parameterType="board">
     update board set
-      bevent=#{bevent}, 
-      title=#{title},
-      content=#{content},
-      cre_dt=now()
-    where bno=#{bno}
+      eno = #{eno},
+      mno = #{mno},
+      title = #{content},
+      content = #{content},
+      cre_dt = now()
+    where bno=#{no}
   </update>
   
   <select id="selectOne" resultMap="boardMap" parameterType="int">
-    select 
-      bno,
-      bevent,
-      title,
-  	  content,
-      cre_dt
+    <include refid="select_inc"/>
     from board
-    where bno=#{bno}
+    where bno=#{no}
   </select>
 </mapper>
 

@@ -42,7 +42,7 @@ public class DefaultBoardService implements BoardService {
   }
   
   @Override
-  public Board retrieve(int bno) {
-    return boardDao.selectOne(bno);
+  public Board retrieve(int no) {
+    return boardDao.selectOne(no);
   }
 }

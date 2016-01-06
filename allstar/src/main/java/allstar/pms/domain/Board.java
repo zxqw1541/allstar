@@ -6,64 +6,60 @@ import java.sql.Date;
 public class Board  implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  protected int       bno;
-  protected String    bevent;
+  protected int       no;
+  protected int       eno;
+  protected int       mno;
   protected String    title;
   protected String    content;
-  protected Date      cre_dt;
-  protected String    bphoto; // 컬럼명 = afile
+  protected Date      createDate;
+  protected int       views;
   
-  @Override
-  public String toString() {
-    return "Board [bno=" + bno + ", bevent=" + bevent + ", title=" + title + ", content=" + content + ", cre_dt="
-        + cre_dt + ", bphoto=" + bphoto + "]";
+  public int getNo() {
+    return no;
   }
-
-  public int getBno() {
-    return bno;
+  public void setNo(int no) {
+    this.no = no;
   }
-
-  public void setBno(int bno) {
-    this.bno = bno;
+  public int getEno() {
+    return eno;
   }
-
-  public String getBevent() {
-    return bevent;
+  public void setEno(int eno) {
+    this.eno = eno;
   }
-
-  public void setBevent(String bevent) {
-    this.bevent = bevent;
+  public int getMno() {
+    return mno;
   }
-
+  public void setMno(int mno) {
+    this.mno = mno;
+  }
   public String getTitle() {
     return title;
   }
-
   public void setTitle(String title) {
     this.title = title;
   }
-
   public String getContent() {
     return content;
   }
-
   public void setContent(String content) {
     this.content = content;
   }
-
-  public Date getCre_dt() {
-    return cre_dt;
+  public Date getCreateDate() {
+    return createDate;
   }
-
-  public void setCre_dt(Date cre_dt) {
-    this.cre_dt = cre_dt;
+  public void setCreateDate(Date createDate) {
+    this.createDate = createDate;
   }
-
-  public String getBphoto() {
-    return bphoto;
+  public int getViews() {
+    return views;
   }
-
-  public void setBphoto(String bphoto) {
-    this.bphoto = bphoto;
+  public void setViews(int views) {
+    this.views = views;
   }
+  @Override
+  public String toString() {
+    return "Board [no=" + no + ", eno=" + eno + ", mno=" + mno + ", title=" + title + ", content=" + content
+        + ", createDate=" + createDate + ", views=" + views + "]";
+  }
+    
 }

@@ -43,24 +43,16 @@ public class BoardController {
   }
       
   @RequestMapping(value="add", method=RequestMethod.POST)
-  public AjaxResult add(Board board/*, MultipartFile file*/) throws Exception {
-    /*
-    if (file.getSize() > 0) {
-      String newFileName = MultipartHelper.generateFilename(file.getOriginalFilename());  
-      File attachfile = new File(servletContext.getRealPath(SAVED_DIR) 
-                                  + "/" + newFileName);
-      file.transferTo(attachfile);
-      board.setAttachFile(newFileName);
-    }
-    */
+  public AjaxResult add(Board board) throws Exception {
     log.info("ajax/add");
+    log.info(board);
     boardService.register(board);
     return new AjaxResult("success", null);
   }
   
   @RequestMapping("detail")
-  public AjaxResult detail(int bno) throws Exception {
-    Board board = boardService.retrieve(bno);
+  public AjaxResult detail(int no) throws Exception {
+    Board board = boardService.retrieve(no);
     log.info("ajax/detail:" + board);
     return new AjaxResult("success", board);
   }
@@ -85,8 +77,8 @@ public class BoardController {
   }
   
   @RequestMapping(value = "delete", method = RequestMethod.GET)
-  public AjaxResult delete(int bno) throws Exception {
-    if (boardService.remove(bno) <= 0) {
+  public AjaxResult delete(int no) throws Exception {
+    if (boardService.remove(no) <= 0) {
       return new AjaxResult("failure", null);
     } 
 
