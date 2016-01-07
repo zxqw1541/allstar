@@ -201,7 +201,49 @@ $(document).ready(function () {
     $("ul.grid img").each(function (i) {
         $(this).delay(i * 200).fadeIn();
     });
-}); 
+});
+
+/* 리스트 출력 */
+
+$.getJSON('/allstar/board/ajax/list.do', function(resultObj){
+	var ul = $("#gallery");
+  for (var board of resultObj.ajaxResult.data) {
+	  var content = board.content;
+	  console.log(typeof content);
+	  if (content.length > 40) {
+		  content = content.substring(0,40).concat("...");
+	  }
+	  $("<li data-id='id-1' class='soccer' style='width: 900px;'>")
+	  .html(
+        "<div class='container_bList'"
+          + "style='background: white; box-shadow: 3px 5px 5px darkgray; margin-top: 5px;'>"
+          + "<div class='grid_7'>"
+          + "<div style='position: relative; margin-bottom: 20px'>"
+          + "<div class='board_img'>"
+          + "<a href='#' class='detailLink' boardBno='" + board.no + "'>" 
+          + "<img style='box-shadow: 3px 5px 5px darkgray;' src='images/tour/soccer1.jpeg' alt=''></a>" 
+          + "</div>"
+          + "<div style='position: relative; padding-left: 250px; margin-top: 10px;'>"
+          + "<a href='#' class='detailLink' boardBno='" + board.no + "' style='font-size: 24px; font-weight: 600;'>"
+          + board.title + "</a><br> by " + board.member.name + "<br>"
+          + "<div style='margin-top: 30px;'>"
+          + "내용 : " + content + "<br>"
+          + "종목 : " + board.event.name + "<br>"
+          + "조회수 : " + board.views
+          + "</div></div></div></div></div></li></ul>")
+    .appendTo(ul);
+	  
+	// 제목 링크에 클릭 이벤트 리스너를 등록한다.
+	  $("a.detailLink").click(clickDetailLnk);
+  }
+});
+
+//게시물 제목을 클릭했을 때 호출될 함수
+function clickDetailLnk(event) {
+  event.preventDefault(); 
+  location.href = "form.html?no=" + $(event.target).attr("boardBno");
+}
+
 </script>
 
 </body>

@@ -120,14 +120,12 @@ $('#addBtn').click(function(event) {
 	console.log("mno = " + $('#fmno').val());
 	console.log("title = " + $('#ftitle').val());
 	console.log("content = " +$('#fcontent').val());
-	console.log("createDate = " + $('#fcreateDate').val());
 	console.log("views = " + $('#fviews').val() );
 	$.post('ajax/add.do', {
 		eno: $('#feno').val(),
 		mno: $('#fmno').val(),
 		title: $('#ftitle').val(),
 		content: $('#fcontent').val(),
-		createDate: $('#fcreateDate').val(),
 		
 	}, function(resultObj) {
 		var ajaxResult = resultObj.ajaxResult;

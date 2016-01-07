@@ -33,7 +33,7 @@ public class BoardController {
     
     List<Board> boards = boardService.getBoardList(
         pageNo, pageSize, keyword, align);
-    
+    log.info(boards.get(0));
     return new AjaxResult("success", boards);
   }
   

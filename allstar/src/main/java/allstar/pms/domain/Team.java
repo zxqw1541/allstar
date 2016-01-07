@@ -20,13 +20,14 @@ public class Team implements Serializable {
   protected String  aForm;
   protected String  postNo;
   protected String  baseAddr;
+  protected Event event;
   
   @Override
   public String toString() {
     return "Team [tno=" + tno + ", eno=" + eno + ", name=" + name + ", totalNum=" + totalNum + ", joinNum=" + joinNum
         + ", win=" + win + ", draw=" + draw + ", lose=" + lose + ", fee=" + fee + ", meetDay=" + meetDay
         + ", introduce=" + introduce + ", emblem=" + emblem + ", aForm=" + aForm + ", postNo=" + postNo + ", baseAddr="
-        + baseAddr + "]";
+        + baseAddr + ", event=" + event + "]";
   }
 
   public int getTno() {
@@ -147,6 +148,14 @@ public class Team implements Serializable {
 
   public void setBaseAddr(String baseAddr) {
     this.baseAddr = baseAddr;
+  }
+
+  public Event getEvent() {
+    return event;
+  }
+
+  public void setEvent(Event event) {
+    this.event = event;
   }
   
 }

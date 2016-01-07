@@ -51,8 +51,8 @@ $.getJSON('ajax/list.do', function(resultObj) {
       .html("<td>" + board.no + 
 			      "</td><td><a class='detailLnk' href='#' boardBno='" 
 			          + board.no + "'>" + board.title + 
-			      "</a></td><td>" + board.eno +
-			      "</td><td>" + board.mno +
+			      "</a></td><td>" + board.event.name +
+			      "</td><td>" + board.member.name +
 			      "</td><td>" + board.content +
 			      "</td><td>" + board.createDate +
 			      "</td><td>" + board.views + "</td>")
@@ -69,7 +69,6 @@ $('#newBtn').click(function(event){
 
 
 // 게시물 제목을 클릭했을 때 호출될 함수
-
 function clickDetailLnk(event) {
 	event.preventDefault(); 
 	location.href = "form.html?no=" + $(event.target).attr("boardBno");
