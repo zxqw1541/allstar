@@ -30,7 +30,8 @@
     <include refid="select_inc"/>
     from board b
          left outer join event e on b.eno = e.eno
-         left outer join member m on b.mno = m.mno  
+         left outer join member m on b.mno = m.mno
+    where b.eno > 1 
     order by 
     <choose>
       <when test="keyword == 'views'">b.views </when>
@@ -43,6 +44,26 @@
     </choose>
     limit #{startIndex}, #{length}
   </select>
+  
+  <select id="selectListByEvent" resultMap="boardMap" parameterType="map">
+    <include refid="select_inc"/>
+    from board b
+         left outer join event e on b.eno = e.eno
+         left outer join member m on b.mno = m.mno
+    where b.eno = #{eno}
+    order by 
+    <choose>
+      <when test="keyword == 'views'">b.views </when>
+      <when test="keyword == 'title'">b.title </when>
+      <otherwise>b.bno </otherwise>
+    </choose>
+    <choose>
+      <when test="align == 'asc'">asc</when>
+      <otherwise>desc</otherwise>
+    </choose>
+    limit #{startIndex}, #{length}
+  </select>
+  
   
   <insert id="insert" parameterType="board">
     insert into board(eno,mno,title,content,cre_dt) 
