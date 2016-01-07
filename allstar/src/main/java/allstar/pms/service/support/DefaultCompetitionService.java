@@ -24,7 +24,7 @@ public class DefaultCompetitionService implements CompetitionService {
     
     return competitionDao.selectList(paramMap);
   }
-
+  
   @Override
   public void register(Competition competition) {
     competitionDao.insert(competition);
@@ -44,6 +44,5 @@ public class DefaultCompetitionService implements CompetitionService {
   public Competition retrieve(int no) {
     return competitionDao.selectOne(no);
   }
-  
 
 }
