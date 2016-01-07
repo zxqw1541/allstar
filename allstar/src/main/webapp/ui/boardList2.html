@@ -17,7 +17,6 @@
 <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
 <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
 <script type="text/javascript" src="js/quicksand.js"></script>
-<script type="text/javascript" src="js/portfolio.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
 <script>
 jQuery(document).ready(function () {
@@ -50,11 +49,7 @@ jQuery(document).ready(function () {
         <nav>
           <ul class="sf-menu">
             <li class="current"><a href="boardList.html">종목별 게시판</a>
-              <ul>
-                <li><a href="#">* 농구</a></li>
-                <li><a href="#">* 축구</a></li>
-                <li><a href="#">* 야구</a></li>
-                <li><a href="#">* 배드민턴</a></li>
+              <ul id="eventmenu">
               </ul>
               </li>
             <li><a href="#">대회</a>
@@ -101,11 +96,9 @@ jQuery(document).ready(function () {
             <span class="icon"></span>
             <input type="search" id="search" placeholder="Search..." />
     </div>
-    
     </div>
   </div>
 </div>
-  
 
  <div id="container">
  
@@ -116,49 +109,10 @@ jQuery(document).ready(function () {
       <!-- Begin Portfolio Navigation -->
       <ul class="gallerynav">
         <li class="selected-1"><a href="#" data-value="all">All<span></span></a></li>
-        <li><a href="#" data-value="basketball">BasketBall<span></span></a></li>
-        <li><a href="#" data-value="soccer">Soccer<span></span></a></li>
-        <li><a href="#" data-value="baseball">BaseBall<span></span></a></li>
-        <li><a href="#" data-value="badminton">Badminton<span></span></a></li>
-        <li><a href="#" data-value="1">Badminton<span></span></a></li>
       </ul>
       <!-- End Portfolio Navigation -->
       <!-- Begin Portfolio Elements -->
       <ul id="gallery" class="grid">
-        <!-- Begin Image 1 -->
-					<li data-id="id-1" class="1" style="width: 900px;">
-						<div class="container_bList"
-							style="background: white; box-shadow: 3px 5px 5px darkgray; margin-top: 5px;">
-							<div class="grid_7">
-
-								<div style="position: relative; margin-bottom: 20px">
-
-									<div class="board_img">
-										<a href="detail.html"> <img
-											style="box-shadow: 3px 5px 5px darkgray;"
-											src="images/tour/soccer1.jpeg" alt=""></a>
-									</div>
-
-									<div
-										style="position: relative; padding-left: 250px; margin-top: 10px;">
-										<a href="detail.html"
-											style="font-size: 24px; font-weight: 600;"> 대회명 : 길거리
-											축구대회 </a><br> by 박중권<br>
-										<div style="margin-top: 30px;">
-
-											기간 : 2015/12/24 ~ 2016/01/30<br> 참가현황 : 12/36<br>
-											내용 : 축구 대회 설명 <a
-												style="outline: auto; float: right; margin-right: 30px; color: red;"
-												href="detail.html">참가불가능</a>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					<!-- End Image 1 -->
-        
       </ul>
       <!-- End Portfolio Elements -->
     </div>
@@ -166,10 +120,10 @@ jQuery(document).ready(function () {
   <!-- End Wrapper -->
   <div class="clearfix"></div>
   <div class="push"></div>
-  <!-- Begin Footer -->
- 
 </div>
  
+  <!-- Begin Footer -->
+  
 <a href="#" id="toTop" style="margin-right: -529px; right: 50%; display: inline;"><span id="toTopHover" style="opacity: 0;"></span></a>
 
 <footer>
@@ -205,16 +159,30 @@ $(document).ready(function () {
 });
 
 /* 리스트 출력 */
-
 $.getJSON('/allstar/board/ajax/list.do', function(resultObj){
+	var eventmenu = $("#eventmenu");
+	for (var event of resultObj.events) {
+	    $("<li>" )
+	        .html("<a href='#'>" + "* " + event.name + "</a>")
+	        .appendTo(eventmenu);
+	  }
+
+	var portul = $(".gallerynav");
+	for (var event of resultObj.events) {
+		$("<li>" )
+        .html("<a href='#' data-value='" + event.eno + "'>" + event.name + "<span></span></a>")
+        .appendTo(portul);
+	}
+	
 	var ul = $("#gallery");
-  for (var board of resultObj.ajaxResult.data) {
+  for (var board of resultObj.boards) {
 	  var content = board.content;
 	  console.log(typeof content);
 	  if (content.length > 40) {
 		  content = content.substring(0,40).concat("...");
 	  }
-	  $("<li data-id='id-3' class='soccer' style='width: 900px;'>")
+	  
+	  $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='width: 900px;'>")
 	  .html(
         "<div class='container_bList'"
           + "style='background: white; box-shadow: 3px 5px 5px darkgray; margin-top: 5px;'>"
@@ -236,7 +204,175 @@ $.getJSON('/allstar/board/ajax/list.do', function(resultObj){
 	  
 	// 제목 링크에 클릭 이벤트 리스너를 등록한다.
 	  $("a.detailLink").click(clickDetailLnk);
+	
   }
+  
+
+  /************************************************************************/// /* SORTING *//************************************************************************/
+
+  (function($) {
+    $.fn.sorted = function(customOptions) {
+      var options = {
+        reversed: false,
+        by: function(a) {
+          return a.text();
+        }
+      };
+      $.extend(options, customOptions);
+    
+      $data = $(this);
+      arr = $data.get();
+      arr.sort(function(a, b) {
+        
+          var valA = options.by($(a));
+          var valB = options.by($(b));
+        if (options.reversed) {
+          return (valA < valB) ? 1 : (valA > valB) ? -1 : 0;        
+        } else {    
+          return (valA < valB) ? -1 : (valA > valB) ? 1 : 0;  
+        }
+      });
+      return $(arr);
+    };
+
+  })(jQuery);
+
+  $(function() {
+    
+    var read_button = function(class_names) {
+      var r = {
+        selected: false,
+        type: 0
+      };
+      for (var i=0; i < class_names.length; i++) {
+        if (class_names[i].indexOf('selected-') == 0) {
+          r.selected = true;
+        }
+        if (class_names[i].indexOf('segment-') == 0) {
+          r.segment = class_names[i].split('-')[1];
+        }
+      };
+      return r;
+    };
+    
+    var determine_sort = function($buttons) {
+      var $selected = $buttons.parent().filter('[class*="selected-"]');
+      return $selected.find('a').attr('data-value');
+    };
+    
+    var determine_kind = function($buttons) {
+      var $selected = $buttons.parent().filter('[class*="selected-"]');
+      return $selected.find('a').attr('data-value');
+    };
+    
+    var $preferences = {
+      duration: 800,
+      easing: 'easeInOutQuad',
+      adjustHeight: false
+    };
+    
+    var $list = $('#gallery');
+    var $data = $list.clone();
+    
+    var $controls = $('.gallerynav');
+    
+    $controls.each(function(i) {
+      
+      var $control = $(this);
+      var $buttons = $control.find('a');
+      
+      $buttons.bind('click', function(e) {
+        
+        var $button = $(this);
+        var $button_container = $button.parent();
+        var button_properties = read_button($button_container.attr('class').split(' '));      
+        var selected = button_properties.selected;
+        var button_segment = button_properties.segment;
+
+        if (!selected) {
+
+          $buttons.parent().removeClass('selected-1'); $button_container.addClass('selected-' + 1);
+          
+          var sorting_type = determine_sort($controls.eq(1).find('a'));
+          var sorting_kind = determine_kind($controls.eq(0).find('a'));
+          
+          if (sorting_kind == 'all') {
+            var $filtered_data = $data.find('li');
+          } else {
+            var $filtered_data = $data.find('li.' + sorting_kind);
+          }
+          
+          if (sorting_type == 'size') {
+            var $sorted_data = $filtered_data.sorted({
+              by: function(v) {
+                return parseFloat($(v).find('span').text());
+              }
+            });
+          } else {
+            var $sorted_data = $filtered_data.sorted({
+              by: function(v) {
+                return $(v).find('strong').text().toLowerCase();
+              }
+            });
+          }
+          
+          $list.quicksand($sorted_data, function() {
+      
+      $(document).ready(function(){
+        $("#gallery a[rel^='prettyPhoto']").prettyPhoto({theme:'light_square', autoplay_slideshow: false});
+      });
+      
+      $(function() {
+      // OPACITY OF BUTTON SET TO 50%
+      $("ul.grid img").css("opacity","1.0");
+          
+      // ON MOUSE OVER
+      $("ul.grid img").hover(function () {
+                            
+      // SET OPACITY TO 100%
+      $(this).stop().animate({
+      opacity: 0.5
+      }, "slow");
+      },
+          
+      // ON MOUSE OUT
+      function () {
+            
+      // SET OPACITY BACK TO 50%
+      $(this).stop().animate({
+      opacity: 1.0
+      }, "slow");
+      });
+      });
+                                  
+    $("a.zoom2 img").mouseover(function(){
+      $(this).stop(true,true);
+      $(this).fadeTo(300, 0.5);
+    });
+    
+    $("a.zoom2 img").mouseout(function(){
+      $(this).fadeTo(400, 1.0);
+    });
+    
+    
+    $("a.play2 img").mouseover(function(){
+      $(this).stop(true,true);
+      $(this).fadeTo(300, 0.5);
+    });
+    
+    $("a.play2 img").mouseout(function(){
+      $(this).fadeTo(400, 1.0);
+    });
+    
+      });
+  }  
+        e.preventDefault();
+      });
+      
+    }); 
+    
+  });
+  
 });
 
 //게시물 제목을 클릭했을 때 호출될 함수

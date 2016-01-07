@@ -14,7 +14,7 @@
     <result column="cre_dt"   property="createDate"/>
     <result column="views"    property="views"/>
     <association property="event" javaType="Event">
-      <id column="eno"        property="eno"/>
+      <id column="e_eno"        property="eno"/>
       <result column="e_name"   property="name"/>
     </association>
     <association property="member" javaType="Member">
@@ -24,13 +24,14 @@
   </resultMap>
   
   <sql id="select_inc">
-    select b.bno, e.name as e_name, m.name as m_name, b.title, b.content, b.cre_dt, b.views
+    select b.bno, e.eno as e_eno, e.name as e_name, m.name as m_name, b.title, b.content, b.cre_dt, b.views
   </sql>
   <select id="selectList" resultMap="boardMap" parameterType="map">
     <include refid="select_inc"/>
     from board b
          left outer join event e on b.eno = e.eno
-         left outer join member m on b.mno = m.mno  
+         left outer join member m on b.mno = m.mno
+    where b.eno > 1 
     order by 
     <choose>
       <when test="keyword == 'views'">b.views </when>
@@ -43,6 +44,26 @@
     </choose>
     limit #{startIndex}, #{length}
   </select>
+  
+  <select id="selectListByEvent" resultMap="boardMap" parameterType="map">
+    <include refid="select_inc"/>
+    from board b
+         left outer join event e on b.eno = e.eno
+         left outer join member m on b.mno = m.mno
+    where b.eno = #{eno}
+    order by 
+    <choose>
+      <when test="keyword == 'views'">b.views </when>
+      <when test="keyword == 'title'">b.title </when>
+      <otherwise>b.bno </otherwise>
+    </choose>
+    <choose>
+      <when test="align == 'asc'">asc</when>
+      <otherwise>desc</otherwise>
+    </choose>
+    limit #{startIndex}, #{length}
+  </select>
+  
   
   <insert id="insert" parameterType="board">
     insert into board(eno,mno,title,content,cre_dt) 

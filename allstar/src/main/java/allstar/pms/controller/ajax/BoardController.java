@@ -1,5 +1,6 @@
 package allstar.pms.controller.ajax;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Board;
+import allstar.pms.domain.Event;
 import allstar.pms.service.BoardService;
+import allstar.pms.service.EventService;
 
 @Controller("ajax.BoardController")
 @RequestMapping("/board/ajax/*")
@@ -22,6 +25,7 @@ public class BoardController {
   //public static final String SAVED_DIR = "/attachfile";
   public static Logger log = Logger.getLogger(BoardController.class);
   @Autowired BoardService boardService;
+  @Autowired EventService eventService;
   @Autowired ServletContext servletContext;
   
   @RequestMapping("list")
@@ -29,12 +33,23 @@ public class BoardController {
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="10") int pageSize,
       @RequestParam(defaultValue="no") String keyword,
-      @RequestParam(defaultValue="desc") String align) throws Exception {
+      @RequestParam(defaultValue="desc") String align,
+      @RequestParam(defaultValue="-1") int eno) throws Exception {
     
-    List<Board> boards = boardService.getBoardList(
-        pageNo, pageSize, keyword, align);
-    log.info(boards.get(0));
-    return new AjaxResult("success", boards);
+    List<Event> events = eventService.getEventList();
+    List<Board> boards = null;
+    
+    if (eno == -1)
+      boards = boardService.getBoardList(pageNo, pageSize, keyword, align);
+    else 
+      boards = boardService.getBoardList(pageNo, pageSize, keyword, align, eno);
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("boards", boards);
+    resultMap.put("events", events);
+    
+    return resultMap;
   }
   
   @RequestMapping(value="add", method=RequestMethod.GET)

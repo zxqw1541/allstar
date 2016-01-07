@@ -10,7 +10,7 @@
     </resultMap>
     
     <select id="selectList" resultMap="eventMap">
-      select eno,name from event
+      select eno,name from event where eno > 1
     </select>
     
     <insert id="insert" parameterType="Event">
