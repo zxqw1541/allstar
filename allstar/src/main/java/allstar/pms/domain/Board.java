@@ -13,7 +13,22 @@ public class Board  implements Serializable {
   protected String    content;
   protected Date      createDate;
   protected int       views;
+  protected Member    member;
+  protected Event     event;
+
   
+  public Event getEvent() {
+    return event;
+  }
+  public void setEvent(Event event) {
+    this.event = event;
+  }
+  public Member getMember() {
+    return member;
+  }
+  public void setMember(Member member) {
+    this.member = member;
+  }
   public int getNo() {
     return no;
   }
@@ -59,7 +74,7 @@ public class Board  implements Serializable {
   @Override
   public String toString() {
     return "Board [no=" + no + ", eno=" + eno + ", mno=" + mno + ", title=" + title + ", content=" + content
-        + ", createDate=" + createDate + ", views=" + views + "]";
+        + ", createDate=" + createDate + ", views=" + views + ", member=" + member + ", event=" + event + "]";
   }
-    
+  
 }
