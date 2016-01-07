@@ -41,6 +41,7 @@
 	background: #fff;
 	padding: 20px;
 	text-align: center;
+	box-shadow: 2px 3px 5px black;
 }
 
 
@@ -92,6 +93,7 @@
 	font-size: 22px;
 	line-height: 1.25;
 	z-index: 1;
+	box-shadow: 2px 3px 5px black;
 }
 
 .photostack-back p {
