@@ -6,6 +6,6 @@ import allstar.pms.domain.Event;
 
 public interface EventService {
   List<Event> getEevnetList();
-  void register(Event event);
-  void remove(int no);
+  int register(Event event);
+  int remove(int no);
 }

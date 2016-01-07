@@ -19,15 +19,13 @@ public class DefaultEventService implements EventService {
   }
 
   @Override
-  public void register(Event event) {
-    // TODO Auto-generated method stub
-    
+  public int register(Event event) {
+    return eventDao.insert(event);
   }
 
   @Override
-  public void remove(int no) {
-    // TODO Auto-generated method stub
-    
+  public int remove(int no) {
+    return eventDao.delete(no);
   }
   
 }

@@ -12,4 +12,14 @@
     <select id="selectList" resultMap="eventMap">
       select eno,name from event
     </select>
+    
+    <insert id="insert" parameterType="Event">
+      insert into event(name)
+      values (#{name});
+    </insert>
+    
+    <delete id="delete" parameterType="int">
+      delete from event
+      where eno = #{no}
+    </delete>
 </mapper>
