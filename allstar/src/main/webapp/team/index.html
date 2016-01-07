@@ -27,13 +27,14 @@
 
 	<script type="text/javascript" src="../lib/jquery/jquery.js"></script>
 	<script>
+			
 	$.getJSON('ajax/list.do', function(resultObj) {
 		  var table = $("#listTable");
 		  for (var team of resultObj.ajaxResult.data) {
 		    $("<tr>")
 		      .html("<td><a class='detailLnk' href='#' teamNo='" 
 	                    + team.tno + "'>" + team.name + 
-		            "</a></td><td>" + team.eno + 
+		            "</a></td><td>" + team.event.name + 
 		            "</td><td>" + team.joinNum + "/" + team.totalNum + 
 		            "</td><td>" + team.introduce +
 		            "</td><td>" + team.baseAddr +
