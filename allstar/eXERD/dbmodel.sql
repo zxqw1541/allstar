@@ -463,3 +463,6 @@ ALTER TABLE COMP_COMM
 		);
 		
 insert event(name) values ('자유게시판');
+insert event(name) values ('농구');
+insert event(name) values ('축구');
+insert event(name) values ('야구');

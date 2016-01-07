@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/component.css" />
+    <link rel="stylesheet" type="text/css" href="css/animate.css" />
 
 <style>
 
@@ -83,8 +84,42 @@ ul.gallerynav li.selected-1 a {
 .hidden {
   display: none;
 }
+.sidebar_right {
+color:white;
+width:300px;
+ height:34px;
+  background-color:black; 
+  margin-top:20px;
+  margin-bottom:0px; 
+}
+.sidebar_right div {
+text-align:center;
+height:34px;
+width:90px;
+padding-top:10px;
+}
+.popular {
+width:300px;
+ height:500;
+}
+.popular li {
+width:300px; 
+height: 50px; 
+margin-left:0px; 
+margin-bottom:0px; 
+padding-top:12px;
+text-align:center;
+background-color:white;
+  box-shadow: 1px 1px 10px #8e8e8e;
+}
+.popular li:hover {
+background-color:lightgray;
+}
+.popular img {
+padding-bottom:5px;
+.popular li a {
 
-
+}
 #wrapper {
 
   padding: none;
@@ -188,7 +223,7 @@ jQuery(document).ready(function () {
             <figcaption>
               <h2 class="photostack-title">Adidas StreetBall</h2>
               <div class="photostack-back">
-                <p>Here he comes Here comes Speed Racer. He's a demon on wheels. Wouldn't you like to get away? Sometimes you want to go where everybody knows <span>the</span> your name. And they're always glad you came! </p>
+                <p>Tournament Title : Adidas Streetball <br> 12 out of 36 are in!! </p>
               </div>
             </figcaption>
           </figure>
@@ -316,13 +351,13 @@ jQuery(document).ready(function () {
  
   <!-- Begin Wrapper -->
   <div id="wrapper" >
-    <div id="portfolio">
+    <div id="portfolio" style="width:720px; height: 700px; ">
       <!-- Begin Portfolio Navigation -->
       <ul class="gallerynav" style="width:718px; height:34px; background-color:black; ">
         <li class="selected-1" ><a href="#" data-value="all">All<span></span></a></li>
       </ul>
       
-      <ul id="gallery" class="grid">
+      <ul id="gallery" class="grid" style="width:720px; height: 600px; overflow:scroll;">
         <!-- Begin Image 1 -->
 
         
@@ -342,6 +377,35 @@ jQuery(document).ready(function () {
      <div style="height:700px; width :300px; float: right; ">
         
     
+    <div >
+      <!-- Begin Portfolio Navigation -->
+      <ul class="sidebar_right" >
+        <div><a style="color:white;">인기 게시물</a></div> 
+      </ul>
+      <ul  class="popular" >
+      <br>
+        <li  >
+        <img src="../ui/images/num1.png" style="float:left;"/><a href="#">1위 게시물</a>
+        </li><br>
+        <li >
+        <img src="../ui/images/num2.png" style="float:left;"/><a href="#">2위 게시물</a>
+        </li><br>
+        <li >
+        <img src="../ui/images/num3.png" style="float:left;"/><a href="#">3위 게시물</a>
+        </li><br>
+        <li >
+        <img src="../ui/images/num4.png" style="float:left;"/><a href="#">4위 게시물</a>
+        </li><br>
+        <li >
+        <img src="../ui/images/num5.png" style="float:left;"/><a href="#">5위 게시물</a>
+        </li><br>
+        <li >
+        <img src="../ui/images/num6.png" style="float:left;"/><a href="#">6위 게시물</a>
+        </li><br>
+        </ul>
+      </div>
+     
+      
     </div>
     
     </div>
@@ -428,13 +492,14 @@ $.getJSON('/allstar/board/ajax/list.do', function(resultObj){
 	    if (content.length > 40) {
 	      content = content.substring(0,40).concat("...");
 	    }
-	    $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='background-color:white;'>")
+	    $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='background-color:white;width:706;'>")
 	    .html(
 	        "<a>"
-	        + "<div>"
+	        + "<div style='width:705px;'>"
 	          + "<a href='#' class='detailLink' boardBno='" + board.no + "'' >"
-	          + board.title + "</a><br> by " + board.member.name + "<br>"
-	          + "<div>"
+	          + "<h3 style='float:left; padding-right:30px;'>"+board.title+"</h3>" + "by " + board.member.name 
+	          + "</a><br>" + "<img style='float:right; width:180px;'  src='images/AllStarfoot.png' >"
+	          + "<div><br>"
 	          + "내용 : " + content + "<br>"
 	          + "종목 : " + board.event.name + "<br>"
 	          + "조회수 : " + board.views
@@ -625,8 +690,39 @@ $.getJSON('/allstar/board/ajax/list.do', function(resultObj){
 	  location.href = "form.html?no=" + $(event.target).attr("boardBno");
 	}
 	 
+/* 
+	$.getJSON('/allstar/board/ajax/list.do', function(resultObj){
+	   
+	    var ul = $("#gallery");
+	    for (var board of resultObj.boards) {
+	      var content = board.content;
+	      console.log(typeof content);
+	      if (content.length > 40) {
+	        content = content.substring(0,40).concat("...");
+	      }
+	      $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='background-color:white;'>")
+	      .html(
+	          "<a>"
+	          + "<div>"
+	            + "<a href='#' class='detailLink' boardBno='" + board.no + "'' >"
+	            + board.title + "</a><br> by " + board.member.name + "<br>"
+	            + "<div>"
+	            + "내용 : " + content + "<br>"
+	            + "종목 : " + board.event.name + "<br>"
+	            + "조회수 : " + board.views
+	            + "</div></div></a></li></ul>")
+	      .appendTo(ul);
+	      
+	    // 제목 링크에 클릭 이벤트 리스너를 등록한다.
+	      $("a.detailLink").click(clickDetailLnk);
+	    }
 
-
+	    //게시물 제목을 클릭했을 때 호출될 함수
+	    function clickDetailLnk(event) {
+	      event.preventDefault(); 
+	      location.href = "form.html?no=" + $(event.target).attr("boardBno");
+	    }
+	}); */
 </script>
 
 </body>
