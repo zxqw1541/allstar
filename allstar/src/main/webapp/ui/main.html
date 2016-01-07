@@ -139,13 +139,9 @@ jQuery(document).ready(function () {
         <nav>
           <ul class="sf-menu">
             <li><a href="#">종목별 게시판</a>
-              <ul>
-                <li><a href="#">* 농구</a></li>
-                <li><a href="#">* 축구</a></li>
-                <li><a href="#">* 야구</a></li>
-                <li><a href="#">* 배드민턴</a></li>
+              <ul id="eventmenu">
               </ul>
-              </li>
+            </li>
             <li class="current"><a href="#">대회</a>
             <ul>
                 <li><a href="#">* 농구</a></li>
@@ -324,10 +320,6 @@ jQuery(document).ready(function () {
       <!-- Begin Portfolio Navigation -->
       <ul class="gallerynav" style="width:718px; height:34px; background-color:black; ">
         <li class="selected-1" ><a href="#" data-value="all">All<span></span></a></li>
-        <li><a href="#" data-value="basketball">BasketBall<span></span></a></li>
-        <li><a href="#" data-value="soccer">Soccer<span></span></a></li>
-        <li><a href="#" data-value="baseball">BaseBall<span></span></a></li>
-        <li><a href="#" data-value="badminton">Badminton<span></span></a></li>
       </ul>
       
       <ul id="gallery" class="grid">
@@ -415,14 +407,28 @@ $(document).ready(function () {
 }); 
 
 $.getJSON('/allstar/board/ajax/list.do', function(resultObj){
+	 var eventmenu = $("#eventmenu");
+	  for (var event of resultObj.events) {
+	      $("<li>" )
+	          .html("<a href='#'>" + "* " + event.name + "</a>")
+	          .appendTo(eventmenu);
+	    }
+
+	  var portul = $(".gallerynav");
+	  for (var event of resultObj.events) {
+	    $("<li>" )
+	        .html("<a href='#' data-value='" + event.eno + "'>" + event.name + "<span></span></a>")
+	        .appendTo(portul);
+	  }
+	
 	  var ul = $("#gallery");
-	  for (var board of resultObj.ajaxResult.data) {
+	  for (var board of resultObj.boards) {
 	    var content = board.content;
 	    console.log(typeof content);
 	    if (content.length > 40) {
 	      content = content.substring(0,40).concat("...");
 	    }
-	    $("<li data-id='id-1' class='soccer' style='background-color:white;'>")
+	    $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='background-color:white;'>")
 	    .html(
 	        "<a>"
 	        + "<div>"
