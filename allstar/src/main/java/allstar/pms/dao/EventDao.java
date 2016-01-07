@@ -1,7 +1,9 @@
 package allstar.pms.dao;
 
+import java.util.List;
+
 import allstar.pms.domain.Event;
 
 public interface EventDao {
-  Event selectList();
+  List<Event> selectList();
 }
