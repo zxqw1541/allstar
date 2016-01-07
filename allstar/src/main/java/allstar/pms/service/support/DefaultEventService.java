@@ -14,7 +14,7 @@ public class DefaultEventService implements EventService {
   @Autowired EventDao eventDao;
 
   @Override
-  public List<Event> getEevnetList() {
+  public List<Event> getEventList() {
     return eventDao.selectList();
   }
 
