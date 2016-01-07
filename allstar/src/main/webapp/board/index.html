@@ -46,7 +46,7 @@
 
 $.getJSON('ajax/list.do', function(resultObj) {
 	var table = $("#listTable");
-  for (var board of resultObj.ajaxResult.data) {
+  for (var board of resultObj.boards) {
     $("<tr>")
       .html("<td>" + board.no + 
 			      "</td><td><a class='detailLnk' href='#' boardBno='" 
