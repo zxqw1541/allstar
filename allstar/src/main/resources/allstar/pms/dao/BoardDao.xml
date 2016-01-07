@@ -36,7 +36,7 @@
   
   <insert id="insert" parameterType="board">
     insert into board(eno,mno,title,content,cre_dt) 
-    values(#{eno},#{mno},#{content},#{content},now())
+    values(#{eno},#{mno},#{title},#{content},now())
   </insert>
   
   <delete id="delete" parameterType="int">
