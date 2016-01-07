@@ -111,7 +111,7 @@
 <script>
 //상세정보 출력
 var no = location.href.split('?')[1].split('=')[1];
-$.getJSON('ajax/detail.do?no=' + no, function(resultObj) {
+$.getJSON('detail.do?no=' + no, function(resultObj) {
     var ajaxResult = resultObj.ajaxResult;
     if (ajaxResult.status == "success") {
       var competition = ajaxResult.data;
@@ -133,7 +133,7 @@ $.getJSON('ajax/detail.do?no=' + no, function(resultObj) {
 
 //변경 버튼을 위한 이벤트 리스너 추가하기
 $('#updateBtn').click(function(event) {
-  $.post('ajax/update.do', {
+  $.post('update.do', {
 	  no: $('#fno').val(),
     name: $('#fname').val(),
     type: $('#ftype').val(),
@@ -160,7 +160,7 @@ $('#updateBtn').click(function(event) {
 
 //삭제 버튼을 위한 이벤트 리스너 추가하기
 $('#deleteBtn').click(function(event) {
-  $.getJSON('ajax/delete.do?no=' + $('#fno').val() 
+  $.getJSON('delete.do?no=' + $('#fno').val() 
            + '&password=' + $('#fpassword').val(), 
     function(resultObj) {
       var ajaxResult = resultObj.ajaxResult;

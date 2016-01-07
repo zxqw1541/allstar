@@ -32,6 +32,7 @@ public class CompetitionController {
     
     List<Competition> competitions = competitionService.getCompetitionList(
         pageNo, pageSize, keyword, align);
+    log.info(competitions);
     
     return new AjaxResult("success", competitions);
   }
@@ -43,7 +44,10 @@ public class CompetitionController {
   
   @RequestMapping(value = "add", method = RequestMethod.POST)
   public AjaxResult add(Competition competition) {
-    log.info("ajax/add");
+    log.info("add");
+    log.info(competition);
+    competition.setEno(2);
+    competition.setTno(2);
     competitionService.register(competition);    
     return new AjaxResult("success", null);
   }

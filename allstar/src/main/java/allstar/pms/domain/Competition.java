@@ -19,6 +19,21 @@ public class Competition {
   protected String postNo;
   protected String baseAddr;
   protected String operation;
+  protected Event event;
+  protected Team team;
+  
+  public Event getEvent() {
+    return event;
+  }
+  public void setEvent(Event event) {
+    this.event = event;
+  }
+  public Team getTeam() {
+    return team;
+  }
+  public void setTeam(Team team) {
+    this.team = team;
+  }
   public int getNo() {
     return no;
   }
@@ -120,11 +135,9 @@ public class Competition {
     return "Competition [no=" + no + ", eno=" + eno + ", tno=" + tno + ", name=" + name + ", teamNum=" + teamNum
         + ", joinNum=" + joinNum + ", cost=" + cost + ", startDate=" + startDate + ", endDate=" + endDate
         + ", recruitStartDate=" + recruitStartDate + ", recruitEndDate=" + recruitEndDate + ", content=" + content
-        + ", poster=" + poster + ", postNo=" + postNo + ", baseAddr=" + baseAddr + ", operation=" + operation + "]";
+        + ", poster=" + poster + ", postNo=" + postNo + ", baseAddr=" + baseAddr + ", operation=" + operation
+        + ", event=" + event + ", team=" + team + "]";
   }
-  
-  
-  
 }
 
 
