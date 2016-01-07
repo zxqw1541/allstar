@@ -1,0 +1,139 @@
+<style>
+
+body{
+background-color: #ddd;
+}
+#portfolio ul li {
+  background: none;
+  padding: 0;
+}
+#wrapper ul.grid {
+  width: 985px;
+  overflow: hidden;
+  margin:0 auto;
+  margin-left:0px;
+  padding: 0;
+}
+ul.grid:after {
+  content: "";
+  display: block;
+  height: 0;
+  overflow: hidden;
+  clear: both;
+}
+ul.grid li {
+  width: 400px;
+  margin: 0;
+  margin-left: 50px;
+  margin-bottom: 20px;
+  float: left;
+  overflow: hidden;
+  background: white;
+  /*-moz-box-shadow: 0px 1px 2px #8e8e8e;
+  -webkit-box-shadow: 0px 1px 2px #8e8e8e;
+  box-shadow: 0px 1px 2px #8e8e8e;*/
+}
+ul.grid li {
+  outline:0;
+}
+ul.grid li:hover {
+  color:black;
+  outline:0;
+}
+ul.grid li img {
+  display: block;
+  
+}
+ul.gallerynav {
+  width:960px;
+  margin-top:20px;
+  margin-left:0px;
+  height: 14px;
+  background-color: #FFF;
+  -moz-box-shadow: 0px 1px 2px #9f9f9f;
+  -webkit-box-shadow: 0px 1px 2px #9f9f9f;
+  box-shadow: 0px 1px 2px #9f9f9f;
+}
+ul.gallerynav li {
+  float:left;
+}
+ul.gallerynav li a {
+  float:left;
+  font-family: 'MidoMedium';
+  color: white;
+  margin: 0 15px;
+  font-size: 15px;
+  line-height: 18px;
+  padding: 8px 0;
+}
+ul.gallerynav li a:hover {
+  text-decoration: none;
+  color: #5d8ba6;
+}
+ul.gallerynav li.selected-1 a {
+  color: #5d8ba6;
+}
+.hidden {
+  display: none;
+}
+#wrapper {
+
+  padding: none;
+}
+</style>
+
+
+<!-- right division -->
+     <div style="height:700px; width :300px; float: right;">
+     
+     <div style="width:150px; height: 400px; float: right; margin-right:100px;" >   
+     
+   <div id="wrapper" >
+    <div id="portfolio" >
+      <!-- Begin Portfolio Navigation -->
+      <ul class="gallerynav" style="color:white;width:300px; height:34px; background-color:black; margin-bottom:0px; " >
+        <div style="text-align:center;height:34px;width:90px;margin-top:8px;"><a style="color:white;">인기 게시물</a></div> 
+      </ul>
+      <ul  class="grid" style="width:300px; height:500;">
+        <li data-id="rank1" style="width:300px; height: 30px; margin-left:0px; margin-bottom:0px; border:1px solid black;" >
+        <img src="../ui/images/num1.png" style="float:left;"/><a href="#"style="float:left; margin-left:20px;" >1위 게시물</a>
+        </li>
+         <li data-id="rank2" style="width:300px; height: 30px; margin-left:0px; margin-bottom:0px; border:1px solid black;" >
+        <img src="../ui/images/num2.png" style="float:left;"/><a style="float:left; margin-left:20px;">2위 게시물</a>
+        </li>
+         <li data-id="rank3" style="width:300px; height: 30px; margin-left:0px; margin-bottom:0px; border:1px solid black;">
+        <img src="../ui/images/num3.png" style="float:left;"/><a style="float:left; margin-left:20px;">3위 게시물</a>
+        </li>
+         <li data-id="rank4" style="width:300px; height: 30px; margin-left:0px; margin-bottom:0px; border:1px solid black;">
+        <img src="../ui/images/num4.png" style="float:left;"/><a style="float:left; margin-left:20px;">4위 게시물</a>
+        </li>
+        <li data-id="rank5" style="width:300px; height: 30px; margin-left:0px; margin-bottom:0px; border:1px solid black;">
+        <img src="../ui/images/num5.png" style="float:left;"/><a style="float:left; margin-left:20px;">5위 게시물</a>
+        </li>
+        <li data-id="rank6" style="width:300px; height: 30px; margin-left:0px; margin-bottom:0px; border:1px solid black;">
+        <img src="../ui/images/num6.png" style="float:left;"/><a style="float:left; margin-left:20px;">6위 게시물</a>
+        </li>
+        <li data-id="rank7" style="width:300px; height: 30px; margin-left:0px; margin-bottom:0px; border:1px solid black;">
+        <img src="../ui/images/num7.png" style="float:left;"/><a style="float:left; margin-left:20px;">7위 게시물</a>
+        </li>
+        <li data-id="rank8" style="width:300px; height: 30px; margin-left:0px; margin-bottom:0px; border:1px solid black;">
+        <img src="../ui/images/num8.png" style="float:left;"/><a style="float:left; margin-left:20px;">8위 게시물</a>
+        </li>
+        <li data-id="rank9" style="width:300px; height: 30px; margin-left:0px; margin-bottom:0px; border:1px solid black;">
+        <img src="../ui/images/num9.png" style="float:left;"/><a style="float:left; margin-left:20px;">9위 게시물</a>
+        </li>
+        <li data-id="rank10" style="width:300px; height: 30px; margin-left:0px; margin-bottom:0px; border:1px solid black;">
+        <img src="../ui/images/num10.png" style="float:left;"/><a style="float:left; margin-left:20px;">10위 게시물</a>
+        </li>
+        
+        </ul>
+      </div>
+      </div><!-- End Wrapper -->
+      
+     </div>
+    
+    </div>
+    
+    </div>
+    <script src="js/classie.js"></script>
+    <script src="js/photostack.js"></script>
