@@ -470,7 +470,7 @@ $(document).ready(function () {
     });
 }); 
 
-$.getJSON('/allstar/board/ajax/list.do', function(resultObj){
+$.getJSON('/allstar/board/ajax/list.do?pageSize=5', function(resultObj){
 	 var eventmenu = $("#eventmenu");
 	  for (var event of resultObj.events) {
 	      $("<li>" )
