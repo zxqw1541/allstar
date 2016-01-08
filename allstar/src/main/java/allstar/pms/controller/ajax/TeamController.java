@@ -1,5 +1,6 @@
 package allstar.pms.controller.ajax;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import allstar.pms.domain.AjaxResult;
+import allstar.pms.domain.Event;
 import allstar.pms.domain.Team;
+import allstar.pms.service.EventService;
 import allstar.pms.service.TeamService;
 
 @Controller("ajax.TeamController")
@@ -17,6 +20,7 @@ import allstar.pms.service.TeamService;
 public class TeamController {
 
   @Autowired TeamService teamService;
+  @Autowired EventService eventService;
 
   @RequestMapping("list")
   public Object list(
@@ -26,8 +30,14 @@ public class TeamController {
       @RequestParam(defaultValue="desc") String align) throws Exception {
 
     List<Team> teams = teamService.getTeamList(pageNo, pageSize, keyword, align);
+    List<Event> events = eventService.getEventList();
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("teams", teams);
+    resultMap.put("events", events);
 
-    return new AjaxResult("success", teams);
+    return resultMap;
   }
   
   @RequestMapping(value="add", method=RequestMethod.POST)

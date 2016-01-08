@@ -40,13 +40,14 @@
 
 <script type="text/javascript" src="../lib/jquery/jquery.js"></script>
 <script>
-$.getJSON('ajax/list.do', function(resultObj) {	
+$.getJSON('list.do', function(resultObj) {	
 	  var table = $("#listTable");
+	  console.log(resultObj.ajaxResult.data);
 	  for (var c of resultObj.ajaxResult.data) {
 	    $("<tr>")
 	      .html("<td>" + c.no +
-	            "</td><td>" + c.eno +
-	            "</td><td>" + c.tno + 
+	            "</td><td>" + c.event.name +
+	            "</td><td>" + c.team.name + 
 	            "</td><td><a class='detailLnk' href='#' competitionNo='" 
 	                + c.no + "'>" + c.name + 
 	            "</a></td><td>" + c.joinNum + "/" + c.teamNum +

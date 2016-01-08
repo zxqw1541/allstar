@@ -27,6 +27,18 @@ public class DefaultBoardService implements BoardService {
   }
   
   @Override
+  public List<Board> getBoardList(int pageNo, int pageSize, String keyword, String align, int eno) {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("startIndex", (pageNo - 1) * pageSize);
+    paramMap.put("length", pageSize);
+    paramMap.put("keyword", keyword);
+    paramMap.put("align", align);
+    paramMap.put("eno", eno);
+    
+    return boardDao.selectList(paramMap);
+  }
+  
+  @Override
   public void register(Board board) {
     boardDao.insert(board);
   }
@@ -42,7 +54,7 @@ public class DefaultBoardService implements BoardService {
   }
   
   @Override
-  public Board retrieve(int bno) {
-    return boardDao.selectOne(bno);
+  public Board retrieve(int no) {
+    return boardDao.selectOne(no);
   }
 }

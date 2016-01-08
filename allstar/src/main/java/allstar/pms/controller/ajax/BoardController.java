@@ -1,5 +1,6 @@
 package allstar.pms.controller.ajax;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Board;
+import allstar.pms.domain.Event;
 import allstar.pms.service.BoardService;
+import allstar.pms.service.EventService;
 
 @Controller("ajax.BoardController")
 @RequestMapping("/board/ajax/*")
@@ -22,6 +25,7 @@ public class BoardController {
   //public static final String SAVED_DIR = "/attachfile";
   public static Logger log = Logger.getLogger(BoardController.class);
   @Autowired BoardService boardService;
+  @Autowired EventService eventService;
   @Autowired ServletContext servletContext;
   
   @RequestMapping("list")
@@ -29,12 +33,23 @@ public class BoardController {
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="10") int pageSize,
       @RequestParam(defaultValue="no") String keyword,
-      @RequestParam(defaultValue="desc") String align) throws Exception {
+      @RequestParam(defaultValue="desc") String align,
+      @RequestParam(defaultValue="-1") int eno) throws Exception {
     
-    List<Board> boards = boardService.getBoardList(
-        pageNo, pageSize, keyword, align);
+    List<Event> events = eventService.getEventList();
+    List<Board> boards = null;
     
-    return new AjaxResult("success", boards);
+    if (eno == -1)
+      boards = boardService.getBoardList(pageNo, pageSize, keyword, align);
+    else 
+      boards = boardService.getBoardList(pageNo, pageSize, keyword, align, eno);
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("boards", boards);
+    resultMap.put("events", events);
+    
+    return resultMap;
   }
   
   @RequestMapping(value="add", method=RequestMethod.GET)
@@ -43,24 +58,16 @@ public class BoardController {
   }
       
   @RequestMapping(value="add", method=RequestMethod.POST)
-  public AjaxResult add(Board board/*, MultipartFile file*/) throws Exception {
-    /*
-    if (file.getSize() > 0) {
-      String newFileName = MultipartHelper.generateFilename(file.getOriginalFilename());  
-      File attachfile = new File(servletContext.getRealPath(SAVED_DIR) 
-                                  + "/" + newFileName);
-      file.transferTo(attachfile);
-      board.setAttachFile(newFileName);
-    }
-    */
+  public AjaxResult add(Board board) throws Exception {
     log.info("ajax/add");
+    log.info(board);
     boardService.register(board);
     return new AjaxResult("success", null);
   }
   
   @RequestMapping("detail")
-  public AjaxResult detail(int bno) throws Exception {
-    Board board = boardService.retrieve(bno);
+  public AjaxResult detail(int no) throws Exception {
+    Board board = boardService.retrieve(no);
     log.info("ajax/detail:" + board);
     return new AjaxResult("success", board);
   }
@@ -85,8 +92,8 @@ public class BoardController {
   }
   
   @RequestMapping(value = "delete", method = RequestMethod.GET)
-  public AjaxResult delete(int bno) throws Exception {
-    if (boardService.remove(bno) <= 0) {
+  public AjaxResult delete(int no) throws Exception {
+    if (boardService.remove(no) <= 0) {
       return new AjaxResult("failure", null);
     } 
 

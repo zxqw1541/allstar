@@ -6,21 +6,37 @@
 <mapper namespace="allstar.pms.dao.BoardDao">
 
   <resultMap type="board" id="boardMap">
-    <id 		column="bno" 		property="bno"/>
+    <id 		column="bno" 		  property="no"/>
+    <result column="eno"      property="eno"/>
+    <result column="mno"      property="mno"/>
+    <result column="title"    property="title"/>
+    <result column="content"  property="content"/>
+    <result column="cre_dt"   property="createDate"/>
+    <result column="views"    property="views"/>
+    <association property="event" javaType="Event">
+      <id column="e_eno"        property="eno"/>
+      <result column="e_name"   property="name"/>
+    </association>
+    <association property="member" javaType="Member">
+      <id column="mno"        property="mno"/>
+      <result column="m_name"   property="name"/>
+    </association>
   </resultMap>
-
+  
+  <sql id="select_inc">
+    select b.bno, e.eno as e_eno, e.name as e_name, m.name as m_name, b.title, b.content, b.cre_dt, b.views
+  </sql>
   <select id="selectList" resultMap="boardMap" parameterType="map">
-    select 
-      bno,
-      bevent,
-      title,
-      cre_dt 
-    from board
+    <include refid="select_inc"/>
+    from board b
+         left outer join event e on b.eno = e.eno
+         left outer join member m on b.mno = m.mno
+    where b.eno > 1 
     order by 
     <choose>
-      <when test="keyword == 'bevent'">bevent </when>
-      <when test="keyword == 'title'">title </when>
-      <otherwise>bno </otherwise>
+      <when test="keyword == 'views'">b.views </when>
+      <when test="keyword == 'title'">b.title </when>
+      <otherwise>b.bno </otherwise>
     </choose>
     <choose>
       <when test="align == 'asc'">asc</when>
@@ -29,34 +45,51 @@
     limit #{startIndex}, #{length}
   </select>
   
+  <select id="selectListByEvent" resultMap="boardMap" parameterType="map">
+    <include refid="select_inc"/>
+    from board b
+         left outer join event e on b.eno = e.eno
+         left outer join member m on b.mno = m.mno
+    where b.eno = #{eno}
+    order by 
+    <choose>
+      <when test="keyword == 'views'">b.views </when>
+      <when test="keyword == 'title'">b.title </when>
+      <otherwise>b.bno </otherwise>
+    </choose>
+    <choose>
+      <when test="align == 'asc'">asc</when>
+      <otherwise>desc</otherwise>
+    </choose>
+    limit #{startIndex}, #{length}
+  </select>
+  
+  
   <insert id="insert" parameterType="board">
-    insert into board(bevent,title,content,cre_dt) 
-    values(#{bevent},#{title},#{content},now())
+    insert into board(eno,mno,title,content,cre_dt) 
+    values(#{eno},#{mno},#{title},#{content},now())
   </insert>
   
   <delete id="delete" parameterType="int">
     delete from board 
-  	where bno=#{bno}
+  	where bno=#{no}
   </delete>
   
   <update id="update" parameterType="board">
     update board set
-      bevent=#{bevent}, 
-      title=#{title},
-      content=#{content},
-      cre_dt=now()
-    where bno=#{bno}
+      eno = #{eno},
+      mno = #{mno},
+      title = #{content},
+      content = #{content},
+      views = #{views},
+      cre_dt = now()
+    where bno=#{no}
   </update>
   
   <select id="selectOne" resultMap="boardMap" parameterType="int">
-    select 
-      bno,
-      bevent,
-      title,
-  	  content,
-      cre_dt
+    <include refid="select_inc"/>
     from board
-    where bno=#{bno}
+    where bno=#{no}
   </select>
 </mapper>
 

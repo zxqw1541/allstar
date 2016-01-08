@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>All Star</title>
+<meta charset="utf-8">
+
+
+<link type="text/css" rel="stylesheet" href="css/common.css" />
+<link type="text/css" rel="stylesheet" href="css/header.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/component.css" />
+    <link rel="stylesheet" type="text/css" href="css/animate.css" />
+
+<style>
+
+body{
+background-color: #ddd;
+}
+
+#wrapper ul.grid {
+  width: 985px;
+  overflow: hidden;
+  margin:0 auto;
+  margin-left:0px;
+  padding: 0;
+}
+ul.grid:after {
+  content: "";
+  display: block;
+  height: 0;
+  overflow: hidden;
+  clear: both;
+}
+ul.grid li {
+width:715px;
+height: 105px; 
+background-color: white; 
+margin-left:0px;
+  margin-bottom: 20px;
+  float: left;
+  overflow: hidden;
+ -moz-box-shadow: 0px 1px 2px #8e8e8e;
+  -webkit-box-shadow: 0px 1px 2px #8e8e8e;
+  box-shadow: 1px 1px 10px #8e8e8e;
+}
+ul.grid li a {
+  outline:0;
+}
+ul.grid li img {
+  display: block;
+  
+}
+ul.gallerynav {
+  width:960px;
+  margin-top:20px;
+  margin-left:0px;
+  height: 14px;
+  background-color: #FFF;
+  -moz-box-shadow: 0px 1px 2px #9f9f9f;
+  -webkit-box-shadow: 0px 1px 2px #9f9f9f;
+  box-shadow: 0px 1px 2px #9f9f9f;
+}
+ul.gallerynav li {
+  float:left;
+}
+ul.gallerynav li a {
+  float:left;
+  font-family: 'MidoMedium';
+  color: white;
+  margin: 0 15px;
+  font-size: 15px;
+  line-height: 18px;
+  padding: 8px 0;
+}
+ul.gallerynav li a:hover {
+  text-decoration: none;
+  color: #5d8ba6;
+}
+ul.gallerynav li.selected-1 a {
+  color: #5d8ba6;
+}
+.hidden {
+  display: none;
+}
+.sidebar_right {
+color:white;
+width:300px;
+ height:34px;
+  background-color:black; 
+  margin-top:20px;
+  margin-bottom:0px; 
+}
+.sidebar_right div {
+text-align:center;
+height:34px;
+width:90px;
+padding-top:10px;
+}
+.popular {
+width:300px;
+ height:500;
+}
+.popular li {
+width:300px; 
+height: 50px; 
+margin-left:0px; 
+margin-bottom:0px; 
+padding-top:12px;
+text-align:center;
+background-color:white;
+  box-shadow: 1px 1px 10px #8e8e8e;
+}
+.popular li:hover {
+background-color:lightgray;
+}
+.popular img {
+padding-bottom:5px;
+.popular li a {
+
+}
+#wrapper {
+
+  padding: none;
+}
+
+</style>
+<script src="js/com_func.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="js/jquery-1.5.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/superfish.js"></script>
+<script src="js/jquery.equalheights.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.ui.totop.js"></script>
+
+<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="js/quicksand.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+
+
+
+<script>
+jQuery(document).ready(function () {
+    $().UItoTop({
+        easingType: 'easeOutQuart'
+    });
+});
+
+
+
+</script>
+
+
+</head>
+
+
+<body>
+    
+    
+<!-- /////////////////////////////header start//////////////////////-->
+
+
+<header>
+  <div class="container_12">
+    <div class="grid_12">
+        <a href="main.html"><img src="images/allstar.png" width="200px" style="float:left"></a>
+      <div class="menu_block">
+          <div style="color:white;text-align:right;display:block">
+            <a href="#" style="padding-right:15px">Login</a>     
+            <a href="#">Sign In</a>
+          </div>
+        <nav>
+          <ul class="sf-menu">
+            <li class="current"><a href="boardList2.html">종목별 게시판</a>
+              <ul id="eventmenu">
+              </ul>
+            </li>
+            <li><a href="#">대회</a>
+            <ul>
+                <li><a href="#">* 농구</a></li>
+                <li><a href="#">* 축구</a></li>
+                <li><a href="#">* 야구</a></li>
+                <li><a href="#">* 배드민턴</a></li>
+              </ul>
+            </li>
+            <li><a href="#">팀</a>
+            <ul>
+                <li><a href="#">* 농구</a></li>
+                <li><a href="#">* 축구</a></li>
+                <li><a href="#">* 야구</a></li>
+                <li><a href="#">* 배드민턴</a></li>
+              </ul></li>
+            <li><a href="#">자유게시판</a></li>
+          </ul>
+          
+        </nav>
+        
+        <div class="menu_searchbar">
+            <span class="icon"></span>
+            <input type="search" id="search" placeholder="Search..." />
+        </div>
+         
+      </div>
+      
+      <div class="clear"></div>
+    </div>
+  </div>
+</header>
+ <!--///////////////////////// header 끝 /////////////////////////////// -->
+
+<!-- 메인 스타트 -->
+
+
+<div class="container">
+      <!-- Top Navigation -->
+
+      <section id="photostack-3" class="photostack">
+        <div>
+          <figure>
+            <a href="http://goo.gl/NJ1Dhf" class="photostack-img"><img src="images/tour/basket1.jpeg" /></a>
+            <figcaption>
+              <h2 class="photostack-title">Adidas StreetBall</h2>
+              <div class="photostack-back">
+                <p>Tournament Title : Adidas Streetball <br> 12 out of 36 are in!! </p>
+              </div>
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="http://goo.gl/fhwlSP" class="photostack-img"><img src="images/tour/basket2.jpeg" alt="img02"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Happy Days</h2>
+              <div class="photostack-back">
+                <p>These Happy Days are yours and mine Happy Days. It's a beautiful day in this neighborhood a beautiful day for a neighbor. Would you be mine?</p>
+              </div>
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="http://goo.gl/Jmvr4u" class="photostack-img"><img src="images/tour/soccer1.jpeg" alt="img03"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Beautywood</h2>
+              <div class="photostack-back">
+                <p>It's a neighborly day in this beautywood a neighborly day for a beauty. Would you be mine? Could you be mine. Now the world don't move to the beat of just one drum.</p>
+              </div>
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="http://goo.gl/Qw3ND4" class="photostack-img"><img src="images/tour/soccer2.jpeg" alt="img01"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Serenity Beach</h2>
+              <div class="photostack-back">
+                <p>I have never been to a place so serene in my entire life before. Swimming in clear waters opened my mind to nature and reminded me of my and <span>eveybody</span> everybody else's mortality.</p>
+              </div>
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="http://goo.gl/49lN3k" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img04"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Heaven of time</h2>
+              <div class="photostack-back">
+                <p>What might be right for you may not be right for some. And we know Flipper lives in a world full of wonder flying there-under under the sea.</p>
+              </div>
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="http://goo.gl/Ms7VDl" class="photostack-img"><img src="images/tour/bad2.jpeg" alt="img06"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Forever this</h2>
+              <div class="photostack-back">
+                <p>Fish don't fry in the kitchen and beans don't burn on the grill. Took a whole lotta tryin' just to get up that hill. Baby if you've ever wondered - wondered whatever became of me. </p>
+              </div>
+            </figcaption>
+          </figure>
+          <figure data-dummy>
+            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img07"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Lovely Green</h2>
+            </figcaption>
+          </figure>
+          <figure data-dummy>
+            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img08"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Wonderful</h2>
+            </figcaption>
+          </figure>
+          <figure data-dummy>
+            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img09"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Love Addict</h2>
+            </figcaption>
+          </figure>
+          <figure data-dummy>
+            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img10"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Friendship</h2>
+            </figcaption>
+          </figure>
+          <figure data-dummy>
+            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img11"/></a>
+            <figcaption>
+              <h2 class="photostack-title">White Nights</h2>
+            </figcaption>
+          </figure>
+          <figure data-dummy>
+            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img12"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Serendipity</h2>
+            </figcaption>
+          </figure>
+          <figure data-dummy>
+            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img13"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Pure Soul</h2>
+            </figcaption>
+          </figure>
+          <figure data-dummy>
+            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img14"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Winds of Peace</h2>
+            </figcaption>
+          </figure>
+          <figure data-dummy>
+            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img15"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Shades of blue</h2>
+            </figcaption>
+          </figure>
+          <figure data-dummy>
+            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img16"/></a>
+            <figcaption>
+              <h2 class="photostack-title">Lightness</h2>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+    </div><!-- /container -->
+    
+    <div style="height:700px; max-width:1024px; position:relative; margin : auto; ">
+    
+    
+    
+    <!-- left division -->
+    <div style="height:700px; width :722px; float: left; ">
+    
+    <div style="width:720px; height: 60px;">
+    
+    
+    <div id="container">
+ 
+  <!-- Begin Wrapper -->
+  <div id="wrapper" >
+    <div id="portfolio" style="width:720px; height: 700px; ">
+      <!-- Begin Portfolio Navigation -->
+      <ul class="gallerynav" style="width:718px; height:34px; background-color:black; ">
+        <li class="selected-1" ><a href="#" data-value="all">All<span></span></a></li>
+      </ul>
+      
+      <ul id="gallery" class="grid" style="width:720px; height: 600px; overflow:scroll;">
+        <!-- Begin Image 1 -->
+
+        
+        
+        </ul>
+    </div>
+  </div>
+  <!-- End Wrapper -->
+  <div class="clearfix"></div>
+  <div class="push"></div>
+ 
+</div>
+    
+    </div>
+    </div>
+    <!-- right division -->
+     <div style="height:700px; width :300px; float: right; ">
+        
+    
+    <div >
+      <!-- Begin Portfolio Navigation -->
+      <ul class="sidebar_right" >
+        <div><a style="color:white;">인기 게시물</a></div> 
+      </ul>
+      <ul  class="popular" >
+      <br>
+        <li  >
+        <img src="../ui/images/num1.png" style="float:left;"/><a href="#">1위 게시물</a>
+        </li><br>
+        <li >
+        <img src="../ui/images/num2.png" style="float:left;"/><a href="#">2위 게시물</a>
+        </li><br>
+        <li >
+        <img src="../ui/images/num3.png" style="float:left;"/><a href="#">3위 게시물</a>
+        </li><br>
+        <li >
+        <img src="../ui/images/num4.png" style="float:left;"/><a href="#">4위 게시물</a>
+        </li><br>
+        <li >
+        <img src="../ui/images/num5.png" style="float:left;"/><a href="#">5위 게시물</a>
+        </li><br>
+        <li >
+        <img src="../ui/images/num6.png" style="float:left;"/><a href="#">6위 게시물</a>
+        </li><br>
+        </ul>
+      </div>
+     
+      
+    </div>
+    
+    </div>
+    <script src="js/classie.js"></script>
+    <script src="js/photostack.js"></script>
+    <script>
+      new Photostack( document.getElementById( 'photostack-3' ), {
+        callback : function( item ) {
+          //console.log(item)
+        }
+      } );
+    
+    </script>
+
+
+
+
+
+
+
+
+
+
+<!-- 메인 끝 -->
+
+
+<a href="#" id="toTop" style="margin-right: -529px; right: 50%; display: inline;"><span id="toTopHover" style="opacity: 0;"></span></a>
+
+
+
+
+
+
+<footer>
+  <div class="container_12" >
+    <div class="grid_12" >
+        <img src="images/AllStarfoot.png" width="200px" style="float:left">
+      <div class="menu_block" style="color:white;"><br>
+          팀 allstar code : 팀장 유승우 , 허순종 , 박중권 , 이지현 , 이승렬 
+          <div style="color:white;text-align:right;display:block">
+            <a href="#" style="padding-right:15px">Login</a>     
+            <a href="#">Sign In</a>
+          </div>
+
+      </div>
+      
+    </div>
+  </div>
+</footer> 
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+    $("#gallery a[rel^='prettyPhoto']").prettyPhoto({
+        theme: 'light_square',
+        autoplay_slideshow: false
+    });
+    
+    $("ul.grid img").hide()
+    $("ul.grid img").each(function (i) {
+        $(this).delay(i * 200).fadeIn();
+    });
+}); 
+
+$.getJSON('/allstar/board/ajax/list.do', function(resultObj){
+	 var eventmenu = $("#eventmenu");
+	  for (var event of resultObj.events) {
+	      $("<li>" )
+	          .html("<a href='#'>" + "* " + event.name + "</a>")
+	          .appendTo(eventmenu);
+	    }
+
+	  var portul = $(".gallerynav");
+	  for (var event of resultObj.events) {
+	    $("<li>" )
+	        .html("<a href='#' data-value='" + event.eno + "'>" + event.name + "<span></span></a>")
+	        .appendTo(portul);
+	  }
+	
+	  var ul = $("#gallery");
+	  for (var board of resultObj.boards) {
+	    var content = board.content;
+	    console.log(typeof content);
+	    if (content.length > 40) {
+	      content = content.substring(0,40).concat("...");
+	    }
+	    $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='background-color:white;width:706;'>")
+	    .html(
+	        "<a>"
+	        + "<div style='width:705px;'>"
+	          + "<a href='#' class='detailLink' boardBno='" + board.no + "'' >"
+	          + "<h3 style='float:left; padding-right:30px;'>"+board.title+"</h3>" + "by " + board.member.name 
+	          + "</a><br>" + "<img style='float:right; width:180px;'  src='images/AllStarfoot.png' >"
+	          + "<div><br>"
+	          + "내용 : " + content + "<br>"
+	          + "종목 : " + board.event.name + "<br>"
+	          + "조회수 : " + board.views
+	          + "</div></div></a></li></ul>")
+	    .appendTo(ul);
+	    
+	  // 제목 링크에 클릭 이벤트 리스너를 등록한다.
+	    $("a.detailLink").click(clickDetailLnk);
+	  }
+	  
+	  
+
+	  /************************************************************************/// /* SORTING *//************************************************************************/
+
+
+	  (function($) {
+	    $.fn.sorted = function(customOptions) {
+	      var options = {
+	        reversed: false,
+	        by: function(a) {
+	          return a.text();
+	        }
+	      };
+	      $.extend(options, customOptions);
+	    
+	      $data = $(this);
+	      arr = $data.get();
+	      arr.sort(function(a, b) {
+	        
+	          var valA = options.by($(a));
+	          var valB = options.by($(b));
+	        if (options.reversed) {
+	          return (valA < valB) ? 1 : (valA > valB) ? -1 : 0;        
+	        } else {    
+	          return (valA < valB) ? -1 : (valA > valB) ? 1 : 0;  
+	        }
+	      });
+	      return $(arr);
+	    };
+
+	  })(jQuery);
+
+	  $(function() {
+	    
+	    var read_button = function(class_names) {
+	      var r = {
+	        selected: false,
+	        type: 0
+	      };
+	      for (var i=0; i < class_names.length; i++) {
+	        if (class_names[i].indexOf('selected-') == 0) {
+	          r.selected = true;
+	        }
+	        if (class_names[i].indexOf('segment-') == 0) {
+	          r.segment = class_names[i].split('-')[1];
+	        }
+	      };
+	      return r;
+	    };
+	    
+	    var determine_sort = function($buttons) {
+	      var $selected = $buttons.parent().filter('[class*="selected-"]');
+	      return $selected.find('a').attr('data-value');
+	    };
+	    
+	    var determine_kind = function($buttons) {
+	      var $selected = $buttons.parent().filter('[class*="selected-"]');
+	      return $selected.find('a').attr('data-value');
+	    };
+	    
+	    var $preferences = {
+	      duration: 800,
+	      easing: 'easeInOutQuad',
+	      adjustHeight: false
+	    };
+	    
+	    var $list = $('#gallery');
+	    var $data = $list.clone();
+	    
+	    var $controls = $('.gallerynav');
+	    
+	    $controls.each(function(i) {
+	      
+	      var $control = $(this);
+	      var $buttons = $control.find('a');
+	      
+	      $buttons.bind('click', function(e) {
+	        
+	        var $button = $(this);
+	        var $button_container = $button.parent();
+	        var button_properties = read_button($button_container.attr('class').split(' '));      
+	        var selected = button_properties.selected;
+	        var button_segment = button_properties.segment;
+
+	        if (!selected) {
+
+	          $buttons.parent().removeClass('selected-1'); $button_container.addClass('selected-' + 1);
+	          
+	          var sorting_type = determine_sort($controls.eq(1).find('a'));
+	          var sorting_kind = determine_kind($controls.eq(0).find('a'));
+	          
+	          if (sorting_kind == 'all') {
+	            var $filtered_data = $data.find('li');
+	          } else {
+	            var $filtered_data = $data.find('li.' + sorting_kind);
+	          }
+	          
+	          if (sorting_type == 'size') {
+	            var $sorted_data = $filtered_data.sorted({
+	              by: function(v) {
+	                return parseFloat($(v).find('span').text());
+	              }
+	            });
+	          } else {
+	            var $sorted_data = $filtered_data.sorted({
+	              by: function(v) {
+	                return $(v).find('strong').text().toLowerCase();
+	              }
+	            });
+	          }
+	          
+	          $list.quicksand($sorted_data, function() {
+	      
+	      $(document).ready(function(){
+	        $("#gallery a[rel^='prettyPhoto']").prettyPhoto({theme:'light_square', autoplay_slideshow: false});
+	      });
+	    
+
+	      
+	      
+	      $(function() {
+	      // OPACITY OF BUTTON SET TO 50%
+	      $("ul.grid img").css("opacity","1.0");
+	          
+	      // ON MOUSE OVER
+	      $("ul.grid img").hover(function () {
+	                            
+	      // SET OPACITY TO 100%
+	      $(this).stop().animate({
+	      opacity: 0.5
+	      }, "slow");
+	      },
+	          
+	      // ON MOUSE OUT
+	      function () {
+	            
+	      // SET OPACITY BACK TO 50%
+	      $(this).stop().animate({
+	      opacity: 1.0
+	      }, "slow");
+	      });
+	      });
+	                                  
+	    $("a.zoom2 img").mouseover(function(){
+	      $(this).stop(true,true);
+	      $(this).fadeTo(300, 0.5);
+	    });
+	    
+	    $("a.zoom2 img").mouseout(function(){
+	      $(this).fadeTo(400, 1.0);
+	    });
+	    
+	    
+	    $("a.play2 img").mouseover(function(){
+	      $(this).stop(true,true);
+	      $(this).fadeTo(300, 0.5);
+	    });
+	    
+	    $("a.play2 img").mouseout(function(){
+	      $(this).fadeTo(400, 1.0);
+	    });
+	    
+	      });
+	  }  
+	        e.preventDefault();
+	      });
+	      
+	    }); 
+	    
+	  });
+	  
+	  
+	});
+
+	//게시물 제목을 클릭했을 때 호출될 함수
+	function clickDetailLnk(event) {
+	  event.preventDefault(); 
+	  location.href = "form.html?no=" + $(event.target).attr("boardBno");
+	}
+	 
+/* 
+	$.getJSON('/allstar/board/ajax/list.do', function(resultObj){
+	   
+	    var ul = $("#gallery");
+	    for (var board of resultObj.boards) {
+	      var content = board.content;
+	      console.log(typeof content);
+	      if (content.length > 40) {
+	        content = content.substring(0,40).concat("...");
+	      }
+	      $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='background-color:white;'>")
+	      .html(
+	          "<a>"
+	          + "<div>"
+	            + "<a href='#' class='detailLink' boardBno='" + board.no + "'' >"
+	            + board.title + "</a><br> by " + board.member.name + "<br>"
+	            + "<div>"
+	            + "내용 : " + content + "<br>"
+	            + "종목 : " + board.event.name + "<br>"
+	            + "조회수 : " + board.views
+	            + "</div></div></a></li></ul>")
+	      .appendTo(ul);
+	      
+	    // 제목 링크에 클릭 이벤트 리스너를 등록한다.
+	      $("a.detailLink").click(clickDetailLnk);
+	    }
+
+	    //게시물 제목을 클릭했을 때 호출될 함수
+	    function clickDetailLnk(event) {
+	      event.preventDefault(); 
+	      location.href = "form.html?no=" + $(event.target).attr("boardBno");
+	    }
+	}); */
+</script>
+
+</body>
+</html>

@@ -99,9 +99,7 @@
 <script>
 //등록 버튼을 위한 이벤트 리스너 추가하기
 $('#addBtn').click(function(event) {
-  $.post('ajax/add.do', {
-    eno: 0,
-    tno: 0,
+  $.post('add.do', {
     name: $('#fname').val(),
     teamNum: $('#fteamNum').val(),
     joinNum: $('#fjoinNum').val(),

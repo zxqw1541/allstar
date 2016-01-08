@@ -24,8 +24,11 @@
 	  <tr>
 	    <th>번호</th>
 	    <th>제목</th>
-	    <th>종목</th>
-	    <th>등록일</th>
+	    <th>종목번호</th>
+	    <th>작성자번호</th>
+	    <th>내용</th>
+	    <th>작성날짜</th>
+	    <th>조회수</th>
 	  </tr>
   </thead>
 </table>
@@ -43,13 +46,16 @@
 
 $.getJSON('ajax/list.do', function(resultObj) {
 	var table = $("#listTable");
-  for (var board of resultObj.ajaxResult.data) {
+  for (var board of resultObj.boards) {
     $("<tr>")
-      .html("<td>" + board.bno + 
+      .html("<td>" + board.no + 
 			      "</td><td><a class='detailLnk' href='#' boardBno='" 
-			          + board.bno + "'>" + board.title + 
-			      "</a></td><td>" + board.bevent +
-			      "</td><td>" + board.cre_dt+ "</td>")
+			          + board.no + "'>" + board.title + 
+			      "</a></td><td>" + board.event.name +
+			      "</td><td>" + board.member.name +
+			      "</td><td>" + board.content +
+			      "</td><td>" + board.createDate +
+			      "</td><td>" + board.views + "</td>")
 			.appendTo(table);
   }
   // 제목 링크에 클릭 이벤트 리스너를 등록한다.
@@ -63,10 +69,9 @@ $('#newBtn').click(function(event){
 
 
 // 게시물 제목을 클릭했을 때 호출될 함수
-
 function clickDetailLnk(event) {
 	event.preventDefault(); 
-	location.href = "form.html?bno=" + $(event.target).attr("boardBno");
+	location.href = "form.html?no=" + $(event.target).attr("boardBno");
 }
 
 </script>

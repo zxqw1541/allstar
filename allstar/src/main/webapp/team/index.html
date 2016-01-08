@@ -11,6 +11,8 @@
 			<h1>Team List</h1>
 			<button id="newBtn" type="button" class="btn btn-primary btn-xs">새 팀</button>
 			<br>
+		  <div id="container">
+			</div>
 			<table id="listTable" class="table table-hover">
 				<thead>
 					<tr>
@@ -28,12 +30,20 @@
 	<script type="text/javascript" src="../lib/jquery/jquery.js"></script>
 	<script>
 	$.getJSON('ajax/list.do', function(resultObj) {
+		  
+		  var div = $("#container");
+		  for (var event of resultObj.events) {
+			  $( "<ul>" )
+			  .html("<li><a href='#' data-value='" + event.eno + "'>" + event.name + "</a></li>")
+			  .appendTo(div);
+		  }
+		  
 		  var table = $("#listTable");
-		  for (var team of resultObj.ajaxResult.data) {
+		  for (var team of resultObj.teams) {
 		    $("<tr>")
 		      .html("<td><a class='detailLnk' href='#' teamNo='" 
 	                    + team.tno + "'>" + team.name + 
-		            "</a></td><td>" + team.eno + 
+		            "</a></td><td>" + team.event.name + 
 		            "</td><td>" + team.joinNum + "/" + team.totalNum + 
 		            "</td><td>" + team.introduce +
 		            "</td><td>" + team.baseAddr +
