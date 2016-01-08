@@ -14,7 +14,7 @@ import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.FreeBoard;
 
 @Controller("ajax.FreeBoardController")
-@RequestMapping("/freeBoard/ajax/*")
+@RequestMapping("/freeboard/ajax/*")
 public class FreeBoardController {
   @Autowired FreeBoardDao freeBoardDao;
 
@@ -47,7 +47,7 @@ public class FreeBoardController {
 
   @RequestMapping(value="add", method=RequestMethod.POST)
   public AjaxResult add(FreeBoard freeBoard) throws Exception{
-
+    
     freeBoardDao.insert(freeBoard);
     return new AjaxResult("success", null);
   }
@@ -69,11 +69,10 @@ public class FreeBoardController {
   }
 
   @RequestMapping("delete.do")
-  public AjaxResult delete(int no, String password) throws Exception {
+  public AjaxResult delete(int no) throws Exception {
 
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("no", no);
-    paramMap.put("password", password);
 
     if (freeBoardDao.delete(paramMap) <= 0) {
       return new AjaxResult("failure", null);

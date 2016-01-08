@@ -60,7 +60,7 @@ public class FreeBoardController {
   }
   
   @RequestMapping("detail")
-  public String detail(int no, Model model) throws Exception {
+  public String detail(int no,Model model) throws Exception {
     FreeBoard freeBoard = freeBoardDao.selectOne(no);
     model.addAttribute("freeBoard", freeBoard);
     return "freeboard/FreeBoardDetail";
@@ -71,7 +71,7 @@ public class FreeBoardController {
       Model model) throws Exception {
     
     FreeBoard freeBoard = new FreeBoard();
-    freeBoard.setFno(Integer.parseInt(request.getParameter("fno")));
+    freeBoard.setNo(Integer.parseInt(request.getParameter("no")));
     freeBoard.setTitle(request.getParameter("title"));
     freeBoard.setContent(request.getParameter("content"));
     
