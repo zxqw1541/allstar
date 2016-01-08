@@ -462,7 +462,93 @@ ALTER TABLE COMP_COMM
 			mno -- 회원번호
 		);
 		
+/* 이벤트 */
 insert event(name) values ('자유게시판');
 insert event(name) values ('농구');
 insert event(name) values ('축구');
 insert event(name) values ('야구');
+
+/* 멤버 */
+insert member(id,name,pwd) values ('abcd1','이름1',sha1('1111'));
+insert member(id,name,pwd) values ('abcd2','이름2',sha1('1111'));
+insert member(id,name,pwd) values ('abcd3','이름3',sha1('1111'));
+insert member(id,name,pwd) values ('abcd4','이름4',sha1('1111'));
+insert member(id,name,pwd) values ('abcd5','이름5',sha1('1111'));
+
+/* 팀 */
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (2,'팀1',10,100000,'팀소개1','12345','기본주소1');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (2,'팀2',10,100000,'팀소개2','12345','기본주소2');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (3,'팀3',10,100000,'팀소개3','12345','기본주소3');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (3,'팀4',10,100000,'팀소개4','12345','기본주소4');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (4,'팀5',10,100000,'팀소개5','12345','기본주소5');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (4,'팀6',10,100000,'팀소개6','12345','기본주소6');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (4,'팀7',10,100000,'팀소개7','12345','기본주소7');
+
+/* 대회 */
+insert competition(eno, tno, name, team_num, cost, sdt, edt, rsdt, redt, content, poster, pst_no, bas_addr)
+values(2,1,'대회1',36,100000,'2015-01-01','2015-01-02','2015-01-03','2015-01-04','내용1','그림1','12345','기본주소');
+insert competition(eno, tno, name, team_num, cost, sdt, edt, rsdt, redt, content, poster, pst_no, bas_addr)
+values(2,2,'대회2',36,100000,'2015-01-01','2015-01-02','2015-01-03','2015-01-04','내용2','그림2','12345','기본주소');
+insert competition(eno, tno, name, team_num, cost, sdt, edt, rsdt, redt, content, poster, pst_no, bas_addr)
+values(3,3,'대회3',36,100000,'2015-01-01','2015-01-02','2015-01-03','2015-01-04','내용3','그림3','12345','기본주소');
+insert competition(eno, tno, name, team_num, cost, sdt, edt, rsdt, redt, content, poster, pst_no, bas_addr)
+values(3,4,'대회4',36,100000,'2015-01-01','2015-01-02','2015-01-03','2015-01-04','내용4','그림4','12345','기본주소');
+insert competition(eno, tno, name, team_num, cost, sdt, edt, rsdt, redt, content, poster, pst_no, bas_addr)
+values(4,5,'대회5',36,100000,'2015-01-01','2015-01-02','2015-01-03','2015-01-04','내용5','그림5','12345','기본주소');
+
+/* 종목게시판 */
+insert board(eno, mno, title, content, cre_dt) values (2,1,'게시물1','내용1',now());
+insert board(eno, mno, title, content, cre_dt) values (2,2,'게시물2','내용2',now());
+insert board(eno, mno, title, content, cre_dt) values (3,3,'게시물3','내용3',now());
+insert board(eno, mno, title, content, cre_dt) values (3,4,'게시물4','내용4',now());
+insert board(eno, mno, title, content, cre_dt) values (4,5,'게시물5','내용5',now());
+insert board(eno, mno, title, content, cre_dt) values (4,4,'게시물6','내용6',now());
+insert board(eno, mno, title, content, cre_dt) values (4,5,'게시물7','내용7',now());
+
+/* 자유게시판 */
+insert board(eno, mno, title, content, cre_dt) values (1,1,'게시물1','내용1',now());
+insert board(eno, mno, title, content, cre_dt) values (1,2,'게시물2','내용2',now());
+insert board(eno, mno, title, content, cre_dt) values (1,3,'게시물3','내용3',now());
+insert board(eno, mno, title, content, cre_dt) values (1,4,'게시물4','내용4',now());
+insert board(eno, mno, title, content, cre_dt) values (1,5,'게시물5','내용5',now());
+insert board(eno, mno, title, content, cre_dt) values (1,4,'게시물6','내용6',now());
+insert board(eno, mno, title, content, cre_dt) values (1,5,'게시물7','내용7',now());
+
+/* 팀 참가 */
+insert join_team(mno,tno,cre_dt,state,level) values (1,1,now(),0,1);
+insert join_team(mno,tno,cre_dt,state,level) values (1,2,now(),0,1);
+insert join_team(mno,tno,cre_dt,state,level) values (2,3,now(),0,1);
+insert join_team(mno,tno,cre_dt,state,level) values (2,4,now(),0,1);
+insert join_team(mno,tno,cre_dt,state,level) values (3,5,now(),0,1);
+insert join_team(mno,tno,cre_dt,state,level) values (4,6,now(),0,1);
+insert join_team(mno,tno,cre_dt,state,level) values (5,7,now(),0,1);
+
+/* 대회 참가 */
+insert join_comp(cno,tno,cre_dt,state) values (1,1,now(),0);
+insert join_comp(cno,tno,cre_dt,state) values (1,2,now(),0);
+insert join_comp(cno,tno,cre_dt,state) values (1,3,now(),0);
+insert join_comp(cno,tno,cre_dt,state) values (1,4,now(),0);
+insert join_comp(cno,tno,cre_dt,state) values (1,5,now(),0);
+insert join_comp(cno,tno,cre_dt,state) values (1,6,now(),0);
+
+insert join_comp(cno,tno,cre_dt,state) values (2,1,now(),0);
+insert join_comp(cno,tno,cre_dt,state) values (2,2,now(),0);
+insert join_comp(cno,tno,cre_dt,state) values (2,3,now(),0);
+insert join_comp(cno,tno,cre_dt,state) values (2,4,now(),0);
+insert join_comp(cno,tno,cre_dt,state) values (2,7,now(),0);
+
+/* 종목 좋아요 */
+insert like_event(mno, eno) values (1,2);
+insert like_event(mno, eno) values (1,3);
+insert like_event(mno, eno) values (2,2);
+insert like_event(mno, eno) values (3,2);
+insert like_event(mno, eno) values (4,3);
+insert like_event(mno, eno) values (5,4);
+
