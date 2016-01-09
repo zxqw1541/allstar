@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="competition.css">
+
 </head>
 <body>
 <a href="detail2.html">상세상세상세</a>
@@ -13,18 +14,32 @@
 
 
 
-<div id="overlay_t"></div> 
-<div id="popup_layer">팝업레이어의 내용</div>
+<div id="overlay_t"></div>
+<!-- 팝업내용 --> 
+<div id="popup_layer" class="popup">
+  <div class="popup_left">
+      <div class="div_title">제목입니다 by 이승렬1234</div>
+      <div class="div_state">모집중</div> 
+  </div>
+  <div class="popup_right">
+      <div>
+          오른쪽이
+      </div>
+  </div>
+</div>
+
+
 
 <script type="text/javascript" src="../lib/jquery/jquery.js"></script>
 <script>
+/* 오버레이 */
 $(document).ready(function() { 
     $('.trigger').click(function(){ 
-     $('#popup_layer, #overlay_t').fadeIn(); 
+     $('#popup_layer, #overlay_t').fadeIn();
  }); 
  $('#overlay_t, .close').click(function(e){ 
      e.preventDefault(); 
-     $('#popup_layer, #overlay_t').fadeOut(); 
+     $('#popup_layer, #overlay_t').fadeOut();
  }); 
 });
 
