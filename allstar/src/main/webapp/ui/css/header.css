@@ -135,7 +135,7 @@ nav{ position:relative;padding: 0px 0 0 0;}
 }
 
 body {
-  min-width: 1000px;
+  min-width: 1030px;
 }
 
 /* `Container
@@ -146,6 +146,7 @@ body {
   margin-right: auto;
   width: 1000px;
   background-color: black;
+  
 }
 .container_list {
   margin-left: auto;
