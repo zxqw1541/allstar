@@ -34,7 +34,7 @@ ul.grid:after {
   clear: both;
 }
 ul.grid li {
-width:715px;
+width:690px;
 height: 105px; 
 background-color: white; 
 margin-left:0px;
@@ -163,7 +163,7 @@ jQuery(document).ready(function () {
 
 
 <header>
-  <div class="container_12">
+  <div class="container_12" style="padding-top:10px;">
     <div class="grid_12">
         <a href="main.html"><img src="images/allstar.png" width="200px" style="float:left"></a>
       <div class="menu_block">
@@ -357,7 +357,7 @@ jQuery(document).ready(function () {
         <li class="selected-1" ><a href="#" data-value="all">All<span></span></a></li>
       </ul>
       
-      <ul id="gallery" class="grid" style="width:720px; height: 600px; overflow:scroll;">
+      <ul id="gallery" class="grid" style="width:720px; height: 600px; overflow:auto;">
         <!-- Begin Image 1 -->
 
         
@@ -440,7 +440,7 @@ jQuery(document).ready(function () {
 
 
 <footer>
-  <div class="container_12" >
+  <div class="container_12" style="padding-top:20px;">
     <div class="grid_12" >
         <img src="images/AllStarfoot.png" width="200px" style="float:left">
       <div class="menu_block" style="color:white;"><br>
@@ -495,7 +495,7 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=5', function(resultObj){
 	    $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='background-color:white;width:706;'>")
 	    .html(
 	        "<a>"
-	        + "<div style='width:705px;'>"
+	        + "<div style='width:670px;'>"
 	          + "<a href='#' class='detailLink' boardBno='" + board.no + "'' >"
 	          + "<h3 style='float:left; padding-right:30px;'>"+board.title+"</h3>" + "by " + board.member.name 
 	          + "</a><br>" + "<img style='float:right; width:180px;'  src='images/AllStarfoot.png' >"

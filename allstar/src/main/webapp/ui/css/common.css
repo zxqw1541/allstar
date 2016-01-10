@@ -26,16 +26,15 @@ html {
 
 header {
 	display: block;
-	padding-top: 34px;
 	position: relative;
 	z-index: 999;
 	background: #000;
 	padding-bottom: 48px;
+	height: 130px;
 }
 
 footer {
   display: block;
-  padding-top: 34px;
   position: relative;
   z-index: 999;
   background: #000;
