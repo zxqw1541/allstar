@@ -46,9 +46,6 @@
 	
 }
 
-.photostack figure:after {
--webkit-transform:scale(1.3);
-}
 
 
 .js .photostack figure {
