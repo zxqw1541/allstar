@@ -42,13 +42,18 @@
 	padding: 20px;
 	text-align: center;
 	box-shadow: 2px 3px 5px black;
+	
 }
 
+.photostack figure:after {
+-webkit-transform:scale(1.3);
+}
 
 
 .js .photostack figure {
 	position: absolute;
 	display: block;
+	
 	margin: 0;
 }
 
@@ -76,6 +81,7 @@
   height: 320px;
    margin-left:auto;
   margin-right:auto; 
+  
 }
 
 .photostack-back {
@@ -132,6 +138,7 @@
 	text-align: center;
 	-webkit-transition: -webkit-transform 0.6s ease-in-out, background 0.3s;
 	transition: transform 0.6s ease-in-out, background 0.3s;
+	
 	-webkit-transform: scale(0.48);
 	transform: scale(0.48);
 }
@@ -212,6 +219,7 @@
 	left: 50%;
 	top: 50%;
 	-webkit-transform: translateY(-50%) translateX(-50%);
+	
 	transform: translateY(-50%) translateX(-50%);
 	padding: 10px 20px;
 	color: #fff;
@@ -247,19 +255,24 @@
 	background: rgba(0,0,0,0.05);
 	-webkit-transition: opacity 0.6s;
 	transition: opacity 0.6s;
+	
 }
 
 /* Hide figure overlay when it becomes current */
 figure.photostack-current::after {
+	
 	-webkit-transition: opacity 0.6s, visibility 0s 0.6s ;
 	transition: opacity 0.6s, visibility 0s 0.6s;
 	opacity: 0;
+	transform: scale(1.3);
 	visibility: hidden;
 }
 
 /* Special classes for transitions and perspective */
 .photostack-transition figure {
+	 -webkit-transform: scale(1.3);
 	-webkit-transition: -webkit-transform 0.6s ease-in-out;
+	
 	transition: transform 0.6s ease-in-out;
 }
 
@@ -276,28 +289,33 @@ figure.photostack-current::after {
 
 .photostack-perspective figure,
 .photostack-perspective figure div {
+	
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
 
 .photostack-perspective figure.photostack-flip {
 display: block;
-width: 400px;
-height: 500px;
-margin-left: 0px;
-margin-top: -30px;
+/* width: 400px;
+height: 500px; */
+/*     margin-left: -45px;
+    margin-top: -90px; */
 z-index: 200;
-	-webkit-transform-origin: 0% 100%;
+	/* -webkit-transform-origin: 0% 100%; */
+	-webkit-transform: scale(1.3);
 	transform-origin: 0% 50%;
 }
-
+.photostack-perspective figure.photostack-flip img{
+}
 .csstransformspreserve3d figure.photostack-flip .photostack-back {
+	
 	-webkit-transform: rotateY(180deg);
 	transform: rotateY(180deg);
 	display: block;
 }
 
 .no-csstransformspreserve3d figure.photostack-showback .photostack-back {
+	
 	display: block;
 }
 

@@ -29,8 +29,6 @@ header {
 	position: relative;
 	z-index: 999;
 	background: #000;
-	padding-bottom: 48px;
-	height: 130px;
 }
 
 footer {
@@ -38,7 +36,6 @@ footer {
   position: relative;
   z-index: 999;
   background: #000;
-  padding-bottom: 48px;
 }
 
 

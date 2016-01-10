@@ -95,13 +95,13 @@ html, body {
 	height: 100%;
 }
 #container {
+	min-width:1024px;
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
 	margin: 0 auto -145px; /* the bottom margin is the negative value of the footer's height */
 }
 #footer-wrapper, .push {
-	height: 145px; /* .push must be the same height as .footer */
 }
 p {
 	line-height: 20px;
