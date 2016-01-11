@@ -1,0 +1,317 @@
+@charset "UTF-8";
+
+/*--------------------*/
+/* header & footer */
+/*--------------------*/
+
+header {
+width: 1024px; 
+height:100px; 
+margin-left:auto;
+margin-right:auto; 
+margin-top:40px; 
+margin-bottom:15px;
+background-color:black;
+opacity:0.8;
+position:relative;
+z-index:10;
+}
+
+header img {
+	height:80%;
+	margin-left:15px; 
+	margin-top:10px;
+}
+.menu_bar {
+	padding:30px; 
+	float:right;
+}
+.auth {
+	padding:10px; 
+	float:right;
+}
+
+.auth a {
+	text-decoration: none;
+}
+.auth a:hover{
+	color:#333;
+  text-decoration: none;
+}
+
+nav>.sf-menu {
+  text-align: center;
+    padding-left: 100px;
+}
+nav{}
+.sf-menu ul {position:absolute;top:-999px; display:none; }
+.sf-menu li {float:left;position:relative; }
+.sf-menu>li {
+  float: left;
+  position: relative;
+
+}
+
+.sf-menu>li+li {
+	text-decoration: none;
+  margin-left: 49px;
+}
+
+.sf-menu>li+li:after {
+  background: url(../images/menu_separator.png) 0 0 no-repeat;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 33px;
+  left: -25px;
+  top: -4px;
+}
+
+
+
+.sf-menu>li:first-child {
+	text-decoration: none;
+  margin-left: 0px;
+}
+
+.sf-menu>li:hover, .sf-menu>li.sfHover, .sf-menu>li.current {
+  border-color: #a92c11;
+}
+
+
+.sf-menu>li>a{
+  font-size: 20px;
+  font-family: 'Noto Sans', sans-serif;
+  color: #c5c3c3;
+  position: relative;
+  line-height: 20px;
+  z-index: 999; 
+  position: relative;
+  text-decoration: none;
+}
+
+
+.sf-menu>li.sfHover>a, .sf-menu>li.current>a, .sf-menu>li:hover>a:hover {
+  color: #fff;
+}
+
+
+
+/*================================>> 2 Level <<========================================*/
+.sf-menu li ul,.sf-menu li.sfHover>ul{
+	list-style:none;
+  top:27px;
+  left: 0px;
+  width: 70px;
+  z-index: 999;  
+  padding-top: 15px;
+  padding-bottom: 10px;
+  /*background: url(../images/sub_bg.png) 0 0 repeat;*/
+    background-color: white;
+    /* border : 2px black solid; */
+     box-shadow: 1px 5px 10px gray; 
+
+}
+.sf-menu li ul li{
+  text-align: left; 
+  float: none !important; 
+  margin-bottom: 2px;
+  padding-left: 0px;
+    right: 0px;
+}
+
+
+.sf-menu li ul li:first-child {
+  padding-top: 0;
+  border: none;
+}
+.sf-menu li ul li a{
+	text-decoration: none;
+  font-size: 14px;
+  font-family: 'Noto Sans', sans-serif;
+  color: black;
+  line-height: 18px;
+  position: relative;
+}
+
+.sf-menu li li a:hover, 
+.sf-menu li.sfHover li.sfHover>a {  
+  color: #c5c3c3;
+
+}
+
+/*================================>> 3 Level <<========================================*/
+.sf-menu li.sfHover li.sfHover ul{
+  padding-top: 1px;
+  top: 0 !important;
+  text-align: center;
+  position: relative !important;
+}
+
+.sf-menu li li ul li {
+  text-align: center !important;
+}
+
+.sf-menu li li ul li a{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+
+
+footer {
+width: 100%; 
+height:100px;
+}
+
+footer img {
+  height:80%;
+  margin-left:15px; 
+  margin-top:10px;
+}
+
+
+/* -------------------- */
+/* body & container */
+/* -------------------- */
+
+body {
+background: 
+  url("../images/basket_img/streetball2.jpg") top no-repeat,
+  url("../images/basket_img/dunk.jpg") 0px 803px  no-repeat,
+  url("../images/basket_img/basketball_court.jpg") 0px 1603px  no-repeat,
+  url("../images/basket_img/basketball_court2.jpg") 0px 2408px  no-repeat,
+  black 0px 3040px;
+background-size: 100% 810px ;	
+position:relative;
+opacity:0.9;
+}
+
+.container {
+margin-left:auto;
+margin-right:auto;
+z-index:0;
+width: 1024px;
+}
+
+/* ---------------- */
+/* main contents */
+/* ---------------- */
+
+.tournament_slider {
+	
+height: 800px;
+}
+
+.top_event_list {
+
+height: 800px;
+z-index:1;
+}
+
+.newest_team {
+height: 800px;
+}
+
+.tournament_cat {
+height: 800px;
+}
+
+.tournament_cat .button_fld {
+}
+
+.btn {
+width:170px; 
+float:left;
+margin-left:4%;
+text-align:center;
+}
+
+.btn button {
+display:block;
+margin-left: auto;
+margin-right: auto;
+width:80px;
+}
+
+
+/* ------------ */
+/* login form */
+/* ------------ */
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+       #signup {
+
+     width: 500px;
+     padding-bottom: 2px;
+
+    display:none;
+
+
+    background: #FFF;
+        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+       
+}
+
+        #test {
+     width: 600px;
+padding: 30px; 
+    display:none;
+
+
+    background: #FFF;
+        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+       
+}
+
+#test p { color: #666; text-shadow: none; }
+
+#signup-header {  padding: 18px 18px 14px 18px; border-bottom: 1px solid #CCC; border-top-left-radius: 5px; -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; border-top-right-radius: 5px; -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px; }
+
+#signup-header  h2 { color: #444; font-size: 2em; font-weight: 700; margin-bottom: 3px; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); }
+#signup-header  p { color: #444; font-size: 1.3em; margin: 0; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); text-shadow: none; }
+
+#signup .txt-fld { position: relative; width: 450px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
+#signup .btn-fld { width: 430px; overflow: hidden; padding: 12px 0px 12px 150px; }
+
+#signup .txt-fld label { display: block; float: left; width: 90px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
+#signup .txt-fld input { width: 244px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
+#signup .txt-fld input.good_input { background: #DEF5E1 ; }
+#signup .txt-fld input.error_input { background: #FDE0E0; }
+
+
+
+p.error { position: absolute; bottom: 48px; right: 20px; width: 262px; color: #FFF; font-size: 1.1em; padding-bottom: 5px; background: url(../img/error-arw.png) 20px bottom no-repeat; text-align: left; margin: 0; text-shadow: none; }
+p.error span { display: inline-block; background: #D43636; padding: 6px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;  }
+.txt-fld input:focus, .txt-fld textarea:focus { background-color: #FAF9DC; }
+        
+button {
+  float: right;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  background: black; 
+  border: none;
+  width: auto;
+  overflow: visible;
+  font-size: 1.4em;
+  color: #FFF;
+ padding: 7px 10px;  border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; font-weight: bold; text-shadow: 0 1px 0 rgba(0,0,0,0.4);}
+        
+.modal_close { position: absolute; top: 12px; right: 12px; display: block; width: 14px; height: 14px; background: url(../img/modal_close.png); z-index: 2; }
+
+
+
+

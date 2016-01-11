@@ -361,9 +361,9 @@
 						};
 
 					if(self.items.indexOf(item) === self.current && self.started && iter === 0) {
-						self.currentItem.style.WebkitTransform = 'translate(' + self.centerItem.x + 'px,' + self.centerItem.y + 'px) rotate(0deg)scale(1.3)';
-						self.currentItem.style.msTransform = 'translate(' + self.centerItem.x + 'px,' + self.centerItem.y + 'px) rotate(0deg)scale(1.3)';
-						self.currentItem.style.transform = 'translate(' + self.centerItem.x + 'px,' + self.centerItem.y + 'px) rotate(0deg)scale(1.3)';
+						self.currentItem.style.WebkitTransform = 'translate(' + (self.centerItem.x - 3) + 'px,' + (self.centerItem.y - 40) + 'px) rotate(0deg)scale(1.2)';
+						self.currentItem.style.msTransform = 'translate(' + (self.centerItem.x - 3)+ 'px,' + (self.centerItem.y - 40) + 'px) rotate(0deg)scale(1.2)';
+						self.currentItem.style.transform = 'translate(' + (self.centerItem.x - 3)+ 'px,' + (self.centerItem.y - 40) + 'px) rotate(0deg)scale(1.2)';
 						// if there is something behind..
 						if( self.currentItem.querySelector( '.photostack-back' ) ) {
 							self._addItemPerspective();
@@ -473,8 +473,8 @@
 					classie.removeClass( this.navDots[ this.current ], 'flip' );
 				}
 				if( support.preserve3d ) {
-					this.currentItem.style.WebkitTransform = 'translate(' + this.centerItem.x + 'px,' + this.centerItem.y + 'px) rotateY(0deg)';
-					this.currentItem.style.transform = 'translate(' + this.centerItem.x + 'px,' + this.centerItem.y + 'px) rotateY(0deg)';
+					this.currentItem.style.WebkitTransform = 'translate(' + (this.centerItem.x -3) + 'px,' + (this.centerItem.y - 40) + 'px) rotateY(0deg)scale(1.2)';
+					this.currentItem.style.transform = 'translate(' + (this.centerItem.x -3) + 'px,' + (this.centerItem.y -40)+ 'px) rotateY(0deg)scale(1.2)';
 				}
 				else {
 					classie.removeClass( this.currentItem, 'photostack-showback' );
@@ -485,8 +485,8 @@
 					classie.addClass( this.navDots[ this.current ], 'flip' );
 				}
 				if( support.preserve3d ) {
-					this.currentItem.style.WebkitTransform = 'translate(' + this.centerItem.x + 'px,' + this.centerItem.y + 'px) translate(' + this.sizes.item.width + 'px) rotateY(-179.9deg)';
-					this.currentItem.style.transform = 'translate(' + this.centerItem.x + 'px,' + this.centerItem.y + 'px) translate(' + this.sizes.item.width + 'px) rotateY(-179.9deg)';
+					this.currentItem.style.WebkitTransform = 'translate(' + this.centerItem.x + 'px,' + this.centerItem.y + 'px) translate(' + this.sizes.item.width  + 'px) rotateY(-179.9deg)';
+					this.currentItem.style.transform = 'translate(' + this.centerItem.x  + 'px,' + this.centerItem.y + 'px) translate(' + this.sizes.item.width  + 'px) rotateY(-179.9deg)';
 				}
 				else {
 					classie.addClass( this.currentItem, 'photostack-showback' );
