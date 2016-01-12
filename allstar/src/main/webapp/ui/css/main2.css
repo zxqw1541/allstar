@@ -186,9 +186,14 @@ background:
   black 0px 3040px;
 background-size: 100% 810px ;	
 position:relative;
-opacity:0.9;
+min-width:1024px;
 }
-
+li {
+	list-style-type: none;
+}
+a {
+	text-decoration: none;
+}
 .container {
 margin-left:auto;
 margin-right:auto;
@@ -202,13 +207,39 @@ width: 1024px;
 
 .tournament_slider {
 	
-height: 800px;
+height: 790px;
 }
 
 .top_event_list {
-
-height: 800px;
+padding-top:200px;
+height: 600px;
 z-index:1;
+}
+.eventlist {
+	margin-left:10px;
+	width:960px;
+	height: 40px;
+	background-color: white;
+	opacity: 0.9;
+	padding-bottom:15px;
+}
+.eventlist li{
+	list-style-type: none;
+	
+}
+.eventlist a{
+  float:left;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 20px;
+  color:black;
+}
+
+#eventboard {
+	margin:auto;
+	width:760px;
+  background-color:white; 
+  opacity:0.9;
 }
 
 .newest_team {
@@ -286,7 +317,7 @@ padding: 30px;
 #signup-header  p { color: #444; font-size: 1.3em; margin: 0; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); text-shadow: none; }
 
 #signup .txt-fld { position: relative; width: 450px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
-#signup .btn-fld { width: 430px; overflow: hidden; padding: 12px 0px 12px 150px; }
+#signup .btn-fld { width: 430px; overflow: hidden; padding: 12px 0px 12px 150px; margin-left:-110px;}
 
 #signup .txt-fld label { display: block; float: left; width: 90px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
 #signup .txt-fld input { width: 244px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
