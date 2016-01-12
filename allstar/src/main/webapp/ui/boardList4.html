@@ -4,19 +4,17 @@
 <meta charset="UTF-8">
 <title>Allstar</title>
 
-<link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/common.css">
-<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+<link type="text/css" rel="stylesheet" href="css/main2.css" />
 
-<script type="text/javascript" src="js/jquery-1.5.min.js"></script>
+
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script src="js/superfish.js"></script>
-<script src="js/jquery.equalheights.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/jquery.ui.totop.js"></script>
 <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
 <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
 <script type="text/javascript" src="js/quicksand.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
+
+
 <script>
 jQuery(document).ready(function () {
     $().UItoTop({
@@ -24,120 +22,49 @@ jQuery(document).ready(function () {
     });
 });
 </script>
+
 <style>
 
-body {
-  background-image: url(images/s2.jpg);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
-
-.gallery {
-  width:100%;
-  opacity:0.7%;
-}
-.grid li ul p{
-  float:left;
-  color:white;
-  height:25px; 
-  font-size:19px; 
-  margin-top:20px;
-}
-
-ul.gallerynav {
-  text-decoration: none;
-  background-color: none;
-  width: 100%;
-  height: 30px;
-}
-
-ul.gallerynav li a {
-  color:white; 
-  font-size:20px; 
-  height:60%; 
-  margin-bottom:0px;
-  
-}
-
-ul.statusbar li {
-  float:left; 
-  margin-left:5%;
-}
 </style>
 </head>
 
-<div style="border:1px black solid; width:100%; height:100%;">
+<div style="border:1px black solid; width:100%;">
 <!-- /////////////////////////////header start//////////////////////-->
 
 
-<div style="border:1px black solid; width:100%; height:100px;"></div>
 
 
 <!--///////////////////////// header 끝 /////////////////////////////// -->
 <div style="opacity:0.6; color:black; text-align:center; background-color:white; border:1px black solid; width:80%; min-width:1024px; margin-top:2%; margin-left:10%;">
 <h1>종목 게시판</h1>
 </div>
-<div id="portfolio" style="border:1px black solid; width:75%; min-width:1024px;  margin-left:12.5%;">
-<ul class="gallerynav">
-<li class="selected-1"><a href="#" data-value="all">ALL<span></span></a></li>
-</ul>
-
-<div class="container_bList" style="text-align:center; border-bottom:1px solid white; background-color:black; opacity:0.7; margin-bottom:0%; width: 100%; min-width:1024px; height:51px; color:white;">   
-  <div class="grid_7" style="margin:5px 5px 10px 15px; width:75%; min-width:1024px; font-size:25px;">
+<div id="portfolio" >
+  <ul class="gallerynav">
+     <li class="selected-1"><a href="#" data-value="all">ALL<span></span></a></li>
+  </ul>
        <ul class="statusbar">
-          <li style="width:10%;"> 종목 </li> 
-          <li style="width:15%;"> 제목 </li>
-          <li style="width:15%;"> 작성자 </li>
-          <li style="width:10%;"> 조회수 </li>
-          <li style="width:20%;"> 등록일 </li>
+          <li><a>종목</a></li> 
+          <li><a>제목</a></li>
+          <li><a>작성자</a></li>
+          <li><a>조회수</a></li>
+          <li><a>등록일</a></li>
        </ul>
-   </div>
-</div>
-<ul id="gallery" class="grid">
+<ul class="grid">
 
 </ul>
 </div>
 
-<div class="clearfix"></div>
-<div class="push"></div>
 </div>
 
 
-<a href="#" id="toTop" style="margin-right: -529px; right: 50%; display: inline;"><span id="toTopHover" style="opacity: 1;"></span></a>
 
 
 <div style="border:1px black solid; width:100%; height:100px; "></div>
 <script type="text/javascript">
 
-$(document).ready(function () {
-    $("#gallery a[rel^='prettyPhoto']").prettyPhoto({
-        theme: 'light_square',
-        autoplay_slideshow: false
-    });
-    
-    $("ul.grid img").hide()
-    $("ul.grid img").each(function (i) {
-        $(this).delay(i * 200).fadeIn();
-    });
-});
-
 /* 리스트 출력 */
 $.getJSON('/allstar/board/ajax/list.do', function(resultObj){
-  var eventmenu = $("#eventmenu");
-  for (var event of resultObj.events) {
-      $("<li>" )
-          .html("<a href='#'>" + "* " + event.name + "</a>")
-          .appendTo(eventmenu);
-    }
 
-  var portul = $(".gallerynav");
-  for (var event of resultObj.events) {
-    $("<li>" )
-        .html("<a href='#' data-value='" + event.eno + "'>" + event.name + "<span></span></a>")
-        .appendTo(portul);
-  }
-  
-  
   var ul = $("#gallery");
   for (var board of resultObj.boards) {
     var content = board.content;
@@ -146,16 +73,9 @@ $.getJSON('/allstar/board/ajax/list.do', function(resultObj){
       content = content.substring(0,40).concat("...");
     }
     
-    $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "'style='text-align:center; border-bottom:1px solid white; background-color:black; opacity:0.7; margin-left:0%; margin-bottom:0%; width: 100%; min-width:1024px; height:51px;'>")
+    $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "'>")
     .html(
-    		  "<ul>" 
-          + "<p style='margin-left:5%; width:9%;'>" + board.event.name + "</p>"
-          + "<a href='#' class='detailLink' boardBno='" + board.no + "'>" 
-          + "<p style='margin-left:6.5%; width:14%;'>" + board.title + "</p></a>"
-          + "<p style='margin-left:7%; width:12%;'>" + board.member.name + "</p>"
-          + "<p style='margin-left:6%; width:10%;'>" + board.views + "</p>"
-          + "<p style='margin-left:55px; width:20%;'>" + board.createDate 
-          + "</p></ul></li></ul>")
+    		)
     .appendTo(ul);
     
   // 제목 링크에 클릭 이벤트 리스너를 등록한다.
@@ -164,180 +84,13 @@ $.getJSON('/allstar/board/ajax/list.do', function(resultObj){
   }
   
 
-  /************************************************************************/// /* SORTING *//************************************************************************/
-
-  (function($) {
-    $.fn.sorted = function(customOptions) {
-      var options = {
-        reversed: false,
-        by: function(a) {
-          return a.text();
-        }
-      };
-      $.extend(options, customOptions);
-    
-      $data = $(this);
-      arr = $data.get();
-      arr.sort(function(a, b) {
-        
-          var valA = options.by($(a));
-          var valB = options.by($(b));
-        if (options.reversed) {
-          return (valA < valB) ? 1 : (valA > valB) ? -1 : 0;        
-        } else {    
-          return (valA < valB) ? -1 : (valA > valB) ? 1 : 0;  
-        }
-      });
-      return $(arr);
-    };
-
-  })(jQuery);
-
-  $(function() {
-    
-    var read_button = function(class_names) {
-      var r = {
-        selected: false,
-        type: 0
-      };
-      for (var i=0; i < class_names.length; i++) {
-        if (class_names[i].indexOf('selected-') == 0) {
-          r.selected = true;
-        }
-        if (class_names[i].indexOf('segment-') == 0) {
-          r.segment = class_names[i].split('-')[1];
-        }
-      };
-      return r;
-    };
-    
-    var determine_sort = function($buttons) {
-      var $selected = $buttons.parent().filter('[class*="selected-"]');
-      return $selected.find('a').attr('data-value');
-    };
-    
-    var determine_kind = function($buttons) {
-      var $selected = $buttons.parent().filter('[class*="selected-"]');
-      return $selected.find('a').attr('data-value');
-    };
-    
-    var $preferences = {
-      duration: 800,
-      easing: 'easeInOutQuad',
-      adjustHeight: false
-    };
-    
-    var $list = $('#gallery');
-    var $data = $list.clone();
-    
-    var $controls = $('.gallerynav');
-    
-    $controls.each(function(i) {
-      
-      var $control = $(this);
-      var $buttons = $control.find('a');
-      
-      $buttons.bind('click', function(e) {
-        
-        var $button = $(this);
-        var $button_container = $button.parent();
-        var button_properties = read_button($button_container.attr('class').split(' '));      
-        var selected = button_properties.selected;
-        var button_segment = button_properties.segment;
-
-        if (!selected) {
-
-          $buttons.parent().removeClass('selected-1'); $button_container.addClass('selected-' + 1);
-          
-          var sorting_type = determine_sort($controls.eq(1).find('a'));
-          var sorting_kind = determine_kind($controls.eq(0).find('a'));
-          
-          if (sorting_kind == 'all') {
-            var $filtered_data = $data.find('li');
-          } else {
-            var $filtered_data = $data.find('li.' + sorting_kind);
-          }
-          
-          if (sorting_type == 'size') {
-            var $sorted_data = $filtered_data.sorted({
-              by: function(v) {
-                return parseFloat($(v).find('span').text());
-              }
-            });
-          } else {
-            var $sorted_data = $filtered_data.sorted({
-              by: function(v) {
-                return $(v).find('strong').text().toLowerCase();
-              }
-            });
-          }
-          
-          $list.quicksand($sorted_data, function() {
-      
-      $(document).ready(function(){
-        $("#gallery a[rel^='prettyPhoto']").prettyPhoto({theme:'light_square', autoplay_slideshow: false});
-      });
-      
-      $(function() {
-      // OPACITY OF BUTTON SET TO 50%
-      $("ul.grid img").css("opacity","1.0");
-          
-      // ON MOUSE OVER
-      $("ul.grid img").hover(function () {
-                            
-      // SET OPACITY TO 100%
-      $(this).stop().animate({
-      opacity: 0.5
-      }, "slow");
-      },
-          
-      // ON MOUSE OUT
-      function () {
-            
-      // SET OPACITY BACK TO 50%
-      $(this).stop().animate({
-      opacity: 1.0
-      }, "slow");
-      });
-      });
-                                  
-    $("a.zoom2 img").mouseover(function(){
-      $(this).stop(true,true);
-      $(this).fadeTo(300, 0.5);
-    });
-    
-    $("a.zoom2 img").mouseout(function(){
-      $(this).fadeTo(400, 1.0);
-    });
-    
-    
-    $("a.play2 img").mouseover(function(){
-      $(this).stop(true,true);
-      $(this).fadeTo(300, 0.5);
-    });
-    
-    $("a.play2 img").mouseout(function(){
-      $(this).fadeTo(400, 1.0);
-    });
-    
-      });
-  }  
-        e.preventDefault();
-      });
-      
-    }); 
-    
-  });
-  
-});
-
 //게시물 제목을 클릭했을 때 호출될 함수
 function clickDetailLnk(event) {
   event.preventDefault(); 
   location.href = "form.html?no=" + $(event.target).attr("boardBno");
 }
 
-
+});
 
 </script>
 </body>

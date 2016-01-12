@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link type="text/css" rel="stylesheet" href="css/main2.css" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+
+
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/superfish.js"></script>
+<script src="js/jquery.equalheights.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.ui.totop.js"></script>
+
+<script>
+
+
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });   
+});
+</script>
+</head>
+<body>
+<div id='top_header'>
+<header style="position:fixed; top: -20px;">
+<a href="#tournament_slider"><img src="images/allstar.png" ></a>
+<div class="auth">
+            <a style="margin-right:10px;color:white; "id="go" rel="leanModal"  name="signup" href="#signup">Login</a>     
+            <a style="margin-right:10px;color:white; " href="#">Sign In</a>
+            </div>
+            <div class="menu_bar" >
+<nav >
+          <ul class="sf-menu">
+            <li ><a href="#top_event_list">종목별 게시판</a>
+              <ul id="eventmenu">
+              </ul>
+            </li>
+            <li><a href="#tournament_cat">대회</a>
+            <ul>
+                <li><a href="#">농구</a></li>
+                <li><a href="#">축구</a></li>
+                <li><a href="#">야구</a></li>
+                <li><a href="#">배드민턴</a></li>
+              </ul>
+            </li>
+            <li><a href="#newest_team">팀</a>
+            <ul>
+                <li><a href="#">농구</a></li>
+                <li><a href="#">축구</a></li>
+                <li><a href="#">야구</a></li>
+                <li><a href="#">배드민턴</a></li>
+              </ul></li>
+            <li><a href="#">자유게시판</a></li>
+          </ul>
+        </nav>
+        </div>
+</header>
+</div>
+
+
+
+<!-- 로그인 폼 -->
+
+<div id="signup">
+      <div id="signup-ct">
+        <div id="signup-header">
+          <h2>로그인</h2>
+          <p>ID 와 비밀번호를 입력하세요.</p>
+          <a class="modal_close" href="#"></a>
+        </div>
+        
+        <form action="" method="POST">
+            <div id="loading"></div>
+          <div class="txt-fld">
+            <label for="id_input">Username</label>
+            <input id="id_input" class="good_input" name="username" type="text" />
+
+          </div>
+        
+          <div class="txt-fld">
+            <label for="pass_input">Password</label>
+            <input id="pass_input" name="password" type="text" />
+
+          </div>
+          <div class="btn-fld">
+          <button type="submit">로그인 &raquo;</button>
+</div>
+         </form>
+      </div>
+    </div>
+<!-- 로그인폼 끝 -->
+
+
+<script src="js/custom.js"></script>
+<script>
+$.getJSON('/allstar/board/ajax/list.do?pageSize=5', function(resultObj){
+    var eventmenu = $("#eventmenu");
+     for (var event of resultObj.events) {
+         $("<li>" )
+             .html("<a href='#'>" + event.name + "</a>")
+             .appendTo(eventmenu);
+       }
+});
+</script>
+</body>
+</html>
