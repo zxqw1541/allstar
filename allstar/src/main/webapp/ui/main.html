@@ -14,7 +14,81 @@
     <link rel="stylesheet" type="text/css" href="css/animate.css" />
 
 <style>
+/* 로그인 스타일! */
 
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+       #signup {
+
+     width: 500px;
+     padding-bottom: 2px;
+
+    display:none;
+
+
+    background: #FFF;
+        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+       
+}
+
+        #test {
+     width: 600px;
+padding: 30px; 
+    display:none;
+
+
+    background: #FFF;
+        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+       
+}
+
+#test p { color: #666; text-shadow: none; }
+
+#signup-header {  padding: 18px 18px 14px 18px; border-bottom: 1px solid #CCC; border-top-left-radius: 5px; -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; border-top-right-radius: 5px; -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px; }
+
+#signup-header  h2 { color: #444; font-size: 2em; font-weight: 700; margin-bottom: 3px; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); }
+#signup-header  p { color: #444; font-size: 1.3em; margin: 0; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); text-shadow: none; }
+
+#signup .txt-fld { position: relative; width: 450px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
+#signup .btn-fld { width: 430px; overflow: hidden; padding: 12px 0px 12px 150px; }
+
+#signup .txt-fld label { display: block; float: left; width: 90px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
+#signup .txt-fld input { width: 244px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
+#signup .txt-fld input.good_input { background: #DEF5E1 ; }
+#signup .txt-fld input.error_input { background: #FDE0E0; }
+
+
+
+p.error { position: absolute; bottom: 48px; right: 20px; width: 262px; color: #FFF; font-size: 1.1em; padding-bottom: 5px; background: url(../img/error-arw.png) 20px bottom no-repeat; text-align: left; margin: 0; text-shadow: none; }
+p.error span { display: inline-block; background: #D43636; padding: 6px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;  }
+.txt-fld input:focus, .txt-fld textarea:focus { background-color: #FAF9DC; }
+        
+button {
+  float: right;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  background: black; 
+  border: none;
+  width: auto;
+  overflow: visible;
+  font-size: 1.4em;
+  color: #FFF;
+ padding: 7px 10px;  border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; font-weight: bold; text-shadow: 0 1px 0 rgba(0,0,0,0.4);}
+        
+.modal_close { position: absolute; top: 12px; right: 12px; display: block; width: 14px; height: 14px; background: url(../img/modal_close.png); z-index: 2; }
+
+
+/* 로그인 스타일 끝 */
 body{
 background-color: #ddd;
 }
@@ -34,16 +108,15 @@ ul.grid:after {
   clear: both;
 }
 ul.grid li {
-width:715px;
+width:690px;
 height: 105px; 
 background-color: white; 
 margin-left:0px;
-  margin-bottom: 20px;
   float: left;
   overflow: hidden;
  -moz-box-shadow: 0px 1px 2px #8e8e8e;
   -webkit-box-shadow: 0px 1px 2px #8e8e8e;
-  box-shadow: 1px 1px 10px #8e8e8e;
+  border-bottom:0.1px black solid;
 }
 ul.grid li a {
   outline:0;
@@ -100,23 +173,26 @@ padding-top:10px;
 }
 .popular {
 width:300px;
- height:500;
+ /* height:500; */
 }
 .popular li {
+border-bottom: 0.1px black solid;
 width:300px; 
 height: 50px; 
 margin-left:0px; 
 margin-bottom:0px; 
-padding-top:12px;
+ padding-top:12px; 
 text-align:center;
 background-color:white;
-  box-shadow: 1px 1px 10px #8e8e8e;
+/*   box-shadow: 1px 1px 10px #8e8e8e; */
 }
 .popular li:hover {
 background-color:lightgray;
 }
 .popular img {
 padding-bottom:5px;
+padding-left:10px;
+}
 .popular li a {
 
 }
@@ -127,8 +203,11 @@ padding-bottom:5px;
 
 </style>
 <script src="js/com_func.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="js/jquery-2.2.0.js"></script>
+
 <script src="js/jquery-1.5.min.js"></script>
+
+<script src="js/jquery.leanModal.min.js"></script>
 <script src="js/modernizr.min.js"></script>
 <script src="js/superfish.js"></script>
 <script src="js/jquery.equalheights.js"></script>
@@ -149,8 +228,12 @@ jQuery(document).ready(function () {
 });
 
 
-
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });   
+});
 </script>
+
+
 
 
 </head>
@@ -163,12 +246,12 @@ jQuery(document).ready(function () {
 
 
 <header>
-  <div class="container_12">
+  <div class="container_12" style="padding-top:10px;">
     <div class="grid_12">
         <a href="main.html"><img src="images/allstar.png" width="200px" style="float:left"></a>
       <div class="menu_block">
           <div style="color:white;text-align:right;display:block">
-            <a href="#" style="padding-right:15px">Login</a>     
+            <a style="padding-right:15px" id="go" rel="leanModal" name="signup" href="#signup">Login</a>     
             <a href="#">Sign In</a>
           </div>
         <nav>
@@ -337,7 +420,7 @@ jQuery(document).ready(function () {
 
     </div><!-- /container -->
     
-    <div style="height:700px; max-width:1024px; position:relative; margin : auto; ">
+    <div style="height:700px; max-width:1100px; position:relative; margin : auto; ">
     
     
     
@@ -357,7 +440,7 @@ jQuery(document).ready(function () {
         <li class="selected-1" ><a href="#" data-value="all">All<span></span></a></li>
       </ul>
       
-      <ul id="gallery" class="grid" style="width:720px; height: 600px; overflow:scroll;">
+      <ul id="gallery" class="grid" style="width:720px; height: 600px; overflow:auto;">
         <!-- Begin Image 1 -->
 
         
@@ -374,7 +457,7 @@ jQuery(document).ready(function () {
     </div>
     </div>
     <!-- right division -->
-     <div style="height:700px; width :300px; float: right; ">
+     <div style="height:700px; width :299px; float: right; margin-left:10px; ">
         
     
     <div >
@@ -383,25 +466,24 @@ jQuery(document).ready(function () {
         <div><a style="color:white;">인기 게시물</a></div> 
       </ul>
       <ul  class="popular" >
-      <br>
         <li  >
         <img src="../ui/images/num1.png" style="float:left;"/><a href="#">1위 게시물</a>
-        </li><br>
+        </li>
         <li >
         <img src="../ui/images/num2.png" style="float:left;"/><a href="#">2위 게시물</a>
-        </li><br>
+        </li>
         <li >
         <img src="../ui/images/num3.png" style="float:left;"/><a href="#">3위 게시물</a>
-        </li><br>
+        </li>
         <li >
         <img src="../ui/images/num4.png" style="float:left;"/><a href="#">4위 게시물</a>
-        </li><br>
+        </li>
         <li >
         <img src="../ui/images/num5.png" style="float:left;"/><a href="#">5위 게시물</a>
-        </li><br>
+        </li>
         <li >
         <img src="../ui/images/num6.png" style="float:left;"/><a href="#">6위 게시물</a>
-        </li><br>
+        </li>
         </ul>
       </div>
      
@@ -440,7 +522,7 @@ jQuery(document).ready(function () {
 
 
 <footer>
-  <div class="container_12" >
+  <div class="container_12" style="padding-top:20px;">
     <div class="grid_12" >
         <img src="images/AllStarfoot.png" width="200px" style="float:left">
       <div class="menu_block" style="color:white;"><br>
@@ -455,6 +537,39 @@ jQuery(document).ready(function () {
     </div>
   </div>
 </footer> 
+
+<!-- 로그인 폼 -->
+
+<div id="signup">
+      <div id="signup-ct">
+        <div id="signup-header">
+          <h2>로그인</h2>
+          <p>로그인</p>
+          <a class="modal_close" href="#"></a>
+        </div>
+        
+        <form action="">
+     
+          <div class="txt-fld">
+            <label for="">Username</label>
+            <input id="" class="good_input" name="" type="text" />
+
+          </div>
+        
+          <div class="txt-fld">
+            <label for="">Password</label>
+            <input id="" name="" type="text" />
+
+          </div>
+          <div class="btn-fld">
+          <button type="submit">로그인 &raquo;</button>
+</div>
+         </form>
+      </div>
+    </div>
+<!-- 로그인폼 끝 -->
+
+
 
 <script type="text/javascript">
 
@@ -495,7 +610,7 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=5', function(resultObj){
 	    $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='background-color:white;width:706;'>")
 	    .html(
 	        "<a>"
-	        + "<div style='width:705px;'>"
+	        + "<div style='width:670px; margin-top:5px;'>"
 	          + "<a href='#' class='detailLink' boardBno='" + board.no + "'' >"
 	          + "<h3 style='float:left; padding-right:30px;'>"+board.title+"</h3>" + "by " + board.member.name 
 	          + "</a><br>" + "<img style='float:right; width:180px;'  src='images/AllStarfoot.png' >"

@@ -5,64 +5,64 @@
 NodeList.prototype.forEach = function (callback) {
   Array.prototype.forEach.call(this, callback);
 }
-
-// -------------------- //
-// Function definitions //
-// -------------------- //
-
-function deactivateSelect(select) {
-  if (!select.classList.contains('active')) return;
-
-  var optList = select.querySelector('.optList');
-
-  optList.classList.add('hidden');
-  select.classList.remove('active');
-}
-
-function activeSelect(select, selectList) {
-  if (select.classList.contains('active')) return;
-
-  selectList.forEach(deactivateSelect);
-  select.classList.add('active');
-};
-
-function toggleOptList(select, show) {
-  var optList = select.querySelector('.optList');
-
-  optList.classList.toggle('hidden');
-}
-
-function highlightOption(select, option) {
-  var optionList = select.querySelectorAll('.option');
-
-  optionList.forEach(function (other) {
-    other.classList.remove('highlight');
-  });
-
-  option.classList.add('highlight');
-};
-
-function updateValue(select, index) {
-  var nativeWidget = select.previousElementSibling;
-  var value = select.querySelector('.value');
-  var optionList = select.querySelectorAll('.option');
-
-  optionList.forEach(function (other) {
-    other.setAttribute('aria-selected', 'false');
-  });
-
-  optionList[index].setAttribute('aria-selected', 'true');
-
-  nativeWidget.selectedIndex = index;
-  value.innerHTML = optionList[index].innerHTML;
-  highlightOption(select, optionList[index]);
-};
-
-function getIndex(select) {
-  var nativeWidget = select.previousElementSibling;
-
-  return nativeWidget.selectedIndex;
-};
+//
+//// -------------------- //
+//// Function definitions //
+//// -------------------- //
+//
+//function deactivateSelect(select) {
+//  if (!select.classList.contains('active')) return;
+//
+//  var optList = select.querySelector('.optList');
+//
+//  optList.classList.add('hidden');
+//  select.classList.remove('active');
+//}
+//
+//function activeSelect(select, selectList) {
+//  if (select.classList.contains('active')) return;
+//
+//  selectList.forEach(deactivateSelect);
+//  select.classList.add('active');
+//};
+//
+//function toggleOptList(select, show) {
+//  var optList = select.querySelector('.optList');
+//
+//  optList.classList.toggle('hidden');
+//}
+//
+//function highlightOption(select, option) {
+//  var optionList = select.querySelectorAll('.option');
+//
+//  optionList.forEach(function (other) {
+//    other.classList.remove('highlight');
+//  });
+//
+//  option.classList.add('highlight');
+//};
+//
+//function updateValue(select, index) {
+//  var nativeWidget = select.previousElementSibling;
+//  var value = select.querySelector('.value');
+//  var optionList = select.querySelectorAll('.option');
+//
+//  optionList.forEach(function (other) {
+//    other.setAttribute('aria-selected', 'false');
+//  });
+//
+//  optionList[index].setAttribute('aria-selected', 'true');
+//
+//  nativeWidget.selectedIndex = index;
+//  value.innerHTML = optionList[index].innerHTML;
+//  highlightOption(select, optionList[index]);
+//};
+//
+//function getIndex(select) {
+//  var nativeWidget = select.previousElementSibling;
+//
+//  return nativeWidget.selectedIndex;
+//};
 
 // ------------- //
 // Event binding //

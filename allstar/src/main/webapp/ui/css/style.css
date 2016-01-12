@@ -95,13 +95,13 @@ html, body {
 	height: 100%;
 }
 #container {
+	min-width:1030px;
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
-	margin: 0 auto -145px; /* the bottom margin is the negative value of the footer's height */
+	margin: 0 auto -145px; 
 }
 #footer-wrapper, .push {
-	height: 145px; /* .push must be the same height as .footer */
 }
 p {
 	line-height: 20px;
@@ -633,7 +633,7 @@ em {
 #wrapper ul.grid {
 	width: 985px;
 	overflow: hidden;
-	margin:0 auto;
+	/* margin:0 auto; */
 	margin-left:0px;
 	padding: 0;
 }
@@ -648,7 +648,6 @@ ul.grid li {
 	width: 400px;
 	margin: 0;
 	margin-left: 50px;
-	margin-bottom: 20px;
 	float: left;
 	overflow: hidden;
 	
