@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Allstar</title>
+
+<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+
+<script type="text/javascript" src="js/jquery-1.5.min.js"></script>
+<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+
+<style>
+body {
+  background-image: url(images/s2.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.btable1 td{
+  padding-left:10px;
+  padding-bottom:20px;
+  font-size:20px;
+  font-weight:600px;
+  color:white;
+  text-align:center;
+  padding:10px;
+}
+.btable1 {
+  border-bottom:1px white solid;
+     
+}
+
+.btable1 a{
+  text-decoration: none;
+  color: white;
+}
+.table {
+  width:100%;
+  border-collapse:collapse;
+  background-color: black;
+  opacity: 0.6;
+}
+.table th{
+  padding:15px;
+  font-size:25px;
+  font-weight:900px;
+  
+  color:white;
+  
+  border-bottom:1px white solid;
+  
+}
+
+</style>
+</head>
+<div style="border:1px black solid; width:100%; height:100%;">
+
+<div style="border:1px black solid; width:100%; height:100px;"></div>
+<div style="opacity:0.6; color:white; text-align:center; background-color:red; border:1px black solid; width:80%;  margin-top:2%; margin-left:10%;">
+<h1>종목 게시판</h1>
+</div>
+<div id="portfolio" style="border:1px black solid; width:75%; height:60px; margin-left:12.5%;">
+<ul class="gallerynav">
+<li class="selected-1"><a href="#" data-value="all" style="text-decoration:none; color:white; font-size: 25px;">ALL<span></span></a></li>
+</ul>
+</div>
+<div style="border:1px black solid; width:75%; height:900px; margin-left:12.5%;">
+<table id="btable" class="table">
+<tr>
+  <th>종목</th>
+  <th>제목</th>
+  <th>작성자</th>
+  <th>조회수</th>
+  <th>작성일</th>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+<div style="border:1px black solid; width:100%; height:100px;"></div>
+</div>
+<script>
+$.getJSON('/allstar/board/ajax/list.do', function(resultObj) {
+	
+	var portul = $(".gallerynav");
+	  for (var event of resultObj.events) {
+	    $("<li>" )
+	        .html("<a href='#' data-value='" + event.eno + "'>" + event.name + "<span></span></a>")
+	        .appendTo(portul);
+	  }
+	  
+	var table = $("#btable");
+  for (var board of resultObj.boards) {
+	  $("<tr class='btable1'>")
+      .html("<td>" + board.event.name +
+            "<td><a class='detailLnk' href='#' boardBno='" 
+                + board.no + "'>" + board.title+ 
+            "</a></td><td>" + board.member.name +
+            "</td><td>" + board.views +
+            "</td><td>" + board.createDate + "</td>")
+      .appendTo(table);
+  }
+  // 제목 링크에 클릭 이벤트 리스너를 등록한다.
+  $("a.detailLnk").click(clickDetailLnk);
+});
+
+
+$('#newBtn').click(function(event){
+  location.href = "form.html?bno=-1";
+});
+
+
+// 게시물 제목을 클릭했을 때 호출될 함수
+function clickDetailLnk(event) {
+  event.preventDefault(); 
+  location.href = "form.html?no=" + $(event.target).attr("boardTitle");
+}
+
+</script>
+</body>
+</html>
