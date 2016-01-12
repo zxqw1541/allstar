@@ -32,11 +32,31 @@ body {
   background-size: 100% 100%;
 }
 
+.gallery {
+  width:100%;
+  opacity:0.7%;
+}
+.grid li ul p{
+  float:left;
+  color:white;
+  height:25px; 
+  font-size:19px; 
+  margin-top:20px;
+}
+
 ul.gallerynav {
   text-decoration: none;
   background-color: none;
   width: 100%;
   height: 30px;
+}
+
+ul.gallerynav li a {
+  color:white; 
+  font-size:20px; 
+  height:60%; 
+  margin-bottom:0px;
+  
 }
 
 ul.statusbar li {
@@ -57,12 +77,13 @@ ul.statusbar li {
 <div style="opacity:0.6; color:black; text-align:center; background-color:white; border:1px black solid; width:80%; min-width:1024px; margin-top:2%; margin-left:10%;">
 <h1>종목 게시판</h1>
 </div>
-<div id="portfolio" style="border:1px black solid; width:75%; min-width:1024px; height:60px; margin-left:12.5%;">
+<div id="portfolio" style="border:1px black solid; width:75%; min-width:1024px;  margin-left:12.5%;">
 <ul class="gallerynav">
-<li class="selected-1"><a href="#" data-value="all" style="color:white;">ALL<span></span></a></li>
+<li class="selected-1"><a href="#" data-value="all">ALL<span></span></a></li>
 </ul>
-<div class="container_bList" style="text-align:center; width:80%; min-width:1024px; height:70px; border-bottom:1px white solid; color: white; margin-left:7%; margin-bottom:0%; background-color: black; opacity:0.7;">
-   <div class="grid_7" style="margin:5px 5px 10px 15px; width:100%; min-width:1024px; font-size:25px;">
+
+<div class="container_bList" style="text-align:center; border-bottom:1px solid white; background-color:black; opacity:0.7; margin-bottom:0%; width: 100%; min-width:1024px; height:51px; color:white;">   
+  <div class="grid_7" style="margin:5px 5px 10px 15px; width:75%; min-width:1024px; font-size:25px;">
        <ul class="statusbar">
           <li style="width:10%;"> 종목 </li> 
           <li style="width:15%;"> 제목 </li>
@@ -76,10 +97,10 @@ ul.statusbar li {
 
 </ul>
 </div>
-</div>
+
 <div class="clearfix"></div>
 <div class="push"></div>
-
+</div>
 
 
 <a href="#" id="toTop" style="margin-right: -529px; right: 50%; display: inline;"><span id="toTopHover" style="opacity: 1;"></span></a>
@@ -112,7 +133,7 @@ $.getJSON('/allstar/board/ajax/list.do', function(resultObj){
   var portul = $(".gallerynav");
   for (var event of resultObj.events) {
     $("<li>" )
-        .html("<a href='#' style='color:white;' style='font-size:30px; height:60%; margin-bottom:0px;' data-value='" + event.eno + "'>" + event.name + "<span></span></a>")
+        .html("<a href='#' data-value='" + event.eno + "'>" + event.name + "<span></span></a>")
         .appendTo(portul);
   }
   
@@ -125,14 +146,16 @@ $.getJSON('/allstar/board/ajax/list.do', function(resultObj){
       content = content.substring(0,40).concat("...");
     }
     
-    $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='text-align:center; border-bottom:1px solid white; background-color:black; opacity:0.7; margin-left: 7%; margin-bottom:0%; width: 80%; min-width:1024px; height:51px;'>")
+    $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "'style='text-align:center; border-bottom:1px solid white; background-color:black; opacity:0.7; margin-left:0%; margin-bottom:0%; width: 100%; min-width:1024px; height:51px;'>")
     .html(
-    		  "<ul class='gallerynav' style=' margin-bottom:10px;'>" 
-          + "<li style='color:white; margin-left:5%; width:9%; height:25px; font-size:19px;'>" + board.event.name + "</li>"
-          + "<a href='#' class='detailLink' boardBno='" + board.no + "'>" + "<li style='color:white; font-size:19px; margin-left:6.5%; width:14%; height:25px;'>" + board.title + "</li>"
-          + "</a>" + "<li style='font-size:19px; color:white; margin-left:7%; width:12%; height:25px;'>" + board.member.name + "</li>"
-          + "<li style='font-size:19px; color:white; margin-left:6%; width:10%; height:25px;'>" + board.views + "</li>" + "<li style='font-size:19px; color:white; margin-left:55px; width:20%; height:25px;'>" + board.createDate + "</li>" + "</ul>"
-          + "</li></ul>")
+    		  "<ul>" 
+          + "<p style='margin-left:5%; width:9%;'>" + board.event.name + "</p>"
+          + "<a href='#' class='detailLink' boardBno='" + board.no + "'>" 
+          + "<p style='margin-left:6.5%; width:14%;'>" + board.title + "</p></a>"
+          + "<p style='margin-left:7%; width:12%;'>" + board.member.name + "</p>"
+          + "<p style='margin-left:6%; width:10%;'>" + board.views + "</p>"
+          + "<p style='margin-left:55px; width:20%;'>" + board.createDate 
+          + "</p></ul></li></ul>")
     .appendTo(ul);
     
   // 제목 링크에 클릭 이벤트 리스너를 등록한다.
