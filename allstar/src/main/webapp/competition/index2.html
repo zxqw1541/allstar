@@ -6,42 +6,120 @@
 
 </head>
 <body>
-<a href="detail2.html">상세상세상세</a>
+<div style="border:1px black solid; width:100%; height:50px;">
+  <p><a href="#" class="trigger">트리거</a></p>
+</div>
+
+<div class="container">
+  <div class="comp_list">
+    <ul>
+      <li>
+        <div class="comp_list_container">
+          <div class="comp_list_title">
+            <h1>타이틀이야</h1>
+          </div>
+          <div class="comp_list_content">
+            <div class="comp_list_rsdt">
+              12/10/10 ~ 12/12/12
+            </div>
+            <div class="comp_list_addr">
+            경기도 안양시 동안구 달안로 61
+            sdfglkjsdflkgjsdklfgjsdlkfjglsdkfjg
+            dsflkg;jsdfklgjklsdfjgklfds
+            
+            </div>
+            <div class="comp_list_sdt">
+              12/12/13 ~ 12/12/20
+            </div>
+
+            
+          </div>
+        </div>
+
+        <div class="comp_list_btndiv">
+          <div class="comp_list_btn">버튼이다</div>
+        </div>
+      </li>
+      <li>
+        내용2
+      </li>
+      <li>
+        내용3
+      </li>
+    </ul>
+  </div>
+</div>
+  
 
 
-<p><a href="#" class="trigger">트리거</a></p>
-
-
+<div style="border:1px black solid; width:100%; height:50px;">
+</div>
 
 
 <div id="overlay_t"></div>
 <!-- 팝업내용 --> 
-<div id="popup_layer" class="popup">
+<div id="popup_layer_left" class="popup">
   <div class="popup_left">
-      <div class="div_title">제목입니다 by 이승렬1234</div>
-      <div class="div_state">모집중</div> 
-  </div>
-  <div class="popup_right">
+      <div class="div_title"><h1>왼쪽이2 - 제목입니다.</h1></div>
+      <div class="div_state">모집중</div>
+      <div class="div_left_detail">
+          모집기간 : 2222. 22. 22 ~ 2222. 22. 22<br>
+          대회시작일 : 2222. 22. 22
+      </div>
+      <div class="div_left_mainImg">
+          <img src="img/soc1.jpg">
+      </div>
       <div>
-          오른쪽이
+        <h2>대진표</h2>
+      </div>
+      <div class="div_left_tournament">
+        <img src="img/tournament.png">
+      </div>
+      <div>
+        <h2>장소</h2>
+      </div>
+      <div class="div_left_map">
+        <iframe src="https://www.google.com/maps/d/embed?mid=zouJJd1kxH7U.kb2sjmzfDunA" width="750px" height="600px" ></iframe>
       </div>
   </div>
 </div>
 
-
+<!-- 오른쪽 오버레이 -->
+  <div id="popup_layer_right" class="popup">
+      <div class="popup_right_title">
+          <h1>참여정보</h1>
+          (0/36)
+      </div>
+      <div class="popup_right_teamThumb">
+      </div>
+      <div class="popup_right_teamName">
+      </div>
+      <div class="popup_right_joinbtn">
+        <a href='#'>참여하기</a>
+      </div>
+  </div>
 
 <script type="text/javascript" src="../lib/jquery/jquery.js"></script>
 <script>
 /* 오버레이 */
 $(document).ready(function() { 
-    $('.trigger').click(function(){ 
-     $('#popup_layer, #overlay_t').fadeIn();
- }); 
- $('#overlay_t, .close').click(function(e){ 
-     e.preventDefault(); 
-     $('#popup_layer, #overlay_t').fadeOut();
- }); 
+  $('.trigger').click(function(){ 
+    $('#popup_layer_left, #overlay_t , #popup_layer_right').fadeIn();
+    $('body').css('overflow', 'hidden');
+  }); 
+  $('#overlay_t, .close').click(function(e){ 
+    e.preventDefault(); 
+    $('#popup_layer_left, #overlay_t , #popup_layer_right').fadeOut();
+    $('body').css('overflow', 'auto');
+  }); 
 });
+
+$('#popup_layer').ready(function() {
+  console.log($('#popup_layer').css('display'));
+  if($('.popup_right').val('display') != 'none') {
+    $('.div_right').animate({top:'15%'});
+  };
+})
 
 
 </script>
