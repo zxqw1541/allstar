@@ -1,43 +1,56 @@
-<!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Team List</title>
-<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css">
-<link rel="stylesheet" href="../css/common.css">
-<link href="css/style.css" rel='stylesheet' type='text/css' />
+<title></title>
+<link type="text/css" rel="stylesheet" href="css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
 
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/x-icon" href="images/fav-icon.png" />
-<script type="application/x-javascript">
-   addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
-</script>
 <!----webfonts---->
 <link
   href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
   rel='stylesheet' type='text/css'>
 <!----//webfonts---->
-<!-- Global CSS for the page and tiles -->
-<script src="../lib/jquery/jquery.min.js"></script>
-<link rel="stylesheet" href="css/main.css">
-<!-- //Global CSS for the page and tiles -->
+<link rel="stylesheet" href="../team/css/main.css">
+
+
+
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/superfish.js"></script>
+<script src="js/jquery.equalheights.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.ui.totop.js"></script>
+
+<script> 
+$(function(){
+  $("#header").load("header.html"); 
+  $("#footer").load("footer.html"); 
+});
+</script> 
 </head>
 <body>
-  <!---start-content---->
-  <div class="content">
-    <div class="wrap">
-      <div id="main" role="main">
-        <ul id="tiles">
-          <!-- These are our grid blocks -->
-          <!-- End of grid blocks -->
-        </ul>
-      </div>
+<div id="header"></div>
+
+<!---start-content---->
+<div class="content">
+  <div class="wrap">
+    <div id="main" role="main">
+      <ul id="tiles">
+        <!-- These are our grid blocks -->
+        <!-- End of grid blocks -->
+      </ul>
     </div>
   </div>
+</div>
+<div id="footer"></div>
   <!---//End-content---->
   <!----wookmark-scripts---->
-  <script src="js/jquery.imagesloaded.js"></script>
-  <script src="js/jquery.wookmark.js"></script>
+  <script src="../team/js/jquery.imagesloaded.js"></script>
+  <script src="../team/js/jquery.wookmark.js"></script>
   <script type="text/javascript">
         (function ($){
           var $tiles = $('#tiles'),
@@ -53,8 +66,8 @@
               },
               pageNo = 2;
               listSize = 0;
-              $.getJSON('ajax/all.do', function(resultObj) {
-            	  listSize = resultObj.size;
+              $.getJSON('../team/ajax/all.do', function(resultObj) {
+                listSize = resultObj.size;
               });
               
               
@@ -62,7 +75,7 @@
            * Reinitializes the wookmark handler after all images have loaded
            */
           function applyLayout() {
-        	  
+            
             $tiles.imagesLoaded(function() {
               // Destroy the old handler
               if ($handler.wookmarkInstance) {
@@ -79,41 +92,38 @@
            * When scrolled all the way to the bottom, add more tiles
            */
            function onScroll() {
-        	   if (listSize >= $('li', $tiles).length) {
-        		   console.log("listSize = " + listSize);
+             if (listSize >= $('li', $tiles).length) {
                // Check if we're within 100 pixels of the bottom edge of the broser window.
                var winHeight = window.innerHeight ? window.innerHeight : $window.height(), // iphone fix
-                   closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
+                   closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 200);
        
                if (closeToBottom) {
-            	   
+                 
                  // Get the first then items from the grid, clone them, and add them to the bottom of the grid
 
                  
-                 $.getJSON('ajax/list.do?pageNo=' + pageNo, function(resultObj) {
-                	   console.log(resultObj.teams.length);
-                	   if (resultObj.teams.length != 0) {
-                		     pageNo++;
-                		     console.log('pageNo = ' + pageNo);
-		                     var tiles = $("#tiles");
-		                     for (var team of resultObj.teams) {
-		                       $( "<li>" )
-		                       .html("<img src='' width='282'>" + 
-		                             "<div class='post-info'>" + 
-		                               "<div class='post-basic-info'>" + 
-		                                   "<h3><a href='#'>" + team.name + "</a></h3><span>" +
-		                                 "<a href='#'>" + "<label></label>" + "by 팀장명" + "</a></span>" +
-		                                 "<p>" + team.event.name + "</p>" + 
-		                                 "<p>" + team.joinNum + " / " + team.totalNum +
-		                                 "</p></div>" + 
-		                               "<div class='post-info-rate-share'>" + 
-		                                 "<div class='rateit'><span></span></div>" +
-		                                 "<div class='post-share'>" + 
-		                                   "<span></span></div>" + 
-		                                 "<div class='clear'></div></div></div>")
-		                       .appendTo(tiles);
-		                     }
-                		   }
+                 $.getJSON('../team/ajax/list.do?pageNo=' + pageNo, function(resultObj) {
+                     if (resultObj.teams.length != 0) {
+                         pageNo++;
+                         var tiles = $("#tiles");
+                         for (var team of resultObj.teams) {
+                           $( "<li>" )
+                           .html("<img src='' width='282'>" + 
+                                 "<div class='post-info'>" + 
+                                   "<div class='post-basic-info'>" + 
+                                       "<h3><a href='#'>" + team.name + "</a></h3><span>" +
+                                     "<a href='#'>" + "<label></label>" + "by 팀장명" + "</a></span>" +
+                                     "<p>" + team.event.name + "</p>" + 
+                                     "<p>" + team.joinNum + " / " + team.totalNum +
+                                     "</p></div>" + 
+                                   "<div class='post-info-rate-share'>" + 
+                                     "<div class='rateit'><span></span></div>" +
+                                     "<div class='post-share'>" + 
+                                       "<span></span></div>" + 
+                                     "<div class='clear'></div></div></div>")
+                           .appendTo(tiles);
+                         }
+                       }
                  });
                  
                  //$tiles.append($firstTen.clone());
@@ -121,7 +131,7 @@
                  applyLayout();
                  
                }
-        	   }
+             }
            };
             
           // Call the layout function for the first time
@@ -136,7 +146,7 @@
   <!----//wookmark-scripts---->
 
   <script>
-  $.getJSON('ajax/list.do', function(resultObj) {
+  $.getJSON('../team/ajax/list.do', function(resultObj) {
       var tiles = $("#tiles");
       for (var team of resultObj.teams) {
         $( "<li>" )
@@ -170,5 +180,7 @@
     }
   
   </script>
+
+
 </body>
 </html>
