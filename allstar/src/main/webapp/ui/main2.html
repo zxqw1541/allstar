@@ -312,11 +312,11 @@ $(document).ready( function() {
          console.log("login?");
         $.post('../auth/ajax/login.do', {
           id : $('#id_input').val(),
-          password : $('#pass_input').val(),
+          password : $('#pass_input').val()
         }, function(resultObj) {
           var ajaxResult = resultObj.ajaxResult;
           if (ajaxResult.status == "success") {
-            emailSession = ajaxResult.data.email;
+            emailSession = ajaxResult.data.id;
             $.session.set('loginSession',emailSession);
             location.href = "/allstar/ui/boardList10.html";
             console.log("success");
