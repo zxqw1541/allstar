@@ -54,7 +54,7 @@ $(function(){
 
 
         <div class="listHeader clearFix">
-          <h2 class="snbTitSub tit">자유 게시판</h2>
+          <h2 class="snbTitSub tit">종목별 게시판</h2>
           <div class="sort">
             <ul class="list">
               <li><a href="#"  class='on'>최신순</a></li>
@@ -135,16 +135,7 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=7', function(resultObj) {
   var table = $("#boardtable");
   for (var board of resultObj.boards) {
     $("<tr>")
-/*       .html("<td>" + board.no + 
-            "</td><td><a class='detailLnk' href='#' boardBno='" 
-                + board.no + "'>" + board.title + 
-            "</a></td><td>" + board.event.name +
-            "</td><td>" + board.member.name +
-            "</td><td>" + board.content +
-            "</td><td>" + board.createDate +
-            "</td><td>" + board.views + "</td>")
-      .appendTo(table); */
-    .html("<td class='num'>"+ board.no +"</td>"
+    .html("<td class='num'>"+ board.event.name +"</td>"
     		  + "<td class='subject'>"
     		  + "<a href='#' class='detailLnk' boardBno="+board.no+">"
     		  +  "<strong>"+ board.title  
@@ -156,7 +147,7 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=7', function(resultObj) {
     		  + "</td>"
     		  +"<td class='author'>"
     		  +"<p class='img'>"
-    		  +"<img src='http://s.nx.com/s2/game/tos/obt/common/1006.png' alt='클래스 마크' />"
+    		  +"<img src='"+ board.member.photo + "' alt='프로필사진' />" 
     		  +"</p>"
     		  +"<a href='#' onclick='window.open('/barrack/guest.aspx?n8NexonSN=973206215&n8CharacterSN=24146306139339', 'barrack', 'width=1200. height=665, scrollbars=no');'>"
     		  +"<div class='contents'>"
@@ -167,7 +158,8 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=7', function(resultObj) {
     		  +"<p class='lvs'>"
     		  +"<span class='lv'>"+12312321+"</span>"
     		  +"<span class='server'>"+라이마+"</span>"
-    		  +"</p>" */
+    		  +"</p>" 
+*/
     		  +"</div>"
     		  +"</a>"
     		  +"</td>"

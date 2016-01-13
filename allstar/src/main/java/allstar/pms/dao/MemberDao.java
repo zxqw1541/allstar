@@ -18,6 +18,8 @@ public interface MemberDao {
   Member selectOne(int mno);
 
   Member selectOneByIdPassword (Map<String,Object> paramMap);
+  
+  Member login(Map<String,Object> paramMap);
 }
 
 
