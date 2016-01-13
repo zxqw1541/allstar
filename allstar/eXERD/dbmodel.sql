@@ -517,6 +517,26 @@ values (4,'팀19',10,100000,'팀소개14','12345','기본주소7');
 insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
 values (4,'팀20',10,100000,'팀소개14','12345','기본주소7');
 insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (3,'팀21',10,100000,'팀소개11','12345','기본주소4');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (4,'팀22',10,100000,'팀소개12','12345','기본주소5');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (4,'팀23',10,100000,'팀소개13','12345','기본주소6');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (4,'팀24',10,100000,'팀소개14','12345','기본주소7');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (3,'팀25',10,100000,'팀소개10','12345','기본주소3');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (3,'팀26',10,100000,'팀소개11','12345','기본주소4');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (4,'팀27',10,100000,'팀소개12','12345','기본주소5');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (4,'팀28',10,100000,'팀소개13','12345','기본주소6');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (4,'팀29',10,100000,'팀소개14','12345','기본주소7');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
+values (4,'팀30',10,100000,'팀소개14','12345','기본주소7');
+insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
 values (3,'팀31',10,100000,'팀소개11','12345','기본주소4');
 insert team(eno, name, total_num, fee, introduce, pst_no,bas_addr)
 values (4,'팀32',10,100000,'팀소개12','12345','기본주소5');
