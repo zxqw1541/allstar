@@ -1,16 +1,27 @@
-@charset "UTF-8";
+@CHARSET "UTF-8";
+
+
+li {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
 
 /*--------------------*/
 /* header & footer */
 /*--------------------*/
+
+
+
 #top_header {
-	background-color:black;
-	opacity:0.8; 
-	 z-index:10; 
-	 position:fixed; 
-	 min-width:1024px;  
-	 width:100%;
-	 height:100px; 
+  background-color:black;
+  opacity:0.8; 
+   z-index:10; 
+   position:fixed; 
+   min-width:1024px;  
+   width:100%;
+   height:100px; 
 }
 
 header {
@@ -19,30 +30,30 @@ height:100px;
 margin-left:auto;
 margin-right:auto; 
 margin-bottom:15px;
-
+margin-top:15px;
 position:relative;
 
 }
 
 header img {
-	height:80%;
-	margin-left:15px; 
-	margin-top:10px;
+  height:80%;
+  margin-left:15px; 
+  margin-top:10px;
 }
 .menu_bar {
-	padding:30px; 
-	float:right;
+  padding:30px; 
+  float:right;
 }
 .auth {
-	padding:10px; 
-	float:right;
+  padding:10px; 
+  float:right;
 }
 
 .auth a {
-	text-decoration: none;
+  text-decoration: none;
 }
 .auth a:hover{
-	color:#333;
+  color:#333;
   text-decoration: none;
 }
 
@@ -60,7 +71,7 @@ nav{}
 }
 
 .sf-menu>li+li {
-	text-decoration: none;
+  text-decoration: none;
   margin-left: 49px;
 }
 
@@ -79,7 +90,7 @@ nav{}
 
 
 .sf-menu>li:first-child {
-	text-decoration: none;
+  text-decoration: none;
   margin-left: 0px;
 }
 
@@ -108,7 +119,7 @@ nav{}
 
 /*================================>> 2 Level <<========================================*/
 .sf-menu li ul,.sf-menu li.sfHover>ul{
-	list-style:none;
+  list-style:none;
   top:27px;
   left: 0px;
   width: 70px;
@@ -135,7 +146,7 @@ nav{}
   border: none;
 }
 .sf-menu li ul li a{
-	text-decoration: none;
+  text-decoration: none;
   font-size: 14px;
   font-family: 'Noto Sans', sans-serif;
   color: black;
@@ -171,6 +182,7 @@ nav{}
 footer {
 width: 100%; 
 height:100px;
+  background-color:black;
 }
 
 footer img {
@@ -179,100 +191,6 @@ footer img {
   margin-top:10px;
 }
 
-
-/* -------------------- */
-/* body & container */
-/* -------------------- */
-
-body {
-background: 
-  url("../images/basket_img/streetball2.jpg") top no-repeat,
-  url("../images/basket_img/dunk.jpg") 0px 803px  no-repeat,
-  url("../images/basket_img/basketball_court.jpg") 0px 1603px  no-repeat,
-  url("../images/basket_img/basketball_court2.jpg") 0px 2408px  no-repeat,
-  black 0px 3040px;
-background-size: 100% 810px ;	
-position:relative;
-min-width:1024px;
-}
-li {
-	list-style-type: none;
-}
-a {
-	text-decoration: none;
-}
-.container {
-margin-left:auto;
-margin-right:auto;
-z-index:0;
-width: 1024px;
-}
-
-/* ---------------- */
-/* main contents */
-/* ---------------- */
-
-.tournament_slider {
-	
-height: 790px;
-}
-
-.top_event_list {
-padding-top:200px;
-height: 600px;
-z-index:1;
-}
-.eventlist {
-	margin-left:10px;
-	width:960px;
-	height: 40px;
-	background-color: white;
-	opacity: 0.9;
-	padding-bottom:15px;
-}
-.eventlist li{
-	list-style-type: none;
-	
-}
-.eventlist a{
-  float:left;
-  text-decoration: none;
-  font-size: 20px;
-  padding: 20px;
-  color:black;
-}
-
-#eventboard {
-	margin:auto;
-	width:760px;
-  background-color:white; 
-  opacity:0.9;
-}
-
-.newest_team {
-height: 800px;
-}
-
-.tournament_cat {
-height: 800px;
-}
-
-.tournament_cat .button_fld {
-}
-
-.btn {
-width:170px; 
-float:left;
-margin-left:4%;
-text-align:center;
-}
-
-.btn button {
-display:block;
-margin-left: auto;
-margin-right: auto;
-width:80px;
-}
 
 
 /* ------------ */
@@ -351,5 +269,71 @@ button {
 .modal_close { position: absolute; top: 12px; right: 12px; display: block; width: 14px; height: 14px; background: url(../img/modal_close.png); z-index: 2; }
 
 
+
+/* ---------------- */
+/* main contents */
+/* ---------------- */
+
+.tournament_slider {
+  
+height: 790px;
+}
+
+.top_event_list {
+padding-top:200px;
+height: 600px;
+z-index:1;
+}
+.eventlist {
+  margin-left:10px;
+  width:960px;
+  height: 40px;
+  background-color: white;
+  opacity: 0.9;
+  padding-bottom:15px;
+}
+.eventlist li{
+  list-style-type: none;
+  
+}
+.eventlist a{
+  float:left;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 20px;
+  color:black;
+}
+
+#eventboard {
+  margin:auto;
+  width:760px;
+  background-color:white; 
+  opacity:0.9;
+}
+
+.newest_team {
+height: 800px;
+}
+
+.tournament_cat {
+height: 800px;
+}
+
+.tournament_cat .button_fld {
+}
+
+.btn {
+width:170px; 
+float:left;
+margin-left:4%;
+text-align:center;
+}
+
+.btn button {
+display:block;
+margin-left: auto;
+margin-right: auto;
+width:80px;
+}
 
 

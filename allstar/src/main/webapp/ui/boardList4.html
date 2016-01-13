@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Allstar</title>
+
+<link type="text/css" rel="stylesheet" href="css/main2.css" />
+
+
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script src="js/superfish.js"></script>
+<script type="text/javascript" src="js/ddsmoothmenu.js"></script>
+<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="js/quicksand.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+
+
+<script>
+jQuery(document).ready(function () {
+    $().UItoTop({
+        easingType: 'easeOutQuart'
+    });
+});
+</script>
+
+<style>
+
+</style>
+</head>
+
+<div style="border:1px black solid; width:100%;">
+<!-- /////////////////////////////header start//////////////////////-->
+
+
+
+
+<!--///////////////////////// header 끝 /////////////////////////////// -->
+<div style="opacity:0.6; color:black; text-align:center; background-color:white; border:1px black solid; width:80%; min-width:1024px; margin-top:2%; margin-left:10%;">
+<h1>종목 게시판</h1>
+</div>
+<div id="portfolio" >
+  <ul class="gallerynav">
+     <li class="selected-1"><a href="#" data-value="all">ALL<span></span></a></li>
+  </ul>
+       <ul class="statusbar">
+          <li><a>종목</a></li> 
+          <li><a>제목</a></li>
+          <li><a>작성자</a></li>
+          <li><a>조회수</a></li>
+          <li><a>등록일</a></li>
+       </ul>
+<ul class="grid">
+
+</ul>
+</div>
+
+</div>
+
+
+
+
+<div style="border:1px black solid; width:100%; height:100px; "></div>
+<script type="text/javascript">
+
+/* 리스트 출력 */
+$.getJSON('/allstar/board/ajax/list.do', function(resultObj){
+
+  var ul = $("#gallery");
+  for (var board of resultObj.boards) {
+    var content = board.content;
+    console.log(typeof content);
+    if (content.length > 40) {
+      content = content.substring(0,40).concat("...");
+    }
+    
+    $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "'>")
+    .html(
+    		)
+    .appendTo(ul);
+    
+  // 제목 링크에 클릭 이벤트 리스너를 등록한다.
+    $("a.detailLink").click(clickDetailLnk);
+  
+  }
+  
+
+//게시물 제목을 클릭했을 때 호출될 함수
+function clickDetailLnk(event) {
+  event.preventDefault(); 
+  location.href = "form.html?no=" + $(event.target).attr("boardBno");
+}
+
+});
+
+</script>
+</body>
+</html>

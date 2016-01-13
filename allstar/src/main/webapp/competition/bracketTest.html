@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="../lib/jquery-bracket/jquery.bracket.min.css">
+
+<script type="text/javascript" src="../lib/jquery/jquery.js"></script>
+<script type="text/javascript" src="../lib/jquery-bracket/jquery.bracket.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    var demos = ['save', 'minimal', 'matches', 'customHandlers', 'autoComplete', 'doubleElimination', 'noSecondaryFinal', 'noConsolationRound', 'noGrandFinalComeback', 'reverseBracket', 'big']
+    $.each(demos, function(i, d){
+      var demo = $('div#'+d)
+      $('<div class="demo"></div>').appendTo(demo)
+      
+      var script = demo.find('script')
+      demo.find("h3").append($('<a href="#' + d + '"></a>'))
+     
+    })
+  })
+</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div id="minimal">
+  <h3>Minimal</h3>
+  <script type="text/javascript">
+  var minimalData = {
+      teams : [
+        ["Team 1", "Team 2"], /* first matchup */
+        ["Team 5", "Team 6"],
+        ["Team 7", "Team 8"],
+        ["Team 3", "Team 4"]  /* second matchup */
+      ],
+      results : [
+        [[1,2], [3,4], [5,6], [7,8]],       /* first round */
+        [[4,6], [2,1]],        /* second round */
+        [[4,6], [2,1]]
+      ]
+    }
+
+  $(function() {
+      $('#minimal .demo').bracket({
+        init: minimalData /* data to initialize the bracket with */ })
+    })
+  </script>
+</div>
+
+
+
+
+</body>
+</html>

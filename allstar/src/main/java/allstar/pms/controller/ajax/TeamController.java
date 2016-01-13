@@ -22,6 +22,19 @@ public class TeamController {
   @Autowired TeamService teamService;
   @Autowired EventService eventService;
 
+  @RequestMapping("all")
+  public Object listAll() throws Exception {
+    
+    List<Team> teams = teamService.getList();
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("size", teams.size());
+
+    return resultMap;
+  }
+
+  
   @RequestMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,

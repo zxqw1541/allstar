@@ -32,6 +32,10 @@
 		</association>
 	</resultMap>
 
+  <select id="selectAll" resultMap="teamMap">
+    select * from team;
+  </select>
+  
 	<select id="selectList" resultMap="teamMap" parameterType="map">
 		<include refid="select_inc" />
 		from team t left outer join event e on t.eno=e.eno

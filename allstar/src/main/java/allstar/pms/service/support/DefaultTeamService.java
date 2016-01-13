@@ -14,6 +14,10 @@ import allstar.pms.service.TeamService;
 public class DefaultTeamService implements TeamService {
 
   @Autowired TeamDao teamDao;
+
+  public List<Team> getList() {
+    return teamDao.selectAll();
+  }
   
   public List<Team> getTeamList(int pageNo, int pageSize,
       String keyword, String align) {
