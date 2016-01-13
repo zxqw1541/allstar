@@ -2,7 +2,14 @@
  * Grid container
  */
 #main {
-	margin-top: 9em;
+	margin-top: 0em;
+	 background-image: url("../img/basketball_court2.jpg");
+   background-attachment: fixed;
+}
+#space {
+	height:150px;
+   background-image: url("../img/basketball_court2.jpg");
+  background-attachment: fixed;"
 }
 #tiles {
   list-style-type: none;
