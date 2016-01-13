@@ -34,6 +34,7 @@ $(function(){
 </head>
 <body>
 <div id="header"></div>
+<div style="height:150px;"></div>
 
 <!---start-content---->
 <div class="content">
@@ -100,8 +101,6 @@ $(function(){
                if (closeToBottom) {
                  
                  // Get the first then items from the grid, clone them, and add them to the bottom of the grid
-
-                 
                  $.getJSON('../team/ajax/list.do?pageNo=' + pageNo, function(resultObj) {
                      if (resultObj.teams.length != 0) {
                          pageNo++;
