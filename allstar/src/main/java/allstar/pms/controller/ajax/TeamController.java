@@ -1,26 +1,37 @@
 package allstar.pms.controller.ajax;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Event;
 import allstar.pms.domain.Team;
 import allstar.pms.service.EventService;
 import allstar.pms.service.TeamService;
+import allstar.pms.util.MultipartHelper;
 
 @Controller("ajax.TeamController")
 @RequestMapping("/team/ajax/*")
 public class TeamController {
+  static public Logger log = Logger.getLogger(TeamController.class);
 
   @Autowired TeamService teamService;
   @Autowired EventService eventService;
+  
 
   @RequestMapping("all")
   public Object listAll() throws Exception {
@@ -82,6 +93,32 @@ public class TeamController {
     }
     
     return new AjaxResult("success", null);
+  }
+  
+  @RequestMapping(value="uploadFile", method=RequestMethod.POST)
+  public AjaxResult handleFileUpload(MultipartHttpServletRequest request) throws Exception{
+    Iterator<String> itr =  request.getFileNames();
+    if(itr.hasNext()) {
+        MultipartFile mpf = request.getFile(itr.next());
+        System.out.println(mpf.getOriginalFilename() +" uploaded!");
+        try {
+            String path=request.getServletContext().getRealPath("/");
+            byte[] bytes = mpf.getBytes();
+            String sep = System.getProperty("file.separator");
+            String fileName = MultipartHelper.generateFilename(mpf.getOriginalFilename());
+            String filePath = path+ sep + "team" + sep + "img" + sep;
+            File file=new File(filePath + fileName);
+            BufferedOutputStream stream = new BufferedOutputStream(
+                new FileOutputStream(file));
+            stream.write(bytes);
+            stream.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        return new AjaxResult("success", null);
+    } else {
+      return new AjaxResult("fail", null);
+    }
   }
   
   
