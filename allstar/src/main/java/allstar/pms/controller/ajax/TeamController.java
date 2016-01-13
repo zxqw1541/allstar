@@ -65,10 +65,36 @@ public class TeamController {
   }
   
   @RequestMapping(value="add", method=RequestMethod.POST)
-  public AjaxResult add(Team team) throws Exception {
-    teamService.register(team);
+  public AjaxResult add(Team team, MultipartHttpServletRequest uploadedFile) throws Exception {
+
+    Iterator<String> itr =  uploadedFile.getFileNames();
+    if(itr.hasNext()) {
+        MultipartFile mpf = uploadedFile.getFile(itr.next());
+        System.out.println(mpf.getOriginalFilename() +" uploaded!");
+        try {
+            String path=uploadedFile.getServletContext().getRealPath("/");
+            byte[] bytes = mpf.getBytes();
+            String sep = System.getProperty("file.separator");
+            String fileName = MultipartHelper.generateFilename(mpf.getOriginalFilename());
+            String filePath = path+ sep + "team" + sep + "img" + sep;
+            File file=new File(filePath + fileName);
+            BufferedOutputStream stream = new BufferedOutputStream(
+                new FileOutputStream(file));
+            stream.write(bytes);
+            stream.close();
+            
+            team.setEmblem(fileName);
+            teamService.register(team);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        return new AjaxResult("success", null);
+    } else {
+      return new AjaxResult("failure", null);
+    }
     
-    return new AjaxResult("success", null);
+    
+    
   }
   
   @RequestMapping("detail")
