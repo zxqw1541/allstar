@@ -16,6 +16,8 @@
 <script src="js/jquery.equalheights.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/jquery.ui.totop.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquery.session.js"></script>
 
 <script>
 jQuery(document).ready(function () {
@@ -271,6 +273,8 @@ $(function() {
           </div>
           <div class="btn-fld">
           <button type="submit">로그인 &raquo;</button>
+          <input type="checkbox" id="saveId"> 
+          <label id="saveLabel" for="saveId">아이디 저장</label>
 </div>
          </form>
       </div>
@@ -336,6 +340,38 @@ $(function() {
     	      } 
     });
 
+    // 로그인 시작
+    $(document).ready( function() {
+      var id = $.cookie("id");
+      if (id != null && id != "") {
+        $("#id_input").val(); // email textbox에 쿠키값 출력
+        $("#saveId").attr("checked", "checked"); // 체크박스에 체크
+      }
+    }); 
+    
+      $('#loginBtn').click( function(event) {
+             var checkStatus = $("#saveId").is(":checked");
+            if (checkStatus) {
+              $.cookie("id", $("#id_input").val());
+            } else {
+              $.cookie("id", "");
+            }  
+             
+            $.post('ajax/login.do', {
+              id : $('#id_input').val(),
+              password : $('#pass_input').val(),
+            }, function(resultObj) {
+              var ajaxResult = resultObj.ajaxResult;
+              if (ajaxResult.status == "success") {
+                emailSession = ajaxResult.data.email;
+                $.session.set('loginSession',emailSession);
+                location.href = "../ui/main2.html";
+              } else {
+                alert("이메일과 패스워드가 일치하지 않습니다.");
+              }
+            }, 'json');
+          });
+      // 로그인 끝
     </script>
 
 
