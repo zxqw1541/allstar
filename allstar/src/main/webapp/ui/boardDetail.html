@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>종목 게시판 :: 트리 오브 세이비어</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<link rel="stylesheet" href="http://js.nx.com/s3/tos/obt/style.obt.css" /><!-- 뒷 화면 css -->
+<link rel="stylesheet" href="css/tos/tos.css" />
+<script src="http://js.nx.com/s1/tos/jquery.min.js"></script><!-- 뒷 페이지 뿌옇게 하는 js -->
+
+</head>
+<body>
+
+    <div id="container">
+            <div id="contents">
+            <div id="ajaxContents"></div>
+            <div id="noContent"></div>
+            <script type="text/javascript">
+             function ajaxGetComment(n4ArticleSN) {
+                /* $.ajax({
+                    url: '/community/free/commentlist.aspx?n4ArticleSN=' + n4ArticleSN,
+                    success: function (data) {
+                        $(".bbsReply").html(data);
+                    },
+                    beforeSend: function () {
+                        $("#loading").show();
+                    },
+                    complete: function () {
+                        $("#loading").hide();
+                    },  
+                    error: function (xhr, status, exception) {
+                        alert('에러가 발생하였습니다' + xhr.responseText);
+                    }
+                }); */
+            } 
+
+            $( document ).ready( function() 
+            { 
+              $( '#btnArticleWrite' ).click( function() 
+              {
+               
+              });
+    
+              $( '#btnArticleEdit' ).click( function() 
+              {
+              
+                alert('본인의 글만 수정 할 수 있습니다.');
+                return false;
+              
+              });
+
+              $( '#btnArticleRemove' ).click( function() 
+              {
+              
+                alert('본인의 글만 삭제 할 수 있습니다.');
+              
+              });
+
+                $( '#btnArticleRemove2' ).click( function() 
+              {
+              
+                alert('본인의 글만 삭제 할 수 있습니다.');
+              
+              });
+
+                $( '#btnRecommend' ).click( function() 
+              {
+              
+                Article.RecommendArticle( '88183', 1 );
+              
+                return false;
+              });
+
+                ajaxGetComment(88183);
+                $(".overlayViewLayerOut").show();
+            /*     tosUI.init.boardView(); */
+            });
+            </script>
+          <div class="viewLayer viewWrap boardContents boardView">
+            <div class="viewLayerInnerWrap">
+              <article class="mainArea">
+                <header class="header">
+                  <p class="cat1 clearFix">
+                    <span class="dep1">자유 게시판</span>
+                  </p>
+                  <div id="subject" class="inner clearFix">
+                    <div class="subject">
+                      <h2 class="tit"></h2>
+                      <p class="etc"><span class="date"> </span></p>
+                    </div>
+                    <p class="cnt">
+                      <span class="view"><strong></strong>조회</span>
+                    </p>
+                  </div>
+                </header>
+                        
+                <div id="contents" class="viewContents">
+                  <p>otp 사용중 400만 해킹당했는데 1:1문의 확인조차 안하고 </p><p><br></p><p>점검 후에는 별 희안한 버그들 계속 생겨나고 기존에 있던 버근는 고쳐지지도 않고</p><p><br></p><p>오히려 더 심해짐.</p><p><br></p><p>결정적으로 지금 정식서비스인데 운영을 이따구로 하는건 전례가 없는거임.</p>
+                            <div id="loading" style="display:none"><img src="http://s.nx.com/s2/game/tos/common/img_loading.gif" alt="" /></div>
+                </div>
+                <div class="viewContentsBtm clearFix">
+                            
+                  <p class="btnReport"><a href="#" onclick='ArticleReport.Open( "167772182", "88183", "http://tos.nexon.com/board/167772182/88183/" ); return false;'><img src="http://s.nx.com/s2/game/tos/obt/common/bullet/bul_report.png" alt="" /> 신고하기</a></p>
+                            
+                </div>
+                        
+                        
+                        
+              </article>
+              <aside class="sideArea">
+                <h3 class="blind">글쓴이 정보</h3>
+                <div class="info clearFix"><p class="img"><img src="http://s.nx.com/s2/game/tos/obt/common/1006.png" alt="프로필 사진"></p><div class="contents"><p class="name">박중권</p><p class="lvs"><span class="lv">축구</span><span class="server">서울</span></p></div></div>
+                <div class="btnArea">
+                  <p class="btnHome"><a href="#" onclick="window.open('/barrack/guest.aspx?n8NexonSN=184613159&n8CharacterSN=87990995043730', 'barrack', 'width=1200. height=665, scrollbars=no');" class="btn btnType5">숙소가기</a></p>
+                  <div class="top clearFix">
+                    <button type="button" id="btnRecommend" class="btnLike"><img src="http://s.nx.com/s2/game/tos/obt/common/bullet/bul_like_off.png" alt="추천" /></button><!-- 추천 했을 때 <img src="http://s.nx.com/s2/game/tos/obt/common/bullet/bul_like_on.png" alt="추천" /> -->
+                    
+                  </div>
+                  <div class="btm clearFix">
+                                <a href="http://tos.nexon.com/community/free/write.aspx?n4ArticleSN=0" id="btnArticleWrite" class="btn btnType6 btnWrite">글쓰기</a>
+                    <a href="http://tos.nexon.com/community/free/list.aspx?n4ArticleSN=0" class="btn btnType6 btnList">목록</a>
+                  </div>
+                </div>
+                <div class="history">
+                  <ul class="list">
+                    <li class="prev">
+                                    
+                      <a href="http://tos.nexon.com/community/free/view.aspx?n4ArticleSN=88184">
+                        <span class="nav">이전<span class="bul sprBtn"></span></span>
+                        <div class="contents">
+                          <strong class="tit">01/15(금) 알려진 문제</strong>
+                          <span class="etc"><span class="date">2016.01.14</span></span>
+                        </div>
+                      </a>
+                                    
+                    </li>
+                    <li class="next">
+                      
+                      <a href="http://tos.nexon.com/community/free/view.aspx?n4ArticleSN=88182">
+                        <span class="nav">다음<span class="bul sprBtn"></span></span>
+                        <div class="contents">
+                          <strong class="tit">이 게임 원래 이런가요?</strong>
+                          <span class="etc"><span class="date">2016.01.14</span></span>
+                        </div>
+                      </a>
+                                    
+                    </li>
+                  </ul>
+                </div>
+              </aside>
+              <p class="btnClose"><button type="button" onclick="$('.viewWrap').trigger('click');" class="sprBtn">닫기</button>
+            </div>
+          </div>
+          <div class="overlayViewLayerOut"></div>
+            </div>
+        </div>
+    <script>
+    $.getJSON('../board/ajax/detail.do?no=6', function(resultObj) {
+    	var ajaxResult = resultObj.ajaxResult;
+    	var board = ajaxResult.data;
+    	  var div = $("#subject");
+    	  
+    	    $("<div class='subject'>")
+    	    .html("<h2 class='tit'>"+ board.title +"</h2>"
+    	          + "<p class='etc'><span class='date'>" + board.createDate + "</span></p>"
+    	          + "</div>"
+    	          + "<p class='cnt'>"
+    	          + "<span class='view'><strong>" + board.views + "</strong> 조회</span>"
+    	          + "</p></div>")
+          .appendTo(div);
+    	  
+    });
+    	/*   var */
+
+   </script>
+
+
+
+</body>
+</html>
