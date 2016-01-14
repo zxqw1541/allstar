@@ -1,3 +1,4 @@
+
 #cssmenu ul,
 #cssmenu li,
 #cssmenu span,
@@ -7,7 +8,7 @@
   position: relative;
 }
 #cssmenu {
-	float:right;
+  float:right;
   margin-right: 100px;
   line-height: 1;
   border-radius: 5px 5px 0 0;
@@ -20,7 +21,7 @@
   background: -o-linear-gradient(top, #333333 0%, #141414 100%);
   background: -ms-linear-gradient(top, #333333 0%, #141414 100%);
   background: linear-gradient(to bottom, #333333 0%, #141414 100%); */
-  width: 350px;
+  width: 400px;
   height:100px;
 }
 #cssmenu:after,
@@ -46,7 +47,7 @@
   
 }
 #cssmenu ul {
-	height:100px;
+  height:100px;
   list-style: none;
 }
 #cssmenu > ul > li {
@@ -117,7 +118,8 @@
   background: linear-gradient(to bottom, #262626 0%, #070707 100%);
 }
 #cssmenu .has-sub {
-	float:left;
+  font-size:20px;
+  float:left;
   z-index: 1;
 }
 #cssmenu .has-sub:hover > ul {
@@ -140,7 +142,7 @@
 #cssmenu .has-sub ul li a {
   background: #0fa1e0;
   border-bottom: 1px dotted #31b7f1;
-  font-size: 11px;
+  font-size: 15px;
   filter: none;
   display: block;
   line-height: 120%;
@@ -182,4 +184,9 @@
 #cssmenu .has-sub ul li:last-child > a,
 #cssmenu .has-sub ul li.last > a {
   border-bottom: 0;
+  
 }
+#cssmenu .last {
+  font-size:20px;
+}
+

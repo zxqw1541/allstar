@@ -4,7 +4,7 @@
 
 /* CSS Reset
 -------------------------------------------------------------- */
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, a, img, strong, small, dl, dt, dd, ol, ul, li, fieldset, form, input, button, label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0; padding:0; font-size:100%;}
+/* html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, a, img, strong, small, dl, dt, dd, ol, ul, li, fieldset, form, input, button, label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0; padding:0; font-size:100%;}
 img, fieldset, button{border:0;}
 article, aside, figcaption, figure, video, audio, footer, header, hgroup, menu, nav, section{display:block;}
 body, input, button, textarea, select, table{line-height:1.2; font-family:'Roboto', 'Malgun Gothic', '맑은 고딕', '돋움', dotum, Helvetica, sans-serif; font-size:13px; letter-spacing:-1px; color:#222;}
@@ -19,7 +19,7 @@ select{height:33px; line-height:30px; color:#777; background:#fff url(http://s.n
 .no-borderradius select{background:none !important; padding:5px 0 !important;}
 select::-ms-expand{display:none;}
 table{border-collapse:collapse; border-spacing:0;}
-caption, legend{width:0; height:0; font-size:0; line-height:0; text-indent:-9999px; visibility:hidden;}
+caption, legend{width:0; height:0; font-size:0; line-height:0; text-indent:-9999px; visibility:hidden;} */
 
 /* Reserved Class
 -------------------------------------------------------------- */
@@ -31,15 +31,14 @@ caption, legend{width:0; height:0; font-size:0; line-height:0; text-indent:-9999
 .clearFix{zoom:1;}
 .clearFix:after{clear:both; display:block; content:'';}
 .sprBtn{background:url(http://s.nx.com/s2/game/tos/obt/common/spr_btn.png) no-repeat; text-indent:-9999px; display:block;}
-.sprTxt{background:url(http://s.nx.com/s2/game/tos/obt/common/spr_txt.png) no-repeat; text-indent:-9999px; display:block;}
 
 /* Styles
 -------------------------------------------------------------- */
 
 /* 레이아웃 ======================================== */
 #wrap{position:relative;}
-.innerWrap{width:1260px; margin:0 auto;}
-#content{padding:35px 0 100px;}
+.innerWrap{width:1024px; margin:0 auto;}
+#content{}
 body.main #content{padding:0;}
 
 /* 공통 ======================================== */
@@ -254,8 +253,8 @@ body.main .sitemapArea{border-top:0 none;}
 .listFrame .header{border-bottom:1px solid #d2d3d5; padding:14px 15px 12px 20px;}
 .listFrame .header h3, .listFrame .header h3 a{width:77px; height:28px; float:left;}
 .listFrame .header h3 a{float:none; display:block;}
-.listFrame .header h3.titNotice{width:60px; background-position:-395px -145px;}
-.listFrame .header h3.titGM{width:487px; background-position:-482px -145px;}
+.listFrame .header h3.titNotice{width:90px; background-position:-395px -145px;}
+.listFrame .header h3.titGM{width:137px; background-position:-482px -145px;}
 .listFrame .header .btnMore{float:right;}
 .listFrame .header .btnMore a{width:28px; height:27px; background-position:-483px 0;}
 .listFrame .contents{font-size:14px; color:#444}
@@ -300,18 +299,18 @@ iframe[name="google_conversion_frame"]{width:1px; height:1px; font-size:0; line-
 .boardContents .topInfoArea .list li a{width:508px; height:32px; float:left;}
 .boardContents .topInfoArea .list li small{width:60px; color:#aaa; text-align:right; float:right;}*/
 
-.boardContents .topInfoArea{margin:0 0 50px; 0;}
+.boardContents .topInfoArea{}
 .boardContents .topInfoArea .listFrame{width:613px; border:1px solid #d9d9d9; float:left;}
 .boardContents .topInfoArea .listFrame .contents{min-height:87px; padding:20px 20px 2px 20px;}
 .boardContents .topInfoArea .listFrame .list li{margin:0 0 4px 0;}
 .boardContents .topInfoArea .listFrame .list li.none{height:83px; line-height:67px; text-align:center;}
 .boardContents .topInfoArea .listFrame .list a{zoom:1;}
 .boardContents .topInfoArea .listFrame .list a:after{clear:both; display:block; content:'';}
-.boardContents .topInfoArea .listFrame .list .txt{width:510px; float:left;}
+.boardContents .topInfoArea .listFrame .list .txt{width:350px; float:left;}
 .boardContents .topInfoArea .listFrame .list .txt .cat{width:35px; text-align:justify; color:#cda182; position:relative; margin:0 8px 0 0; display:inline-block;}
 .boardContents .topInfoArea .listFrame .list .txt .cat:after{width:1px; height:12px; background:#c9c9c9; position:absolute; right:0; top:2px; display:block; content:'';}
 .boardContents .topInfoArea .listFrame .list .txt small{font-weight:300; color:#cda182;}
-.boardContents .topInfoArea .listFrame .list .date{width:62px; font-weight:300; text-align:right; float:right;}
+.boardContents .topInfoArea .listFrame .list .date{width:90px; font-weight:300; text-align:right; float:right;margin-bottom: 15px;}
 
 .boardContents .topInfoArea .listGM{float:right;}
 .boardContents .topInfoArea .listGM .nav{float:right;}
