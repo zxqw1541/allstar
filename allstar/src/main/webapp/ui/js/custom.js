@@ -5,9 +5,6 @@
     var mainApp = {
 
         main_fun: function () {
-            /*====================================
-             CUSTOM LINKS SCROLLING FUNCTION 
-            ======================================*/
 
             $('a[href*=#]').click(function () {
                 if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')

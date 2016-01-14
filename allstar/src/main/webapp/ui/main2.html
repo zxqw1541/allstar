@@ -8,17 +8,18 @@
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/component.css" />
 <link rel="stylesheet" type="text/css" href="css/tos/styles.css" />
+<link rel="stylesheet" type="text/css" href="css/tos/tos.css" />
 
 <script src="js/jquery-1.11.3.js"></script>
 <script src="js/jquery.leanModal.min.js"></script>
 <script src="js/modernizr.min.js"></script>
-<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
 
 
 <script>
 
 $(function() {
-    $('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });   
+    $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
 });
 
 
@@ -41,6 +42,7 @@ $(function() {
                 <ul >
                   <li  class='active has-sub' ><a href="#top_event_list"><span>종목별 게시판</span></a>
                     <ul id="eventmenu">
+                    
                     </ul>
                  </li>
                   <li class='has-sub'><a href="#tournament_cat">대회</a>
@@ -194,24 +196,57 @@ $(function() {
 </div>
 <!-- tournament slider end -->
 
-<div class="container" >
+<div class="container"  >
 <!-- top 게시판 list starts-->
 <div class="top_event_list" id="top_event_list">
-  <ul class="eventlist">
-      <li class="selected-1" ><a href="#" data-value="all">All<span></span></a></li>
-  </ul>
   
-  <table id="eventboard" class="">
-  <thead>
-	  <tr>
-		  <th><a>제목</a></th>
-		  <th><a>게시자</a></th>
-		  <th><a>내용</a></th>
-		  <th><a>종목</a></th>
-		  <th><a>조회수</a></th>
-	  </tr>
-  </thead>
-  </table>
+  <div id="content" >
+  <div class="boardContents boardList">
+    <div class="innerWrap" style="opacity:0.9;">
+
+   
+
+   <section class="topInfoArea clearFix">
+   
+   
+        <div class="listFrame listNotice" style="background-color: white; width:500px;">
+          <div class="header clearFix">
+            <h3 class="titNotice">TOP 게시물</h3>
+            <p class="btnMore"><a href="#" class="sprBtn"> 더 보기</a></p>
+          </div>
+  <div class="contents tabArea">
+<!-- left tab -->  
+    <ul class="list tabFrame" id="top_con">
+
+      
+    </ul>
+          </div>
+        </div>
+        
+
+<div class="listFrame listGM commonTab" style="background-color: white; width:500px;">
+  <div class="header clearFix">
+    <h3 class="titGM">최근 게시물</h3>
+     <p class="btnMore"><a href="#" class="sprBtn"> 더 보기</a></p>
+<!--     <ul class="nav">
+      <li><a href="#" class="on">공략</a></li>
+      <li><a href="#">UCC</a></li>
+    </ul> -->
+  </div>
+  <div class="contents tabArea">
+  
+    <!-- right tab -->
+    <ul class="list tabFrame" id="newest_tab">
+
+  
+    </ul>   
+  </div>
+</div>
+
+      </section>
+</div>
+</div>
+</div>
 
 </div>
 <!-- top 게시판 list ends-->
@@ -219,6 +254,7 @@ $(function() {
 
 <!-- newest team starts-->
 <div class="tournament_cat" id="tournament_cat">
+
 
 </div>
 <!-- newest team ends-->
@@ -242,15 +278,14 @@ $(function() {
 </div>
 
 
-
+<script type="text/javascript" src="js/jquery.session.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
 <!-- 로그인 폼 -->
-
 <div id="signup">
       <div id="signup-ct">
         <div id="signup-header">
           <h2>로그인</h2>
           <p>ID 와 비밀번호를 입력하세요.</p>
-          <a class="modal_close" href="#"></a>
         </div>
         
         <form action="" method="POST">
@@ -276,7 +311,6 @@ $(function() {
     </div>
 <!-- 로그인폼 끝 -->
 
-<script type="text/javascript" src="js/jquery.session.js"></script>
 
 <script>
 //로그인 시작
@@ -332,6 +366,7 @@ $(document).ready( function() {
     <script src="js/custom.js"></script>
     
     <script>
+    
     $.getJSON('/allstar/board/ajax/list.do?pageSize=5', function(resultObj){
     	   var eventmenu = $("#eventmenu");
     	    for (var event of resultObj.events) {
@@ -347,25 +382,20 @@ $(document).ready( function() {
     	          .appendTo(portul);
     	    }
     	  
-    	    var table = $("#eventboard");
+    	    var ul = $("#newest_tab");
     	    for (var board of resultObj.boards) {
-    	      var content = board.content;
-    	      console.log(typeof content);
-    	      if (content.length > 40) {
-    	        content = content.substring(0,40).concat("...");
-    	      }
-    	      $("<tr data-id='id-" + board.no + "' class='" + board.event.eno + "' >")
+    	      $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='margin-left:-25px;'>")
     	      .html(
-    	            "<td><a href='#' class='detailLink' boardBno='" + board.no + "'' >" 
-    	            +  board.title +"</a></td>"
-    	            + "<td >" + board.member.name  +"</td>"
-    	            + "<td>" + content  +" </td>"
-    	            + "<td>" + board.event.name +" </td>" 
-    	            + "<td>" + board.views +" </td>"
-    	            + "</tr></td>")
-    	      .appendTo(table);
-    	      
-    	    // 제목 링크에 클릭 이벤트 리스너를 등록한다.
+    	            "<a href='#' class='detailLink' boardBno='" + board.no + "'>" 
+    	            + "<span class='txt'>" 
+    	            + "<span class='cat'>" + board.event.name  +"</span>"
+    	            + board.title +"<small>("+0+")</small>" 
+    	            + "<img class='bulArticle bulLike' src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_gmlike.png' alt='최근글' />"
+    	            + "</span>"
+    	            + "<span class='date'>"+board.createDate+"</span></a></li>")
+    	      .appendTo(ul);
+    	  
+   
     	      $("a.detailLink").click(clickDetailLnk);
     	    }
     	    function clickDetailLnk(event) {
@@ -373,8 +403,29 @@ $(document).ready( function() {
     	        location.href = "form.html?no=" + $(event.target).attr("boardBno");
     	      } 
     });
+    $.getJSON('/allstar/board/ajax/list.do?pageSize=5&keyword=views', function(resultObj){
 
-
+    	 var ul = $("#top_con");
+         for (var board of resultObj.boards) {
+           $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='margin-left:-25px;'>")
+           .html(
+                 "<a href='#' class='detailLink' boardBno='" + board.no + "'>" 
+                 + "<span class='txt'>" 
+                 + "<span class='cat'>" + board.event.name  +"</span>"
+                 + board.title +"<small>("+0+")</small>" 
+                 + "<img class='bulArticle bulLike' src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_gmlike.png' alt='인기글' />"
+                 + "</span>"
+                 + "<span class='date'>"+board.createDate+"</span></a></li>")
+           .appendTo(ul);
+       
+  
+           $("a.detailLink").click(clickDetailLnk);
+         }
+         function clickDetailLnk(event) {
+             event.preventDefault(); 
+             location.href = "form.html?no=" + $(event.target).attr("boardBno");
+           } 
+   });
     </script>
 
 
