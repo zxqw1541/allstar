@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="css/component.css" />
 <link rel="stylesheet" type="text/css" href="css/tos/styles.css" />
 <link rel="stylesheet" type="text/css" href="css/tos/tos.css" />
+<link rel="stylesheet" type="text/css" href="css/tos/teamlist.css" />
 
 <script src="js/jquery-1.11.3.js"></script>
 <script src="js/jquery.leanModal.min.js"></script>
@@ -212,7 +213,7 @@ $(function() {
         <div class="listFrame listNotice" style="background-color: white; width:500px;">
           <div class="header clearFix">
             <h3 class="titNotice">TOP 게시물</h3>
-            <p class="btnMore"><a href="#" class="sprBtn"> 더 보기</a></p>
+            <p class="btnMore"><a href="boardList10.html" class="sprBtn"> 더 보기</a></p>
           </div>
   <div class="contents tabArea">
 <!-- left tab -->  
@@ -227,7 +228,7 @@ $(function() {
 <div class="listFrame listGM commonTab" style="background-color: white; width:500px;">
   <div class="header clearFix">
     <h3 class="titGM">최근 게시물</h3>
-     <p class="btnMore"><a href="#" class="sprBtn"> 더 보기</a></p>
+     <p class="btnMore"><a href="boardList10.html" class="sprBtn"> 더 보기</a></p>
 <!--     <ul class="nav">
       <li><a href="#" class="on">공략</a></li>
       <li><a href="#">UCC</a></li>
@@ -252,21 +253,41 @@ $(function() {
 <!-- top 게시판 list ends-->
 
 
-<!-- newest team starts-->
+<!-- tournament category starts-->
 <div class="tournament_cat" id="tournament_cat">
 
 
 </div>
-<!-- newest team ends-->
+<!-- tournament category ends-->
 
 
-<!-- tournament category starts-->
+<!-- newest team starts-->
 <div class="newest_team" id="newest_team">
+<div style="height:172px;"></div>
+<div>
+<h3 class="stit">신생 팀<p class="more"><a href="teamList.html" class="sprBtn"> 더 보기</a></p></h3>
+     
+</div>
+<div class="m_content" >
+      <!-- container -->
+      <div id="container_sports" >    
+        <!-- team list -->
+        <ul class="list_team">
+         
+</ul>
+        <!-- //team list -->
+        
+      </div>
+      <!-- //container -->
+    </div>
+    <!--//content-->
+
 
 
 
 </div>
-<!-- tournament category ends-->
+
+<!-- newest team ends-->
 
 
 
@@ -278,8 +299,7 @@ $(function() {
 </div>
 
 
-<script type="text/javascript" src="js/jquery.session.js"></script>
-<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
 <!-- 로그인 폼 -->
 <div id="signup">
       <div id="signup-ct">
@@ -311,7 +331,8 @@ $(function() {
     </div>
 <!-- 로그인폼 끝 -->
 
-
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquery.session.js"></script>
 <script>
 //로그인 시작
 $(document).ready( function() {
@@ -375,13 +396,7 @@ $(document).ready( function() {
     	            .appendTo(eventmenu);
     	      }
 
-    	    var portul = $(".eventlist");
-    	    for (var event of resultObj.events) {
-    	      $("<li>" )
-    	          .html("<a href='#' data-value='" + event.eno + "'>" + event.name + "<span></span></a>")
-    	          .appendTo(portul);
-    	    }
-    	  
+    	    /* 최신 글 */
     	    var ul = $("#newest_tab");
     	    for (var board of resultObj.boards) {
     	      $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='margin-left:-25px;'>")
@@ -403,6 +418,9 @@ $(document).ready( function() {
     	        location.href = "form.html?no=" + $(event.target).attr("boardBno");
     	      } 
     });
+    
+    
+    /* 뷰 순위 */
     $.getJSON('/allstar/board/ajax/list.do?pageSize=5&keyword=views', function(resultObj){
 
     	 var ul = $("#top_con");
@@ -426,6 +444,36 @@ $(document).ready( function() {
              location.href = "form.html?no=" + $(event.target).attr("boardBno");
            } 
    });
+    
+    /* 팀 오버뷰 */
+    
+    $.getJSON('/allstar/team/ajax/list.do?pageSize=5', function(resultObj){
+    	
+        var ul = $(".list_team");
+          for (var team of resultObj.teams) {
+        	  var emblem = team.emblem; 
+              if(emblem == null){
+                  emblem = "allstardefault.png";
+                } 
+            $("<li id='team_"+ team.tno+"'>")
+            .html(
+              "<a href='#' class='detailLink' teamTno='" + team.tno + "'>"
+                +"<img src='img/"+ emblem +"' alt='"+ team.name +"' >"
+                +"<span>"+team.name+"</span>"
+                +"<span>"+team.bas_addr+"</span>"
+                +"<span>소개 : "+team.introduce+"</span>"
+              +"</a></li>" )
+    .appendTo(ul);
+   
+            $("a.detailLink").click(clickDetailLnk);
+          }
+          function clickDetailLnk(event) {
+              event.preventDefault(); 
+              location.href = "form.html?no=" + $(event.target).attr("teamTno");
+            } 
+    });
+    
+    
     </script>
 
 
