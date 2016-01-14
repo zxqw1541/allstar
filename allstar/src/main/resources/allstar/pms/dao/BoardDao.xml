@@ -24,7 +24,14 @@
   </resultMap>
   
   <sql id="select_inc">
-    select b.bno, e.eno as e_eno, e.name as e_name, m.name as m_name, b.title, b.content, b.cre_dt, b.views
+    select b.bno, 
+           e.eno as e_eno, 
+           e.name as e_name, 
+           m.name as m_name, 
+           b.title, 
+           b.content, 
+           b.cre_dt, 
+           b.views
   </sql>
   <select id="selectList" resultMap="boardMap" parameterType="map">
     <include refid="select_inc"/>
@@ -88,7 +95,9 @@
   
   <select id="selectOne" resultMap="boardMap" parameterType="int">
     <include refid="select_inc"/>
-    from board
+    from board b
+         left outer join event e on b.eno = e.eno
+         left outer join member m on b.mno = m.mno
     where bno=#{no}
   </select>
 </mapper>

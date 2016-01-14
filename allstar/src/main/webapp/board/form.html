@@ -104,8 +104,8 @@ if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
 		if (ajaxResult.status == "success") {
       var board = ajaxResult.data;
       $("#fno").val(no);
-      $("#feno").val(board.eno);
-      $("#fmno").val(board.mno);
+      $("#feno").val(board.event.name);
+      $("#fmno").val(board.member.name);
       $("#ftitle").val(board.title);
       $("#fcontent").val(board.content);
       $("#fcreateDate").val(board.createDate);
