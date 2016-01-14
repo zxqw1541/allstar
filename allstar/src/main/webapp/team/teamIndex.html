@@ -1,9 +1,9 @@
 <html>
 <head>
 <title></title>
-<link type="text/css" rel="stylesheet" href="css/header_footer.css" />
-<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="css/component.css" />
+<link type="text/css" rel="stylesheet" href="../ui/css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="../ui/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="../ui/css/component.css" />
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,21 +13,21 @@
   href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
   rel='stylesheet' type='text/css'>
 <!----//webfonts---->
-<link rel="stylesheet" href="../team/css/main.css">
+<link rel="stylesheet" href="css/main.css">
 
-<script src="js/jquery-1.7.2.min.js"></script>
-<script src="js/jquery.leanModal.min.js"></script>
-<script src="js/modernizr.min.js"></script>
-<script src="js/superfish.js"></script>
-<script src="js/jquery.equalheights.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/jquery.ui.totop.js"></script>
+<script src="../ui/js/jquery-1.7.2.min.js"></script>
+<script src="../ui/js/jquery.leanModal.min.js"></script>
+<script src="../ui/js/modernizr.min.js"></script>
+<script src="../ui/js/superfish.js"></script>
+<script src="../ui/js/jquery.equalheights.js"></script>
+<script src="../ui/js/jquery.easing.1.3.js"></script>
+<script src="../ui/js/jquery.ui.totop.js"></script>
 
 <script> 
-$(function(){
+/* $(function(){
   $("#header").load("header.html"); 
   $("#footer").load("footer.html"); 
-});
+}); */
 </script> 
 </head>
 <body>
@@ -48,8 +48,8 @@ $(function(){
 <div id="footer"></div>
   <!---//End-content---->
   <!----wookmark-scripts---->
-  <script src="../team/js/jquery.imagesloaded.js"></script>
-  <script src="../team/js/jquery.wookmark.js"></script>
+  <script src="js/jquery.imagesloaded.js"></script>
+  <script src="js/jquery.wookmark.js"></script>
   <script type="text/javascript">
         (function ($){
           var $tiles = $('#tiles'),
@@ -65,7 +65,7 @@ $(function(){
               },
               pageNo = 2;
               listSize = 0;
-              $.getJSON('../team/ajax/all.do', function(resultObj) {
+              $.getJSON('ajax/all.do', function(resultObj) {
                 listSize = resultObj.size;
               });
               
@@ -89,9 +89,9 @@ $(function(){
            * When scrolled all the way to the bottom, add more tiles
            */
            function onScroll() {
-             if ($(window).data('ajaxready') === false)
-                  return;
-             
+        	   if ($(window).data('ajaxready') === false)
+        	        return;
+        	   
              if (listSize >= $('li', $tiles).length) {
                  // Check if we're within 100 pixels of the bottom edge of the broser window.
                var winHeight = window.innerHeight ? window.innerHeight : $window.height(), // iphone fix
@@ -101,13 +101,13 @@ $(function(){
                  $(window).data('ajaxready', false);
 
                  // Get the first then items from the grid, clone them, and add them to the bottom of the grid
-                 $.getJSON('../team/ajax/list.do?pageNo=' + pageNo, function(resultObj) {
+                 $.getJSON('ajax/list.do?pageNo=' + pageNo, function(resultObj) {
                      if (resultObj.teams.length != 0) {
                          pageNo++;
                          var tiles = $("#tiles");
                          for (var team of resultObj.teams) {
                            $( "<li>" )
-                           .html("<img src='../team/img/b1.jpg' width='280'>" + 
+                           .html("<img src='img/b1.jpg' width='280'>" + 
                                  "<div class='post-info'>" + 
                                    "<div class='post-basic-info'>" + 
                                        "<h3><a href='#'>" + team.name + "</a></h3><span>" +
@@ -116,11 +116,11 @@ $(function(){
                                      "<p>" + team.joinNum + " / " + team.totalNum +
                                      "</p></div>" + 
                                    "<div class='post-info-rate-share'>" + 
-                                     "<div class='rateit'><span></span></div>" +
                                      "<div class='post-share'>" + 
                                        "<span></span></div>" + 
+                                     "<div class='rateit'><span></span></div>" +
                                      "<div class='clear'></div></div></div>")
-                                     .appendTo(tiles);
+                           .appendTo(tiles);
                          }
                      }
                  });
@@ -143,11 +143,11 @@ $(function(){
   <!----//wookmark-scripts---->
 
   <script>
-  $.getJSON('../team/ajax/list.do', function(resultObj) {
+  $.getJSON('ajax/list.do', function(resultObj) {
       var tiles = $("#tiles");
       for (var team of resultObj.teams) {
         $( "<li>" )
-        .html("<img src='../team/img/b2.jpg' width='280'>" + 
+        .html("<img src='img/b2.jpg' width='280'>" + 
               "<div class='post-info'>" + 
                 "<div class='post-basic-info'>" + 
                     "<h3><a href='#'>" + team.name + "</a></h3><span>" +
@@ -177,7 +177,5 @@ $(function(){
     }
   
   </script>
-
-
 </body>
 </html>
