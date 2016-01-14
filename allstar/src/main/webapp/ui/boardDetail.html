@@ -82,7 +82,7 @@
               <article class="mainArea">
                 <header class="header">
                   <p class="cat1 clearFix">
-                    <span class="dep1">자유 게시판</span>
+                    <span class="dep1">종목 게시판</span>
                   </p>
                   <div id="subject" class="inner clearFix">
                     <div class="subject">
@@ -90,33 +90,23 @@
                       <p class="etc"><span class="date"> </span></p>
                     </div>
                     <p class="cnt">
-                      <span class="view"><strong></strong>조회</span>
+                      <span class="view"><strong></strong></span>
                     </p>
                   </div>
                 </header>
                         
                 <div id="contents" class="viewContents">
-                  <p>otp 사용중 400만 해킹당했는데 1:1문의 확인조차 안하고 </p><p><br></p><p>점검 후에는 별 희안한 버그들 계속 생겨나고 기존에 있던 버근는 고쳐지지도 않고</p><p><br></p><p>오히려 더 심해짐.</p><p><br></p><p>결정적으로 지금 정식서비스인데 운영을 이따구로 하는건 전례가 없는거임.</p>
-                            <div id="loading" style="display:none"><img src="http://s.nx.com/s2/game/tos/common/img_loading.gif" alt="" /></div>
+                  
+                           
                 </div>
-                <div class="viewContentsBtm clearFix">
-                            
-                  <p class="btnReport"><a href="#" onclick='ArticleReport.Open( "167772182", "88183", "http://tos.nexon.com/board/167772182/88183/" ); return false;'><img src="http://s.nx.com/s2/game/tos/obt/common/bullet/bul_report.png" alt="" /> 신고하기</a></p>
-                            
-                </div>
-                        
-                        
                         
               </article>
               <aside class="sideArea">
                 <h3 class="blind">글쓴이 정보</h3>
-                <div class="info clearFix"><p class="img"><img src="http://s.nx.com/s2/game/tos/obt/common/1006.png" alt="프로필 사진"></p><div class="contents"><p class="name">박중권</p><p class="lvs"><span class="lv">축구</span><span class="server">서울</span></p></div></div>
+                <div class="info clearFix"><p class="img"><img src="http://s.nx.com/s2/game/tos/obt/common/1006.png" alt="프로필 사진"></p><div class="contents"><p class="name">박중권</p><p class="lvs"><span class="lv">축구</span></p></div></div>
                 <div class="btnArea">
                   <p class="btnHome"><a href="#" onclick="window.open('/barrack/guest.aspx?n8NexonSN=184613159&n8CharacterSN=87990995043730', 'barrack', 'width=1200. height=665, scrollbars=no');" class="btn btnType5">숙소가기</a></p>
-                  <div class="top clearFix">
-                    <button type="button" id="btnRecommend" class="btnLike"><img src="http://s.nx.com/s2/game/tos/obt/common/bullet/bul_like_off.png" alt="추천" /></button><!-- 추천 했을 때 <img src="http://s.nx.com/s2/game/tos/obt/common/bullet/bul_like_on.png" alt="추천" /> -->
-                    
-                  </div>
+                  
                   <div class="btm clearFix">
                                 <a href="http://tos.nexon.com/community/free/write.aspx?n4ArticleSN=0" id="btnArticleWrite" class="btn btnType6 btnWrite">글쓰기</a>
                     <a href="http://tos.nexon.com/community/free/list.aspx?n4ArticleSN=0" class="btn btnType6 btnList">목록</a>
@@ -164,15 +154,21 @@
     	    $("<div class='subject'>")
     	    .html("<h2 class='tit'>"+ board.title +"</h2>"
     	          + "<p class='etc'><span class='date'>" + board.createDate + "</span></p>"
-    	          + "</div>"
-    	          + "<p class='cnt'>"
-    	          + "<span class='view'><strong>" + board.views + "</strong> 조회</span>"
-    	          + "</p></div>")
+    	          + "</div>")
+    	          .appendTo(div);
+    	    
+    	    $("<p class='cnt'>")
+    	         .html("<span class='view'><strong>" + board.views + "</strong>조회</span>"
+    	          + "</p>")
           .appendTo(div);
-    	  
+    
+    	   var div = $("#contents");
+           $("<p>" + board.content + "</p>")
+        	 .html("<div id='loading' style='display:none'><img src='http://s.nx.com/s2/game/tos/common/img_loading.gif' alt='' /></div>"
+        			   + "</div>")
+        			   .appendTo(div);
     });
-    	/*   var */
-
+    
    </script>
 
 
