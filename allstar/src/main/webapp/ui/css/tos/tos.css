@@ -484,16 +484,16 @@ iframe[name="google_conversion_frame"]{width:1px; height:1px; font-size:0; line-
 .boardContents .listGOS .swiper-button-prev{background-position:0 -186px; left:10px;}
 .boardContents .listGOS .swiper-button-next{background-position:-45px -186px; right:10px;}
 
-.viewLayer{width:100%; height:100%; position:fixed; left:0; top:0; z-index:10000003; overflow-y:scroll;}
+.viewLayer{width:1024px; height:100%; position:fixed; left:0; top:0; z-index:10000003; overflow-y:scroll;}
 .viewLayer .btnClose{position:absolute; right:-41px; top:0; z-index:10000003;}
 .viewLayer .btnClose button{width:32px; height:32px; background-position:-572px 0;}
-.viewLayer .viewLayerInnerWrap{width:1218px; background:#ebe8e5; position:absolute; left:50%; top:40px; z-index:10000003; margin-left:-630px; min-height:100%; min-height:-webkit-calc(100% - 40px); min-height:-moz-calc(100% - 40px); min-height:calc(100% - 40px);}
+.viewLayer .viewLayerInnerWrap{width:1024px; background:#ebe8e5; position:absolute; left:50%; top:40px; z-index:10000003; margin-left:-630px; min-height:100%; min-height:-webkit-calc(100% - 40px); min-height:-moz-calc(100% - 40px); min-height:calc(100% - 40px);}
 .viewLayer .overlayViewLayer{width:100%; height:100%; cursor:pointer; position:absolute; left:0; top:0; z-index:10000002;}
 .overlayViewLayerOut{width:100%; height:100%; background:#5b4f47; opacity:0.95; filter:alpha(opacity=95); position:fixed; left:0; top:0; z-index:10000001; display:none;}
 .psLayerLoginDeco{z-index:999999999999 !important;}
 
-.viewWrap .mainArea{width:798px; background:#fff; padding:48px 50px; float:left;}
-.viewWrap .header{width:798px; border-bottom:2px solid #b2b2b2; margin:0 0 17px 0; padding:0 0 24px 0; top:-30px;}
+.viewWrap .mainArea{width:593px; background:#fff; padding:48px 50px; float:left;}
+.viewWrap .header{width:593x; border-bottom:2px solid #b2b2b2; margin:0 0 17px 0; padding:0 0 24px 0; top:-30px;}
 .viewWrap .header .cat1{font-size:12px; margin:0 0 27px 0;}
 .viewWrap .header .cat1 .dep1{height:26px; line-height:26px; color:#fff; background:#907c6e; padding:0 8px; float:left;}
 .viewWrap .header .cat1 .bul{height:24px; float:left;}
