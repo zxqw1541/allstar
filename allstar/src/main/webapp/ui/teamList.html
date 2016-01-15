@@ -233,6 +233,7 @@ $(function(){
           /**
            * When scrolled all the way to the bottom, add more tiles
            */
+           
            function onScroll() {
              if ($(window).data('ajaxready') === false)
                   return;
@@ -245,13 +246,18 @@ $(function(){
                if (closeToBottom) {
                  $(window).data('ajaxready', false);
 
-                 // Get the first then items from the grid, clone them, and add them to the bottom of the grid
-                 $.getJSON('../team/ajax/list.do?pageNo=' + pageNo, function(resultObj) {
-                     if (resultObj.teams.length != 0) {
+                 $.ajax({
+                	  url:'../team/ajax/list.do?pageNo=' + pageNo,
+                	  type:'GET',
+                	  async:false,
+                	  dataType:'json',
+                	  data:'resultObj',
+                	  success:function(resultObj) {
+                      if (resultObj.teams.length != 0) {
                          pageNo++;
                          var tiles = $("#tiles");
                          for (var team of resultObj.teams) {
-                        	 var emblem = team.emblem; 
+                           var emblem = team.emblem; 
                              
                              if(emblem == null){
                                emblem = "allstardefault.png";
@@ -270,9 +276,10 @@ $(function(){
                          }
                          // 팀 링크에 클릭 이벤트 리스너 등록
                          $("a.detailLnk").click(clickDetailLnk);
-                     }
-                 });
-                 
+                      }
+        	          }
+        	       });
+
                  // 팀 이름을 클릭했을 때 호출될 함수
                  function clickDetailLnk(event) {
                    event.preventDefault();
@@ -286,7 +293,7 @@ $(function(){
                }
              }
            };
-            
+           
           // Call the layout function for the first time
           applyLayout();
     
@@ -294,36 +301,42 @@ $(function(){
           $window.bind('scroll.wookmark', onScroll);
 
         })(jQuery);
-      </script>
+  </script>
   <!----//wookmark-scripts---->
 
   <script>
-  $.getJSON('../team/ajax/list.do', function(resultObj) {
-      var tiles = $("#tiles");
-      for (var team of resultObj.teams) {
-    	  var emblem = team.emblem; 
-      
-    	  if(emblem == null){
-          emblem = "allstardefault.png";
-        }
-      
-        $( "<li>" )
-        .html("<img src= '../team/img/" + emblem + "' width='280'>" +
-              "<div class='post-info'>" + 
-              "<div class='post-basic-info'>" + 
-              "<h3><a class='detailLnk' href='#' teamNo='" + team.tno + "'>" + team.name + "</a></h3><span>" +
-              "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
-              "<p>" + team.event.name + "</p>" + 
-              "<p>" + team.joinNum + " / " + team.totalNum + 
-              "</p></div></div>")
-        .appendTo(tiles);
-      }
-      // 팀 링크에 클릭 이벤트 리스너 등록
-      $("a.detailLnk").click(clickDetailLnk);
-    });
+  $.ajax({
+	  url:'../team/ajax/list.do',
+	  type:'GET',
+	  async:false,
+	  dataType:'json',
+	  data:'resultObj',
+    success:function(resultObj) {
+		    var tiles = $("#tiles");
+		    for (var team of resultObj.teams) {
+		      var emblem = team.emblem; 
+		      
+		      if(emblem == null){
+		        emblem = "allstardefault.png";
+		      }
+		      
+		      $( "<li>" )
+		        .html("<img src= '../team/img/" + emblem + "' width='280'>" +
+		              "<div class='post-info'>" + 
+		              "<div class='post-basic-info'>" + 
+		              "<h3><a class='detailLnk' href='#' teamNo='" + team.tno + "'>" + team.name + "</a></h3><span>" +
+		              "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
+		              "<p>" + team.event.name + "</p>" + 
+		              "<p>" + team.joinNum + " / " + team.totalNum + 
+		              "</p></div></div>")
+		        .appendTo(tiles);
+		      }
+		      // 팀 링크에 클릭 이벤트 리스너 등록
+		      $("a.detailLnk").click(clickDetailLnk);
+    	 
+       }
+     });
   
-   
-
     // 팀 이름을 클릭했을 때 호출될 함수
     function clickDetailLnk(event) {
       event.preventDefault();
@@ -331,23 +344,23 @@ $(function(){
     }
   
   </script>
-<script>
-/* add form 오버레이 */
-$(document).ready(function() { 
-  $('#newBtn').click(function(){ 
-    $('#addForm, #team_overlay_t').fadeIn();
-    $('body').css('overflow', 'hidden');
-  }); 
-  $('#team_overlay_t, .close').click(function(e){ 
-    e.preventDefault(); 
-    $('#addForm, #team_overlay_t, #detailForm').fadeOut();
-    $('body').css('overflow', 'auto');
-  }); 
-});
+  
+  <script>
+  /* add form 오버레이 */
+  $(document).ready(function() { 
+    $('#newBtn').click(function(){ 
+      $('#addForm, #team_overlay_t').fadeIn();
+      $('body').css('overflow', 'hidden');
+    }); 
+    $('#team_overlay_t, .close').click(function(e){ 
+      e.preventDefault(); 
+      $('#addForm, #team_overlay_t, #detailForm').fadeOut();
+      $('body').css('overflow', 'auto');
+    }); 
+  });
 
 [[[]]]
 /* 등록폼 전송 */
-
 $(function() {
     $("#regTeamBtn").click(function() {
       var form = $('form')[0];
