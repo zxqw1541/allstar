@@ -8,6 +8,9 @@
 #main {
 	margin: 0;
 }
+#teamForm {
+	width:500px;
+}
 #space {
 	height:100px;
 }
@@ -136,8 +139,27 @@
 	}
 }
 
-.newbtn{height:45px; line-height:45px; font-size:15px; text-align:center; text-decoration:none; color:#fff; border:0 none; cursor:pointer; display:block;}
-.btnType1{width:96px; background:#907c6e;}
-.fR{float:right;}
-.btnArea{padding:25px 15px 40px 0;}
+.newbtn {
+	height: 45px;
+	line-height: 45px;
+	font-size: 15px;
+	text-align: center;
+	text-decoration: none;
+	color: #fff;
+	border: 0 none;
+	cursor: pointer;
+	display: block;
+}
 
+.btnType1 {
+	width: 96px;
+	background: #907c6e;
+}
+
+.fR {
+	float: right;
+}
+
+.btnArea {
+	padding: 25px 0px 0px 0;
+}
