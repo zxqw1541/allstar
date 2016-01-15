@@ -23,6 +23,11 @@ caption, legend{width:0; height:0; font-size:0; line-height:0; text-indent:-9999
 
 /* Reserved Class
 -------------------------------------------------------------- */
+
+ol, ul{list-style:none;}
+a{text-decoration:none;}
+
+
 .blind{width:1px; height:1px; font-size:0; line-height:0; position:absolute; top:0; left:-1000%; overflow:hidden;}
 .show{display:block;}
 .hide{display:none;}

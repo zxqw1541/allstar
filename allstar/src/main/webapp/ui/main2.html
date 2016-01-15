@@ -34,10 +34,10 @@ $(function() {
 <div id='top_header'>
 <header >
 <a href="#tournament_slider"><img src="images/allstar.png" ></a>
-<div class="auth">
-            <a style="margin-right:10px;color:white; "id="go" rel="leanModal" href="#signup">Login</a>     
-            <a style="margin-right:10px;color:white; " href="#">Sign In</a>
-            </div>
+          <div class="auth">
+		            <a style="margin-right:10px;color:white; "id="go" rel="leanModal" href="#signup">Login</a>     
+		            <a style="margin-right:10px;color:white; " href="#">Sign In</a>
+          </div>
             <div id="cssmenu" >
               <nav >
                 <ul >
@@ -359,7 +359,15 @@ $(document).ready( function() {
           if (ajaxResult.status == "success") {
             emailSession = ajaxResult.data.id;
             $.session.set('loginSession',emailSession);
-            location.href = "/allstar/ui/boardList10.html";
+            var div = $('.auth');
+            for (var member of ajaxResult.member) {
+                $("<li>" )
+            <div class="auth">
+            <a style="margin-right:10px;color:white; "id="go" rel="leanModal" href="#signup">Login</a>     
+            <a style="margin-right:10px;color:white; " href="#">Sign In</a>
+      </div>
+            }
+            /* location.href = "/allstar/ui/boardList10.html"; */
             console.log("success");
           } else {
             alert("아이디와 패스워드가 일치하지 않습니다.");
@@ -458,7 +466,7 @@ $(document).ready( function() {
             $("<li id='team_"+ team.tno+"'>")
             .html(
               "<a href='#' class='detailLink' teamTno='" + team.tno + "'>"
-                +"<img src='img/"+ emblem +"' alt='"+ team.name +"' >"
+                +"<img src='../team/img/"+ emblem +"' alt='"+ team.name +"' >"
                 +"<span>"+team.name+"</span>"
                 +"<span>"+team.bas_addr+"</span>"
                 +"<span>소개 : "+team.introduce+"</span>"
@@ -472,6 +480,9 @@ $(document).ready( function() {
               location.href = "form.html?no=" + $(event.target).attr("teamTno");
             } 
     });
+    
+    
+    
     
     
     </script>

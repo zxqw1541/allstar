@@ -55,6 +55,8 @@ public class TeamController {
 
     List<Team> teams = teamService.getTeamList(pageNo, pageSize, keyword, align);
     List<Event> events = eventService.getEventList();
+    log.info("pageNo = " + pageNo);
+    log.info("size = " + teams.size());
     
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
@@ -66,9 +68,11 @@ public class TeamController {
   
   @RequestMapping(value="add", method=RequestMethod.POST)
   public AjaxResult add(Team team, MultipartHttpServletRequest uploadedFile) throws Exception {
-
+    
+    log.info("team = " + team);
     Iterator<String> itr =  uploadedFile.getFileNames();
     if(itr.hasNext()) {
+      
         MultipartFile mpf = uploadedFile.getFile(itr.next());
         System.out.println(mpf.getOriginalFilename() +" uploaded!");
         try {
@@ -84,16 +88,14 @@ public class TeamController {
             stream.close();
             
             team.setEmblem(fileName);
-            teamService.register(team);
         } catch (IOException e) {
           e.printStackTrace();
+          return new AjaxResult("failure", null);
         }
-        return new AjaxResult("success", null);
-    } else {
-      return new AjaxResult("failure", null);
-    }
+    }     
     
-    
+    teamService.register(team);
+    return new AjaxResult("success", null);
     
   }
   
