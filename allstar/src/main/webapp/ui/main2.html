@@ -36,12 +36,12 @@ $(function() {
 <a href="#tournament_slider"><img src="images/allstar.png" ></a>
           <div class="auth">
           <span id="login" style="display:none;">
-		            <a style="margin-right:10px;color:white; "id="go" rel="leanModal" href="#signup">Login</a>     
-		            <a style="margin-right:10px;color:white; " href="#">Sign In</a>
+		          <a style='margin-right:10px;color:white;' id='go' rel='leanModal' href='#signup'>Login</a>
+      <!-- <a style='margin-right:10px;color:white;' href='#'>Sign In</a> -->
 		     </span>
 		     <span id="logout" style="display:none;">
-		            <a style='margin-right:10px;color:white;'  href='#'> dkdkdkdkdk </a>
-                <a style='margin-right:10px;color:white;' id='out' href='#'>Log out</a>
+		        
+		        <a style='margin-right:10px;color:white;' id='out' href='#'>Log out</a>
         </span>
           </div>
             <div id="cssmenu" >
@@ -379,16 +379,28 @@ $(document).ready( function() {
   if ($.session.get("loginSession") != undefined) {
 	  $("#logout").show();
 	  $("#login").hide();
+	  console.log($.session._cookieCache["loginSession"]);
+	    var session_id=$.session._cookieCache["loginSession"];
+	    var span = $("#logout");
+	    $("<a style='margin-right:10px;color:white;'  href='#'>"+session_id+"</a>")
+        .appendTo(span);
+        
   }else {
 	  $("#login").show();
 	  $("#logout").hide();
+
   }
 }); 
   
   $('#out').click( function(event) {
 	  $.session.remove("loginSession");  
 	  $("#login").show();
-	    $("#logout").hide();
+	  $("#logout").hide();
+	   /*  var span = $("#login");
+	    $("<a style='margin-right:10px;color:white;' id='go' rel='leanModal' href='#signup'>Login</a>"     
+	      +"<a style='margin-right:10px;color:white;' href='#'>Sign In</a>")
+	      .appendTo(span); */
+	  
   });
   
   // 로그인 끝
