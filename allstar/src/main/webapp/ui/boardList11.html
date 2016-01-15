@@ -27,6 +27,7 @@
   display:none;
 }
 </style>
+<!-- <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script> -->
 <script src="js/jquery-1.11.3.js"></script>
 <script src="js/jquery.leanModal.min.js"></script>
 <script src="js/modernizr.min.js"></script>
@@ -188,6 +189,7 @@ $(function(){
         </div>
         
 </div>
+
 <div id="footer"></div>
 <script>
 
@@ -237,12 +239,12 @@ console.log(board.no);
 $('#newBtn').click(function(event){
   location.href = "form.html?bno=-1";
 });
-
+ 
 function clickDetailLnk(event) {
-  event.preventDefault(); 
+  /* event.preventDefault(); */
   console.log($(event.target).attr("boardBno"));
-  $.getJSON('../board/ajax/detail.do?no='+ $(event.target).attr("boardBno"), function(resultObj) {
-
+  $.getJSON('../board/ajax/detail.do?no=' + $(event.target).attr("boardBno"), function(resultObj) {
+console.log("ddddddddddd");
 	    var ajaxResult = resultObj.ajaxResult;
 	    var board = ajaxResult.data;
 
@@ -281,8 +283,8 @@ function clickDetailLnk(event) {
 	              + "</div></div>")
 	              .appendTo(aside);
 	        
-	        $("<div class='history'>")
-	        .html("<ul class='list'>"
+	        $("<div class='history' >")
+	        .html("<ul class='list' style='margin-left: -39px;>"
 	              + "<li class='prev'>"
 	              + "<a href='http://tos.nexon.com/community/free/view.aspx?n4ArticleSN=88184'>"
 	              + "<span class='nav'>이전<span class='bul sprBtn'></span></span>"
@@ -306,12 +308,12 @@ function clickDetailLnk(event) {
 <script>
 $(document).ready(function() { 
     $('.trigger').click(function(){ 
-      $(' #overlay_t').fadeIn();
+      $('#subject, #overlay_t, #rightSide').fadeIn();
       $('body').css('overflow', 'hidden');
     }); 
     $('#overlay_t, .close').click(function(e){ 
       e.preventDefault(); 
-      $(' #overlay_t').fadeOut();
+      $('#subject, #overlay_t, #rightSide').fadeOut();
       $('body').css('overflow', 'auto');
     }); 
   });
