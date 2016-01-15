@@ -35,8 +35,14 @@ $(function() {
 <header >
 <a href="#tournament_slider"><img src="images/allstar.png" ></a>
           <div class="auth">
+          <span id="login" style="display:none;">
 		            <a style="margin-right:10px;color:white; "id="go" rel="leanModal" href="#signup">Login</a>     
 		            <a style="margin-right:10px;color:white; " href="#">Sign In</a>
+		     </span>
+		     <span id="logout" style="display:none;">
+		            <a style='margin-right:10px;color:white;'  href='#'> dkdkdkdkdk </a>
+                <a style='margin-right:10px;color:white;' id='out' href='#'>Log out</a>
+        </span>
           </div>
             <div id="cssmenu" >
               <nav >
@@ -335,6 +341,7 @@ $(function() {
 <script type="text/javascript" src="js/jquery.session.js"></script>
 <script>
 //로그인 시작
+
 $(document).ready( function() {
   var id = $.cookie("id");
   if (id != null && id != "") {
@@ -359,14 +366,7 @@ $(document).ready( function() {
           if (ajaxResult.status == "success") {
             emailSession = ajaxResult.data.id;
             $.session.set('loginSession',emailSession);
-            var div = $('.auth');
-            for (var member of ajaxResult.member) {
-                $("<li>" )
-            <div class="auth">
-            <a style="margin-right:10px;color:white; "id="go" rel="leanModal" href="#signup">Login</a>     
-            <a style="margin-right:10px;color:white; " href="#">Sign In</a>
-      </div>
-            }
+  
             /* location.href = "/allstar/ui/boardList10.html"; */
             console.log("success");
           } else {
@@ -374,6 +374,22 @@ $(document).ready( function() {
           }
         }, 'json');
       });
+  
+  $(document).ready( function() {
+  if ($.session.get("loginSession") != undefined) {
+	  $("#logout").show();
+	  $("#login").hide();
+  }else {
+	  $("#login").show();
+	  $("#logout").hide();
+  }
+}); 
+  
+  $('#out').click( function(event) {
+	  $.session.remove("loginSession");  
+	  $("#login").show();
+	    $("#logout").hide();
+  });
   
   // 로그인 끝
 
