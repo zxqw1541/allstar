@@ -6,6 +6,7 @@
 
 <link type="text/css" rel="stylesheet" href="css/header_footer.css" />
 
+<script src="js/jquery-1.11.3.js"></script>
 <script src="js/jquery.leanModal.min.js"></script>
 <script>
 
@@ -22,9 +23,15 @@ $(function() {
 <div id='top_header'>
 <header >
 <a href="main2.html"><img src="images/allstar.png" ></a>
-<div class="auth">
-            <a style="margin-right:10px;color:white; "id="go" rel="leanModal" href="#signup">Login</a>     
-            <a style="margin-right:10px;color:white; " href="#">Sign In</a>
+ <div class="auth">
+          <span id="login" style="display:none;">
+              <a style='margin-right:10px;color:white;' id='go' rel='leanModal' href='#signup'>Login</a>
+      <!-- <a style='margin-right:10px;color:white;' href='#'>Sign In</a> -->
+         </span>
+         <span id="logout" style="display:none;">
+            
+            <a style='margin-right:10px;color:white;' id='out' href='#'>Log out</a>
+        </span>
             </div>
             <div id="cssmenu" >
               <nav >
@@ -103,7 +110,10 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=5', function(resultObj){
              .appendTo(eventmenu);
        }
 });
-
+</script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquery.session.js"></script>
+<script>
 //로그인 시작
 $(document).ready( function() {
   var id = $.cookie("id");
@@ -127,15 +137,41 @@ $(document).ready( function() {
         }, function(resultObj) {
           var ajaxResult = resultObj.ajaxResult;
           if (ajaxResult.status == "success") {
-            emailSession = ajaxResult.data.email;
+            emailSession = ajaxResult.data.id;
             $.session.set('loginSession',emailSession);
-            location.href = "/allstar/ui/boardList10.html";
             console.log("success");
           } else {
             alert("이메일과 패스워드가 일치하지 않습니다.");
           }
         }, 'json');
       });
+  
+  
+  $(document).ready( function() {
+  if ($.session.get("loginSession") != undefined) {
+    $("#logout").show();
+    $("#login").hide();
+    console.log($.session._cookieCache["loginSession"]);
+      var session_id=$.session._cookieCache["loginSession"];
+      var span = $("#logout");
+      $("<a style='margin-right:10px;color:white;'  href='#'>"+session_id+"</a>")
+        .appendTo(span);
+        
+  }else {
+    $("#login").show();
+    $("#logout").hide();
+
+  }
+}); 
+  
+  $('#out').click( function(event) {
+    $.session.remove("loginSession");  
+    console.log("logout");
+    $("#login").show();
+    $("#logout").hide();
+
+    
+  });
   
   // 로그인 끝
 
