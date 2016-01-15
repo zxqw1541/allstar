@@ -68,10 +68,9 @@ public class TeamController {
   
   @RequestMapping(value="add", method=RequestMethod.POST)
   public AjaxResult add(Team team, MultipartHttpServletRequest uploadedFile) throws Exception {
-    log.info("uploadedFile = " + uploadedFile);
-    Iterator<String> itr =  uploadedFile.getFileNames();
-    log.info("itr.hasNext() = " + itr.hasNext());
     
+    log.info("team = " + team);
+    Iterator<String> itr =  uploadedFile.getFileNames();
     if(itr.hasNext()) {
       
         MultipartFile mpf = uploadedFile.getFile(itr.next());

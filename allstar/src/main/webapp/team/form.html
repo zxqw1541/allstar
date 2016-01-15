@@ -234,15 +234,29 @@
         data.append('file', file)
       });
       
-      data.append('eno', $('#fevent').val());
-      data.append('name', $('#fname').val());
-      data.append('totalNum', $('#ftotalnum').val());
-      data.append('fee', $('#ffee').val());
-      data.append('meetDay', $('#fmeetday').val());
-      data.append('introduce', $('#fintroduce').val());
-      data.append('aForm', $('#faform').val());
-      data.append('baseAddr', $('#fbaseaddr').val());
-      data.append('postNo', $('#fpostno').val());
+      if($('#fevent').val() != "")
+          data.append('eno', $('#fevent').val());
+        
+        if($('#fname').val() != "")
+          data.append('name', $('#fname').val());
+        
+        if($('#ftotalnum').val() != "")
+          data.append('totalNum', $('#ftotalnum').val());
+        
+        if($('#ffee').val() != "")
+          data.append('fee', $('#ffee').val());
+        
+        if($('#fmeetday').val() != "")
+          data.append('meetDay', $('#fmeetday').val());
+        
+        if($('#fbaseaddr').val() != "")
+          data.append('baseAddr', $('#fbaseaddr').val());
+        
+        if($('#fpostno').val() != "")
+          data.append('postNo', $('#fpostno').val());
+
+        data.append('introduce', $('#fintroduce').val());
+        data.append('aForm', $('#faform').val());
 
        $.ajax({
          url : "ajax/add.do",
