@@ -7,10 +7,13 @@
 <link rel="stylesheet" type="text/css" href="css/component.css" />
 <link rel="stylesheet" type="text/css" href="../team/css/main.css">
 <link rel='stylesheet' type='text/css' href="../team/css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/overlay.css" />
+<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css">
 
 <meta charset="UTF-8">
 
 <script src="js/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="js/preview.image.js"></script>
 
 <script> 
 $(function(){
@@ -27,18 +30,158 @@ $(function(){
 <div class="content">
   <div class="wrap">
     <div id="main" role="main" style="margin:0">
-    
+
     <div class="btnArea clearFix">
-    <p class="fR">
-    <a id="newBtn" class="newbtn btnType1 btnWrite">새 팀</a>
-    </p>
-    </div><br>
+      <p class="fR">
+        <a id="newBtn" class="newbtn btnType1">새 팀</a>
+      </p><br>
+      
+         <form id="teamForm">
+          <select id="tevent">
+              <option value=''>종목</option>
+              <option value='2'>농구</option>
+              <option value='3'>축구</option>
+              <option value='4'>야구</option>
+              <option value='5'>배드민턴</option>
+          </select>
+          <select id="tnum">
+              <option value=''>경기수</option>
+              <option value='1'>적은 순</option>
+              <option value='2'>많은 순</option>
+          </select>
+          <select name="tregion">
+              <option>지역</option>
+              <option>강원도</option>
+              <option>경기도</option>
+              <option>경상남도</option>
+              <option>경상북도</option>
+              <option>광주광역시</option>
+              <option>대구광역시</option>
+              <option>대전광역시</option>
+              <option>부산광역시</option>
+              <option>서울특별시</option>
+              <option>세종특별자치시</option>
+              <option>울산광역시</option>
+              <option>인천광역시</option>
+              <option>전라남도</option>
+              <option>전라북도</option>
+              <option>제주특별자치도</option>
+              <option>충청남도</option>
+              <option>충청북도</option>
+          </select>
+          <select id="tjoin">
+              <option value=''>가입여부</option>
+              <option value='1'>가능</option>
+              <option value='2'>불가능</option>
+          </select>
+          <select id="tdate">
+              <option value=''>등록순</option>
+              <option value='1'>최신순</option>
+              <option value='2'>오래된순</option>
+          </select>
+        </form>
+    
+    
+      </div><br>
 
       <ul id="tiles">
         <!-- These are our grid blocks -->
         <!-- End of grid blocks -->
       </ul>
     </div>
+  </div>
+</div>
+
+<!-- add Pop up -->
+<div id="team_overlay_t"></div>
+
+<!-- 추가 팝업 폼 --> 
+<div id="addForm" class="teamform_overlay_layer" class="popup">
+  <div class="popup_left">
+      <form id='addTeamForm' class="form-horizontal" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="fname" class="col-sm-2 control-label">팀명</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="fname"
+              placeholder="팀명을 입력해주세요.">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fevent" class="col-sm-2 control-label">종목</label>
+          <div class="col-sm-10">
+            <select id="fevent">
+              <option value=''>종목선택</option>
+              <option value='2'>농구</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="ftotalnum" class="col-sm-2 control-label">인원수</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="ftotalnum"
+              placeholder="인원수를 입력해주세요.">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ffee" class="col-sm-2 control-label">회비</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="ffee"
+              placeholder="회비를 입력해주세요.">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fmeetday" class="col-sm-2 control-label">정모요일</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="fmeetday"
+              placeholder="정모요일을 입력해주세요.">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fpostno" class="col-sm-2 control-label">우편번호</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="fpostno"
+              placeholder="우편번호(숫자 5자리)를 입력해주세요.">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="faddr" class="col-sm-2 control-label">연고지</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="faddr"
+              placeholder="연고지를 입력해주세요.">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="femblem" class="col-sm-2 control-label">엠뷸럼</label>
+          <div class="col-sm-10">
+            <input type="file" class="form-control" id="femblem" onchange="fileSelected()">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fintroduce" class="col-sm-2 control-label">팀 소개</label>
+          <div class="col-sm-10">
+            <textarea id="fintroduce" class="form-control" rows='10' cols='60'
+              placeholder="팀소개를 입력해주세요."></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="faform" class="col-sm-2 control-label">팀 가입양식</label>
+          <div class="col-sm-10">
+            <textarea id="faform" class="form-control" rows='10' cols='60'
+              placeholder="팀 가입 양식을 입력해주세요."></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button id='regTeamBtn' type='button'
+              class="newForm btn btn-primary btn-xs">등록</button>
+          </div>
+        </div>
+        <div>
+          <img id="preview_img" />
+        </div>
+      </form>
   </div>
 </div>
 
@@ -174,9 +317,7 @@ $(function(){
       $("a.detailLnk").click(clickDetailLnk);
     });
   
-    $('#newBtn').click(function(event){
-      location.href = "teamForm.html?tno=-1";
-    });
+   
 
     // 팀 이름을 클릭했을 때 호출될 함수
     function clickDetailLnk(event) {
@@ -185,7 +326,80 @@ $(function(){
     }
   
   </script>
+<script>
+/* add form 오버레이 */
+$(document).ready(function() { 
+  $('#newBtn').click(function(){ 
+    $('#addForm, #team_overlay_t').fadeIn();
+    $('body').css('overflow', 'hidden');
+  }); 
+  $('#team_overlay_t, .close').click(function(e){ 
+    e.preventDefault(); 
+    $('#addForm, #team_overlay_t, #detailForm').fadeOut();
+    $('body').css('overflow', 'auto');
+  }); 
+});
 
+[[[]]]
+/* 등록폼 전송 */
+
+$(function() {
+    $("#regTeamBtn").click(function() {
+      var form = $('form')[0];
+      var data = new FormData();
+      $.each($('#femblem')[0].files, function(i, file) {
+        data.append('file', file)
+      });
+      
+      if($('#fevent').val() != "")
+          data.append('eno', $('#fevent').val());
+        
+        if($('#fname').val() != "")
+          data.append('name', $('#fname').val());
+        
+        if($('#ftotalnum').val() != "")
+          data.append('totalNum', $('#ftotalnum').val());
+        
+        if($('#ffee').val() != "")
+          data.append('fee', $('#ffee').val());
+        
+        if($('#fmeetday').val() != "")
+          data.append('meetDay', $('#fmeetday').val());
+        
+        if($('#fbaseaddr').val() != "")
+          data.append('baseAddr', $('#fbaseaddr').val());
+        
+        if($('#fpostno').val() != "")
+          data.append('postNo', $('#fpostno').val());
+
+        data.append('introduce', $('#fintroduce').val());
+        data.append('aForm', $('#faform').val());
+
+       $.ajax({
+         url : "../team/ajax/add.do",
+         data : data,
+         type : "POST",
+         dataType: "json",
+         enctype: 'multipart/form-data',
+         processData: false, 
+         contentType:false,
+         success : function(result) {
+           console.log(result);
+         if (result.ajaxResult.status == "success") {
+            location.href = "/allstar/ui/teamList2.html";
+           } else {
+            alert("팀 등록에 실패했습니다.");
+           }
+         },
+         error : function(result){
+            alert('error');
+         }
+       });
+    });
+  });
+
+
+</script>
 
 </body>
 </html>
