@@ -198,11 +198,11 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=7', function(resultObj) {
     .html("<td class='num'>"+ board.event.name +"</td>"
     		  + "<td class='subject'>"
     		  + "<a href='#' class='trigger' boardBno='"+ board.no +"'>"
-    		  +  "<strong>"+ board.title  
+    		  /* +  "<strong>" */+ board.title  
     		  + "<small>("+ board.views +")</small>" 
     		  +"<img src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_img.png' alt='이미지 있음' class='bulArticle bulImg' />" 
     		  +"<img class='bul' src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_new.png' alt='새 글' class='bulArticle bulNew'>"
-    		  + "</strong>"
+    		  /* + "</strong>" */
     		  + "<span class='info'>"+ board.createDate +"</span></a>"
     		  + "</td>"
     		  +"<td class='author'>"
@@ -240,7 +240,7 @@ $('#newBtn').click(function(event){
 
 function clickDetailLnk(event) {
   event.preventDefault(); 
-  console.log($(event.target).attr("boardBno"))
+  console.log($(event.target).attr("boardBno"));
   $.getJSON('../board/ajax/detail.do?no='+ $(event.target).attr("boardBno"), function(resultObj) {
 
 	    var ajaxResult = resultObj.ajaxResult;
