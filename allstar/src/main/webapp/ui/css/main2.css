@@ -154,6 +154,88 @@ width:80px;
 }
 
 
+#Mainimg {
+	width:940px;
+  height:473px;
+  margin:auto;
+  }
+  #Mainimg img{
+  border:0; vertical-align: middle;
+  width : 184px;
+  height: 473px;
+  }
+  #Mainimginfo {
+  width:940px;
+  height:92px;
+  background-color:#e42d1f;
+  opacity:0.9; 
+  margin:auto;
+  }
+
+#Mimginfo1 {
+  float:left;
+  width:184px;
+  height:92px;
+  color:#FFFFFF;
+  font-size:13px;
+  text-align:center;
+  line-height:16px;
+  border-right:1px solid black;
+  }
+
+#Mimginfo2 {
+  float:left;
+  width:184px;
+  height:92px;
+  color:#FFFFFF;
+  font-size:13px;
+  text-align:center;
+  line-height:16px;
+  border-right:1px solid black;
+  }
+
+#Mimginfo3 {
+  float:left;
+  width:184px;
+  height:92px;
+  color:#FFFFFF;
+  font-size:13px;
+  text-align:center;
+  line-height:16px;
+  border-right:1px solid black;
+  }
+
+#Mimginfo4 {
+  float:left;
+  width:184px;
+  height:92px;
+  color:#FFFFFF;
+  font-size:13px;
+  text-align:center;
+  line-height:16px;
+  border-right:1px solid black;
+  }
+
+#Mimginfo5 {
+  float:left;
+  width:184px;
+  height:92px;
+  color:#FFFFFF;
+  font-size:13px;
+  text-align:center;
+  line-height:16px;
+  }
+
+#Mimginfo6 {
+  float:left;
+  width:183px;
+  height:92px;
+  color:#FFFFFF;
+  font-size:13px;
+  text-align:center;  
+  line-height:16px;
+  }
+
 /* ------------ */
 /* login form */
 /* ------------ */
