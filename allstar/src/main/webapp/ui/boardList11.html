@@ -159,8 +159,8 @@ $(function() {
 
 <!--  <div id="overlay_t" style="opacity:1;" > 
     <div id="container"> -->
-            <div id="contents" style='display:none;'>
-          <div class="viewLayer viewWrap boardContents boardView">
+            <div id="contents" style='display:none; z-index:1001;background-color: white;'>
+          <div class="viewWrap boardContents boardView" style="width:100%; ">
             <div class="viewLayerInnerWrap">
               <article id="subject" class="mainArea">
              
@@ -262,7 +262,7 @@ function clickDetailLnk(event) {
 	              + "</div></div>")
 	              .appendTo(aside);
 	        $("<div class='history' >")
-	        .html("<ul class='list' style='margin-left: -39px;>"
+	        .html("<ul class='list' style='margin-left: -39px;'>"
 	              + "<li class='prev'>"
 	              + "<a href='http://tos.nexon.com/community/free/view.aspx?n4ArticleSN=88184'>"
 	              + "<span class='nav'>이전<span class='bul sprBtn'></span></span>"
