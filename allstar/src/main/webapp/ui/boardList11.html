@@ -37,9 +37,8 @@
   display:none;
 }
 </style>
-<!-- <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script> -->
 <script src="js/jquery-1.11.3.js"></script>
-<script src="js/jquery.leanModal.min.js"></script>
+<script src="js/test/jquery.leanmodal.js"></script>
 <script src="js/modernizr.min.js"></script>
 
 
@@ -62,14 +61,7 @@ $(function() {
 
 <div id="container">
       
-<script type="text/javascript">
-    function moveComm(val) {
-        if (val == "")
-            alert('메뉴를 선택해 주세요.');
-        else
-            location.href = val;
-    }
-</script>
+
 
 
 
@@ -159,9 +151,8 @@ $(function() {
 
 <!--  <div id="overlay_t" style="opacity:1;" > 
     <div id="container"> -->
-            <div id="contents" style='display:none; z-index:1001;background-color: white;'>
-          <div class="viewWrap boardContents boardView" style="width:100%; ">
-            <div class="viewLayerInnerWrap">
+            <div id="contents" style='display:none; background-color: white; min-width:1258px; margin:auto; overflow:auto;'>
+          <div class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
               <article id="subject" class="mainArea">
              
               </article>
@@ -171,7 +162,6 @@ $(function() {
               <p class="btnClose"><button type="button" class="sprBtn">닫기</button>
             </div>
           </div>
-            </div>
   <!--      </div>
          </div> 
 
@@ -228,11 +218,13 @@ $('#newBtn').click(function(event){
 });
  
 function clickDetailLnk(event) {
+$('#subject').empty();
+$('#rightSide').empty();
   $.getJSON('../board/ajax/detail.do?no=' + $(event.target).attr("boardBno"), function(resultObj) {
 	    var ajaxResult = resultObj.ajaxResult;
 	    var board = ajaxResult.data;
 	      var article = $("#subject");
-	        $("<header class='header'>")
+	        $("<header id='test1'class='header'>")
 	        .html("<p class='cat1 clearFix'><span class='dep1'>종목별 게시판</span></p>"
 	              + "<div class='inner clearFix'>"
 	              + "<div class='subject'>"
@@ -243,7 +235,7 @@ function clickDetailLnk(event) {
 	              + "<span class='view'><strong>" + board.views + "</strong>조회</span>"
 	              + "</p></div></header>")
 	        .appendTo(article);
-	        $("<div class='viewContents'>")
+	        $("<div id='test2' class='viewContents'>")
 	        .html("<p>" + board.content + "</p>"
 	              + "<div id='loading' style='display:none'><img src='http://s.nx.com/s2/game/tos/common/img_loading.gif' alt='' /></div>" 
 	              + "</div>")
@@ -278,14 +270,12 @@ function clickDetailLnk(event) {
 	              + "<span class='etc'><span class='date'>2016.01.14</span></span>" 
 	              + "</div></a></li></ul></div>")
 	      .appendTo(aside);
+	        
+	      
 	  });
 }
 
-$(document).ready(function() { 
-	  $('#contents, .sprBtn').click(function(e){ 
-	  $('#contents').hide();
-	  }); 
-	});
+
 
 </script>
 
