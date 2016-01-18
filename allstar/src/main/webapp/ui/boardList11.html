@@ -157,11 +157,9 @@ $(function() {
 </div>
 </div>
 
-<div id="overlay_t" style="opacity:1;" >
-    <div id="container">
-            <div id="contents">
-            <div id="ajaxContents"></div>
-            <div id="noContent"></div>
+<!--  <div id="overlay_t" style="opacity:1;" > 
+    <div id="container"> -->
+            <div id="contents" style='display:none;'>
           <div class="viewLayer viewWrap boardContents boardView">
             <div class="viewLayerInnerWrap">
               <article id="subject" class="mainArea">
@@ -174,10 +172,10 @@ $(function() {
             </div>
           </div>
             </div>
-        </div>
-        </div>
+  <!--      </div>
+         </div> 
 
-
+ -->
 <div id="footer"></div>
 
 
@@ -189,7 +187,7 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=7', function(resultObj) {
     $("<tr>")
     .html("<td class='num'>"+ board.event.name +"</td>"
     		  + "<td class='subject'>"
-    		  + "<a href='#overlay_t' class='trigger'  rel='leanModal'  boardBno='"+ board.no +"'>"
+    		  + "<a href='#contents' class='trigger'  rel='leanModal'  boardBno='"+ board.no +"'>"
     		  /* +  "<strong>" */+ board.title  
     		  + "<small>("+ board.views +")</small>" 
     		  +"<img src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_img.png' alt='이미지 있음' class='bulArticle bulImg' />" 
@@ -257,10 +255,10 @@ function clickDetailLnk(event) {
 	              + "</p><p class='lvs'><span class='lv'> 축구 </span></p></div></div>")
 	              .appendTo(aside);
 	        $("<div class='btnArea'>")
-	        .html("<p class='btnHome'><a href='#' onclick='window.open('/barrack/guest.aspx?n8NexonSN=184613159&n8CharacterSN=87990995043730', 'barrack', 'width=1200. height=665, scrollbars=no');' class='btn btnType5'>회원정보보기</a></p>"
-	              + "<div class='btm clearFix'>"
-	              + "<a href='http://tos.nexon.com/community/free/write.aspx?n4ArticleSN=0' id='btnArticleWrite' class='btn btnType6 btnWrite'>글쓰기</a>"
-	              + "<a href='http://tos.nexon.com/community/free/list.aspx?n4ArticleSN=0' class='btn btnType6 btnList'>목록</a>"
+	        .html("<p class='btnHome'><a href='#' style='margin-left:0%' onclick='window.open('/barrack/guest.aspx?n8NexonSN=184613159&n8CharacterSN=87990995043730', 'barrack', 'width=1200. height=665, scrollbars=no');' class='btn btnType5'>회원정보보기</a></p>"
+	              + "<div class='btm clearFix' style='margin-left:0%'>"
+	              + "<a href='http://tos.nexon.com/community/free/write.aspx?n4ArticleSN=0' style='margin-left:0%' id='btnArticleWrite' class='btn btnType6 btnWrite'>글쓰기</a>"
+	              + "<a href='http://tos.nexon.com/community/free/list.aspx?n4ArticleSN=0' style='margin-left:0%' class='btn btnType6 btnList'>목록</a>"
 	              + "</div></div>")
 	              .appendTo(aside);
 	        $("<div class='history' >")
@@ -284,8 +282,8 @@ function clickDetailLnk(event) {
 }
 
 $(document).ready(function() { 
-	  $('#overlay_t, .sprBtn').click(function(e){ 
-	  $('#overlay_t').hide();
+	  $('#contents, .sprBtn').click(function(e){ 
+	  $('#contents').hide();
 	  }); 
 	});
 
