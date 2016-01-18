@@ -8,11 +8,11 @@
 <link rel="stylesheet" type="text/css" href="../team/css/main.css">
 <link rel='stylesheet' type='text/css' href="../team/css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/overlay.css" />
-<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css">
 
 <meta charset="UTF-8">
 
 <script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
 <script type="text/javascript" src="js/preview.image.js"></script>
 
 <script> 
@@ -93,104 +93,92 @@ $(function(){
   </div>
 </div>
 
-<!-- add Pop up -->
-<div id="team_overlay_t"></div>
-
-<!-- 추가 팝업 폼 --> 
-<div id="addForm" class="teamform_overlay_layer" class="popup">
-  <div class="popup_left">
-      <form id='addTeamForm' class="form-horizontal" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="fname" class="col-sm-2 control-label">팀명</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="fname"
-              placeholder="팀명을 입력해주세요.">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="fevent" class="col-sm-2 control-label">종목</label>
-          <div class="col-sm-10">
-            <select id="fevent">
-              <option value=''>종목선택</option>
-              <option value='2'>농구</option>
-              <option value='3'>축구</option>
-              <option value='4'>야구</option>
-              <option value='5'>볼링</option>
-              <option value='6'>탁구</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="ftotalnum" class="col-sm-2 control-label">인원수</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="ftotalnum"
-              placeholder="인원수를 입력해주세요.">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="ffee" class="col-sm-2 control-label">회비</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="ffee"
-              placeholder="회비를 입력해주세요.">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="fmeetday" class="col-sm-2 control-label">정모요일</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="fmeetday"
-              placeholder="정모요일을 입력해주세요.">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="fpostno" class="col-sm-2 control-label">우편번호</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="fpostno"
-              placeholder="우편번호(숫자 5자리)를 입력해주세요.">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="faddr" class="col-sm-2 control-label">연고지</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="faddr"
-              placeholder="연고지를 입력해주세요.">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="femblem" class="col-sm-2 control-label">엠뷸럼</label>
-          <div class="col-sm-10">
-            <input type="file" class="form-control" id="femblem" onchange="fileSelected()">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="fintroduce" class="col-sm-2 control-label">팀 소개</label>
-          <div class="col-sm-10">
-            <textarea id="fintroduce" class="form-control" rows='10' cols='60'
-              placeholder="팀소개를 입력해주세요."></textarea>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="faform" class="col-sm-2 control-label">팀 가입양식</label>
-          <div class="col-sm-10">
-            <textarea id="faform" class="form-control" rows='10' cols='60'
-              placeholder="팀 가입 양식을 입력해주세요."></textarea>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button id='regTeamBtn' type='button'
-              class="newForm btn btn-primary btn-xs">등록</button>
-          </div>
-        </div>
-        <div>
-          <img id="preview_img" />
-        </div>
-      </form>
-  </div>
-</div>
-
 <div id="footer"></div>
+
+<!-- 등록 폼 -->
+  <div id="add_team">
+    <div id="add_team-header">
+      <h2>새 팀 등록</h2>
+      <a class="modal_close" href="#"></a>
+    </div>
+    <div id="add_team_img">
+      <img id="preview_img" src="img/allstardefault.png"/>
+    </div>
+    <form id='addTeamForm' class="form-horizontal" enctype="multipart/form-data">
+          
+    <div class="txt-fld">
+      <label for="fname">팀명</label>
+      <input id="fname" class="good_input" type="text" placeholder="팀명을 입력해주세요."/>
+    </div>
+            
+    <div class="txt-fld">
+      <label for="fevent">종목</label>
+      <div>
+        <select id="fevent" class="good_input">
+          <option value=''>종목선택</option>
+          <option value='2'>농구</option>
+          <option value='3'>축구</option>
+          <option value='4'>야구</option>
+          <option value='5'>볼링</option>
+          <option value='6'>탁구</option>
+        </select>
+      </div>
+    </div>
+          
+    <div class="txt-fld">
+      <label for="ftotalnum">인원수</label>
+      <input id="ftotalnum" class="good_input" type="text" placeholder="숫자를 입력해주세요."/>
+    </div>
+          
+    <div class="txt-fld">
+      <label for="ffee">회비</label>
+      <input id="ffee" class="good_input" type="text" placeholder="숫자를 입력해주세요."/>
+    </div>
+          
+    <div class="txt-fld">
+      <label for="fmeetday">정모요일</label>
+      <input id="fmeetday" class="good_input" type="text" placeholder="정모요일을 입력해주세요."/>
+    </div>
+          
+      <div class="txt-fld">
+        <label for=fpostno>우편번호</label>
+        <input id="fpostno" class="good_input" type="text" placeholder="우편번호(숫자 5자리)를 입력해주세요."/>
+      </div>
+      
+      <div class="txt-fld">
+        <label for=faddr>연고지</label>
+        <input id="faddr" class="good_input" type="text" placeholder="연고지를 입력해주세요."/>
+      </div>
+      
+      <div class="txt-fld">
+        <label for=femblem>엠뷸럼</label>
+        <div>
+          <input type="file" class="form-control" id="femblem" onchange="fileSelected()">
+        </div>
+      </div>
+      
+      <div class="txtarea-fld">
+        <label for=fintroduce>팀 소개</label>
+        <div>
+          <textarea id="fintroduce" class="form-control" rows='10' cols='60'
+              placeholder="팀소개를 입력해주세요."></textarea>
+        </div>
+      </div>
+      <div class="txtarea-fld">
+        <label for=faform>팀 가입양식</label>
+        <div>
+          <textarea id="faform" class="form-control" rows='10' cols='60'
+              placeholder="팀 가입 양식을 입력해주세요."></textarea>
+        </div>
+      </div>
+      
+      <div class="btn-fld">
+        <button id="regTeamBtn" type="button">추가 &raquo;</button>
+      </div>
+    </form>
+  </div>
+
+
   <!---//End-content---->
   <!----wookmark-scripts---->
   <script src="../team/js/jquery.imagesloaded.js"></script>
