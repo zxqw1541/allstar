@@ -29,7 +29,7 @@
 #add_team .txt-fld input.error_input { background: #FDE0E0; }
 #add_team .txt-fld select { width: 262px; padding: 7px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
 
-#add_team .txtarea-fld { position: relative; width: 740px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
+#add_team .txtarea-fld { position: relative; width: 735px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
 #add_team .txtarea-fld div {width:700px; }
 #add_team .txtarea-fld label { display: block; float: left; width: 120px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
 #add_team .txtarea-fld textarea { width: 494px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }

@@ -33,7 +33,7 @@ $(function(){
 
     <div class="btnArea clearFix">
       <p class="fR">
-        <a id="newBtn" class="newbtn btnType1">새 팀</a>
+        <a id="newBtn" class="newbtn btnType1" rel='leanModal' href='#add_team'>새 팀</a>
       </p><br>
       
          <form id="teamForm">
@@ -333,75 +333,62 @@ $(function(){
   </script>
 
 <script>
-/* add form 오버레이 */
-$(document).ready(function() { 
-  $('#newBtn').click(function(){ 
-    $('#addForm, #team_overlay_t').fadeIn();
-    $('body').css('overflow', 'hidden');
-  }); 
-  $('#team_overlay_t, .close').click(function(e){ 
-    e.preventDefault(); 
-    $('#addForm, #team_overlay_t, #detailForm').fadeOut();
-    $('body').css('overflow', 'auto');
-  }); 
-});
-
-
   /* 등록폼 전송 */
   $(function() {
-    $("#regTeamBtn").click(function() {
-      var form = $('form')[0];
-      var data = new FormData();
-      $.each($('#femblem')[0].files, function(i, file) {
-        data.append('file', file)
+        $("#regTeamBtn").click(function() {
+          var form = $('form')[0];
+          var data = new FormData();
+          $.each($('#femblem')[0].files, function(i, file) {
+            data.append('file', file)
+          });
+          
+          if($('#fevent').val() != "")
+              data.append('eno', $('#fevent').val());
+            
+            if($('#fname').val() != "")
+              data.append('name', $('#fname').val());
+            
+            if($('#ftotalnum').val() != "")
+              data.append('totalNum', $('#ftotalnum').val());
+            
+            if($('#ffee').val() != "")
+              data.append('fee', $('#ffee').val());
+            
+            if($('#fmeetday').val() != "")
+              data.append('meetDay', $('#fmeetday').val());
+            
+            if($('#fbaseaddr').val() != "")
+              data.append('baseAddr', $('#fbaseaddr').val());
+            
+            if($('#fpostno').val() != "")
+              data.append('postNo', $('#fpostno').val());
+
+            data.append('introduce', $('#fintroduce').val());
+            data.append('aForm', $('#faform').val());
+
+           $.ajax({
+             url : "../team/ajax/add.do",
+             data : data,
+             type : "POST",
+             dataType: "json",
+             enctype: 'multipart/form-data',
+             processData: false, 
+             contentType:false,
+             success : function(result) {
+               console.log(result);
+             if (result.ajaxResult.status == "success") {
+                location.href = "/allstar/ui/teamList.html";
+               } else {
+                alert("팀 등록에 실패했습니다.");
+               }
+             },
+             error : function(result){
+                console.log(result)
+                alert('error');
+             }
+           });
+        });
       });
-      
-      if($('#fevent').val() != "")
-          data.append('eno', $('#fevent').val());
-        
-        if($('#fname').val() != "")
-          data.append('name', $('#fname').val());
-        
-        if($('#ftotalnum').val() != "")
-          data.append('totalNum', $('#ftotalnum').val());
-        
-        if($('#ffee').val() != "")
-          data.append('fee', $('#ffee').val());
-        
-        if($('#fmeetday').val() != "")
-          data.append('meetDay', $('#fmeetday').val());
-        
-        if($('#fbaseaddr').val() != "")
-          data.append('baseAddr', $('#fbaseaddr').val());
-        
-        if($('#fpostno').val() != "")
-          data.append('postNo', $('#fpostno').val());
-
-        data.append('introduce', $('#fintroduce').val());
-        data.append('aForm', $('#faform').val());
-
-       $.ajax({
-         url : "../team/ajax/add.do",
-         data : data,
-         type : "POST",
-         dataType: "json",
-         enctype: 'multipart/form-data',
-         processData: false, 
-         contentType:false,
-         success : function(result) {
-           console.log(result);
-         if (result.ajaxResult.status == "success") {
-            location.href = "/allstar/ui/teamList.html";
-           } else {
-            alert("팀 등록에 실패했습니다.");
-           }
-         },
-         error : function(result){
-            alert('error');
-         }
-       });
-    });
-  });
 </script>
 
 </body>
