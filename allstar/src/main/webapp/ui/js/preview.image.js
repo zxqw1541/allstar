@@ -1,5 +1,5 @@
 // common variables
-var iMaxFilesize = 1048576; // 1MB
+var iMaxFilesize = 10485760; // 1MB
 var sResultFileSize = '';
 
 function secondsToTime(secs) { // we will use this function to convert seconds in normal time format
