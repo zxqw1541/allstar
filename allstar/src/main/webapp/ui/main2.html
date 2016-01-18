@@ -37,7 +37,7 @@ $(function() {
           <div class="auth">
           <span id="login" style="display:none;">
 		          <a style='margin-right:10px;color:white;' id='go' rel='leanModal' href='#signup'>Login</a>
-      <!-- <a style='margin-right:10px;color:white;' href='#'>Sign In</a> -->
+       <a style='margin-right:10px;color:white;' href='#signin' rel='leanModal'>Sign In</a> 
 		     </span>
 		     <span id="logout" style="display:none;">
 		        
@@ -335,7 +335,40 @@ $(function() {
 <!-- footer end -->
 </div>
 
+<!-- 가입 폼 -->
+<div id="signin">
+      <div id="signup-ct">
+        <div id="signup-header">
+          <h2>회원가입</h2>
+          <p>회원가입을 하세요</p>
+        </div>
+        
+        <form action="" method="POST">
+          <div class="txt-fld">
+            <label for="username">Username</label>
+            <input id="id_signin" class="good_input" name="username" type="text" />
 
+          </div>
+        
+          <div class="txt-fld">
+            <label for="password">Password</label>
+            <input id="pass_signin" name="password" type="text" />
+
+          </div>
+                    <div class="txt-fld">
+            <label for="password2">Password 확인</label>
+            <input  name="password2" type="text" />
+
+          </div>
+          <div class="btn-fld">
+          <button id="addBtn" type="submit">로그인 &raquo;</button>
+          <input type="checkbox" id="saveId"> 
+          <label id="saveLabel" for="saveId">아이디 저장</label>
+</div>
+         </form>
+      </div>
+    </div>
+<!-- 가입폼 끝 -->
 
 <!-- 로그인 폼 -->
 <div id="signup">
@@ -542,7 +575,36 @@ $(document).ready( function() {
     
     
     
-    
+    $(function() {
+        $("#addBtn").click(function() {
+          var form = $('form')[0];
+          var data = new FormData();
+          
+          data.append('id', $('#id_signin').val());
+          data.append('pwd', $('#pass_signin').val());
+          
+           $.ajax({
+             url : "../member/ajax/add.do",
+             data : data,
+             type : "POST",
+             dataType: "json",
+             enctype: 'multipart/form-data',
+             processData: false, 
+             contentType:false,
+             success : function(result) {
+               console.log(result);
+             if (result.ajaxResult.status == "success") {
+                location.href = "/allstar/ui/main2.html";
+               } else {
+                alert("팀 등록에 실패했습니다.");
+               }
+             },
+             error : function(result){
+                alert('error');
+             }
+           });
+        });
+      });
     
     </script>
 
