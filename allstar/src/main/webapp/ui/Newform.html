@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link type="text/css" rel="stylesheet" href="css/tos/tos.css" />
+<style>
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+</style>
+<script type="text/javascript"  src="js/jquery-1.11.3.js"></script>
+<script type="text/javascript"  src="js/jquery.leanModal.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+});
+</script>
+</head>
+<body>
+
+<a href="#container" rel="leanModal">새글</a>
+
+<div id="container" style="display:none">
+<div id="noContent"></div>
+
+<div id="contents" class="viewLayer viewWrap boardContents write">
+  <div class="viewLayerInnerWrap viewLayerInnerWrapWrite">
+    <div class="writeArea">
+      <div class="header clearFix">
+        <div class="input">
+                    <input name="ctl00$Contents$m_txtTitle" type="text" id="ctl00_Contents_m_txtTitle" class="inputTxt" placeholder="제목을 입력하세요." />
+        </div>
+      </div>
+      <div class="edSec">
+        <div id="selectBar" class="edSelectStyleBar">
+          <div class="edFSec01">
+            <a id="editorProc01-useFocusOut" href="#" style="width:1px;height:1px;font-size:1px;"> </a>
+            <select id="selFontFamily" onchange="editorEventHandler.font(editorProc01,this.id); return false;" class="fontFamily select">
+              <option value="0">글꼴</option>
+              <option value="돋움">돋움</option>
+              <option value="굴림">굴림</option>
+              <option value="궁서">궁서</option>
+              <option value="바탕">바탕</option>
+              <option value="Verdana">Verdana</option>
+              <option value="Helvetica">Helvetica</option>
+              <option value="Trebuchet">Trebuchet</option>
+              <option value="Arial">Arial</option>
+              <option value="Times">Times</option>
+              <option value="Courier">Courier</option>
+            </select>
+            <select id="selFontSize" onchange="editorEventHandler.size(editorProc01,this.id); return false;" class="fontSize select">
+              <option value="0">크기</option>
+              <option value="1">8pt</option>
+              <option value="2">10pt</option>
+              <option value="3">12pt</option>
+              <option value="4">14pt</option>
+              <option value="5">18pt</option>
+              <option value="6">24pt</option>
+              <option value="7">36pt</option>
+            </select>  
+          </div>
+          <div class="edFSec02">
+            <a href="#" onclick="editorEventHandler.bold(editorProc01); return false;" class="fontWeight" title="굵게"><strong>굵게</strong></a>
+            <a href="#" onclick="editorEventHandler.italic(editorProc01); return false;" class="fontItalic" title="기울임"><strong>기울임</strong></a>
+            <a href="#" onclick="editorEventHandler.underline(editorProc01); return false;" class="fontUnderline" title="밑줄"><strong>밑줄</strong></a>
+            <a href="#" onclick="editorEventHandler.color(event,editorProc01); return false;" class="fontColor" title="글자색"><strong>글자색</strong></a>
+            <a href="#" onclick="editorEventHandler.bgcolor(event,editorProc01); return false;" class="fontBgcolor" title="글자배경색"><strong>글자배경색</strong></a>
+          </div>
+          <div class="edFSec02">
+            <a href="#" onclick="editorEventHandler.alignLeft(editorProc01); return false;" class="arrayLeft" title="왼쪽"><strong>왼쪽</strong></a>
+            <a href="#" onclick="editorEventHandler.alignCenter(editorProc01); return false;" class="arrayCenter" title="가운데"><strong>가운데</strong></a>
+            <a href="#" onclick="editorEventHandler.alignRight(editorProc01); return false;" class="arrayRight" title="오른쪽"><strong>오른쪽</strong></a>
+          </div>  
+          <div class="edFSec02">
+            <a href="#" onclick="editorEventHandler.link(event,editorProc01); return false;" class="etcLink" title="링크"><strong>링크</strong></a>
+            <a href="#" onclick="editorEventHandler.hr(editorProc01); return false;" class="etcLine" title="선긋기"><strong>선긋기</strong></a>
+            <a href="#" onclick="editorEventHandler.emoticon(event,editorProc01); return false;" class="etcEmoticon" title="이모티콘"><strong>이모티콘</strong></a>
+          </div>
+          <div class="edFSec03">
+            <a href="#" onclick="editorPopup.uploadImgFilePopup( '/popup/imageuploader.aspx?emFileGameCode=TOS', 457, 500 ); return false;" class="uploadImage" title="이미지"><strong>이미지</strong></a>
+            <a href="#" onclick="window.open('/popup/movielink.aspx','movie','width=460, height=350, scrollbars=yes');" class="uploadMedia" title="동영상"><strong>동영상</strong></a>
+          </div>
+        </div>
+        <div class="edWSec">
+          <iframe frameborder="0" class="editWindow" name="editWindow" id="editWindow"></iframe>
+          <textarea class="editWindow" name="textWindow" id="textWindow" rows="9" cols="40"></textarea>
+        </div>
+      </div>
+            
+<div id='Contents_m_HtmlEditor'>
+<div id='Contents_m_HtmlEditor_HtmlTagFilter_division'></div>
+<div id='Contents_m_HtmlEditor_ItemSelect_division'></div>
+<input type='hidden' name='Contents_m_HtmlEditor_strContent_OnlyHtml' id='Contents_m_HtmlEditor_strContent_OnlyHtml' value=''/>
+<input type='hidden' name='Contents_m_HtmlEditor_strContent_OnlyText' id='Contents_m_HtmlEditor_strContent_OnlyText'/>
+<input type='hidden' name='Contents_m_HtmlEditor_oidImageFiles' id='Contents_m_HtmlEditor_oidImageFiles'/>
+<input type='hidden' name='Contents_m_HtmlEditor_oidMovieFiles' id='Contents_m_HtmlEditor_oidMovieFiles'/>
+<input type='hidden' name='Contents_m_HtmlEditor_oidMovieThumbFiles' id='Contents_m_HtmlEditor_oidMovieThumbFiles'/>
+<input type='hidden' name='Contents_m_HtmlEditor_strPlayTime' id='Contents_m_HtmlEditor_strPlayTime'/>
+<input type='hidden' name='Contents_m_HtmlEditor_strMovieThumbSNList' id='Contents_m_HtmlEditor_strMovieThumbSNList'/>
+<input type='hidden' name='Contents_m_HtmlEditor_strMovieThumbPlayTimeList' id='Contents_m_HtmlEditor_strMovieThumbPlayTimeList'/>
+<textarea id='Contents_m_HtmlEditor_strArticleContent_Mod_Textarea' cols=100 rows=30 title='내용을 입력하세요' style=display:none;></textarea>
+<script type="text/javascript">    
+
+    function Createm_HtmlEditor() {
+        editorProc01 = new htmlEditor();
+        editorProc01.objObject = 'editorProc01';
+    editorProc01.styleBar = 'selectBar';
+        editorProc01.iframeID = 'editWindow';
+        editorProc01.textareaID = 'textWindow';
+        editorProc01.useFocusOut = 'editorProc01-useFocusOut';
+
+        editorProc01.cssUrl = '';
+        editorProc01.codeWriterType = 1;
+        editorProc01.boxWidth = 670;
+        editorProc01.init(editorProc01.iframeID, editorProc01.cssUrl);
+        //미리 만들어진 컨텐츠가 있을경우 아이프레임으로 이동시켜줌
+        editorProc01.imageURL = 'http://file.nexon.com/NxFile/download/FileDownloader.aspx';
+        editorProc01.movieURLInfoURL = 'http://file.nexon.com/NxFile/Download/MovieDownloader.aspx';
+
+        editorProc01.applyHtmlToIframe(document.getElementById('Contents_m_HtmlEditor_strArticleContent_Mod_Textarea').value);
+    }
+
+  function Contents_m_HtmlEditor_CheckValidation() {
+    var n4ImageCount = editorProc01.returnResultImageCount();
+    var n4MovieCount = editorProc01.returnResultVodCount();
+
+    if ((n4ImageCount + n4MovieCount) > 30) {
+      alert('파일은 최대 30개까지 올릴 수 있습니다.');
+      return false;
+    }
+
+    document.getElementById('Contents_m_HtmlEditor_strContent_OnlyHtml').value = editorProc01.returnResultHtml();
+    document.getElementById('Contents_m_HtmlEditor_strContent_OnlyText').value = editorProc01.returnResultText();
+    document.getElementById('Contents_m_HtmlEditor_oidImageFiles').value = editorProc01.returnResultImageList();
+    document.getElementById('Contents_m_HtmlEditor_oidMovieFiles').value = editorProc01.returnResultVodList();
+    document.getElementById('Contents_m_HtmlEditor_oidMovieThumbFiles').value = editorProc01.returnResultVodThumbList();
+    document.getElementById('Contents_m_HtmlEditor_strPlayTime').value = editorProc01.returnResultVodPlayTimeList();
+    document.getElementById('Contents_m_HtmlEditor_strMovieThumbSNList').value = editorProc01.returnResultMovieThumbList();
+    document.getElementById('Contents_m_HtmlEditor_strMovieThumbPlayTimeList').value = editorProc01.returnResultMovieThumbPlayTimeList();
+
+    var strIamgeList = editorProc01.returnResultImageList();
+    var strMovieList = editorProc01.returnResultVodList();
+    var strText = document.getElementById( 'Contents_m_HtmlEditor_strContent_OnlyHtml' ).value;
+
+    if (strText == '' && true) { alert('내용을 입력하세요.'); return false; } if (strText.length < 2) { alert('내용은 두글자 이상 입력해 주세요.'); return false; } return true;
+  }
+
+    function realtimeSave() {
+        add_event(editorProc01.editWindow, 'blur', function() { editorEventHandler.tempSave(editorProc01) });
+        add_event(editorProc01.editWindow, 'focus', function() { editorEventHandler.onfocusStatus(editorProc01) });
+        add_event(document.getElementById('editorProc01-useFocusOut'), 'focus', function() { editorProc01.editWindow.focus() });
+    }
+
+    var editorPopup =
+      {
+          uploadImgFilePopup: function(uri, n4width, n4height) {
+              var n4ImageCount = editorProc01.returnResultImageCount();
+              var n4MovieCount = editorProc01.returnResultVodCount();
+
+              if ((n4ImageCount + n4MovieCount) >= 30) {
+                  alert('파일은 최대 30개까지 올릴 수 있습니다.');
+                  return false;
+              }
+
+              uri += ((uri.indexOf('?') == -1) ? '?' : '&') + 'CallBackComplete=editorPopup.uploadImgFilesComplete&CallBackCancel=editorPopup.uploadFileCancel';
+              editorProc01.getSelection();
+              editorProc01.lockEditorSec();
+              popup(uri, 'image_pop', n4width, n4height);
+          },
+          uploadVodFilePopup: function(uri, n4width, n4height) {
+              if (!NgbBrowser.msie()) {
+                  alert("지원하지 않는 브라우저 입니다.");
+                  return false;
+              }
+
+              var n4ImageCount = editorProc01.returnResultImageCount();
+              var n4MovieCount = editorProc01.returnResultVodCount();
+
+              if ((n4ImageCount + n4MovieCount) >= 30) {
+                  alert('파일은 최대 30개까지 올릴 수 있습니다.');
+                  return false;
+              }
+
+              uri += ((uri.indexOf('?') == -1) ? '?' : '&') + 'CallBackComplete=editorPopup.uploadVodFileComplete&CallBackCancel=editorPopup.uploadFileCancel';
+              editorProc01.getSelection();
+              editorProc01.lockEditorSec();
+              popup(uri, 'image_pop', n4width, n4height);
+          },
+          uploadImgFilesComplete: function( strJson ) {
+              editorProc01.unlockEditorSec();
+              editorProc01.setSelection();
+          
+          var objFiles = eval ( '(' + strJson + ')' );
+              var n4ImageCount = editorProc01.returnResultImageCount();
+              var n4MovieCount = editorProc01.returnResultVodCount();
+
+              if ((n4ImageCount + n4MovieCount + objFiles.items.length ) > 30) {
+                  alert('파일은 최대 30개까지 올릴 수 있습니다.');
+                  return false;
+              }
+
+              var innerImage = '';
+              for (var i = 0; i < objFiles.items.length; ++i) {
+                  if( objFiles.items[i].n8FileSN != '' ) {
+                      innerImage += '<img src="http://file.nexon.com/NxFile/download/FileDownloader.aspx?oidFile=' + objFiles.items[i].n8FileSN + '" border="0" />';
+                  }
+              }
+              if (editorProc01.varGetSelection.length != 1) {
+                        if (document.domain != window.location.hostname) {
+                            if (editorProc01.editWindowDocument.selection) {
+                          editorProc01.editWindow.focus();
+                          editorProc01.varGetSelection.pasteHTML(innerImage);
+                      } else {
+                          if (editorProc01.varGetSelection.startOffset == 0) {
+                              editorProc01.editWindowDocument.getElementsByTagName('body')[0].innerHTML += innerImage;
+                          } else {
+                              editorProc01.varGetSelection.deleteContents();
+                              editorProc01.varGetSelection.insertNode(editorProc01.varGetSelection.createContextualFragment(innerImage));
+                          }
+                      }
+                        } else {
+                      if (editorProc01.editWindow.document.selection) {
+                          editorProc01.editWindow.focus();
+                          editorProc01.varGetSelection.pasteHTML(innerImage);
+                      } else {
+                          if (editorProc01.varGetSelection.startOffset == 0) {
+                              editorProc01.editWindow.document.getElementsByTagName('body')[0].innerHTML += innerImage;
+                          } else {
+                              editorProc01.varGetSelection.deleteContents();
+                              editorProc01.varGetSelection.insertNode(editorProc01.varGetSelection.createContextualFragment(innerImage));
+                          }
+                      }
+                        }
+              }
+              else {
+                  alert("이미지가 추가되지않았습니다.\n 선택영역이 잘못되었습니다.");
+                  return false;
+              }
+          },
+          uploadVodFileComplete: function(oidMovieFile, oidMovieThumb, movieTag, n4PlayTime, strMovieThumbSNList, MovieThumbPlayTimeList) {
+              editorProc01.unlockEditorSec();
+              editorProc01.setSelection();
+              var innerDiv = '<div class="editorMovieArea" style="width:380px;height:276px;background:url(http://s.nx.com/S2/Portal/Nexon/Nexon2007/image/gch/img_space_movie2.jpg) no-repeat;" contentEditable="false" class="contentsMovieSec" id="newMovieArea' + oidMovieFile + '">';
+              innerDiv += ' <span contentEditable="false" class="oidMovieFile" style="display:none;width:1px;height:1px;overflow:hidden;font-size:0;color:#FBFBFB;">' + oidMovieFile + '</span>';
+              innerDiv += ' <span contentEditable="false" class="oidMovieThumb" style="display:none;width:1px;height:1px;overflow:hidden;font-size:0;color:#FBFBFB;">' + oidMovieThumb + '</span>';
+              innerDiv += ' <span contentEditable="false" class="movieTag" style="display:none;width:1px;height:1px;overflow:hidden;font-size:0;color:#FBFBFB;">' + movieTag + '</span>';
+              innerDiv += ' <span contentEditable="false" class="n4PlayTime" style="display:none;width:1px;height:1px;overflow:hidden;font-size:0;color:#FBFBFB;">' + n4PlayTime + '</span>';
+
+              if (strMovieThumbSNList) { innerDiv += '  <span contentEditable="false" class="strMovieThumbSNList" style="display:none;width:1px;height:1px;overflow:hidden;font-size:0;color:#FBFBFB;">' + strMovieThumbSNList + '</span>' }
+              else { innerDiv += '  <span contentEditable="false" class="strMovieThumbSNList" style="display:none;width:1px;height:1px;overflow:hidden;font-size:0;color:#FBFBFB;"></span>' }
+
+              if (MovieThumbPlayTimeList) { innerDiv += ' <span contentEditable="false" class="MovieThumbPlayTimeList" style="display:none;width:1px;height:1px;overflow:hidden;font-size:0;color:#FBFBFB;">' + MovieThumbPlayTimeList + '</span>' }
+              else { innerDiv += '  <span contentEditable="false" class="MovieThumbPlayTimeList" style="display:none;width:1px;height:1px;overflow:hidden;font-size:0;color:#FBFBFB;"></span>' }
+
+              innerDiv += '</div>';
+              var playTimeInput = document.getElementById('Contents_m_HtmlEditor_strPlayTime').value;
+              if (playTimeInput != '') {
+                  playTimeInput += ',' + n4PlayTime;
+              }
+              else {
+                  playTimeInput += n4PlayTime;
+              }
+
+              editorProc01.editWindow.focus();
+                    if (document.domain != window.location.hostname) {
+                        if (editorProc01.editWindowDocument.selection) {
+                      editorProc01.varGetSelection.pasteHTML(innerDiv);
+                  } else {
+                      if (editorProc01.varGetSelection.startOffset == 0) {
+                          editorProc01.editWindowDocument.getElementsByTagName('body')[0].innerHTML += innerDiv;
+                      } else {
+                          editorProc01.varGetSelection.deleteContents();
+                          editorProc01.varGetSelection.insertNode(editorProc01.varGetSelection.createContextualFragment(innerDiv));
+                      }
+                  }
+                    } else {
+                  if (editorProc01.editWindow.document.selection) {
+                      editorProc01.varGetSelection.pasteHTML(innerDiv);
+                  } else {
+                      if (editorProc01.varGetSelection.startOffset == 0) {
+                          editorProc01.editWindow.document.getElementsByTagName('body')[0].innerHTML += innerDiv;
+                      } else {
+                          editorProc01.varGetSelection.deleteContents();
+                          editorProc01.varGetSelection.insertNode(editorProc01.varGetSelection.createContextualFragment(innerDiv));
+                      }
+                  }
+                    }
+          },
+          uploadFileCancel: function() {
+              editorProc01.unlockEditorSec();
+          }
+      }
+  </script>   
+</div>
+        
+      <div class="btnArea">
+        <p class="fR">
+          <a href="#" onclick="$('.viewWrap').trigger('click');" class="btn btnType7">취소</a>
+                    <input type="submit" name="ctl00$Contents$btnWrite" value="남기기" id="ctl00_Contents_btnWrite" class="btn btnType8" />
+        </p>
+      </div>
+    </div>
+    <p class="btnClose"><button type="button" onclick="$('.viewWrap').trigger('click');" class="sprBtn">닫기</button>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
