@@ -34,40 +34,35 @@ $(function() {
 <div id="header"></div>
 <div style="height:100px;"></div>
 
-<div class="container">        
 
-<section>
 <h1>새 글 작성</h1>
+<a rel='leanModal' href='#contents'>혀혀혀혀</a>
 
-<form id='form1' class="form-horizontal">
-  <div class="detailForm form-group">
+<div id="contents" style=' display:none; border:1px black solid; background-color: white; min-width:1258px; margin:auto; overflow:auto;'>
+  <div class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
+    <form id='form1' class="form-horizontal">
+      <div class="detailForm form-group">
     
-  </div>
-  <div class="form-group">
-    <label for="ftitle" class="col-sm-2 control-label">제목</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="ftitle" placeholder="제목">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="feno" class="col-sm-2 control-label">종목</label>
-    <div class="col-sm-10">
-      <select id="fbevent"  >
-        <option>농구</option>
-        <option>축구</option>
-        <option>야구</option>
-        <option>볼링</option>
-        <option>탁구</option>
-      </select><br>
+      </div>
+      <div class="form-group">
+        <label for="ftitle" class="col-sm-2 control-label">제목</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="ftitle" placeholder="제목">
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="feno" class="col-sm-2 control-label">종목</label>
+          <div class="col-sm-10">
+            <select id="fbevent"  >
+              <option>농구</option>
+              <option>축구</option>
+              <option>야구</option>
+			        <option>볼링</option>
+			        <option>탁구</option>
+            </select><br>
        
-    </div> 
-  </div>
-  <div class="form-group">
-    <label for="fmno" class="col-sm-2 control-label">멤버번호</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="fmno" placeholder="숫자">
-    </div> 
-  </div>
+          </div> 
+      </div>
   <div class="form-group">
     <label for="fcontent" class="col-sm-2 control-label">내용</label>
     <div class="col-sm-10">
@@ -83,13 +78,11 @@ $(function() {
     </div>
   </div>
 </form>
-</section>
+              
+            </div>
+          </div>
 
-<footer>
-
-</footer>
-</div><!-- container div -->
-
+<div id="footer"></div>
 <script type="text/javascript" src="../lib/jquery/jquery.js"></script>
 <script>
 var no = location.href.split('?')[1].split('=')[1];

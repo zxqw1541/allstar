@@ -110,7 +110,7 @@ $(function() {
         <div class="btnArea clearFix">
           <p class="fR">
                         
-              <a id="newBtn" href="javascript:alert('로그인이 필요한 서비스입니다.');PS.nxlogin.showLoginLayer();" class="btn btnType1 btnWrite">글쓰기</a>
+              <a id="newBtn" rel='leanModal' href="#newWrite" class="btn btnType1 btnWrite">글쓰기</a>
                         
           </p>
         </div>
@@ -159,13 +159,56 @@ $(function() {
               <aside id="rightSide" class="sideArea">
                 
               </aside>
-              
+
+              <!-- <p class="btnClose"><button type="button" class="sprBtn">닫기</button> -->
+
             </div>
           </div>
   <!--      </div>
          </div> 
 
  -->
+
+<div id="newWrite" style=' display:none; border:1px black solid; background-color: white; min-width:1258px; margin:auto; overflow:auto;'>
+  <div id="newBoard" class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
+    
+      <!-- <div class="form-group">
+        <label for="ftitle" class="col-sm-2 control-label">제목</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="ftitle" placeholder="제목">
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="feno" class="col-sm-2 control-label">종목</label>
+          <div class="col-sm-10">
+            <select id="fbevent"  >
+              <option>농구</option>
+              <option>축구</option>
+              <option>야구</option>
+              <option>볼링</option>
+              <option>탁구</option>
+            </select><br>
+       
+      </div> 
+    </div>
+    <div class="form-group">
+      <label for="fcontent" class="col-sm-2 control-label">내용</label>
+        <div class="col-sm-10">
+          <textarea id="fcontent" class="form-control" 
+            rows='10' cols='60' placeholder="내용"></textarea>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button id='addBtn' type='button' 
+          class="newForm btn btn-primary btn-xs">등록</button>
+        </div>
+      </div> -->
+    
+              
+  </div>
+</div> 
 <div id="footer"></div>
 
 
@@ -213,9 +256,7 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=7', function(resultObj) {
   $("a.trigger").click(clickDetailLnk);
 });
 
-$('#newBtn').click(function(event){
-  location.href = "form.html?bno=-1";
-});
+$('#newBtn').click(clickNewWrite);
  
 function clickDetailLnk(event) {
 $('#subject').empty();
@@ -274,8 +315,85 @@ $('#rightSide').empty();
 	      
 	  });
 }
+function clickNewWrite(event) {
+	$.getJSON('../board/ajax/add.do?no=' + -1, function(resultObj) {
+		var div = $("#newBoard");
+		$("<div class='form-group'>")
+		.html("<label for='ftitle' class='col-sm-2 control-label'>제목</label>"
+				 +"<div class='col-sm-10'>"
+				 +"<input type='text' class='form-control' id='ftitle' placeholder='제목'>"
+				 +"</div></div>")
+		.appendTo(div);
+		$("<div class='form-group'>")
+		.html("<label for='feno' class='col-sm-2 control-label'>종목</label>"
+				 +"<div class='col-sm-10'>" 
+				 +"<select id='fbevent'>"
+				 +"<option>농구</option><option>축구</option><option>야구</option><option>볼링</option><option>탁구</option>"
+				 +"</select><br></div></div>")
+		.appendTo(div);
+		  
+		$("<div class='form-group'>")
+		.html("<label for='fcontent' class='col-sm-2 control-label'>내용</label>"
+				 +"<div class='col-sm-10'>" 
+				 +"<textarea id='fcontent' class='form-control' rows='10' cols='60' placeholder='내용'>"
+				 +"</textarea></div></div>")
+		.appendTo(div);
+		
+		$("<div class='form-group'>")
+    .html("<div class='col-sm-offset-2 col-sm-10'>" 
+    		 +"<button id='addBtn' type='button' class='newForm btn btn-primary btn-xs'>등록</button>" 
+    		 +"</div></div>")
+    .appendTo(div);8		 
+	});
+}
 
+var no = location.href.split('?')[1].split('=')[1];
 
+if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
+  $('.detailForm').css('display', 'none');// 상세정보 출력을 위한 폼 항목은 감춘다.
+  $('.newForm').css('display', '');// 새 글 등록을 위한 폼 항목은 보인다.
+  
+} else { // 상세정보 출력폼으로 전환한다.
+  $('.detailForm').css('display', '');
+  $('.newForm').css('display', 'none');
+  
+  $.getJSON('ajax/detail.do?no=' + no, function(resultObj) {
+    var ajaxResult = resultObj.ajaxResult;
+    if (ajaxResult.status == "success") {
+      var board = ajaxResult.data;
+      $("#fno").val(no);
+      $("#feno").val(board.event.name);
+      $("#fmno").val(board.member.name);
+      $("#ftitle").val(board.title);
+      $("#fcontent").val(board.content);
+      $("#fcreateDate").val(board.createDate);
+      $("#fviews").val(board.views);
+    }
+  });
+}
+
+// 등록 버튼을 위한 이벤트 리스너 추가하기
+$('#addBtn').click(function(event) {
+  console.log("eno = " + $('#feno').val());
+  console.log("mno = " + $('#fmno').val());
+  console.log("title = " + $('#ftitle').val());
+  console.log("content = " +$('#fcontent').val());
+  console.log("views = " + $('#fviews').val() );
+  $.post('ajax/add.do', {
+    eno: $('#feno').val(),
+    mno: $('#fmno').val(),
+    title: $('#ftitle').val(),
+    content: $('#fcontent').val(),
+    
+  }, function(resultObj) {
+    var ajaxResult = resultObj.ajaxResult;
+    if (ajaxResult.status == "success") {
+      location.href = "../ui/boardList11.html";
+    } else {
+        alert("게시물 등록에 실패했습니다.");
+    }
+  }, 'json');
+});
 
 </script>
 
