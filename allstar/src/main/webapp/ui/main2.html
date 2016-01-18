@@ -84,9 +84,10 @@ $(function() {
 <div style="height:130px;"></div>
 <!-- tournament slider start -->
 <section id="photostack-3" class="photostack" >
-        <div>
-          <figure>
-            <a href="#" class="photostack-img"><img src="images/tour/basket1.jpeg" /></a>
+<div>
+
+         <figure>
+            <a href="http://goo.gl/NJ1Dhf" class="photostack-img"><img src="images/tour/basket1.jpeg" /></a>
             <figcaption>
               <h2 class="photostack-title">Adidas StreetBall</h2>
               <div class="photostack-back">
@@ -95,13 +96,7 @@ $(function() {
             </figcaption>
           </figure>
 
-          <figure data-dummy>
-            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img16"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Lightness</h2>
-            </figcaption>
-          </figure>
-        </div>
+</div>
       </section>
 
 </div>
@@ -508,9 +503,33 @@ $(document).ready( function() {
         });
       });
     
-    </script>
+   
+    
+     $.getJSON('/allstar/competition/list.do?pageSize=7', function(resultObj){
 
-
+       var section = $("#photostack-3");
+         for (var competition of resultObj.ajaxResult.data) {
+           $("<figure>")
+           .html("<a href='#' class='photostack-img'><img src='images/tour/basket1.jpeg' /></a>"
+            +"<figcaption>"
+            +"<h2 class='photostack-title'>"+ competition.name +"</h2>"
+            +"<div class='photostack-back'>"
+            +"<p>Tournament Title :" + competition.name + "<br>"+ competition.joinNum +"out of"+ competition.teamNum + "are in!!<br>"
+            + competition.content + "</p>"
+            + "</div>"
+            +"</figcaption>"
+           +"</figure>")
+           .appendTo(section);
+           $("<figure>")
+          .html("<figure data-dummy>"
+            +"<a href='#' class='photostack-img'><img src='images/tour/bad1.jpeg' alt='img16'/></a>"
+            +"<figcaption>"
+             +" <h2 class='photostack-title'>"+competition.name+"</h2>"
+            +"</figcaption>"
+          +"</figure>").appendTo(section);
+         }
+     });
+           </script>
 
 </body>
 </html>
