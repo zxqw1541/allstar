@@ -38,7 +38,7 @@
 }
 </style>
 <script src="js/jquery-1.11.3.js"></script>
-<script src="js/test/jquery.leanmodal.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
 <script src="js/modernizr.min.js"></script>
 
 
@@ -159,7 +159,9 @@ $(function() {
               <aside id="rightSide" class="sideArea">
                 
               </aside>
+
               <!-- <p class="btnClose"><button type="button" class="sprBtn">닫기</button> -->
+
             </div>
           </div>
   <!--      </div>
@@ -193,7 +195,7 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=7', function(resultObj) {
     		  +"<div class='contents'>"
     		  +"<p class='name'>"
     		  /* +"<span class='nameTeam'>" + board.member.team.name + "</span>" */
-    		  +"<span class='nameChar'>" + board.name +"</span>"
+    		  +"<span class='nameChar'>" + board.member.name +"</span>"
 /*     		  +"</p>"
     		  +"<p class='lvs'>"
     		  +"<span class='lv'>"+12312321+"</span>"
@@ -204,7 +206,7 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=7', function(resultObj) {
     		  +"</a>"
     		  +"</td>"
     		  +"<td class='cnt'>"
-    		  +"<span class='view'><strong>"+ board.view +"</strong>조회</span>"
+    		  +"<span class='view'><strong>"+ board.views +"</strong>조회</span>"
     		  +"<span class='like'><strong>"+0+"</strong>좋아요</span>"
     		  +"</td>")
     	      .appendTo(table);

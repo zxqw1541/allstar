@@ -37,7 +37,7 @@ $(function() {
           <div class="auth">
           <span id="login" style="display:none;">
 		          <a style='margin-right:10px;color:white;' id='go' rel='leanModal' href='#signup'>Login</a>
-      <!-- <a style='margin-right:10px;color:white;' href='#'>Sign In</a> -->
+       <a style='margin-right:10px;color:white;' href='#signin' rel='leanModal'>Sign In</a> 
 		     </span>
 		     <span id="logout" style="display:none;">
 		        
@@ -94,105 +94,7 @@ $(function() {
               </div>
             </figcaption>
           </figure>
-          <figure>
-            <a href="#" class="photostack-img"><img src="images/tour/basket2.jpeg" alt="img02"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Happy Days</h2>
-              <div class="photostack-back">
-                <p>These Happy Days are yours and mine Happy Days. It's a beautiful day in this neighborhood a beautiful day for a neighbor. Would you be mine?</p>
-              </div>
-            </figcaption>
-          </figure>
-          <figure>
-            <a href="#" class="photostack-img"><img src="images/tour/soccer1.jpeg" alt="img03"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Beautywood</h2>
-              <div class="photostack-back">
-                <p>It's a neighborly day in this beautywood a neighborly day for a beauty. Would you be mine? Could you be mine. Now the world don't move to the beat of just one drum.</p>
-              </div>
-            </figcaption>
-          </figure>
-          <figure>
-            <a href="#" class="photostack-img"><img src="images/tour/soccer2.jpeg" alt="img01"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Serenity Beach</h2>
-              <div class="photostack-back">
-                <p>I have never been to a place so serene in my entire life before. Swimming in clear waters opened my mind to nature and reminded me of my and <span>eveybody</span> everybody else's mortality.</p>
-              </div>
-            </figcaption>
-          </figure>
-          <figure>
-            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img04"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Heaven of time</h2>
-              <div class="photostack-back">
-                <p>What might be right for you may not be right for some. And we know Flipper lives in a world full of wonder flying there-under under the sea.</p>
-              </div>
-            </figcaption>
-          </figure>
-          <figure>
-            <a href="#" class="photostack-img"><img src="images/tour/bad2.jpeg" alt="img06"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Forever this</h2>
-              <div class="photostack-back">
-                <p>Fish don't fry in the kitchen and beans don't burn on the grill. Took a whole lotta tryin' just to get up that hill. Baby if you've ever wondered - wondered whatever became of me. </p>
-              </div>
-            </figcaption>
-          </figure>
-          <figure data-dummy>
-            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img07"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Lovely Green</h2>
-            </figcaption>
-          </figure>
-          <figure data-dummy>
-            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img08"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Wonderful</h2>
-            </figcaption>
-          </figure>
-          <figure data-dummy>
-            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img09"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Love Addict</h2>
-            </figcaption>
-          </figure>
-          <figure data-dummy>
-            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img10"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Friendship</h2>
-            </figcaption>
-          </figure>
-          <figure data-dummy>
-            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img11"/></a>
-            <figcaption>
-              <h2 class="photostack-title">White Nights</h2>
-            </figcaption>
-          </figure>
-          <figure data-dummy>
-            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img12"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Serendipity</h2>
-            </figcaption>
-          </figure>
-          <figure data-dummy>
-            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img13"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Pure Soul</h2>
-            </figcaption>
-          </figure>
-          <figure data-dummy>
-            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img14"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Winds of Peace</h2>
-            </figcaption>
-          </figure>
-          <figure data-dummy>
-            <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img15"/></a>
-            <figcaption>
-              <h2 class="photostack-title">Shades of blue</h2>
-            </figcaption>
-          </figure>
+
           <figure data-dummy>
             <a href="#" class="photostack-img"><img src="images/tour/bad1.jpeg" alt="img16"/></a>
             <figcaption>
@@ -335,7 +237,40 @@ $(function() {
 <!-- footer end -->
 </div>
 
+<!-- 가입 폼 -->
+<div id="signin">
+      <div id="signup-ct">
+        <div id="signup-header">
+          <h2>회원가입</h2>
+          <p>회원가입을 하세요</p>
+        </div>
+        
+        <form action="" method="POST">
+          <div class="txt-fld">
+            <label for="username">Username</label>
+            <input id="id_signin" class="good_input" name="username" type="text" />
 
+          </div>
+        
+          <div class="txt-fld">
+            <label for="password">Password</label>
+            <input id="pass_signin" name="password" type="password" />
+
+          </div>
+                    <div class="txt-fld">
+            <label for="password2">Password 확인</label>
+            <input  name="password2" type="password" />
+
+          </div>
+          <div class="btn-fld">
+          <button id="addBtn" type="submit">가입하기 &raquo;</button>
+          <input type="checkbox" id="saveId"> 
+          <label id="saveLabel" for="saveId">아이디 저장</label>
+</div>
+         </form>
+      </div>
+    </div>
+<!-- 가입폼 끝 -->
 
 <!-- 로그인 폼 -->
 <div id="signup">
@@ -542,7 +477,36 @@ $(document).ready( function() {
     
     
     
-    
+    $(function() {
+        $("#addBtn").click(function() {
+          var form = $('form')[0];
+          var data = new FormData();
+          
+          data.append('id', $('#id_signin').val());
+          data.append('pwd', $('#pass_signin').val());
+          
+           $.ajax({
+             url : "../member/ajax/add.do",
+             data : data,
+             type : "POST",
+             dataType: "json",
+             enctype: 'multipart/form-data',
+             processData: false, 
+             contentType:false,
+             success : function(result) {
+               console.log(result);
+             if (result.ajaxResult.status == "success") {
+                location.href = "/allstar/ui/main2.html";
+               } else {
+                alert("팀 등록에 실패했습니다.");
+               }
+             },
+             error : function(result){
+                alert('error');
+             }
+           });
+        });
+      });
     
     </script>
 
