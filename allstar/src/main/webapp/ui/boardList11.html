@@ -197,17 +197,16 @@ $(function() {
           <textarea id="fcontent" class="form-control" 
             rows='10' cols='60' placeholder="내용"></textarea>
         </div>
-      </div>
+      </div>-->
   
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button id='addBtn' type='button' 
-          class="newForm btn btn-primary btn-xs">등록</button>
-        </div>
-      </div> -->
     
               
   </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button id='addBtn' type='button' class="newForm btn btn-primary btn-xs">등록</button>
+        </div>
+      </div>
 </div> 
 <div id="footer"></div>
 
@@ -316,6 +315,7 @@ $('#rightSide').empty();
 	  });
 }
 function clickNewWrite(event) {
+	$('#newBoard').empty();
 	$.getJSON('../board/ajax/add.do?no=' + -1, function(resultObj) {
 		var div = $("#newBoard");
 		$("<div class='form-group'>")
@@ -339,11 +339,11 @@ function clickNewWrite(event) {
 				 +"</textarea></div></div>")
 		.appendTo(div);
 		
-		$("<div class='form-group'>")
+		/* $("<div class='form-group'>")
     .html("<div class='col-sm-offset-2 col-sm-10'>" 
     		 +"<button id='addBtn' type='button' class='newForm btn btn-primary btn-xs'>등록</button>" 
     		 +"</div></div>")
-    .appendTo(div);8		 
+    .appendTo(div); */		 
 	});
 }
 
@@ -356,20 +356,6 @@ if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
 } else { // 상세정보 출력폼으로 전환한다.
   $('.detailForm').css('display', '');
   $('.newForm').css('display', 'none');
-  
-  $.getJSON('ajax/detail.do?no=' + no, function(resultObj) {
-    var ajaxResult = resultObj.ajaxResult;
-    if (ajaxResult.status == "success") {
-      var board = ajaxResult.data;
-      $("#fno").val(no);
-      $("#feno").val(board.event.name);
-      $("#fmno").val(board.member.name);
-      $("#ftitle").val(board.title);
-      $("#fcontent").val(board.content);
-      $("#fcreateDate").val(board.createDate);
-      $("#fviews").val(board.views);
-    }
-  });
 }
 
 // 등록 버튼을 위한 이벤트 리스너 추가하기
