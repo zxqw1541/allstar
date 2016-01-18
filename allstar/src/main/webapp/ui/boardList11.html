@@ -14,6 +14,16 @@
 <link rel="icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 
 <style>
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 100px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
 #detail {
   background-color: #000;
   bottom: 0;
@@ -38,6 +48,12 @@ $(function(){
   $("#header").load("header.html"); 
   $("#footer").load("footer.html"); 
 });
+
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+});
+
+
 </script> 
 </head>
 <body>
@@ -141,38 +157,11 @@ $(function(){
 </div>
 </div>
 
-<div id="overlay_t" style="opacity:1;">
+<div id="overlay_t" style="opacity:1;" >
     <div id="container">
             <div id="contents">
             <div id="ajaxContents"></div>
             <div id="noContent"></div>
-            <script type="text/javascript">
-             function ajaxGetComment(n4ArticleSN) {
-                /* $.ajax({
-                    url: '/community/free/commentlist.aspx?n4ArticleSN=' + n4ArticleSN,
-                    success: function (data) {
-                        $(".bbsReply").html(data);
-                    },
-                    beforeSend: function () {
-                        $("#loading").show();
-                    },
-                    complete: function () {
-                        $("#loading").hide();
-                    },  
-                    error: function (xhr, status, exception) {
-                        alert('에러가 발생하였습니다' + xhr.responseText);
-                    }
-                }); */
-            } 
-
-            $( document ).ready( function() 
-            { 
-
-                ajaxGetComment(88183);
-                $(".overlayViewLayerOut").show();
-            /*     tosUI.init.boardView(); */
-            });
-            </script>
           <div class="viewLayer viewWrap boardContents boardView">
             <div class="viewLayerInnerWrap">
               <article id="subject" class="mainArea">
@@ -184,7 +173,6 @@ $(function(){
               <p class="btnClose"><button type="button" class="sprBtn">닫기</button>
             </div>
           </div>
-          <div class="overlayViewLayerOut"></div>
             </div>
         </div>
         </div>
@@ -201,7 +189,7 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=7', function(resultObj) {
     $("<tr>")
     .html("<td class='num'>"+ board.event.name +"</td>"
     		  + "<td class='subject'>"
-    		  + "<a href='#' class='trigger' boardBno='"+ board.no +"'>"
+    		  + "<a href='#overlay_t' class='trigger'  rel='leanModal'  boardBno='"+ board.no +"'>"
     		  /* +  "<strong>" */+ board.title  
     		  + "<small>("+ board.views +")</small>" 
     		  +"<img src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_img.png' alt='이미지 있음' class='bulArticle bulImg' />" 
@@ -232,7 +220,6 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=7', function(resultObj) {
     		  +"<span class='like'><strong>"+0+"</strong>좋아요</span>"
     		  +"</td>")
     	      .appendTo(table);
-console.log(board.no);
   }
   
   $("a.trigger").click(clickDetailLnk);
@@ -243,17 +230,10 @@ $('#newBtn').click(function(event){
 });
  
 function clickDetailLnk(event) {
-	$("#overlay_t").show();
-  event.preventDefault();
-  console.log($(event.target).attr("boardBno"));
   $.getJSON('../board/ajax/detail.do?no=' + $(event.target).attr("boardBno"), function(resultObj) {
-console.log("ddddddddddd");
 	    var ajaxResult = resultObj.ajaxResult;
-	    console.log("2222222");
 	    var board = ajaxResult.data;
-	    console.log("333333");
 	      var article = $("#subject");
-	      console.log("444444");
 	        $("<header class='header'>")
 	        .html("<p class='cat1 clearFix'><span class='dep1'>종목별 게시판</span></p>"
 	              + "<div class='inner clearFix'>"
@@ -265,20 +245,17 @@ console.log("ddddddddddd");
 	              + "<span class='view'><strong>" + board.views + "</strong>조회</span>"
 	              + "</p></div></header>")
 	        .appendTo(article);
-	        console.log("55555");
 	        $("<div class='viewContents'>")
 	        .html("<p>" + board.content + "</p>"
 	              + "<div id='loading' style='display:none'><img src='http://s.nx.com/s2/game/tos/common/img_loading.gif' alt='' /></div>" 
 	              + "</div>")
 	        .appendTo(article);
-	        console.log("666666");
 	        var aside = $("#rightSide");
 	        $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
 	        .html("<p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png' alt='프로필 사진'>"
 	              + "</p><div class='contents'><p class='name'>" + board.member.name 
 	              + "</p><p class='lvs'><span class='lv'> 축구 </span></p></div></div>")
 	              .appendTo(aside);
-	        console.log("7777");
 	        $("<div class='btnArea'>")
 	        .html("<p class='btnHome'><a href='#' onclick='window.open('/barrack/guest.aspx?n8NexonSN=184613159&n8CharacterSN=87990995043730', 'barrack', 'width=1200. height=665, scrollbars=no');' class='btn btnType5'>회원정보보기</a></p>"
 	              + "<div class='btm clearFix'>"
@@ -286,7 +263,6 @@ console.log("ddddddddddd");
 	              + "<a href='http://tos.nexon.com/community/free/list.aspx?n4ArticleSN=0' class='btn btnType6 btnList'>목록</a>"
 	              + "</div></div>")
 	              .appendTo(aside);
-	        console.log("888888");
 	        $("<div class='history' >")
 	        .html("<ul class='list' style='margin-left: -39px;>"
 	              + "<li class='prev'>"
@@ -304,7 +280,6 @@ console.log("ddddddddddd");
 	              + "<span class='etc'><span class='date'>2016.01.14</span></span>" 
 	              + "</div></a></li></ul></div>")
 	      .appendTo(aside);
-	        console.log("9999999"); 
 	  });
 }
 
