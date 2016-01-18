@@ -23,6 +23,7 @@ import allstar.pms.domain.Team;
 import allstar.pms.service.EventService;
 import allstar.pms.service.TeamService;
 import allstar.pms.util.MultipartHelper;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Controller("ajax.TeamController")
 @RequestMapping("/team/ajax/*")
@@ -86,6 +87,12 @@ public class TeamController {
                 new FileOutputStream(file));
             stream.write(bytes);
             stream.close();
+            
+            /* Thumbnails */
+            Thumbnails.of(new File(filePath + fileName))
+            .width(280)
+            .outputQuality(0.8)
+            .toFile(new File(filePath + "tl_" + fileName));
             
             team.setEmblem(fileName);
         } catch (IOException e) {
