@@ -464,23 +464,40 @@ $(function() {
     $.each($('#fdemblem')[0].files, function(i, file) {
        data.append('file', file)
     });
+    if($('#fdtotalnum').val() == "") {
+        alert('인원수를 입력하세요');
+          return;
+    }
+    if($('#fdfee').val() == "") {
+      alert('회비를 입력하세요');
+        return;
+    }
+    if($('#fdpostno').val() == "") {
+      alert('우편번호를 입력하세요');
+        return;
+    }
+    if($('#fdaddr').val() == "") {
+      alert('연고지를 입력하세요');
+        return;
+    }
+    if($('#fdintroduce').val() == "") {
+      alert('팀소개를 입력하세요');
+        return;
+    }
+    
     data.append('tno', $('#fdtno').val());
+    data.append('totalNum', $('#fdtotalnum').val());
+    data.append('fee', $('#fdfee').val());
+    data.append('postNo', $('#fdpostno').val());
+    data.append('baseAddr', $('#fdaddr').val());
+    data.append('introduce', $('#fdintroduce').val());
+          
     if($('#fdoemblem').val() != "")
-        data.append('emblem', $('#fdoemblem').val());
-    if($('#fdtotalnum').val() != "")
-      data.append('totalNum', $('#fdtotalnum').val());
-    if($('#fdfee').val() != "")
-          data.append('fee', $('#fdfee').val());
+      data.append('emblem', $('#fdoemblem').val());
     if($('#fdmeetday').val() != "")
-          data.append('meetDay', $('#fdmeetday').val());
-    if($('#fdpostno').val() != "")
-          data.append('postNo', $('#fdpostno').val());
-    if($('#fdbaseaddr').val() != "")
-          data.append('baseAddr', $('#fdbaseaddr').val());
-    if($('#fdintroduce').val() != "")
-          data.append('introduce', $('#fdintroduce').val());
+      data.append('meetDay', $('#fdmeetday').val());
     if($('#fdaform').val() != "")
-          data.append('aForm', $('#fdaform').val());
+      data.append('aForm', $('#fdaform').val());
     
     $.ajax({
       url: "../team/ajax/update.do",
@@ -546,32 +563,46 @@ $(function() {
           $.each($('#femblem')[0].files, function(i, file) {
             data.append('file', file)
           });
+          if($('#fname').val() == "") {
+        	  alert('팀명을 입력하세요');
+              return;
+          }
+          if($('#fevent').val() == "") {
+        	  alert('종목을 선택하세요');
+        	  return;
+          }
+          if($('#ftotalnum').val() == "") {
+        	  alert('인원수를 입력하세요');
+              return;
+          }
+          if($('#ffee').val() == "") {
+        	  alert('회비를 입력하세요');
+              return;
+          }
+          if($('#fpostno').val() == "") {
+        	  alert('우편번호를 입력하세요');
+              return;
+          }
+          if($('#faddr').val() == "") {
+        	  alert('연고지를 입력하세요');
+              return;
+          }
+          if($('#fintroduce').val() == "") {
+        	  alert('팀소개를 입력하세요');
+              return;
+          }
+          if($('#fmeetday').val() != "")
+            data.append('meetDay', $('#fmeetday').val());
+          if($('#faform').val() != "")
+              data.append('aForm', $('#faform').val());
           
-          if($('#fevent').val() != "")
-              data.append('eno', $('#fevent').val());
-            
-            if($('#fname').val() != "")
-              data.append('name', $('#fname').val());
-            
-            if($('#ftotalnum').val() != "")
-              data.append('totalNum', $('#ftotalnum').val());
-            
-            if($('#ffee').val() != "")
-              data.append('fee', $('#ffee').val());
-            
-            if($('#fmeetday').val() != "")
-              data.append('meetDay', $('#fmeetday').val());
-            
-            if($('#faddr').val() != "")
-              data.append('baseAddr', $('#faddr').val());
-            
-            if($('#fpostno').val() != "")
-              data.append('postNo', $('#fpostno').val());
-
-            if($('#fintroduce').val() != "")
-                data.append('introduce', $('#fintroduce').val());
-            if($('#faform').val() != "")
-                data.append('aForm', $('#faform').val());
+          data.append('eno', $('#fevent').val());
+          data.append('name', $('#fname').val());
+          data.append('totalNum', $('#ftotalnum').val());
+          data.append('fee', $('#ffee').val());
+          data.append('baseAddr', $('#faddr').val());
+          data.append('postNo', $('#fpostno').val());
+          data.append('introduce', $('#fintroduce').val());
 
            $.ajax({
              url : "../team/ajax/add.do",
