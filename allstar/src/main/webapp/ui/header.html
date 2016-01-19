@@ -175,7 +175,9 @@ $(document).ready( function() {
           var ajaxResult = resultObj.ajaxResult;
           if (ajaxResult.status == "success") {
             emailSession = ajaxResult.data.id;
+            passSession = ajaxResult.data.password;
             $.session.set('loginSession',emailSession);
+            $.session.set('passSession',passSession);
             console.log("success");
           } else {
             alert("이메일과 패스워드가 일치하지 않습니다.");
