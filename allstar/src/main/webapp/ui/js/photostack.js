@@ -9,7 +9,6 @@
  * http://www.codrops.com
  */
 ;( function( window ) {
-
 	'use strict';
 
 	// https://gist.github.com/edankwan/4389601
@@ -502,8 +501,8 @@
 			}
 		}
 	}
-
+	
 	// add to global namespace
 	window.Photostack = Photostack;
-
+	
 })( window );
