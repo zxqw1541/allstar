@@ -54,6 +54,7 @@ $(function() {
 
 
 </script> 
+<script type="text/javascript" src="js/jquery.session.js"></script>
 </head>
 <body>
 <div id="header"></div>
@@ -64,7 +65,7 @@ $(function() {
 
 
 
-
+  
 
 <div id="content">
   <div class="boardContents boardList">
@@ -169,7 +170,7 @@ $(function() {
 
  -->
 
-<div id="newWrite" style=' display:none; border:1px black solid; background-color: white; min-width:1258px; margin:auto; overflow:auto;'>
+<div id="newWrite" style=' display:none; border:1px black solid; background-color: white; width:auto; /* margin:auto; */ left:40%; overflow:auto;'>
   <div id="newBoard" class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
     
       <!-- <div class="form-group">
@@ -203,7 +204,7 @@ $(function() {
               
   </div>
       <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
+        <div class="col-sm-offset-2 col-sm-10" style="margin-left:30%;">
           <button id='addBtn' type='button' class="newForm btn btn-primary btn-xs">등록</button>
         </div>
       </div>
@@ -315,8 +316,16 @@ $('#rightSide').empty();
 	  });
 }
 function clickNewWrite(event) {
+	console.log($.session.get("loginSession"));
+	if ($.session.get("loginSession") != undefined) {
+	 var mem_id = $.session._cookieCache["loginSession"];
+	 var mem_pass = $.session._cookieCache["passSession"];
+	 $.getJSON('../member/ajax/find.do?' + $(event.target).attr("boardBno"), function(resultObj) {
+	 
+	 
 	$('#newBoard').empty();
 	$.getJSON('../board/ajax/add.do?no=' + -1, function(resultObj) {
+		var fbevent = resultObj.eno;
 		var div = $("#newBoard");
 		$("<div class='form-group'>")
 		.html("<label for='ftitle' class='col-sm-2 control-label'>제목</label>"
@@ -327,8 +336,12 @@ function clickNewWrite(event) {
 		$("<div class='form-group'>")
 		.html("<label for='feno' class='col-sm-2 control-label'>종목</label>"
 				 +"<div class='col-sm-10'>" 
-				 +"<select id='fbevent'>"
-				 +"<option>농구</option><option>축구</option><option>야구</option><option>볼링</option><option>탁구</option>"
+				 +"<select id='feno'>"
+				 +"<option value='2'>농구</option>"
+				 +"<option value='3'>축구</option>"
+				 +"<option value='4'>야구</option>"
+				 +"<option value='5'>볼링</option>"
+				 +"<option value='6'>탁구</option>"
 				 +"</select><br></div></div>")
 		.appendTo(div);
 		  
@@ -338,15 +351,23 @@ function clickNewWrite(event) {
 				 +"<textarea id='fcontent' class='form-control' rows='10' cols='60' placeholder='내용'>"
 				 +"</textarea></div></div>")
 		.appendTo(div);
-		
+	
 		/* $("<div class='form-group'>")
     .html("<div class='col-sm-offset-2 col-sm-10'>" 
     		 +"<button id='addBtn' type='button' class='newForm btn btn-primary btn-xs'>등록</button>" 
     		 +"</div></div>")
     .appendTo(div); */		 
 	});
-}
+	} else {
+		
+		alert("로그인 후 게시글 작성이 가능합니다.");
+		
+	}
+	}
+</script>
 
+<script type="text/javascript" src="../lib/jquery/jquery.js"></script>
+<script>
 var no = location.href.split('?')[1].split('=')[1];
 
 if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
@@ -358,14 +379,16 @@ if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
   $('.newForm').css('display', 'none');
 }
 
+</script>
+
+<script>
 // 등록 버튼을 위한 이벤트 리스너 추가하기
 $('#addBtn').click(function(event) {
   console.log("eno = " + $('#feno').val());
   console.log("mno = " + $('#fmno').val());
   console.log("title = " + $('#ftitle').val());
   console.log("content = " +$('#fcontent').val());
-  console.log("views = " + $('#fviews').val() );
-  $.post('ajax/add.do', {
+  $.post('../board/ajax/add.do', {
     eno: $('#feno').val(),
     mno: $('#fmno').val(),
     title: $('#ftitle').val(),
