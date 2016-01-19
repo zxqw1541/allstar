@@ -413,12 +413,6 @@ $(function() {
   </script>
 
 <!-- 상세 정보 출력 -->
-<!-- <script>
-  function clickDetail(event) {
-    console.log(event);
-    alert($(event.target).attr("teamNo"))
-  }
-</script> -->
 <script>
 $(".teamList").on("click", function(){
   
@@ -461,7 +455,9 @@ $(function() {
   $("#modTeamBtn").click(function() {
     var form = $('#detailTeamForm');
     var data = new FormData();
+    var is_uploadfile = false;
     $.each($('#fdemblem')[0].files, function(i, file) {
+    	is_uploadfile = true;
        data.append('file', file)
     });
     if($('#fdtotalnum').val() == "") {
@@ -492,8 +488,10 @@ $(function() {
     data.append('baseAddr', $('#fdaddr').val());
     data.append('introduce', $('#fdintroduce').val());
           
-    if($('#fdoemblem').val() != "")
+    if($('#fdoemblem').val() != "" ){
+    	if(!is_uploadfile)
       data.append('emblem', $('#fdoemblem').val());
+    }
     if($('#fdmeetday').val() != "")
       data.append('meetDay', $('#fdmeetday').val());
     if($('#fdaform').val() != "")
