@@ -84,20 +84,11 @@ $(function() {
 <div style="height:130px;"></div>
 <!-- tournament slider start -->
 <section id="photostack-3" class="photostack" >
-<div>
+  <div id="photo_div">
 
-         <figure>
-            <a href="http://goo.gl/NJ1Dhf" class="photostack-img"><img src="images/tour/basket1.jpeg" /></a>
-            <figcaption>
-              <h2 class="photostack-title">Adidas StreetBall</h2>
-              <div class="photostack-back">
-                <p>Tournament Title : Adidas Streetball <br> 12 out of 36 are in!! </p>
-              </div>
-            </figcaption>
-          </figure>
-
-</div>
-      </section>
+  </div>
+</section>
+      
 
 </div>
 <!-- tournament slider end -->
@@ -232,6 +223,8 @@ $(function() {
 <!-- footer end -->
 </div>
 
+
+
 <!-- 가입 폼 -->
 <div id="signin">
       <div id="signup-ct">
@@ -244,7 +237,7 @@ $(function() {
           <div class="txt-fld">
             <label for="username">Username</label>
             <input id="id_signin" class="good_input" name="username" type="text" />
-
+            <button id="check">체크</button>
           </div>
         
           <div class="txt-fld">
@@ -266,6 +259,8 @@ $(function() {
       </div>
     </div>
 <!-- 가입폼 끝 -->
+
+
 
 <!-- 로그인 폼 -->
 <div id="signup">
@@ -297,6 +292,46 @@ $(function() {
       </div>
     </div>
 <!-- 로그인폼 끝 -->
+
+
+<script>
+     $.getJSON('/allstar/competition/list.do?pageSize=10', function(resultObj){
+var div = $('#photo_div');
+
+         for (var competition of resultObj.ajaxResult.data) {
+           $("<figure>")
+           .html("<a href='#' class='photostack-img'><img src='images/tour/basket1.jpeg' /></a>"
+            +"<figcaption>"
+            +"<h2 class='photostack-title'>"+ competition.name +"</h2>"
+            +"<div class='photostack-back'>"
+            +"<p>Tournament Title :" + competition.name + "<br>"+ competition.joinNum +" out of "+ competition.teamNum + " are in!!<br>"
+            + competition.content + "</p>"
+            + "</div>"
+            +"</figcaption></figure>"
+          ).appendTo('#photo_div'); 
+           $("<figure data-dummy>"
+           +"<a href='#' class='photostack-img'><img src='images/tour/bad1.jpeg' alt='img16'/></a>"
+           +"<figcaption>"
+            +"<h2 class='photostack-title'>"+competition.name+"</h2>"
+           +"</figcaption>"
+         +"</figure>").appendTo('#photo_div'); 
+         }
+         
+         new Photostack( document.getElementById('photostack-3'), {
+             callback : function( item ) {
+             console.log(item);
+             }
+           });
+
+     });
+/* +"</figure><figure data-dummy>"
+     +"<a href='#' class='photostack-img'><img src='images/tour/bad1.jpeg' alt='img16'/></a>"
+     +"<figcaption>"
+      +"<h2 class='photostack-title'>"+competition.name+"</h2>"
+     +"</figcaption>"
+   +"</figure>"  */
+     </script>
+  
 
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/jquery.session.js"></script>
@@ -371,16 +406,6 @@ $(document).ready( function() {
 
 
 
-<script src="js/classie.js"></script>
-    <script src="js/photostack.js"></script>
-    <script>
-      new Photostack( document.getElementById( 'photostack-3' ), {
-        callback : function( item ) {
-          //console.log(item)
-        }
-      } );
-    
-    </script>
     <script src="js/custom.js"></script>
     
     <script>
@@ -503,33 +528,20 @@ $(document).ready( function() {
         });
       });
     
-   
     
-     $.getJSON('/allstar/competition/list.do?pageSize=7', function(resultObj){
-
-       var section = $("#photostack-3");
-         for (var competition of resultObj.ajaxResult.data) {
-           $("<figure>")
-           .html("<a href='#' class='photostack-img'><img src='images/tour/basket1.jpeg' /></a>"
-            +"<figcaption>"
-            +"<h2 class='photostack-title'>"+ competition.name +"</h2>"
-            +"<div class='photostack-back'>"
-            +"<p>Tournament Title :" + competition.name + "<br>"+ competition.joinNum +"out of"+ competition.teamNum + "are in!!<br>"
-            + competition.content + "</p>"
-            + "</div>"
-            +"</figcaption>"
-           +"</figure>")
-           .appendTo(section);
-           $("<figure>")
-          .html("<figure data-dummy>"
-            +"<a href='#' class='photostack-img'><img src='images/tour/bad1.jpeg' alt='img16'/></a>"
-            +"<figcaption>"
-             +" <h2 class='photostack-title'>"+competition.name+"</h2>"
-            +"</figcaption>"
-          +"</figure>").appendTo(section);
-         }
-     });
            </script>
+           <script>
+           $('#check').click(function(event) {
+        	   console.log($('#id_signin').val());
+            alert("뭐");
+           });
+           </script>
+           
+    <script src="js/classie.js"></script>
+    <script src="js/photostack.js"></script> 
+    <script>
+    
 
+    </script>
 </body>
 </html>

@@ -421,118 +421,118 @@ $(function() {
 </script> -->
 <script>
 $(".teamList").on("click", function(){
-  
-  // input type=file 값 초기화
-  $('#fdemblem').remove();
-  var fdemblem = '<input type="file" class="form-control" id="fdemblem" onchange="fileSelected()">';
-  $('#deatil_emblem_div').append(fdemblem);
-  
-  //삭제 추가 코드 넣기
-  var tno = $(this).attr('teamList');
-  $.getJSON('../team/ajax/detail.do?tno=' + tno, function(
-            resultObj) {
-          var ajaxResult = resultObj.ajaxResult;
-          if (ajaxResult.status == "success") {
-            var team = ajaxResult.data;
-            $("#fdtno").val(team.tno);
-            $("#fdevent").val(team.event.name);
-            $("#fdname").val(team.name);
-            $("#fdtotalnum").val(team.totalNum);
-            $("#fdscore").val(team.win+"승 "+team.draw+"무 "+team.lose+"패");
-            $("#fdfee").val(team.fee);
-            $("#fdmeetday").val(team.meetDay);
-            $("#fdintroduce").val(team.introduce);
-            $("#fdaform").val(team.aForm);
-            $("#fdpostno").val(team.postNo);
-            $("#fdaddr").val(team.baseAddr);
-              $("#fdoemblem").val(team.emblem);
-            if (team.emblem != null)
-              $('#detail_preview_img').attr('src', '../team/img/'+team.emblem);
-            else
-              $('#detail_preview_img').attr('src', '../team/img/allstardefault.png');
-          }
-        });
+	
+	// input type=file 값 초기화
+	$('#fdemblem').remove();
+	var fdemblem = '<input type="file" class="form-control" id="fdemblem" onchange="fileSelected()">';
+	$('#deatil_emblem_div').append(fdemblem);
+	
+	//삭제 추가 코드 넣기
+	var tno = $(this).attr('teamList');
+	$.getJSON('../team/ajax/detail.do?tno=' + tno, function(
+	          resultObj) {
+	        var ajaxResult = resultObj.ajaxResult;
+	        if (ajaxResult.status == "success") {
+	          var team = ajaxResult.data;
+	          $("#fdtno").val(team.tno);
+	          $("#fdevent").val(team.event.name);
+	          $("#fdname").val(team.name);
+	          $("#fdtotalnum").val(team.totalNum);
+	          $("#fdscore").val(team.win+"승 "+team.draw+"무 "+team.lose+"패");
+	          $("#fdfee").val(team.fee);
+	          $("#fdmeetday").val(team.meetDay);
+	          $("#fdintroduce").val(team.introduce);
+	          $("#fdaform").val(team.aForm);
+	          $("#fdpostno").val(team.postNo);
+	          $("#fdaddr").val(team.baseAddr);
+	            $("#fdoemblem").val(team.emblem);
+	          if (team.emblem != null)
+	            $('#detail_preview_img').attr('src', '../team/img/'+team.emblem);
+	          else
+	        	  $('#detail_preview_img').attr('src', '../team/img/allstardefault.png');
+	        }
+	      });
 });
 </script>
 
 <!-- 팀 수정 -->
 <script>
 $(function() {
-  $("#modTeamBtn").click(function() {
-    var form = $('#detailTeamForm');
-    var data = new FormData();
-    $.each($('#fdemblem')[0].files, function(i, file) {
-       data.append('file', file)
+	$("#modTeamBtn").click(function() {
+		var form = $('#detailTeamForm');
+		var data = new FormData();
+		$.each($('#fdemblem')[0].files, function(i, file) {
+			 data.append('file', file)
     });
-    data.append('tno', $('#fdtno').val());
-    if($('#fdoemblem').val() != "")
-        data.append('emblem', $('#fdoemblem').val());
-    if($('#fdtotalnum').val() != "")
-      data.append('totalNum', $('#fdtotalnum').val());
-    if($('#fdfee').val() != "")
-          data.append('fee', $('#fdfee').val());
-    if($('#fdmeetday').val() != "")
-          data.append('meetDay', $('#fdmeetday').val());
-    if($('#fdpostno').val() != "")
-          data.append('postNo', $('#fdpostno').val());
-    if($('#fdbaseaddr').val() != "")
-          data.append('baseAddr', $('#fdbaseaddr').val());
-    if($('#fdintroduce').val() != "")
-          data.append('introduce', $('#fdintroduce').val());
-    if($('#fdaform').val() != "")
-          data.append('aForm', $('#fdaform').val());
-    
-    $.ajax({
-      url: "../team/ajax/update.do",
-      data : data,
-      type : "POST",
-      dataType : 'json',
-      enctype : 'multipart/form-data',
-      processData : false,
-      contentType : false,
-      success : function(result) {
-        if (result.ajaxResult.status == "success") {
-          location.href = "/allstar/ui/teamList.html";
-          alert('변경 하였습니다.');
-        } else {
-          alert('변경하지 못했습니다.');
-        }
-      },
-      error : function(result) {
-        alert('error');
-      }
-      
-    });
-    
-  });
+		data.append('tno', $('#fdtno').val());
+		if($('#fdoemblem').val() != "")
+			  data.append('emblem', $('#fdoemblem').val());
+		if($('#fdtotalnum').val() != "")
+			data.append('totalNum', $('#fdtotalnum').val());
+		if($('#fdfee').val() != "")
+		      data.append('fee', $('#fdfee').val());
+		if($('#fdmeetday').val() != "")
+		      data.append('meetDay', $('#fdmeetday').val());
+		if($('#fdpostno').val() != "")
+		      data.append('postNo', $('#fdpostno').val());
+		if($('#fdbaseaddr').val() != "")
+		      data.append('baseAddr', $('#fdbaseaddr').val());
+		if($('#fdintroduce').val() != "")
+		      data.append('introduce', $('#fdintroduce').val());
+		if($('#fdaform').val() != "")
+		      data.append('aForm', $('#fdaform').val());
+		
+		$.ajax({
+			url: "../team/ajax/update.do",
+			data : data,
+			type : "POST",
+			dataType : 'json',
+			enctype : 'multipart/form-data',
+			processData : false,
+			contentType : false,
+			success : function(result) {
+				if (result.ajaxResult.status == "success") {
+					location.href = "/allstar/ui/teamList.html";
+					alert('변경 하였습니다.');
+				} else {
+					alert('변경하지 못했습니다.');
+				}
+			},
+		  error : function(result) {
+			  alert('error');
+		  }
+			
+		});
+		
+	});
 });
 </script>
 
 <!-- 팀 삭제 -->
 <script>
 $(function() {
-  $('#delTeamBtn').click(function() {
-    var tno = $('#fdtno').val();
-    
-    $.ajax({
-      url : "../team/ajax/delete.do?tno="+tno,
-      type :"GET",
-      dataType : "json",
-      processData : false,
-      contentType : false,
-      success : function(result) {
+	$('#delTeamBtn').click(function() {
+		var tno = $('#fdtno').val();
+		
+		$.ajax({
+			url : "../team/ajax/delete.do?tno="+tno,
+			type :"GET",
+			dataType : "json",
+			processData : false,
+		  contentType : false,
+		  success : function(result) {
         if (result.ajaxResult.status == "success") {
-          location.href = "/allstar/ui/teamList.html";
+        	location.href = "/allstar/ui/teamList.html";
           alert('삭제 하였습니다.');
         } else {
           alert('삭제하지 못했습니다.');
         }
-      },
-      error : function(result) {
-        alert('error');
-      }
-    });
-  }); 
+		  },
+		  error : function(result) {
+		    alert('error');
+		  }
+		});
+	});	
 });
 
 </script>
@@ -569,9 +569,9 @@ $(function() {
               data.append('postNo', $('#fpostno').val());
 
             if($('#fintroduce').val() != "")
-                data.append('introduce', $('#fintroduce').val());
+            	  data.append('introduce', $('#fintroduce').val());
             if($('#faform').val() != "")
-                data.append('aForm', $('#faform').val());
+            	  data.append('aForm', $('#faform').val());
 
            $.ajax({
              url : "../team/ajax/add.do",
