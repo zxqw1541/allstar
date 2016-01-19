@@ -1,8 +1,8 @@
 @CHARSET "UTF-8";
 
-#preview_img { width:280px; padding-top:10px; padding-right:5px; }
 
 /* add form */
+#add_preview_img { width:280px; padding-top:10px; padding-right:5px; }
 
 #add_team {
 	width: 800px;
@@ -40,6 +40,7 @@
 #add_team_img { float:right; }
 
 /* detail form */
+#detail_preview_img { width:280px; padding-top:10px; padding-right:5px; }
 #detail_team {
   width: 800px;
   height: 88%;
