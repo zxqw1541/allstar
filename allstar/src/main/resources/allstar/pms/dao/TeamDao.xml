@@ -73,7 +73,6 @@
 
 	<update id="update" parameterType="team">
 		update team set
-		  name=#{name},
 		  total_num=#{totalNum},
 		  fee=#{fee},
 		  meet_day=#{meetDay},

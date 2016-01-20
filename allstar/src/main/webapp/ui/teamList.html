@@ -8,17 +8,25 @@
 <link rel="stylesheet" type="text/css" href="../team/css/main.css">
 <link rel='stylesheet' type='text/css' href="../team/css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/overlay.css" />
-<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css">
 
 <meta charset="UTF-8">
 
 <script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
 <script type="text/javascript" src="js/preview.image.js"></script>
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script> 
 $(function(){
   $("#header").load("header.html"); 
   $("#footer").load("footer.html"); 
+});
+
+
+
+$(function() {
+    $('li[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
 });
 </script>
 </head>
@@ -33,7 +41,7 @@ $(function(){
 
     <div class="btnArea clearFix">
       <p class="fR">
-        <a id="newBtn" class="newbtn btnType1">새 팀</a>
+        <a id="newBtn" class="newbtn btnType1" rel='leanModal' href='#add_team'>새 팀</a>
       </p><br>
       
          <form id="teamForm">
@@ -93,104 +101,167 @@ $(function(){
   </div>
 </div>
 
-<!-- add Pop up -->
-<div id="team_overlay_t"></div>
-
-<!-- 추가 팝업 폼 --> 
-<div id="addForm" class="teamform_overlay_layer" class="popup">
-  <div class="popup_left">
-      <form id='addTeamForm' class="form-horizontal" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="fname" class="col-sm-2 control-label">팀명</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="fname"
-              placeholder="팀명을 입력해주세요.">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="fevent" class="col-sm-2 control-label">종목</label>
-          <div class="col-sm-10">
-            <select id="fevent">
-              <option value=''>종목선택</option>
-              <option value='2'>농구</option>
-              <option value='3'>축구</option>
-              <option value='4'>야구</option>
-              <option value='5'>볼링</option>
-              <option value='6'>탁구</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="ftotalnum" class="col-sm-2 control-label">인원수</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="ftotalnum"
-              placeholder="인원수를 입력해주세요.">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="ffee" class="col-sm-2 control-label">회비</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="ffee"
-              placeholder="회비를 입력해주세요.">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="fmeetday" class="col-sm-2 control-label">정모요일</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="fmeetday"
-              placeholder="정모요일을 입력해주세요.">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="fpostno" class="col-sm-2 control-label">우편번호</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="fpostno"
-              placeholder="우편번호(숫자 5자리)를 입력해주세요.">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="faddr" class="col-sm-2 control-label">연고지</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="faddr"
-              placeholder="연고지를 입력해주세요.">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="femblem" class="col-sm-2 control-label">엠뷸럼</label>
-          <div class="col-sm-10">
-            <input type="file" class="form-control" id="femblem" onchange="fileSelected()">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="fintroduce" class="col-sm-2 control-label">팀 소개</label>
-          <div class="col-sm-10">
-            <textarea id="fintroduce" class="form-control" rows='10' cols='60'
-              placeholder="팀소개를 입력해주세요."></textarea>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="faform" class="col-sm-2 control-label">팀 가입양식</label>
-          <div class="col-sm-10">
-            <textarea id="faform" class="form-control" rows='10' cols='60'
-              placeholder="팀 가입 양식을 입력해주세요."></textarea>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button id='regTeamBtn' type='button'
-              class="newForm btn btn-primary btn-xs">등록</button>
-          </div>
-        </div>
-        <div>
-          <img id="preview_img" />
-        </div>
-      </form>
-  </div>
-</div>
-
 <div id="footer"></div>
+
+<!-- 등록 폼 -->
+  <div id="add_team">
+    <div id="add_team-header">
+      <h2>새 팀 등록</h2>
+      <a class="modal_close" href="#"></a>
+    </div>
+    <div id="add_team_img">
+      <img id="add_preview_img" src="img/allstardefault.png"/>
+    </div>
+    <form id='addTeamForm' class="form-horizontal" enctype="multipart/form-data">
+          
+    <div class="txt-fld">
+      <label for="fname">팀명</label>
+      <input id="fname" class="good_input" type="text" placeholder="팀명을 입력해주세요."/>
+    </div>
+            
+    <div class="txt-fld">
+      <label for="fevent">종목</label>
+      <div>
+        <select id="fevent" class="good_input">
+          <option value=''>종목선택</option>
+          <option value='2'>농구</option>
+          <option value='3'>축구</option>
+          <option value='4'>야구</option>
+          <option value='5'>볼링</option>
+          <option value='6'>탁구</option>
+        </select>
+      </div>
+    </div>   
+    <div class="txt-fld">
+      <label for="ftotalnum">인원수</label>
+      <input id="ftotalnum" class="good_input" type="text" placeholder="숫자를 입력해주세요."/>
+    </div>
+          
+    <div class="txt-fld">
+      <label for="ffee">회비</label>
+      <input id="ffee" class="good_input" type="text" placeholder="숫자를 입력해주세요."/>
+    </div>
+          
+    <div class="txt-fld">
+      <label for="fmeetday">정모요일</label>
+      <input id="fmeetday" class="good_input" type="text" placeholder="정모요일을 입력해주세요."/>
+    </div>
+          
+      <div class="txt-fld">
+        <label for="fpostno">우편번호</label>
+        <input id="fpostno" class="good_input" type="text" placeholder="우편번호를 입력해주세요." onclick="sample2_execDaumPostcode()" readonly/>
+      </div>
+      
+      <div class="txt-fld">
+        <label for="faddr">연고지</label>
+        <input id="faddr" class="good_input" type="text" placeholder="연고지를 입력해주세요." onclick="sample2_execDaumPostcode()" readonly/>
+      </div>
+      
+      <div class="txt-fld">
+        <label for="femblem">엠뷸럼</label>
+        <div>
+          <input type="file" class="form-control" id="femblem" onchange="fileSelected()">
+        </div>
+      </div>
+      
+      <div class="txtarea-fld">
+        <label for="fintroduce">팀 소개</label>
+        <div>
+          <textarea id="fintroduce" class="form-control" rows='10' cols='60'
+              placeholder="팀소개를 입력해주세요."></textarea>
+        </div>
+      </div>
+      <div class="txtarea-fld">
+        <label for="faform">팀 가입양식</label>
+        <div>
+          <textarea id="faform" class="form-control" rows='10' cols='60'
+              placeholder="팀 가입 양식을 입력해주세요."></textarea>
+        </div>
+      </div>
+      
+      <div class="btn-fld">
+        <button id="regTeamBtn" type="button">추가 &raquo;</button>
+      </div>
+    </form>
+  </div>
+
+
+<!-- 수정 삭제 폼 -->
+  <div id="detail_team">
+    <div id="detail_team-header">
+      <h2>상세 정보</h2>
+      <a class="modal_close" href="#"></a>
+    </div>
+    <div id="detail_team_img">
+      <img id="detail_preview_img" src="img/allstardefault.png"/>
+    </div>
+    <form id='detailTeamForm' class="form-horizontal" enctype="multipart/form-data">
+    <input id="fdtno" type="hidden"/>
+    <input id="fdoemblem" type="hidden"/>
+    <div class="txt-fld">
+      <label for="fdname">팀명</label>
+      <input id="fdname" class="good_input" type="text" readonly/>
+    </div>
+            
+    <div class="txt-fld">
+      <label for="fdevent">종목</label>
+      <input id="fdevent" class="good_input" type="text" readonly/>
+    </div>
+          
+    <div class="txt-fld">
+      <label for="fdtotalnum">인원수</label>
+      <input id="fdtotalnum" class="good_input" type="text" placeholder="숫자를 입력해주세요."/>
+    </div>
+          
+    <div class="txt-fld">
+      <label for="fdfee">회비</label>
+      <input id="fdfee" class="good_input" type="text" placeholder="숫자를 입력해주세요."/>
+    </div>
+          
+    <div class="txt-fld">
+      <label for="fdmeetday">정모요일</label>
+      <input id="fdmeetday" class="good_input" type="text" placeholder="정모요일을 입력해주세요."/>
+    </div>
+          
+      <div class="txt-fld">
+        <label for="fdpostno">우편번호</label>
+        <input id="fdpostno" class="good_input" type="text" placeholder="우편번호를 입력해주세요." onclick="sample2_execDaumPostcode()" readonly/>
+      </div>
+      
+      <div class="txt-fld">
+        <label for="fdaddr">연고지</label>
+        <input id="fdaddr" class="good_input" type="text" placeholder="연고지를 입력해주세요." onclick="sample2_execDaumPostcode()" readonly/>
+      </div>
+      
+      <div class="txt-fld">
+        <label for="fdemblem">엠뷸럼</label>
+        <div id="deatil_emblem_div">
+          <input type="file" class="form-control" id="fdemblem" onchange="fileSelected()">
+        </div>
+      </div>
+      
+      <div class="txtarea-fld">
+        <label for="fdintroduce">팀 소개</label>
+        <div>
+          <textarea id="fdintroduce" class="form-control" rows='10' cols='60'
+              placeholder="팀소개를 입력해주세요."></textarea>
+        </div>
+      </div>
+      <div class="txtarea-fld">
+        <label for="fdaform">팀 가입양식</label>
+        <div>
+          <textarea id="fdaform" class="form-control" rows='10' cols='60'
+              placeholder="팀 가입 양식을 입력해주세요."></textarea>
+        </div>
+      </div>
+      
+      <div class="btn-fld">
+        <button id="delTeamBtn" type="button">삭제 &raquo;</button>
+        <button id="modTeamBtn" type="button">변경 &raquo;</button>
+      </div>
+    </form>
+  </div>
+
   <!---//End-content---->
   <!----wookmark-scripts---->
   <script src="../team/js/jquery.imagesloaded.js"></script>
@@ -247,12 +318,12 @@ $(function(){
                  $(window).data('ajaxready', false);
 
                  $.ajax({
-                	  url:'../team/ajax/list.do?pageNo=' + pageNo,
-                	  type:'GET',
-                	  async:false,
-                	  dataType:'json',
-                	  data:'resultObj',
-                	  success:function(resultObj) {
+                    url:'../team/ajax/list.do?pageNo=' + pageNo,
+                    type:'GET',
+                    async:false,
+                    dataType:'json',
+                    data:'resultObj',
+                    success:function(resultObj) {
                       if (resultObj.teams.length != 0) {
                          pageNo++;
                          var tiles = $("#tiles");
@@ -263,28 +334,32 @@ $(function(){
                                emblem = "allstardefault.png";
                              }
                            
-                             $( "<li>" )
+                             $("<li>")
+                             .attr({
+                            	 class: 'teamList',
+                            	 teamList: team.tno,
+                            	 rel: "leanModal",
+                            	 href: "#detail_team"
+                             })
                              .html("<img src= '../team/img/tl_" + emblem + "' width='280'>" +
                                   "<div class='post-info'>" + 
                                   "<div class='post-basic-info'>" + 
-                                  "<h3><a class='detailLnk' href='#' teamNo='" + team.tno + "'>" + team.name + "</a></h3><span>" +
+                                  "<h3>" + team.name + "</h3><span>" +
                                    "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
                                    "<p>" + team.event.name + "</p>" + 
                                    "<p>" + team.joinNum + " / " + team.totalNum +
                                    "</p></div></div>")
                            .appendTo(tiles);
                          }
-                         // 팀 링크에 클릭 이벤트 리스너 등록
-                         $("a.detailLnk").click(clickDetailLnk);
+                         //디테일 모달띄우기
+                         $(function() {
+                        	    $('li[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+                        	});
+                         // 상세 정보 가져오기
+                         $(".teamList").on("click", load_detail_func);
                       }
-        	          }
-        	       });
-
-                 // 팀 이름을 클릭했을 때 호출될 함수
-                 function clickDetailLnk(event) {
-                   event.preventDefault();
-                   location.href = "teamForm.html?tno=" + $(event.target).attr("teamNo");
-                 }
+                    }
+                 });
                  
                  setTimeout(function() {
                    $(window).data('ajaxready', true);
@@ -304,6 +379,7 @@ $(function(){
   </script>
   <!----//wookmark-scripts---->
 
+<!-- 처음 리스트 출력 -->
   <script>
   $('#teamForm').change(function(){
 /*      alert("test"); */
@@ -373,34 +449,34 @@ $(function(){
 
     
   $.ajax({
-	  url:'../team/ajax/list.do',
-	  type:'GET',
-	  async:false,
-	  dataType:'json',
-	  data:'resultObj',
+    url:'../team/ajax/list.do',
+    type:'GET',
+    async:false,
+    dataType:'json',
+    data:'resultObj',
     success:function(resultObj) {
-		    var tiles = $("#tiles");
-		    for (var team of resultObj.teams) {
-		      var emblem = team.emblem; 
-		      
-		      if(emblem == null){
-		        emblem = "allstardefault.png";
-		      }
-		      
-		      $( "<li>" )
-		        .html("<img src= '../team/img/tl_" + emblem + "' width='280'>" +
-		              "<div class='post-info'>" + 
-		              "<div class='post-basic-info'>" + 
-		              "<h3><a class='detailLnk' href='#' teamNo='" + team.tno + "'>" + team.name + "</a></h3><span>" +
-		              "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
-		              "<p>" + team.event.name + "</p>" + 
-		              "<p>" + team.joinNum + " / " + team.totalNum + 
-		              "</p></div></div>")
-		        .appendTo(tiles);
-		      }
-		      // 팀 링크에 클릭 이벤트 리스너 등록
-		      $("a.detailLnk").click(clickDetailLnk);
-    	 
+        var tiles = $("#tiles");
+        for (var team of resultObj.teams) {
+          var emblem = team.emblem; 
+          
+          if(emblem == null){
+            emblem = "allstardefault.png";
+          }
+          
+          $("<li class='teamList' teamList='" + team.tno + "' rel='leanModal' href='#detail_team'>" )
+            .html("<img src= '../team/img/tl_" + emblem + "' width='280'>" +
+                  "<div class='post-info'>" + 
+                  "<div class='post-basic-info'>" + 
+                  "<h3>" + team.name + "</h3><span>" +
+                  "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
+                  "<p>" + team.event.name + "</p>" + 
+                  "<p>" + team.joinNum + " / " + team.totalNum + 
+                  "</p></div></div>")
+            .appendTo(tiles);
+          }
+          // 팀 링크에 클릭 이벤트 리스너 등록
+          $("a.detailLnk").click(clickDetailLnk);
+       
        }
      });
   
@@ -456,68 +532,213 @@ $(function(){
     
   </script>
 
+<!-- 상세 정보 출력 -->
 <script>
-/* add form 오버레이 */
-$(document).ready(function() { 
-  $('#newBtn').click(function(){ 
-    $('#addForm, #team_overlay_t').fadeIn();
-    $('body').css('overflow', 'hidden');
-  }); 
-  $('#team_overlay_t, .close').click(function(e){ 
-    e.preventDefault(); 
-    $('#addForm, #team_overlay_t, #detailForm').fadeOut();
-    $('body').css('overflow', 'auto');
+var load_detail_func = function(){
+	  
+	  // input type=file 값 초기화
+	  $('#fdemblem').remove();
+	  var fdemblem = '<input type="file" class="form-control" id="fdemblem" onchange="fileSelected()">';
+	  $('#deatil_emblem_div').append(fdemblem);
+	  
+	  //삭제 추가 코드 넣기
+	  var tno = $(this).attr('teamList');
+	  $.getJSON('../team/ajax/detail.do?tno=' + tno, function(
+	            resultObj) {
+	          var ajaxResult = resultObj.ajaxResult;
+	          if (ajaxResult.status == "success") {
+	            var team = ajaxResult.data;
+	            $("#fdtno").val(team.tno);
+	            $("#fdevent").val(team.event.name);
+	            $("#fdname").val(team.name);
+	            $("#fdtotalnum").val(team.totalNum);
+	            $("#fdscore").val(team.win+"승 "+team.draw+"무 "+team.lose+"패");
+	            $("#fdfee").val(team.fee);
+	            $("#fdmeetday").val(team.meetDay);
+	            $("#fdintroduce").val(team.introduce);
+	            $("#fdaform").val(team.aForm);
+	            $("#fdpostno").val(team.postNo);
+	            $("#fdaddr").val(team.baseAddr);
+	              $("#fdoemblem").val(team.emblem);
+	            if (team.emblem != null)
+	              $('#detail_preview_img').attr('src', '../team/img/'+team.emblem);
+	            else
+	              $('#detail_preview_img').attr('src', '../team/img/allstardefault.png');
+	          }
+	        });
+	};
+$(".teamList").on("click", load_detail_func);
+</script>
+
+<!-- 팀 수정 -->
+<script>
+$(function() {
+  $("#modTeamBtn").click(function() {
+    var form = $('#detailTeamForm');
+    var data = new FormData();
+    var is_uploadfile = false;
+    $.each($('#fdemblem')[0].files, function(i, file) {
+    	is_uploadfile = true;
+       data.append('file', file)
+    });
+    if($('#fdtotalnum').val() == "") {
+        alert('인원수를 입력하세요');
+          return;
+    }
+    if($('#fdfee').val() == "") {
+      alert('회비를 입력하세요');
+        return;
+    }
+    if($('#fdpostno').val() == "") {
+      alert('우편번호를 입력하세요');
+        return;
+    }
+    if($('#fdaddr').val() == "") {
+      alert('연고지를 입력하세요');
+        return;
+    }
+    if($('#fdintroduce').val() == "") {
+      alert('팀소개를 입력하세요');
+        return;
+    }
+    
+    data.append('tno', $('#fdtno').val());
+    data.append('totalNum', $('#fdtotalnum').val());
+    data.append('fee', $('#fdfee').val());
+    data.append('postNo', $('#fdpostno').val());
+    data.append('baseAddr', $('#fdaddr').val());
+    data.append('introduce', $('#fdintroduce').val());
+          
+    if($('#fdoemblem').val() != "" ){
+    	if(!is_uploadfile)
+      data.append('emblem', $('#fdoemblem').val());
+    }
+    if($('#fdmeetday').val() != "")
+      data.append('meetDay', $('#fdmeetday').val());
+    if($('#fdaform').val() != "")
+      data.append('aForm', $('#fdaform').val());
+    
+    $.ajax({
+      url: "../team/ajax/update.do",
+      data : data,
+      type : "POST",
+      dataType : 'json',
+      enctype : 'multipart/form-data',
+      processData : false,
+      contentType : false,
+      success : function(result) {
+        if (result.ajaxResult.status == "success") {
+          location.href = "/allstar/ui/teamList.html";
+          alert('변경 하였습니다.');
+        } else {
+          alert('변경하지 못했습니다.');
+        }
+      },
+      error : function(result) {
+        alert('error');
+      }
+      
+    });
+    
+  });
+});
+</script>
+
+<!-- 팀 삭제 -->
+<script>
+$(function() {
+  $('#delTeamBtn').click(function() {
+    var tno = $('#fdtno').val();
+    
+    $.ajax({
+      url : "../team/ajax/delete.do?tno="+tno,
+      type :"GET",
+      dataType : "json",
+      processData : false,
+      contentType : false,
+      success : function(result) {
+        if (result.ajaxResult.status == "success") {
+          location.href = "/allstar/ui/teamList.html";
+          alert('삭제 하였습니다.');
+        } else {
+          alert('삭제하지 못했습니다.');
+        }
+      },
+      error : function(result) {
+        alert('error');
+      }
+    });
   }); 
 });
 
+</script>
 
-  /* 등록폼 전송 */
+<!-- 팀 추가 -->
+<script>
   $(function() {
-    $("#regTeamBtn").click(function() {
-      var form = $('form')[0];
-      var data = new FormData();
-      $.each($('#femblem')[0].files, function(i, file) {
-        data.append('file', file)
-      });
-      
-      if($('#fevent').val() != "")
+        $("#regTeamBtn").click(function() {
+          var form = $('form')[0];
+          var data = new FormData();
+          $.each($('#femblem')[0].files, function(i, file) {
+            data.append('file', file)
+          });
+          if($('#fname').val() == "") {
+        	  alert('팀명을 입력하세요');
+              return;
+          }
+          if($('#fevent').val() == "") {
+        	  alert('종목을 선택하세요');
+        	  return;
+          }
+          if($('#ftotalnum').val() == "") {
+        	  alert('인원수를 입력하세요');
+              return;
+          }
+          if($('#ffee').val() == "") {
+        	  alert('회비를 입력하세요');
+              return;
+          }
+          if($('#fpostno').val() == "") {
+        	  alert('우편번호를 입력하세요');
+              return;
+          }
+          if($('#faddr').val() == "") {
+        	  alert('연고지를 입력하세요');
+              return;
+          }
+          if($('#fintroduce').val() == "") {
+        	  alert('팀소개를 입력하세요');
+              return;
+          }
+          if($('#fmeetday').val() != "")
+            data.append('meetDay', $('#fmeetday').val());
+          if($('#faform').val() != "")
+              data.append('aForm', $('#faform').val());
+          
           data.append('eno', $('#fevent').val());
-        
-        if($('#fname').val() != "")
           data.append('name', $('#fname').val());
-        
-        if($('#ftotalnum').val() != "")
           data.append('totalNum', $('#ftotalnum').val());
-        
-        if($('#ffee').val() != "")
           data.append('fee', $('#ffee').val());
-        
-        if($('#fmeetday').val() != "")
-          data.append('meetDay', $('#fmeetday').val());
-        
-        if($('#fbaseaddr').val() != "")
-          data.append('baseAddr', $('#fbaseaddr').val());
-        
-        if($('#fpostno').val() != "")
+          data.append('baseAddr', $('#faddr').val());
           data.append('postNo', $('#fpostno').val());
+          data.append('introduce', $('#fintroduce').val());
+          data.append('introduce', $('#fintroduce').val());
+          data.append('aForm', $('#faform').val());
 
-        data.append('introduce', $('#fintroduce').val());
-        data.append('aForm', $('#faform').val());
-
-       $.ajax({
-         url : "../team/ajax/add.do",
-         data : data,
-         type : "POST",
-         dataType: "json",
-         enctype: 'multipart/form-data',
-         processData: false, 
-         contentType:false,
-         success : function(result) {
-           console.log(result);
-         if (result.ajaxResult.status == "success") {
-            location.href = "/allstar/ui/teamList.html";
-           } else {
-            alert("팀 등록에 실패했습니다.");
+          $.ajax({
+        	  url : "../team/ajax/add.do",
+        	  data : data,
+        	  type : "POST",
+        	  dataType: "json",
+        	  enctype: 'multipart/form-data',
+        	  processData: false, 
+        	  contentType:false,
+        	  success : function(result) {
+            console.log(result);
+            if (result.ajaxResult.status == "success") {
+            	  location.href = "/allstar/ui/teamList.html";
+            } else {
+            	  alert("팀 등록에 실패했습니다.");
            }
          },
          error : function(result){
@@ -526,7 +747,77 @@ $(document).ready(function() {
        });
     });
   });
-  
+</script>
+
+
+<!-- <input type="text" id="fpst_no" placeholder="우편번호">
+<input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"><br>
+<input type="text" id="fbas_addr" placeholder="한글주소"> -->
+
+<!-- 우편번호 팝업 창 -->
+<div id="post_layer" style="display:none;position:fixed;overflow:hidden;z-index:11001;-webkit-overflow-scrolling:touch;">
+<img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+</div>
+
+<!-- 우편번호 받기 -->
+<script>
+    var element_layer = document.getElementById('post_layer');
+
+    function closeDaumPostcode() {
+        element_layer.style.display = 'none';
+    }
+
+    function sample2_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+
+                var fullAddr = data.address; 
+                var extraAddr = ''; 
+
+                if(data.addressType === 'R'){
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+
+                var a_form = document.getElementById('add_team').style.display;
+                var d_form = document.getElementById('detail_team').style.display;
+                if (a_form == 'block') {
+                	document.getElementById('fpostno').value = data.zonecode; //5자리 새우편번호 사용
+                  document.getElementById('faddr').value = fullAddr;
+                }
+                else if (d_form == 'block'){
+                  document.getElementById('fdpostno').value = data.zonecode; //5자리 새우편번호 사용
+                  document.getElementById('fdaddr').value = fullAddr;
+                }
+
+                element_layer.style.display = 'none';
+            },
+            width : '100%',
+            height : '100%'
+        }).embed(element_layer);
+
+        element_layer.style.display = 'block';
+
+        initLayerPosition();
+    }
+
+    function initLayerPosition(){
+        var width = 300; 
+        var height = 460;
+        var borderWidth = 5; 
+
+        element_layer.style.width = width + 'px';
+        element_layer.style.height = height + 'px';
+        element_layer.style.border = borderWidth + 'px solid';
+        element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+    }
+>>>>>>> 5d18cf5278e825216e5ccd75618ce66d7b61f0e3
 </script>
 
 </body>

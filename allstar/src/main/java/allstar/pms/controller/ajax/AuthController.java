@@ -1,6 +1,5 @@
 package allstar.pms.controller.ajax;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +24,7 @@ public class AuthController {
   @RequestMapping(value="login", method=RequestMethod.POST)
   public AjaxResult login(
       String id,
-      String password,
-      HttpServletResponse response, 
-      HttpSession session) {
-
-
-    
+      String password) {
     Member member = memberService.retrieve(id, password);
 
     if (member == null) { // 로그인 실패!

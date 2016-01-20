@@ -1,5 +1,5 @@
 // common variables
-var iMaxFilesize = 1048576; // 1MB
+var iMaxFilesize = 10485760; // 1MB
 var sResultFileSize = '';
 
 function secondsToTime(secs) { // we will use this function to convert seconds in normal time format
@@ -29,9 +29,23 @@ function fileSelected() {
     document.getElementById('error2').style.display = 'none';
     document.getElementById('abort').style.display = 'none';
     document.getElementById('warnsize').style.display = 'none';*/
-
+	
+	// 어느 폼이 활성화 되어있는지 (add_team, detail_team중)
+    var a_form = document.getElementById('add_team').style.display;
+    var d_form = document.getElementById('detail_team').style.display;
+    var arr = [];
+    console.log(a_form);
+    console.log(d_form);
+    if (a_form == 'block')
+    	arr = ['femblem', 'add_preview_img'];
+    else if (d_form == 'block')
+    	arr = ['fdemblem', 'detail_preview_img'];
+    else
+    	alert('활성화 된 폼이 없습니다.')
+	
+    console.log(arr);
     // get selected file element
-    var oFile = document.getElementById('femblem').files[0];
+    var oFile = document.getElementById(arr[0]).files[0];
 
     // filter for image files
     var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
@@ -47,14 +61,16 @@ function fileSelected() {
         /*document.getElementById('warnsize').style.display = 'block';*/
         return;
     }
-
+    
     // get preview element
-    var oImage = document.getElementById('preview_img');
+    var oImage = document.getElementById(arr[1]);
+    
 
     // prepare HTML5 FileReader
     var oReader = new FileReader();
         oReader.onload = function(e){
         console.log("oReader.onload()");
+        console.log(e.target.result);
         // e.target.result contains the DataURL which we will use as a source of the image
         oImage.src = e.target.result;
 

@@ -75,7 +75,51 @@ public class TeamController {
     log.info("team = " + team);
     Iterator<String> itr =  uploadedFile.getFileNames();
     if(itr.hasNext()) {
-      
+      MultipartFile mpf = uploadedFile.getFile(itr.next());
+      System.out.println(mpf.getOriginalFilename() +" uploaded!");
+      try {
+          String path=uploadedFile.getServletContext().getRealPath("/");
+          byte[] bytes = mpf.getBytes();
+          String sep = System.getProperty("file.separator");
+          String fileName = MultipartHelper.generateFilename(mpf.getOriginalFilename());
+          String filePath = path+ sep + "team" + sep + "img" + sep;
+          File file=new File(filePath + fileName);
+          BufferedOutputStream stream = new BufferedOutputStream(
+              new FileOutputStream(file));
+          stream.write(bytes);
+          stream.close();
+          
+          /* Thumbnails */
+          Thumbnails.of(new File(filePath + fileName))
+          .width(280)
+          .outputQuality(0.8)
+          .toFile(new File(filePath + "tl_" + fileName));
+          
+          team.setEmblem(fileName);
+      } catch (IOException e) {
+        e.printStackTrace();
+        return new AjaxResult("failure", null);
+      }
+    }     
+    
+    teamService.register(team);
+    return new AjaxResult("success", null);
+    
+  }
+  
+  @RequestMapping("detail")
+  public Object detail(int tno) throws Exception {
+    Team team = teamService.retrieve(tno);
+    return new AjaxResult("success", team);
+  }
+  
+  @RequestMapping(value="update", method=RequestMethod.POST)
+  public AjaxResult update(Team team, MultipartHttpServletRequest uploadedFile) throws Exception {
+    
+    log.info("team = " + team);
+    if(team.getEmblem() == null) {
+      Iterator<String> itr =  uploadedFile.getFileNames();
+      if(itr.hasNext()) {
         MultipartFile mpf = uploadedFile.getFile(itr.next());
         System.out.println(mpf.getOriginalFilename() +" uploaded!");
         try {
@@ -101,21 +145,10 @@ public class TeamController {
           e.printStackTrace();
           return new AjaxResult("failure", null);
         }
-    }     
+      }
+    }
     
-    teamService.register(team);
-    return new AjaxResult("success", null);
     
-  }
-  
-  @RequestMapping("detail")
-  public Object detail(int tno) throws Exception {
-    Team team = teamService.retrieve(tno);
-    return new AjaxResult("success", team);
-  }
-  
-  @RequestMapping(value="update", method=RequestMethod.POST)
-  public AjaxResult update(Team team) throws Exception {
     if (teamService.change(team) <= 0) {
       return new AjaxResult("failure", null);
     }

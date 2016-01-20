@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import allstar.pms.domain.AjaxResult;
+import allstar.pms.domain.Like_Event;
 import allstar.pms.domain.Member;
+import allstar.pms.service.Like_EventService;
 import allstar.pms.service.MemberService;
 
 @Controller("ajax.MemberController")
@@ -21,6 +23,7 @@ public class MemberController {
   public static final String SAVED_DIR = "/attachfile";
   @Autowired
   MemberService memberService;
+  Like_EventService like_eventService;
   @Autowired
   ServletContext servletContext;
 
@@ -65,7 +68,6 @@ public class MemberController {
     if (memberService.change(member) <= 0) {
       return new AjaxResult("failure", null);
     }
-    
     return new AjaxResult("success", null);
   }
 
@@ -78,4 +80,5 @@ public class MemberController {
     
     return new AjaxResult("success", null);
   }
+
 }
