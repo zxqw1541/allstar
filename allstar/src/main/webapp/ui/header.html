@@ -205,6 +205,7 @@ $(document).ready( function() {
   
   $('#out').click( function(event) {
     $.session.remove("loginSession");  
+    $.session.remove("mem_num");  
     console.log("logout");
     $("#login").show();
     $("#logout").hide();
