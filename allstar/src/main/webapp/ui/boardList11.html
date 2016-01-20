@@ -318,7 +318,7 @@ $('#rightSide').empty();
 function clickNewWrite(event) {
 	console.log($.session.get("mem_num"));
 	if ($.session.get("mem_num") != undefined) {
-		var find_mno =  $.session.get("mem_num");
+		
 	$('#newBoard').empty();
 	$.getJSON('../board/ajax/add.do?no=' + -1, function(resultObj) {
 		var fbevent = resultObj.eno;
@@ -343,7 +343,7 @@ function clickNewWrite(event) {
 		$("<div class='form-group'>")
 		    .html("<label for='fmno' class='col-sm-2 control-label'>멤버번호</label>"
 		    +"<div class='col-sm-10'>"
-		      +"<input type='text' class='form-control' id='fmno' value='"+find_mno+"' readonly>"
+		      +"<input type='text' class='form-control' id='fmno' value='"+$.session.get("mem_num")+"' readonly>"
 		   +"</div>" 
 		  +"</div>").appendTo(div);
 		$("<div class='form-group'>")
@@ -361,7 +361,7 @@ function clickNewWrite(event) {
 	});
 	} else {
 		
-		alert("로그인 후 게시글 작성이 가능합니다.");
+		  		alert("로그인 후 게시글 작성이 가능합니다.");
 		
 	}
 	}
