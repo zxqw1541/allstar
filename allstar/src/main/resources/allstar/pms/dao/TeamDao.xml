@@ -41,7 +41,6 @@
 		from team t left outer join event e on t.eno=e.eno
 		where
 		<choose>
-      <when test=" == 'eventnum'">t.eno=#{eventnum} </when>
       <when test="keyword == 'region'">t.bas_addr=#{region} </when>
       <when test="possible == 'true'">t.total_num!=t.join_num </when>
       <when test="possible == 'false'">t.total_num!=t.join_num </when>
