@@ -33,7 +33,6 @@ public class TeamController {
   @Autowired TeamService teamService;
   @Autowired EventService eventService;
   
-
   @RequestMapping("all")
   public Object listAll() throws Exception {
     
@@ -52,12 +51,15 @@ public class TeamController {
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="10") int pageSize,
       @RequestParam(defaultValue="no") String keyword,
-      @RequestParam(defaultValue="desc") String align) throws Exception {
+      @RequestParam(defaultValue="desc") String align,
+      @RequestParam(defaultValue="2") int event) throws Exception {
 
-    List<Team> teams = teamService.getTeamList(pageNo, pageSize, keyword, align);
+    List<Team> teams = teamService.getTeamList(pageNo, pageSize, event, keyword, align);
     List<Event> events = eventService.getEventList();
     log.info("pageNo = " + pageNo);
     log.info("size = " + teams.size());
+    log.info("keyword = " + keyword);
+    log.info("event = " + event);
     
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");

@@ -37,7 +37,7 @@ $(function(){
       </p><br>
       
          <form id="teamForm">
-          <select id="tevent">
+          <select id="tevent" onchange="options[selectedIndex].value&&self.location.reload(true)">
               <option value=''>종목</option>
               <option value='2'>농구</option>
               <option value='3'>축구</option>
@@ -45,40 +45,40 @@ $(function(){
               <option value='5'>볼링</option>
               <option value='6'>탁구</option>
           </select>
-          <select id="tnum">
+          <select id="tplaynum" onchange="options[selectedIndex].value&&self.location.reload(true)">
               <option value=''>경기수</option>
-              <option value='1'>적은 순</option>
-              <option value='2'>많은 순</option>
+              <option value='low'>적은 순</option>
+              <option value='high'>많은 순</option>
           </select>
-          <select name="tregion">
-              <option>지역</option>
-              <option>강원도</option>
-              <option>경기도</option>
-              <option>경상남도</option>
-              <option>경상북도</option>
-              <option>광주광역시</option>
-              <option>대구광역시</option>
-              <option>대전광역시</option>
-              <option>부산광역시</option>
-              <option>서울특별시</option>
-              <option>세종특별자치시</option>
-              <option>울산광역시</option>
-              <option>인천광역시</option>
-              <option>전라남도</option>
-              <option>전라북도</option>
-              <option>제주특별자치도</option>
-              <option>충청남도</option>
-              <option>충청북도</option>
+          <select id="tregion" onchange="options[selectedIndex].value&&self.location.reload(true)">
+              <option value=''>지역</option>
+              <option value='1'>강원도</option>
+              <option value='2'>경기도</option>
+              <option value='3'>경상남도</option>
+              <option value='4'>경상북도</option>
+              <option value='5'>광주광역시</option>
+              <option value='6'>대구광역시</option>
+              <option value='7'>대전광역시</option>
+              <option value='8'>부산광역시</option>
+              <option value='9'>서울특별시</option>
+              <option value='10'>세종특별자치시</option>
+              <option value='11'>울산광역시</option>
+              <option value='12'>인천광역시</option>
+              <option value='13'>전라남도</option>
+              <option value='14'>전라북도</option>
+              <option value='15'>제주특별자치도</option>
+              <option value='16'>충청남도</option>
+              <option value='17'>충청북도</option>
           </select>
-          <select id="tjoin">
+          <select id="tjoin" onchange="options[selectedIndex].value&&self.location.reload(true)">
               <option value=''>가입여부</option>
-              <option value='1'>가능</option>
-              <option value='2'>불가능</option>
+              <option value='true'>가능</option>
+              <option value='false'>불가능</option>
           </select>
-          <select id="tdate">
+          <select id="tdate" onchange="options[selectedIndex].value&&self.location.reload(true)">
               <option value=''>등록순</option>
-              <option value='1'>최신순</option>
-              <option value='2'>오래된순</option>
+              <option value='tno desc'>최신순</option>
+              <option value='tno asc'>오래된순</option>
           </select>
         </form>
     
@@ -210,6 +210,7 @@ $(function(){
               },
               pageNo = 2;
               listSize = 0;
+              keyword = 'event';
               $.getJSON('../team/ajax/all.do', function(resultObj) {
                 listSize = resultObj.size;
               });
@@ -304,6 +305,73 @@ $(function(){
   <!----//wookmark-scripts---->
 
   <script>
+  $('#teamForm').change(function(){
+/*      alert("test"); */
+	});
+  
+  /* var sevent;
+  function selectEvent(param) {
+	    sevent = param.value;
+	    reload(sevent);
+	    location.reload();
+	} */
+
+	
+  onunload = function()
+  {
+		self.name = '';
+		
+    var tevent = document.getElementById('tevent');
+    self.name = self.name + 'e' + tevent.selectedIndex + 'e';
+
+    var tplaynum = document.getElementById('tplaynum');
+    self.name = self.name + 'p' + tplaynum.selectedIndex + 'p';
+    
+    var tregion = document.getElementById('tregion');
+    self.name = self.name + 'r' + tregion.selectedIndex + 'r';
+    
+    var tjoin = document.getElementById('tjoin');
+    self.name = self.name + 'j' + tjoin.selectedIndex + 'j';
+    
+    var tdate = document.getElementById('tdate');
+    self.name = self.name + 'd' + tdate.selectedIndex + 'd';
+  } 
+	
+  onload = function()
+  {
+	  var idx;
+	  
+    var tevent = document.getElementById('tevent');
+    tevent.selectedIndex = (idx = self.name.split('e')) ? idx[1] : 0;
+    var eVal = tevent.options[tevent.selectedIndex].value;
+    console.log(eVal);
+    
+    var idx1, tplaynum = document.getElementById('tplaynum');
+    tplaynum.selectedIndex = (idx1 = self.name.split('p')) ? idx1[1] : 0;
+    var pVal = tplaynum.options[tplaynum.selectedIndex].value;
+    console.log(pVal);
+    
+    var tregion = document.getElementById('tregion');
+    tregion.selectedIndex = (idx = self.name.split('r')) ? idx[1] : 0;
+    var rVal = tregion.options[tregion.selectedIndex].value;
+    console.log(rVal);
+
+    var tjoin = document.getElementById('tjoin');
+    tjoin.selectedIndex = (idx = self.name.split('j')) ? idx[1] : 0;
+    var jVal = tjoin.options[tjoin.selectedIndex].value;
+    console.log(jVal);
+
+    var tdate = document.getElementById('tdate');
+    tdate.selectedIndex = (idx = self.name.split('d')) ? idx[1] : 0;
+    var dVal = tdate.options[tdate.selectedIndex].value;
+    console.log(dVal);
+    
+    
+    
+    
+  }
+
+    
   $.ajax({
 	  url:'../team/ajax/list.do',
 	  type:'GET',
@@ -342,6 +410,50 @@ $(function(){
       location.href = "teamForm.html?tno=" + $(event.target).attr("teamNo");
     }
   
+    var url;
+   function reload(param) {
+	   if (param > 1) {
+		   url = '../team/ajax/list.do?keyword=event&event=' + param;
+	   } else {
+		   url = '../team/ajax/list.do';
+	   }
+	   
+	   $.ajax({
+		    url:url,
+		    type:'GET',
+		    async:false,
+		    dataType:'json',
+		    data:'resultObj',
+		    success:function(resultObj) {
+		    	$("#tiles li").remove();
+		        var tiles = $("#tiles");
+		        for (var team of resultObj.teams) {
+		          var emblem = team.emblem; 
+		          
+		          if(emblem == null){
+		            emblem = "allstardefault.png";
+		          }
+		          
+		          $( "<li>" )
+		            .html("<img src= '../team/img/tl_" + emblem + "' width='280'>" +
+		                  "<div class='post-info'>" + 
+		                  "<div class='post-basic-info'>" + 
+		                  "<h3><a class='detailLnk' href='#' teamNo='" + team.tno + "'>" + team.name + "</a></h3><span>" +
+		                  "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
+		                  "<p>" + team.event.name + "</p>" + 
+		                  "<p>" + team.joinNum + " / " + team.totalNum + 
+		                  "</p></div></div>")
+		            .appendTo(tiles);
+		          }
+		          // 팀 링크에 클릭 이벤트 리스너 등록
+		          $("a.detailLnk").click(clickDetailLnk);
+		       
+		       }
+		     });
+   } 
+    
+    
+    
   </script>
 
 <script>
@@ -414,6 +526,7 @@ $(document).ready(function() {
        });
     });
   });
+  
 </script>
 
 </body>

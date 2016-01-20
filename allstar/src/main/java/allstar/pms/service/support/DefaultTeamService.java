@@ -19,12 +19,12 @@ public class DefaultTeamService implements TeamService {
     return teamDao.selectAll();
   }
   
-  public List<Team> getTeamList(int pageNo, int pageSize,
+  public List<Team> getTeamList(int pageNo, int pageSize, int event,
       String keyword, String align) {
-
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", (pageNo - 1) * pageSize);
     paramMap.put("length", pageSize);
+    paramMap.put("event", event);
     paramMap.put("keyword", keyword);
     paramMap.put("align", align);
 

@@ -6,7 +6,7 @@ import allstar.pms.domain.Team;
 
 public interface TeamService {
   List<Team> getList();
-  List<Team> getTeamList(int pageNo, int pageSize,
+  List<Team> getTeamList(int pageNo, int pageSize, int event,
       String keyword, String align);
   void register(Team team);
   Team retrieve(int no);
