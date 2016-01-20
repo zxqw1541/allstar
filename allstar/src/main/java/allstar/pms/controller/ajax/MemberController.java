@@ -2,7 +2,6 @@ package allstar.pms.controller.ajax;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -79,12 +78,5 @@ public class MemberController {
     
     return new AjaxResult("success", null);
   }
-  
-  @RequestMapping("find")
-  public Object find(Map<String,Object> paramMap) throws Exception {
-    Member members = memberService.retrieve(paramMap.get("id").toString(),paramMap.get("pwd").toString());
-    return new AjaxResult("success", members);
-  }
- 
-  
+
 }
