@@ -17,6 +17,14 @@ protected String address;
 protected String gender;
 protected int age;
 protected String introduce;
+//protected Event event;
+//
+//public Event getEvent() {
+//  return event;
+//}
+//public void setEvent(Event event) {
+//  this.event = event;
+//}
 public int getMno() {
   return mno;
 }

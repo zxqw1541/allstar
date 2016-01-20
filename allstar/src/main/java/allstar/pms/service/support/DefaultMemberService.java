@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import allstar.pms.dao.MemberDao;
+import allstar.pms.domain.Like_Event;
 import allstar.pms.domain.Member;
 import allstar.pms.service.MemberService;
 
