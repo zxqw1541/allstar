@@ -115,26 +115,20 @@ $(function() {
                         
           </p>
         </div>
+        <div id="pageN">
         <div class="paging">
           <span class="fir"><u>처음</u></span> 
           <span class="prev"><u>이전</u></span>
           
           <div class="page_num"> 
-          <span class="nowpage"><b>1</b></span> 
+          <span class="nowpage" id='currentpage'><b>1</b></span> 
           <a href='#'>2</a> 
-          <a href='#'>3</a> 
-          <a href='#'>4</a> 
-          <a href='#'>5</a> 
-          <a href='#'>6</a> 
-          <a href='#'>7</a> 
-          <a href='#'>8</a> 
-          <a href='#'>9</a> 
-          <a href='#'>10</a> 
+
           </div>
           <a href="#" class="next" ><u>다음</u></a> 
           <a href="#" class="end" ><u>마지막</u></a>
+        </div> 
         </div>
-        
         <fieldset class="searchArea">
           <select name="ctl00$Contents$selSearch" id="ctl00_Contents_selSearch">
   <option value="1">제목</option>
@@ -150,8 +144,6 @@ $(function() {
 </div>
 </div>
 
-<!--  <div id="overlay_t" style="opacity:1;" > 
-    <div id="container"> -->
             <div id="contents" style='display:none; background-color: white; min-width:1258px; margin:auto; overflow:auto;'>
           <div class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
               <article id="subject" class="mainArea">
@@ -161,44 +153,13 @@ $(function() {
                 
               </aside>
 
-              <!-- <p class="btnClose"><button type="button" class="sprBtn">닫기</button> -->
 
             </div>
           </div>
-  <!--      </div>
-         </div> 
 
- -->
 
 <div id="newWrite" style=' display:none; border:1px black solid; background-color: white; width:auto; /* margin:auto; */ left:40%; overflow:auto;'>
   <div id="newBoard" class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
-    
-      <!-- <div class="form-group">
-        <label for="ftitle" class="col-sm-2 control-label">제목</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="ftitle" placeholder="제목">
-          </div>
-      </div>
-      <div class="form-group">
-        <label for="feno" class="col-sm-2 control-label">종목</label>
-          <div class="col-sm-10">
-            <select id="fbevent"  >
-              <option>농구</option>
-              <option>축구</option>
-              <option>야구</option>
-              <option>볼링</option>
-              <option>탁구</option>
-            </select><br>
-       
-      </div> 
-    </div>
-    <div class="form-group">
-      <label for="fcontent" class="col-sm-2 control-label">내용</label>
-        <div class="col-sm-10">
-          <textarea id="fcontent" class="form-control" 
-            rows='10' cols='60' placeholder="내용"></textarea>
-        </div>
-      </div>-->
   
     
               
@@ -407,13 +368,19 @@ $('#addBtn').click(function(event) {
 
 </script>
 <script>
+var TOTAL_COUNT=0;
+$.getJSON('../board/ajax/all.do', function(resultObj) {
+	TOTAL_COUNT = resultObj.size;
+});
+$.getJSON('../board/ajax/list.do', function(resultObj) {
+	
 
 //한 페이지당 표시할 페이지 갯수
-var pageCount=5;
+var pageCount=10;
 //현재 페이지
-var currentPage=${currentPage};
+var currentPage=$('#currentpage');
 //총 게시물 수
-var totalSize=${TOTAL_COUNT};
+var totalSize=TOTAL_COUNT;
 //총 페이지 갯수
 var totalPage=Math.ceil(totalSize/10);
 //한 화면에 보여질 페이지 갯수
@@ -430,7 +397,7 @@ var startPageList=(pageList-1)*pageCount+1;
 //끝 페이지
 var endPageList=startPageList+pageCount-1;
 
-if(startPageList < 1) starPageList=-1;
+if(startPageList < 1) startPageList=-1;
 if(endPageList>totalPage) endPageList=totalPage;
 if(endPageList<1) endPageList=1;
 
@@ -469,6 +436,7 @@ function goPage(num){
 	  document.frm.action="../ui/boardList11.html";
 	  document.frm.submit();
 	}
+});
 </script>
 
 

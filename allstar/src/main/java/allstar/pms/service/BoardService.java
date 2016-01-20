@@ -11,6 +11,7 @@ public interface BoardService {
   int remove(int bno);
   int change(Board board);
   Board retrieve(int bno);
+  List<Board> getList();
 }
 
 

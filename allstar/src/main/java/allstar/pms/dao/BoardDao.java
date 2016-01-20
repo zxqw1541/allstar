@@ -6,6 +6,7 @@ import java.util.Map;
 import allstar.pms.domain.Board;
 
 public interface BoardDao {
+  List<Board> selectAll();
   List<Board> selectList(Map<String,Object> paramMap);
   
   int insert(Board board);

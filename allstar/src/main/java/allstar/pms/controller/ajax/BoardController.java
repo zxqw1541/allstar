@@ -28,6 +28,23 @@ public class BoardController {
   @Autowired EventService eventService;
   @Autowired ServletContext servletContext;
   
+  
+  
+  @RequestMapping("all")
+  public Object listAll() throws Exception {
+    
+    List<Board> boardsa = boardService.getList();
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("size", boardsa.size());
+
+    return resultMap;
+  }
+
+  
+  
+  
   @RequestMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
