@@ -467,6 +467,8 @@ insert event(name) values ('자유게시판');
 insert event(name) values ('농구');
 insert event(name) values ('축구');
 insert event(name) values ('야구');
+insert event(name) values ('탁구');
+insert event(name) values ('볼링');
 
 /* 멤버 */
 insert member(id,name,pwd) values ('abcd1','이름1',sha1('1111'));
