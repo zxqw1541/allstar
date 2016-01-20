@@ -3,19 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="js/jquery-1.11.3.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
 
+  <section id="mem_info">
+    <form method="post">
+      <div>
+       <label for="fname">이름</label>
+        <input type="text" id="fname" placeholder="이름"><br>
+      <label for="femail">이메일</label>
+        <input type="email" id="femail" placeholder="email@email.com"><br>
+      <label for="ftel">전화번호</label>  
+        <input type="tel" id="ftel" placeholder="111-1111-1111"><br>
+        <label for="fphoto">프로필사진</label>
+        <input type="file" id="fphoto">        <br>
+        <label for="fpst_no">우편번호</label>
+        <input type="text" id="fpst_no" placeholder="우편번호"><br>
+<input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"><br>
+<input type="text" id="fbas_addr" placeholder="한글주소"><br>
+<input type="text" id="sample2_addressEnglish" placeholder="영문주소"><br>
 
+<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+<img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+</div>
 
+<script>
+    var element_layer = document.getElementById('layer');
 
+    function closeDaumPostcode() {
+        element_layer.style.display = 'none';
+    }
 
+    function sample2_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
 
+                var fullAddr = data.address; 
+                var extraAddr = ''; 
 
+                if(data.addressType === 'R'){
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
 
+                document.getElementById('fpst_no').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('fbas_addr').value = fullAddr;
+                document.getElementById('sample2_addressEnglish').value = data.addressEnglish;
 
+                element_layer.style.display = 'none';
+            },
+            width : '100%',
+            height : '100%'
+        }).embed(element_layer);
 
+        element_layer.style.display = 'block';
 
+        initLayerPosition();
+    }
+
+    function initLayerPosition(){
+        var width = 300; 
+        var height = 460;
+        var borderWidth = 5; 
+
+        element_layer.style.width = width + 'px';
+        element_layer.style.height = height + 'px';
+        element_layer.style.border = borderWidth + 'px solid';
+        element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+    }
+</script>
+      </div>
+      
+      <div id="genderfld">
+      <label for="gender_male">남</label>
+        <input type="radio" id="gender_male" name="fgender" value="남성">
+      <label for="gender_female">여</label>
+        <input type="radio" id="gender_female" name="fgender" value="여성">
+              <label for="gender_other">기타</label>
+        <input type="radio" id="gender_other" name="fgender" value="기타">
+      </div>
+      <label for="fage">나이</label>
+        <input type="number" id="fage">
+      <div>
+      <label for="like_basket">농구</label>
+        <input type="checkbox" id="like_basket" value="2" >
+      <label for="like_foot">축구</label>
+        <input type="checkbox" id="like_foot" value="3">
+        <label for="like_base">야구</label>
+        <input type="checkbox" id="like_base" value="4">
+        <label for="like_table">탁구</label>
+        <input type="checkbox" id="like_table" value="5">
+        <label for="like_bowl">볼링</label>
+        <input type="checkbox" id="like_bowl" value="6">
+      </div>
+      <div>
+      <label for="fintroduce">자기소개</label><br>
+      <textarea rows="20" cols="20" id="fintroduce" placeholder="자기소개.."></textarea>
+      </div>
+          <div >
+      <button id='addBtn' type='button' >등록</button>
+      <button id='updateBtn' type='button' >변경</button>
+      <button id='deleteBtn' type='button' >삭제</button>
+    </div>
+    </form>      
+  </section>
+
+<script>
+$.getJSON('ajax/detail.do?mno=' + mno, function(resultObj) {
+    var ajaxResult = resultObj.ajaxResult;
+    if (ajaxResult.status == "success") {
+      var member = ajaxResult.data;
+      $("#fid").val(member.id);
+      $("#fname").val(member.name);
+      $("#femail").val(member.email);
+      $("#ftel").val(member.tel);
+      $("#fpst_no").val(member.pst_no);
+      $("#fbas_addr").val(member.bas_addr);  
+      $("#faddress").val(member.address);
+      $("#fgender").val(member.gender);
+      $("#fage").val(member.age);
+      $("#fphoto").text(member.photo);
+      $("#fintroduce").val(member.introduce);
+    }
+  });
+  
+$('#addBtn').click(function(event) {
+    console.log("name" + $('#fname').val());
+    console.log("email" + $('#femail').val());
+    console.log("tel" + $('#ftel').val());
+    console.log("pst_no" + $('#fpst_no').val());
+    console.log("address" + $('#faddress').val());
+    console.log("gender" + $('fgender').val());
+    console.log("age" + $('#fage').val());
+    console.log("photo" + $('#fphoto').val());
+    console.log("introduce" + $('#fintroduce').val());
+    
+    $.post('ajax/update.do', {
+      name : $('#fname').val(),
+      email : $('#femail').val(),
+      tel : $('#ftel').val(),
+      pst_no: $('#fpst_no').val(),
+      bas_addr: $('#fbas_addr').val(),
+      address : $('#faddress').val(),
+      gender : $('fgender').val(),
+      age : $('#fage').val(),
+      photo : $('#fphoto').val(),
+      introduce : $('#fintroduce').val()
+      
+    }, function(resultObj) {
+      var ajaxResult = resultObj.ajaxResult;
+      if (ajaxResult.status == "success") {
+        location.href = "../member/index.html";
+      } else {
+        alert("게시물 등록에 실패했습니다.");
+      }
+    }, 'json');
+  });
+  
+</script>
 
 </body>
 </html>

@@ -47,7 +47,7 @@
 	<update id="update" parameterType="member">
 		update member set name=#{name},email=#{email},tel=#{tel},photo=#{photo},
 		pst_no=#{pst_no},address=#{address},bas_addr=#{bas_addr},gender=#{gender},age=#{age}
-		,introduce=#{introduce} where mno=#{mno} and pwd=sha1(#{pwd})
+		,introduce=#{introduce} where mno=#{mno}
 	</update>
   
   <select id="selectOneByIdPassword" resultType="member" parameterType="map">
