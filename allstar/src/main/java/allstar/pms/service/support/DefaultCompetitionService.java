@@ -45,4 +45,9 @@ public class DefaultCompetitionService implements CompetitionService {
     return competitionDao.selectOne(no);
   }
 
+  @Override
+  public int countAllCompetition() {
+    return competitionDao.selectCountAll();
+  }
+
 }

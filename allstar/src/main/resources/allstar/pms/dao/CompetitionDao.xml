@@ -94,6 +94,11 @@
     from competition
     where cno=#{no}
   </select>
+  
+  <select id="selectCountAll" resultType="int">
+    select count(*)
+    from competition
+  </select>
 </mapper>
 
 

@@ -22,6 +22,11 @@ public class CompetitionController {
   public static Logger log = Logger.getLogger(CompetitionController.class);
   @Autowired CompetitionService competitionService;
   @Autowired ServletContext servletContext;
+  
+  @RequestMapping("all")
+  public AjaxResult countAll() {
+    return new AjaxResult("success",competitionService.countAllCompetition());
+  }
 
   @RequestMapping("list")
   public AjaxResult list(

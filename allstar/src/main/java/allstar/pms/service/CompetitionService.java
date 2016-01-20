@@ -16,4 +16,6 @@ public interface CompetitionService {
   
   Competition retrieve(int no);
   
+  int countAllCompetition();
+  
 }

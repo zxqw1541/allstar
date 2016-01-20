@@ -16,5 +16,7 @@ public interface CompetitionDao {
   int update(Competition competition);
   
   Competition selectOne(int no);
+  
+  int selectCountAll();
 
 }
