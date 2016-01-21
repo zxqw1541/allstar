@@ -125,23 +125,7 @@ $(function() {
           </p>
         </div>
         <div class="paging">
-          <span class="fir"><u>처음</u></span> 
-          <span class="prev"><u>이전</u></span>
-          
-          <div class="page_num"> 
-          <!-- <span class="nowpage"><b>1</b></span> 
-          <a href='#'>2</a> 
-          <a href='#'>3</a> 
-          <a href='#'>4</a> 
-          <a href='#'>5</a> 
-          <a href='#'>6</a> 
-          <a href='#'>7</a> 
-          <a href='#'>8</a> 
-          <a href='#'>9</a> 
-          <a href='#'>10</a> --> 
-          </div>
-          <a href="#" class="next" ><u>다음</u></a> 
-          <a href="#" class="end" ><u>마지막</u></a>
+          <!-- 페이징 처리 부분 -->
         </div>
         
         <fieldset class="searchArea">
@@ -193,8 +177,6 @@ $(function() {
 var pageNo = 1;
 if (location.href.indexOf('?') != -1)
 	pageNo = location.href.split('?')[1].split('=')[1];
-console.log(location.href);
-console.log("pageNo = ",pageNo);
 $.getJSON('/allstar/competition/list.do?pageSize=' + pageSize + '&pageNo=' + pageNo, function(resultObj) {
   var tbody = $("#boardtable tbody");
   for (var c of resultObj.ajaxResult.data) {
@@ -213,13 +195,33 @@ $.getJSON('/allstar/competition/list.do?pageSize=' + pageSize + '&pageNo=' + pag
 
 <!-- 페이징 -->
 <script>
+var totalPage = 1;
 $.getJSON('/allstar/competition/all.do', function(resultObj) {
-	  var totalPage = Math.ceil(resultObj.ajaxResult.data / pageSize);
+	  totalPage = Math.ceil(resultObj.ajaxResult.data / pageSize);
+	  var lp10 = Math.floor((totalPage - 1) / 10) * 10;
 	  var start = Math.floor((pageNo - 1) / 10) * 10 + 1;
 	  var end = start + 10;
+	  
 	  if (end > totalPage)
 		  end = totalPage + 1;
-		var pageDiv = $(".page_num");
+	  
+	  var pagingDiv = $('.paging');
+
+	  /* <<, < 버튼 추가 */
+	  if (start < 11) {
+		  $("<span>").addClass('fir').appendTo(pagingDiv);
+      $("<span>").addClass('prev').appendTo(pagingDiv);
+	  }
+	  else {
+		  $("<a>").addClass('fir').attr({href:'#'}).appendTo(pagingDiv);
+      $("<a>").addClass('prev').attr({href:'#'}).appendTo(pagingDiv);
+		  $('a.fir').click(clickFir);
+	    $('a.prev').click(clickPrev);
+	  }
+	  
+	  /* 숫자 */
+		var pageDiv = $('<div>').addClass('page_num');
+	  pageDiv.appendTo(pagingDiv);
 	  for (var i = start ; i < end ; i++) {
 		  if(i == pageNo) {
 			  $("<span>").addClass('nowpage')
@@ -235,6 +237,18 @@ $.getJSON('/allstar/competition/all.do', function(resultObj) {
 		  }
 	  };
 	  $(".a_pageNo").click(clickPageNo)
+	  
+	  /* >, >> 버튼 추가 */
+	  if (pageNo > lp10) {
+      $("<span>").addClass('next').appendTo(pagingDiv);
+	    $("<span>").addClass('end').appendTo(pagingDiv);
+	  }
+    else {
+      $("<a>").addClass('next').attr({href:'#'}).appendTo(pagingDiv);
+	    $("<a>").addClass('end').attr({href:'#'}).appendTo(pagingDiv);
+ 	    $('a.next').click(clickNext);
+  	  $('a.end').click(clickEnd);
+    }
 });
 
 //페이징 번호를 클릭했을 때 호출될 함수
@@ -242,6 +256,35 @@ function clickPageNo(event) {
 	event.preventDefault();
   location.href = "competitionList.html?pageNo=" + $(event.target).attr("pageno");
 }
+
+//<<버튼을 클릭했을 때 호출될 함수
+function clickFir() {
+  event.preventDefault();
+  location.href = "competitionList.html";
+}
+
+//<버튼을 클릭했을 때 호출될 함수
+function clickPrev() {
+  event.preventDefault();
+  var no = Math.floor((pageNo - 11) / 10) * 10 + parseInt(1);
+  location.href = "competitionList.html?pageNo=" + no;
+}
+
+//>버튼을 클릭했을 때 호출될 함수
+function clickNext() {
+	event.preventDefault();
+	var no = Math.floor((pageNo*1 + parseInt(9)) / 10) * 10 + parseInt(1);
+	location.href = "competitionList.html?pageNo=" + no;
+}
+
+//>>버튼을 클릭했을 때 호출될 함수
+function clickEnd() {
+  event.preventDefault();
+  location.href = "competitionList.html?pageNo=" + totalPage;
+}
+
+
+
 </script>
 
 
