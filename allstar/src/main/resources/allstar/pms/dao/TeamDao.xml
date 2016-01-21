@@ -44,8 +44,8 @@
 		
     <if test="event != 'null'"> t.eno=#{event} </if>
 		<if test="addr != 'null'">
-		  <if test="event != 'null'"> and t.bas_addr=#{addr} </if>
-		  <if test="event == 'null'"> t.bas_addr=#{addr} </if>
+		  <if test="event != 'null'"> and t.bas_addr like concat('%',#{addr},'%') </if>
+		  <if test="event == 'null'"> t.bas_addr like concat('%',#{addr},'%') </if>
 		</if>
     <if test="possible == 'true'">
       <if test="event != 'null' or addr != 'null'"> and t.total_num!=t.join_num </if>
