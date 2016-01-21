@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import allstar.pms.service.MemberService;
 @RequestMapping("/member/ajax/*")
 public class MemberController {
   public static final String SAVED_DIR = "/attachfile";
+  public static Logger log = Logger.getLogger(MemberController.class);
   @Autowired
   MemberService memberService;
   Like_EventService like_eventService;
@@ -43,10 +45,7 @@ public class MemberController {
     return resultMap;
   }
 
-  @RequestMapping(value = "add", method = RequestMethod.GET)
-  public String form() {
-    return "member/MemberForm";
-  }
+
 
   @RequestMapping(value = "add", method = RequestMethod.POST)
   public AjaxResult add(Member member) throws Exception {
@@ -77,6 +76,16 @@ public class MemberController {
     if (memberService.remove(id, pwd) <= 0) {
       return new AjaxResult("failure", null);
     }
+    
+    return new AjaxResult("success", null);
+  }
+  
+  @RequestMapping(value="event", method = RequestMethod.POST)
+  public AjaxResult likeEvent(
+      Like_Event like_event) throws Exception {
+    System.out.println(like_event);
+    //    like_eventService.remove(like_event.getMno());
+    like_eventService.register(like_event);
     
     return new AjaxResult("success", null);
   }

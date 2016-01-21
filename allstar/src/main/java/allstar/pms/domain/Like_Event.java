@@ -9,6 +9,10 @@ public class Like_Event implements Serializable {
   protected int eno;
   
   
+  @Override
+  public String toString() {
+    return "Like_Event [mno=" + mno + ", eno=" + eno + "]";
+  }
   public int getMno() {
     return mno;
   }

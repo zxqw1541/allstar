@@ -10,16 +10,16 @@
     </resultMap>
     
     <select id="selectList" resultMap="like_eventMap" parameterType="int">
-      select eno from like_event where mno=#{mno}; 
+      select eno from like_event where mno=#{mno} 
     </select>
     
-    <insert id="insert" parameterType="Like_Event">
+    <insert id="insert" parameterType="like_event">
       insert into like_event(mno , eno)
-      values (#{mno},#{eno});
+      values (#{mno},#{eno})
     </insert>
     
     <delete id="delete" parameterType="int">
       delete from like_event
-      where mno = #{mno};
+      where mno = #{mno}
     </delete>
 </mapper>
