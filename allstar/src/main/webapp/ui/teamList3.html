@@ -264,8 +264,53 @@ $(function() {
   <!----wookmark-scripts---->
   <script src="../team/js/jquery.imagesloaded.js"></script>
   <script src="../team/js/jquery.wookmark.js"></script>
+  
+  <!-- 중요한 것 -->
+  <script>
+  var si = (function ($){
+      var $tiles = $('#tiles'),
+          $handler = $('li', $tiles),
+          $main = $('#main'),
+          $window = $(window),
+          $document = $(document),
+          $saveurl = $('#saveurl'),
+          options = {
+            autoResize: true, // This will auto-update the layout when the browser window is resized.
+            container: $main, // Optional, used for some extra CSS styling
+            offset: 20, // Optional, the distance between grid items
+            itemWidth:280 // Optional, the width of a grid item
+          },
+          pageNo = 2;
+          listSize = 0;
+          keyword = 'event';
+          $.getJSON('../team/ajax/all.do', function(resultObj) {
+            listSize = resultObj.size;
+          });
+          
+      /**
+       * Reinitializes the wookmark handler after all images have loaded
+       */
+      var bal = function applyLayout() {
+        $tiles.imagesLoaded(function() {
+          // Destroy the old handler
+          if ($handler.wookmarkInstance) {
+            $handler.wookmarkInstance.clear();
+          }
+
+          // Create a new layout handler.
+          $handler = $('li', $tiles);
+          $handler.wookmark(options);
+        });
+      }
+      return {
+        bal : bal
+      }
+    })(jQuery);
+  </script>
+  
+  <!-- 무한 스크롤 -->
   <script type="text/javascript">
-        (function ($){
+   (function ($){
           var $tiles = $('#tiles'),
               $handler = $('li', $tiles),
               $main = $('#main'),
@@ -289,6 +334,7 @@ $(function() {
            * Reinitializes the wookmark handler after all images have loaded
            */
           function applyLayout() {
+        	  console.log("applyLayout()");
             $tiles.imagesLoaded(function() {
               // Destroy the old handler
               if ($handler.wookmarkInstance) {
@@ -393,6 +439,8 @@ $(function() {
 
   list(url);
   
+ 
+  
   function loadPage() {
 	  $("#tiles").empty();
 	    
@@ -459,6 +507,7 @@ $(function() {
     list(url);
   }
   
+  
   function list(url) {
     $("#saveurl").val(url);
     
@@ -469,8 +518,9 @@ $(function() {
       async:false,
       dataType:'json',
       success:function(resultObj) {
-    	  console.log("success 들어옴");
+    	  console.log("----------------------");
         var tiles = $("#tiles");
+        console.log(tiles);
         for (var team of resultObj.teams) {
           var emblem = team.emblem; 
           
@@ -496,6 +546,10 @@ $(function() {
                   "</p></div></div>")
             .appendTo(tiles);
         }
+        console.log(si);
+        console.log(si.bal);
+        si.bal();
+
         //디테일 모달띄우기
         $(function() {
              $('li[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
@@ -506,6 +560,7 @@ $(function() {
     });
     
   }
+
   </script>
 
 <!-- 상세 정보 출력 -->
