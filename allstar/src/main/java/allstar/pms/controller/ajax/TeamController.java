@@ -45,25 +45,24 @@ public class TeamController {
     return resultMap;
   }
 
-  
   @RequestMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="10") int pageSize,
-      @RequestParam(defaultValue="no") String keyword,
-      @RequestParam(defaultValue="desc") String align,
-      @RequestParam(defaultValue="2") int event) throws Exception {
+      @RequestParam(defaultValue="null") String event,
+      @RequestParam(defaultValue="null") String addr,
+      @RequestParam(defaultValue="null") String possible,
+      @RequestParam(defaultValue="null") String play,
+      @RequestParam(defaultValue="null") String enroll) throws Exception {
 
-    List<Team> teams = teamService.getTeamList(pageNo, pageSize, event, keyword, align);
+    List<Team> teams = teamService.getTeamList(
+        pageNo, pageSize, event, addr, possible, play, enroll);
     List<Event> events = eventService.getEventList();
-    log.info("pageNo = " + pageNo);
-    log.info("size = " + teams.size());
-    log.info("keyword = " + keyword);
-    log.info("event = " + event);
     
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("teams", teams);
+    resultMap.put("size", teams.size());
     resultMap.put("events", events);
 
     return resultMap;

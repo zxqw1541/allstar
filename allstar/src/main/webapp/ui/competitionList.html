@@ -190,11 +190,12 @@ $(function() {
 
 <!-- 대회 리스트 출력 -->
 <script>
+var pageNo = 1;
+if (location.href.indexOf('?') != -1)
+	pageNo = location.href.split('?')[1].split('=')[1];
 console.log(location.href);
-var pageNo = location.href.split('?')[1].split('=')[1];
-if (pageNo == '')
-	pageNo = 1;
-$.getJSON('/allstar/competition/list.do?pageSize=' + pageSize + '&pageNo = ' + pageNo, function(resultObj) {
+console.log("pageNo = ",pageNo);
+$.getJSON('/allstar/competition/list.do?pageSize=' + pageSize + '&pageNo=' + pageNo, function(resultObj) {
   var tbody = $("#boardtable tbody");
   for (var c of resultObj.ajaxResult.data) {
     $("<tr>")
@@ -214,17 +215,23 @@ $.getJSON('/allstar/competition/list.do?pageSize=' + pageSize + '&pageNo = ' + p
 <script>
 $.getJSON('/allstar/competition/all.do', function(resultObj) {
 	  var totalPage = Math.ceil(resultObj.ajaxResult.data / pageSize);
-	  console.log(totalPage);
+	  var start = Math.floor((pageNo - 1) / 10) * 10 + 1;
+	  var end = start + 10;
+	  if (end > totalPage)
+		  end = totalPage + 1;
 		var pageDiv = $(".page_num");
-	  for (var i = 1 ; i <= totalPage ; i++) {
+	  for (var i = start ; i < end ; i++) {
 		  if(i == pageNo) {
 			  $("<span>").addClass('nowpage')
 			  .html("<b>"+ i + "</b>").appendTo(pageDiv); 
 		  } else {
 		    $("<a>")
-		    .html(
-		        "<a class='a_pageNo' pageno=" + i + ">"+ i +"</a>"
-		    ).appendTo(pageDiv);
+		    .addClass('a_pageNo')
+		    .attr({
+		    	href : '#',
+		    	pageno : i
+		    	})
+		    .html(i).appendTo(pageDiv);
 		  }
 	  };
 	  $(".a_pageNo").click(clickPageNo)
@@ -232,9 +239,9 @@ $.getJSON('/allstar/competition/all.do', function(resultObj) {
 
 //페이징 번호를 클릭했을 때 호출될 함수
 function clickPageNo(event) {
+	event.preventDefault();
   location.href = "competitionList.html?pageNo=" + $(event.target).attr("pageno");
 }
-
 </script>
 
 

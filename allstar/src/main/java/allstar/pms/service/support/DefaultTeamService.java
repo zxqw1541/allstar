@@ -12,22 +12,23 @@ import allstar.pms.service.TeamService;
 
 @Service
 public class DefaultTeamService implements TeamService {
-
   @Autowired TeamDao teamDao;
 
   public List<Team> getList() {
     return teamDao.selectAll();
   }
   
-  public List<Team> getTeamList(int pageNo, int pageSize, int event,
-      String keyword, String align) {
+  public List<Team> getTeamList(int pageNo, int pageSize, String event,
+      String addr, String possible, String play, String enroll) {
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", (pageNo - 1) * pageSize);
     paramMap.put("length", pageSize);
     paramMap.put("event", event);
-    paramMap.put("keyword", keyword);
-    paramMap.put("align", align);
-
+    paramMap.put("addr", addr);
+    paramMap.put("possible", possible);
+    paramMap.put("play", play);
+    paramMap.put("enroll", enroll);
+    
     return teamDao.selectList(paramMap);
   }
  
