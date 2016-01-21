@@ -23,8 +23,6 @@ $(function(){
   $("#footer").load("footer.html"); 
 });
 
-
-
 $(function() {
     $('li[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
 });
@@ -46,7 +44,7 @@ $(function() {
       
          <form id="teamForm">
           <select id="tevent" onchange="options[selectedIndex].value&&self.location.reload(true)">
-              <option value=''>종목</option>
+              <option value='-1'>종목</option>
               <option value='2'>농구</option>
               <option value='3'>축구</option>
               <option value='4'>야구</option>
@@ -54,12 +52,12 @@ $(function() {
               <option value='6'>탁구</option>
           </select>
           <select id="tplaynum" onchange="options[selectedIndex].value&&self.location.reload(true)">
-              <option value=''>경기수</option>
+              <option value='-1'>경기수</option>
               <option value='low'>적은 순</option>
               <option value='high'>많은 순</option>
           </select>
-          <select id="tregion" onchange="options[selectedIndex].value&&self.location.reload(true)">
-              <option value=''>지역</option>
+          <select id="taddr" onchange="options[selectedIndex].value&&self.location.reload(true)">
+              <option value='-1'>지역</option>
               <option value='1'>강원도</option>
               <option value='2'>경기도</option>
               <option value='3'>경상남도</option>
@@ -79,14 +77,14 @@ $(function() {
               <option value='17'>충청북도</option>
           </select>
           <select id="tjoin" onchange="options[selectedIndex].value&&self.location.reload(true)">
-              <option value=''>가입여부</option>
+              <option value='-1'>가입여부</option>
               <option value='true'>가능</option>
               <option value='false'>불가능</option>
           </select>
           <select id="tdate" onchange="options[selectedIndex].value&&self.location.reload(true)">
-              <option value=''>등록순</option>
-              <option value='tno desc'>최신순</option>
-              <option value='tno asc'>오래된순</option>
+              <option value='-1'>등록순</option>
+              <option value='new'>최신순</option>
+              <option value='old'>오래된순</option>
           </select>
         </form>
     
@@ -379,23 +377,14 @@ $(function() {
   </script>
   <!----//wookmark-scripts---->
 
-<!-- 처음 리스트 출력 -->
+  <!-- 처음 리스트 출력 -->
   <script>
-  $('#teamForm').change(function(){
-/*      alert("test"); */
-	});
+  var url = '../team/ajax/list.do';
   
-  /* var sevent;
-  function selectEvent(param) {
-	    sevent = param.value;
-	    reload(sevent);
-	    location.reload();
-	} */
-
-	
   onunload = function()
   {
 		self.name = '';
+		url = '../team/ajax/list.do';
 		
     var tevent = document.getElementById('tevent');
     self.name = self.name + 'e' + tevent.selectedIndex + 'e';
@@ -403,8 +392,8 @@ $(function() {
     var tplaynum = document.getElementById('tplaynum');
     self.name = self.name + 'p' + tplaynum.selectedIndex + 'p';
     
-    var tregion = document.getElementById('tregion');
-    self.name = self.name + 'r' + tregion.selectedIndex + 'r';
+    var taddr = document.getElementById('taddr');
+    self.name = self.name + 'a' + taddr.selectedIndex + 'a';
     
     var tjoin = document.getElementById('tjoin');
     self.name = self.name + 'j' + tjoin.selectedIndex + 'j';
@@ -412,7 +401,7 @@ $(function() {
     var tdate = document.getElementById('tdate');
     self.name = self.name + 'd' + tdate.selectedIndex + 'd';
   } 
-	
+
   onload = function()
   {
 	  var idx;
@@ -420,41 +409,58 @@ $(function() {
     var tevent = document.getElementById('tevent');
     tevent.selectedIndex = (idx = self.name.split('e')) ? idx[1] : 0;
     var eVal = tevent.options[tevent.selectedIndex].value;
-    console.log(eVal);
     
-    var idx1, tplaynum = document.getElementById('tplaynum');
-    tplaynum.selectedIndex = (idx1 = self.name.split('p')) ? idx1[1] : 0;
+    var tplaynum = document.getElementById('tplaynum');
+    tplaynum.selectedIndex = (idx = self.name.split('p')) ? idx[1] : 0;
     var pVal = tplaynum.options[tplaynum.selectedIndex].value;
-    console.log(pVal);
     
-    var tregion = document.getElementById('tregion');
-    tregion.selectedIndex = (idx = self.name.split('r')) ? idx[1] : 0;
-    var rVal = tregion.options[tregion.selectedIndex].value;
-    console.log(rVal);
+    var taddr = document.getElementById('taddr');
+    taddr.selectedIndex = (idx = self.name.split('a')) ? idx[1] : 0;
+    var aVal = taddr.options[taddr.selectedIndex].value;
 
     var tjoin = document.getElementById('tjoin');
     tjoin.selectedIndex = (idx = self.name.split('j')) ? idx[1] : 0;
     var jVal = tjoin.options[tjoin.selectedIndex].value;
-    console.log(jVal);
 
     var tdate = document.getElementById('tdate');
     tdate.selectedIndex = (idx = self.name.split('d')) ? idx[1] : 0;
     var dVal = tdate.options[tdate.selectedIndex].value;
-    console.log(dVal);
     
+    if (eVal != -1) {
+        url = url + '?event=' + eVal;
+    	if (pVal != -1) url = url + '&play=' + pVal;
+    	if (aVal != -1) url = url + '&addr=' + aVal;
+    	if (jVal != -1) url = url + '&possible=' + jVal;
+    	if (dVal != -1) url = url + '&enroll=' + dVal;
+    } else {
+    	if (pVal != -1) {
+    		url = url + '?play=' + pVal;
+    		if (aVal != -1) url = url + '&addr=' + aVal;
+    		if (jVal != -1) url = url + '&possible=' + jVal;
+        if (dVal != -1) url = url + '&enroll=' + dVal;
+    	} else {
+    		if (aVal != -1) {
+    			url = url + '?addr=' + aVal;
+    			if (jVal != -1) url = url + '&possible=' + jVal;
+    	    if (dVal != -1) url = url + '&enroll=' + dVal;
+    		} else {
+    	    if (jVal != -1) {
+    	    	url = url + '?possible=' + jVal;
+    	    	if (dVal != -1) url = url + '&enroll=' + dVal;
+    	    } else {
+    	    	if (dVal != -1) url = url + '?enroll=' + dVal; 
+    	    }
+    		}
+    	}
+    }
     
-    
-    
-  }
-
-    
-  $.ajax({
-    url:'../team/ajax/list.do',
-    type:'GET',
-    async:false,
-    dataType:'json',
-    data:'resultObj',
-    success:function(resultObj) {
+    $.ajax({
+      url:url,
+      type:'GET',
+      async:false,
+      dataType:'json',
+      data:'resultObj',
+      success:function(resultObj) {
         var tiles = $("#tiles");
         for (var team of resultObj.teams) {
           var emblem = team.emblem; 
@@ -463,6 +469,30 @@ $(function() {
             emblem = "allstardefault.png";
           }
           
+          $("<li>")
+          .attr({
+            class: 'teamList',
+            teamList: team.tno,
+            rel: "leanModal",
+            href: "#detail_team"
+          })
+            .html("<img src= '../team/img/tl_" + emblem + "' width='280'>" +
+                  "<div class='post-info'>" + 
+                  "<div class='post-basic-info'>" + 
+                  "<h3>" + team.name + "</h3><span>" +
+                  "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
+                  "<p>" + team.event.name + "</p>" + 
+                  "<p>" + team.joinNum + " / " + team.totalNum + 
+                  "</p></div></div>")
+            .appendTo(tiles);
+        }
+        //디테일 모달띄우기
+        $(function() {
+             $('li[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+         });
+        // 상세 정보 가져오기
+        $(".teamList").on("click", load_detail_func);
+          /*
           $("<li class='teamList' teamList='" + team.tno + "' rel='leanModal' href='#detail_team'>" )
             .html("<img src= '../team/img/tl_" + emblem + "' width='280'>" +
                   "<div class='post-info'>" + 
@@ -473,63 +503,20 @@ $(function() {
                   "<p>" + team.joinNum + " / " + team.totalNum + 
                   "</p></div></div>")
             .appendTo(tiles);
-          }
+        }
           // 팀 링크에 클릭 이벤트 리스너 등록
           $("a.detailLnk").click(clickDetailLnk);
-       
-       }
-     });
+        */
+      }
+    });
+  }
   
     // 팀 이름을 클릭했을 때 호출될 함수
-    function clickDetailLnk(event) {
-      event.preventDefault();
-      location.href = "teamForm.html?tno=" + $(event.target).attr("teamNo");
-    }
+  function clickDetailLnk(event) {
+    event.preventDefault();
+    location.href = "teamForm.html?tno=" + $(event.target).attr("teamNo");
+  }
   
-    var url;
-   function reload(param) {
-	   if (param > 1) {
-		   url = '../team/ajax/list.do?keyword=event&event=' + param;
-	   } else {
-		   url = '../team/ajax/list.do';
-	   }
-	   
-	   $.ajax({
-		    url:url,
-		    type:'GET',
-		    async:false,
-		    dataType:'json',
-		    data:'resultObj',
-		    success:function(resultObj) {
-		    	$("#tiles li").remove();
-		        var tiles = $("#tiles");
-		        for (var team of resultObj.teams) {
-		          var emblem = team.emblem; 
-		          
-		          if(emblem == null){
-		            emblem = "allstardefault.png";
-		          }
-		          
-		          $( "<li>" )
-		            .html("<img src= '../team/img/tl_" + emblem + "' width='280'>" +
-		                  "<div class='post-info'>" + 
-		                  "<div class='post-basic-info'>" + 
-		                  "<h3><a class='detailLnk' href='#' teamNo='" + team.tno + "'>" + team.name + "</a></h3><span>" +
-		                  "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
-		                  "<p>" + team.event.name + "</p>" + 
-		                  "<p>" + team.joinNum + " / " + team.totalNum + 
-		                  "</p></div></div>")
-		            .appendTo(tiles);
-		          }
-		          // 팀 링크에 클릭 이벤트 리스너 등록
-		          $("a.detailLnk").click(clickDetailLnk);
-		       
-		       }
-		     });
-   } 
-    
-    
-    
   </script>
 
 <!-- 상세 정보 출력 -->
@@ -817,6 +804,13 @@ $(function() {
         element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
         element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
     }
+</script>
+
+<script>
+  function selectBox() {
+	  
+  }
+
 </script>
 
 </body>

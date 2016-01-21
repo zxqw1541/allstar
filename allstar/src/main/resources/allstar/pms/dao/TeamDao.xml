@@ -39,22 +39,38 @@
 	<select id="selectList" resultMap="teamMap" parameterType="map">
 		<include refid="select_inc" />
 		from team t left outer join event e on t.eno=e.eno
-		where
-		<choose>
-      <when test="keyword == 'region'">t.bas_addr=#{region} </when>
-      <when test="possible == 'true'">t.total_num!=t.join_num </when>
-      <when test="possible == 'false'">t.total_num!=t.join_num </when>
-      <otherwise>t.tno </otherwise>
-    </choose>
-		order by
-		<choose>
-			<when test="keyword == 'play'">t.win+t.draw+t.lose </when>
-			<otherwise>t.tno </otherwise>
-		</choose>
-		<choose>
-			<when test="align == 'desc'">desc</when>
-			<otherwise>asc</otherwise>
-		</choose>
+		
+		<if test="event != 'null' or addr != 'null' or possible != 'null'"> where </if>
+		
+    <if test="event != 'null'"> t.eno=#{event} </if>
+		<if test="addr != 'null'">
+		  <if test="event != 'null'"> and t.bas_addr=#{addr} </if>
+		  <if test="event == 'null'"> t.bas_addr=#{addr} </if>
+		</if>
+    <if test="possible == 'true'">
+      <if test="event != 'null' or addr != 'null'"> and t.total_num!=t.join_num </if>
+      <if test="event == 'null' and addr == 'null'"> t.total_num!=t.join_num </if>
+    </if>
+    <if test="possible == 'false'">
+      <if test="event != 'null' or addr != 'null'"> and t.total_num=t.join_num </if>
+      <if test="event == 'null' and addr == 'null'"> t.total_num=t.join_num </if>
+    </if>
+
+
+		<if test="play != 'null' or enroll != 'null'">order by </if>
+    <if test="play == 'high'"> t.win+t.draw+t.lose desc </if>		
+    <if test="play == 'low'"> t.win+t.draw+t.lose asc </if>
+    <if test="enroll == 'new'">
+      <if test="play != 'null'"> ,t.tno desc </if>
+      <if test="play == 'null'"> t.tno desc </if>
+    </if>
+    <if test="enroll == 'old'">
+      <if test="play != 'null'"> ,t.tno asc </if>
+      <if test="play == 'null'"> t.tno asc </if>
+    </if>
+		
+		<if test="play == 'null' and enroll == 'null'">order by t.tno desc</if>
+		
 		limit #{startIndex}, #{length}
 
 	</select>
