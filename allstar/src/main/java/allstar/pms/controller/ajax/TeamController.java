@@ -58,17 +58,11 @@ public class TeamController {
     List<Team> teams = teamService.getTeamList(
         pageNo, pageSize, event, addr, possible, play, enroll);
     List<Event> events = eventService.getEventList();
-    log.info("pageNo = " + pageNo);
-    log.info("size = " + teams.size());
-    log.info("event = " + event);
-    log.info("addr = " + addr);
-    log.info("possible = " + possible);
-    log.info("play = " + play);
-    log.info("enroll = " + enroll);
     
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("teams", teams);
+    resultMap.put("size", teams.size());
     resultMap.put("events", events);
 
     return resultMap;

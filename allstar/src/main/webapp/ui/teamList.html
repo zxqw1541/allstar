@@ -36,7 +36,8 @@ $(function() {
 <div class="content">
   <div class="wrap">
     <div id="main" role="main" style="margin:0">
-
+    <div id="saveurl" hidden="true"></div>
+    <div id="saveparam" hidden="true"></div>
     <div class="btnArea clearFix">
       <p class="fR">
         <a id="newBtn" class="newbtn btnType1" rel='leanModal' href='#add_team'>새 팀</a>
@@ -77,12 +78,12 @@ $(function() {
               <option value='17'>충청북도</option>
           </select>
           <select id="tjoin" onchange="options[selectedIndex].value&&self.location.reload(true)">
-              <option value='-1'>가입여부</option>
+              <option value='-1'>가입</option>
               <option value='true'>가능</option>
               <option value='false'>불가능</option>
           </select>
           <select id="tdate" onchange="options[selectedIndex].value&&self.location.reload(true)">
-              <option value='-1'>등록순</option>
+              <option value='-1'>등록일</option>
               <option value='new'>최신순</option>
               <option value='old'>오래된순</option>
           </select>
@@ -271,6 +272,7 @@ $(function() {
               $main = $('#main'),
               $window = $(window),
               $document = $(document),
+              $saveurl = $('#saveurl'),
               options = {
                 autoResize: true, // This will auto-update the layout when the browser window is resized.
                 container: $main, // Optional, used for some extra CSS styling
@@ -314,9 +316,17 @@ $(function() {
                  
                if (closeToBottom) {
                  $(window).data('ajaxready', false);
-
+                 
+                 var url;
+                 
+                 if ($saveurl.val().indexOf('?') == '-1') {
+                	 url = $saveurl.val() + '?';
+                 } else {
+                   url = $saveurl.val() + '&';
+                 }
+                 
                  $.ajax({
-                    url:'../team/ajax/list.do?pageNo=' + pageNo,
+                    url: url + 'pageNo=' + pageNo,
                     type:'GET',
                     async:false,
                     dataType:'json',
@@ -454,6 +464,8 @@ $(function() {
     	}
     }
     
+    $("#saveurl").val(url);
+    
     $.ajax({
       url:url,
       type:'GET',
@@ -492,21 +504,6 @@ $(function() {
          });
         // 상세 정보 가져오기
         $(".teamList").on("click", load_detail_func);
-          /*
-          $("<li class='teamList' teamList='" + team.tno + "' rel='leanModal' href='#detail_team'>" )
-            .html("<img src= '../team/img/tl_" + emblem + "' width='280'>" +
-                  "<div class='post-info'>" + 
-                  "<div class='post-basic-info'>" + 
-                  "<h3>" + team.name + "</h3><span>" +
-                  "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
-                  "<p>" + team.event.name + "</p>" + 
-                  "<p>" + team.joinNum + " / " + team.totalNum + 
-                  "</p></div></div>")
-            .appendTo(tiles);
-        }
-          // 팀 링크에 클릭 이벤트 리스너 등록
-          $("a.detailLnk").click(clickDetailLnk);
-        */
       }
     });
   }
@@ -546,7 +543,7 @@ var load_detail_func = function(){
 	            $("#fdaform").val(team.aForm);
 	            $("#fdpostno").val(team.postNo);
 	            $("#fdaddr").val(team.baseAddr);
-	              $("#fdoemblem").val(team.emblem);
+	            $("#fdoemblem").val(team.emblem);
 	            if (team.emblem != null)
 	              $('#detail_preview_img').attr('src', '../team/img/'+team.emblem);
 	            else
@@ -709,8 +706,6 @@ $(function() {
           data.append('baseAddr', $('#faddr').val());
           data.append('postNo', $('#fpostno').val());
           data.append('introduce', $('#fintroduce').val());
-          data.append('introduce', $('#fintroduce').val());
-          data.append('aForm', $('#faform').val());
 
           $.ajax({
         	  url : "../team/ajax/add.do",
