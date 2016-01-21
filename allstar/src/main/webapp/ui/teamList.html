@@ -353,8 +353,9 @@ $(function() {
                                   "<div class='post-info'>" + 
                                   "<div class='post-basic-info'>" + 
                                   "<h3>" + team.name + "</h3><span>" +
-                                   "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
-                                   "<p>" + team.event.name + "</p>" + 
+                                  "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
+                                  "<p><br>" + team.event.name + "</p>" +
+                                  "<p>" + team.baseAddr + "</p>" + 
                                    "<p>" + team.joinNum + " / " + team.totalNum +
                                    "</p></div></div>")
                            .appendTo(tiles);
@@ -493,7 +494,8 @@ $(function() {
                   "<div class='post-basic-info'>" + 
                   "<h3>" + team.name + "</h3><span>" +
                   "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
-                  "<p>" + team.event.name + "</p>" + 
+                  "<p><br>" + team.event.name + "</p>" +
+                  "<p>" + team.baseAddr + "</p>" +
                   "<p>" + team.joinNum + " / " + team.totalNum + 
                   "</p></div></div>")
             .appendTo(tiles);
@@ -514,6 +516,14 @@ $(function() {
     location.href = "teamForm.html?tno=" + $(event.target).attr("teamNo");
   }
   
+  unload = function()
+  {
+	    $('#tevent option:eq(-1)');
+	    $('#tplaynum option:eq(-1)');
+	    $('#taddr option:eq(-1)');
+	    $('#tjoin option:eq(-1)');
+	    $('#tdate option:eq(-1)');
+  }
   </script>
 
 <!-- 상세 정보 출력 -->
