@@ -125,14 +125,7 @@ $(function() {
           </p>
         </div>
         <div class="paging">
-          <!-- <span class="fir"></span>  -->
-          <!-- <span class="prev"></span>
-          
-          <div class="page_num"> 
-            페이지 숫자 들어가는 부분
-          </div>
-          <a href="#" class="next" ></a> 
-          <a href="#" class="end" ></a> -->
+          <!-- 페이징 처리 부분 -->
         </div>
         
         <fieldset class="searchArea">
@@ -184,8 +177,6 @@ $(function() {
 var pageNo = 1;
 if (location.href.indexOf('?') != -1)
 	pageNo = location.href.split('?')[1].split('=')[1];
-console.log(location.href);
-console.log("pageNo = ",pageNo);
 $.getJSON('/allstar/competition/list.do?pageSize=' + pageSize + '&pageNo=' + pageNo, function(resultObj) {
   var tbody = $("#boardtable tbody");
   for (var c of resultObj.ajaxResult.data) {
@@ -210,8 +201,6 @@ $.getJSON('/allstar/competition/all.do', function(resultObj) {
 	  var lp10 = Math.floor((totalPage - 1) / 10) * 10;
 	  var start = Math.floor((pageNo - 1) / 10) * 10 + 1;
 	  var end = start + 10;
-	  console.log("lp10 = ", lp10);
-	  console.log("pageNo = ", pageNo);
 	  
 	  if (end > totalPage)
 		  end = totalPage + 1;
@@ -271,7 +260,7 @@ function clickPageNo(event) {
 //<<버튼을 클릭했을 때 호출될 함수
 function clickFir() {
   event.preventDefault();
-  location.href = "competitionList.html?pageNo=1";
+  location.href = "competitionList.html";
 }
 
 //<버튼을 클릭했을 때 호출될 함수
