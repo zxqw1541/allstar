@@ -15,9 +15,10 @@ public class DefaultBoardService implements BoardService {
   @Autowired BoardDao boardDao;
   
   @Override
-  public List<Board> getList() {
-    return boardDao.selectAll();
+  public int countAllBoard() {
+    return boardDao.selectCountAll();
   }
+  
   @Override
   public List<Board> getBoardList(int pageNo, int pageSize, 
       String keyword, String align) {

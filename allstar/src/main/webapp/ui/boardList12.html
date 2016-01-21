@@ -43,23 +43,11 @@
 
 
 <script> 
+var pageSize = 7;
 $(function(){
   $("#header").load("header.html"); 
   $("#footer").load("footer.html"); 
 });
-
-//한 페이지당 표시할 페이지 갯수
-var pageCount=7;
-//현재 페이지
-var currentPage=1;
-var totalSize;
-//총 페이지 갯수
-var totalPage;
-//한 화면에 보여질 페이지 갯수
-var totalPageList;
-//페이지리스트가 몇번째 리스트인지
-var pageList;
-var TOTAL_COUNT=0;
 </script> 
 <script type="text/javascript" src="js/jquery.session.js"></script>
 </head>
@@ -111,9 +99,8 @@ var TOTAL_COUNT=0;
                         
           </p>
         </div>
-        <div class="paging" id="pageN">
-
-
+        <div class="paging">
+        <!-- 페이징 처리 부분 -->
         </div> 
         <fieldset class="searchArea">
           <select name="ctl00$Contents$selSearch" id="ctl00_Contents_selSearch">
@@ -142,7 +129,7 @@ var TOTAL_COUNT=0;
 
             </div>
           </div>
-
+<!-- 새 글 작성 시작 -->
 <div id="newWrite" style='display:none; border:1px black solid; background-color: white; min-width:1024px; margin:auto; overflow:auto;'>
   <div style="margin:5% 0px 20px 81px;">
     <p style="font-size: 25px;">종목별 게시판</p>
@@ -157,18 +144,16 @@ var TOTAL_COUNT=0;
     </div>
   </div>
 </div>
-
+<!-- 새 글 작성 끝 -->
 <div id="footer"></div>
 
 <script>
-
-$.getJSON('../board/ajax/all.do', function(resultObj) {
-  TOTAL_COUNT = resultObj.size;
-});
-
-
-$.getJSON('/allstar/board/ajax/list.do?pageSize='+pageCount+'&pageNo='+currentPage, function(resultObj) {
+var pageNo = 1;
+if (location.href.indexOf('?') != -1)
+  pageNo = location.href.split('?')[1].split('=')[1];
+$.getJSON('/allstar/board/ajax/list.do?pageSize=' + pageSize + '&pageNo=' + pageNo, function(resultObj) {
   var table = $("#boardtable");
+  console.log("list.do")
   for (var board of resultObj.boards) {
     $("<tr>")
     .html("<td class='num'>"+ board.event.name +"</td>"
@@ -196,87 +181,108 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize='+pageCount+'&pageNo='+currentPa
     		  +"<span class='view'><strong>"+ board.views +"</strong>조회</span>"
     		  +"<span class='like'><strong>"+0+"</strong>좋아요</span>"
     		  +"</td>")
-    	      .appendTo(table);
+    .appendTo(table);
+    
   }
-  
   $("a.trigger").click(clickDetailLnk);
-  
+  $('#newBtn').click(clickNewWrite);
+});
+</script>
 
-  //한 페이지당 표시할 페이지 갯수
-   pageCount=7;
-  //현재 페이지
-   currentPage=1;
-//총 게시물 수
- totalSize=TOTAL_COUNT;
-//총 페이지 갯수
- totalPage=Math.ceil(totalSize/10);
-//한 화면에 보여질 페이지 갯수
- totalPageList=Math.ceil(totalPage/pageCount);
-//페이지리스트가 몇번째 리스트인지
- pageList=Math.ceil(currentPage/pageCount);
+<!-- 페이징 -->
+<script>
+var totalPage = 1;
+$.getJSON('../board/ajax/all.do', function(resultObj) {
+	  var ajaxResult = resultObj.ajaxResult;
+	  totalPage = Math.ceil(resultObj.ajaxResult.data / pageSize);
+    var lp10 = Math.floor((totalPage - 1) / 10) * 10;
+    var start = Math.floor((pageNo - 1) / 10) * 10 + 1;
+    var end = start + 10;
+    
+    if (end > totalPage)
+      end = totalPage + 1;
+    
+    var pagingDiv = $('.paging');
 
-//페이지 리스트가 1보다 작으면 1로 초기화
-if(pageList<1) pageList=1;
-//페이지 리스트가 총 페이지리스트보다 커지면 총 페이지 리스트로 설정
-if(pageList>totalPageList) pageList=totalPageList;
-//시작 페이지
-var startPageList=(pageList-1)*pageCount+1;
-//끝 페이지
-var endPageList=startPageList+pageCount-1;
-console.log("startPageList  "+ startPageList);
-console.log("endPageList  "+ endPageList);
-if(startPageList < 1) startPageList=-1;
-if(endPageList>totalPage) endPageList=totalPage;
-if(endPageList<1) endPageList=1;
-
-var pageInner="";
-if(pageList != 1) {
-  pageInner += "<span class='prev' id='prevb'><u>이전</u></span> ";
-}
-pageInner = pageInner + "<div class='page_num'>"
-for(var i=startPageList; i <= endPageList; i++){
-	if( i == 1 ) { pageInner = pageInner + "<span class='nowpage' id='currentpage'><b>1</b></span>";}
-	else pageInner = pageInner + "<a href='#'>"+ i +"</a>";
-}
-pageInner = pageInner + "</div>"
-if(totalPageList>pageList);{
-  pageInner += "<a href='#' class='next' id='nextb' ><u>다음</u></a> ";
-}
-
-/* alert("1 " + document); */
-document.getElementById("pageN").innerHTML=pageInner;
-$('#prevb').click(function prevPage(){
-	alert("2");
-	currentPage -= pageCount;
-  pageList = Math.ceil(currentPage/pageCount);
-  currentPage = (pageList-1) * pageCount + pageCount;
-  document.frm.currentPage.value = currentPage;
-  document.frm.action="../ui/boardList12.html";
-  document.frm.submit();
-  alert("3");
+    /* <<, < 버튼 추가 */
+    if (start < 11) {
+      $("<span>").addClass('fir').appendTo(pagingDiv);
+      $("<span>").addClass('prev').appendTo(pagingDiv);
+    }
+    else {
+      $("<a>").addClass('fir').attr({href:'#'}).appendTo(pagingDiv);
+      $("<a>").addClass('prev').attr({href:'#'}).appendTo(pagingDiv);
+      $('a.fir').click(clickFir);
+      $('a.prev').click(clickPrev);
+    }
+    
+    /* 숫자 */
+    var pageDiv = $('<div>').addClass('page_num');
+    pageDiv.appendTo(pagingDiv);
+    for (var i = start ; i < end ; i++) {
+      if(i == pageNo) {
+        $("<span>").addClass('nowpage')
+        .html("<b>"+ i + "</b>").appendTo(pageDiv); 
+      } else {
+        $("<a>")
+        .addClass('a_pageNo')
+        .attr({
+          href : '#',
+          pageno : i
+          })
+        .html(i).appendTo(pageDiv);
+      }
+    };
+    $(".a_pageNo").click(clickPageNo)
+    
+    /* >, >> 버튼 추가 */
+    if (pageNo > lp10) {
+      $("<span>").addClass('next').appendTo(pagingDiv);
+      $("<span>").addClass('end').appendTo(pagingDiv);
+    }
+    else {
+      $("<a>").addClass('next').attr({href:'#'}).appendTo(pagingDiv);
+      $("<a>").addClass('end').attr({href:'#'}).appendTo(pagingDiv);
+      $('a.next').click(clickNext);
+      $('a.end').click(clickEnd);
+    }
 });
 
-$('#nextb').click(function nextPage(){
-	alert("4");  
-	currentPage += pageCount;
-    pageList = Math.ceil(currentPage/pageCount);
-    currentPage = (pageList-1) * pageCount + 1;
-    document.frm.currentPage.value = currentPage;
-    document.frm.action="../ui/boardList12.html";
-    document.frm.submit();
-    alert("5");
-  });
-$('.page_num a').click(function goPage(num){
-	alert("6");
-    document.frm.currentPage.value = num;
-    document.frm.action="../ui/boardList12.html";
-    document.frm.submit();
-    alert("7");
-  });
-});
+//페이징 번호를 클릭했을 때 호출될 함수
+function clickPageNo(event) {
+  event.preventDefault();
+  location.href = "boardList12.html?pageNo=" + $(event.target).attr("pageno");
+}
 
-$('#newBtn').click(clickNewWrite);
- 
+//<<버튼을 클릭했을 때 호출될 함수
+function clickFir() {
+  event.preventDefault();
+  location.href = "boardList12.html";
+}
+
+//<버튼을 클릭했을 때 호출될 함수
+function clickPrev() {
+  event.preventDefault();
+  var no = Math.floor((pageNo - 11) / 10) * 10 + parseInt(1);
+  location.href = "boardList12.html?pageNo=" + no;
+}
+
+//>버튼을 클릭했을 때 호출될 함수
+function clickNext() {
+  event.preventDefault();
+  var no = Math.floor((pageNo*1 + parseInt(9)) / 10) * 10 + parseInt(1);
+  location.href = "boardList12.html?pageNo=" + no;
+}
+
+//>>버튼을 클릭했을 때 호출될 함수
+function clickEnd() {
+  event.preventDefault();
+  location.href = "boardList12.html?pageNo=" + totalPage;
+}
+</script>
+
+<script>
+/* board detail 시작 */
 function clickDetailLnk(event) {
 $('#subject').empty();
 $('#rightSide').empty();
@@ -330,10 +336,14 @@ $('#rightSide').empty();
 	              + "<span class='etc'><span class='date'>2016.01.14</span></span>" 
 	              + "</div></a></li></ul></div>")
 	      .appendTo(aside);
-	        
-	      
 	  });
+  
 }
+/* board detail 끝 */
+</script>
+
+<script>
+/* 새 글 작성 시작 */
 function clickNewWrite(event) {
 	console.log($.session.get("mem_num"));
 	if ($.session.get("mem_num") != undefined) {
@@ -371,9 +381,10 @@ function clickNewWrite(event) {
 	} else {
 		
 		  		alert("로그인 후 게시글 작성이 가능합니다.");
-		
 	}
-	} 
+};
+
+/* 새 글 작성 끝 */
 </script>
 
 <!-- <script type="text/javascript" src="../lib/jquery/jquery.js"></script> -->

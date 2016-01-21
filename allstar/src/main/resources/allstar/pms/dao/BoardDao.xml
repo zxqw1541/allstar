@@ -18,13 +18,16 @@
       <result column="e_name"   property="name"/>
     </association>
     <association property="member" javaType="Member">
-      <id column="mno"        property="mno"/>
+      <id column="m_mno"        property="mno"/>
       <result column="m_name"   property="name"/>
     </association>
   </resultMap>
   
   <sql id="select_inc">
-    select b.bno, 
+    select b.bno,
+           b.eno,
+           b.mno,
+           m.mno as m_mno, 
            e.eno as e_eno, 
            e.name as e_name, 
            m.name as m_name, 
@@ -52,8 +55,9 @@
     limit #{startIndex}, #{length}
   </select>
   
-    <select id="selectAll" resultMap="boardMap">
-    select * from board;
+  <select id="selectCountAll" resultType="int">
+    select count(*) from board
+    where eno != 1
   </select>
   
   <select id="selectListByEvent" resultMap="boardMap" parameterType="map">
