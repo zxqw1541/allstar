@@ -31,16 +31,9 @@ public class BoardController {
   
   
   @RequestMapping("all")
-  public Object listAll() throws Exception {
-    
-    List<Board> boardsa = boardService.getList();
-    
-    HashMap<String,Object> resultMap = new HashMap<>();
-    resultMap.put("status", "success");
-    resultMap.put("size", boardsa.size());
-
-    return resultMap;
-  }
+  public AjaxResult countAll() throws Exception {
+      return new AjaxResult("success", boardService.countAllBoard());
+    }
 
   
   
@@ -53,6 +46,8 @@ public class BoardController {
       @RequestParam(defaultValue="desc") String align,
       @RequestParam(defaultValue="-1") int eno) throws Exception {
     
+    System.out.println("pageNo=" + pageNo);
+    System.out.println("pageSize=" + pageSize);
     List<Event> events = eventService.getEventList();
     List<Board> boards = null;
     
@@ -61,6 +56,10 @@ public class BoardController {
     else 
       boards = boardService.getBoardList(pageNo, pageSize, keyword, align, eno);
     
+    System.out.println("--------------------------------------------------");
+    for(Board b: boards)
+      System.out.println(b);
+    System.out.println("--------------------------------------------------");
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("boards", boards);
