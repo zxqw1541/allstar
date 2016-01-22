@@ -207,10 +207,11 @@ $(document).ready( function() {
     $.session.remove("loginSession");  
     $.session.remove("mem_num");  
     console.log("logout");
+    var span = $("#login");
+    $("<a style='margin-right:10px;color:white;'  href='#'>가입하세요.</a>")
+      .appendTo(span);
     $("#login").show();
     $("#logout").hide();
-
-    
   });
   
   // 로그인 끝
