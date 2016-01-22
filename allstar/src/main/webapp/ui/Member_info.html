@@ -171,13 +171,8 @@ $('#infoupBtn').click(function(event) {
      */
      console.log($.session.get("mem_num"));
      console.log($("input[name='likeEvent']:checked").val());
-     $.post('/allstar/member/ajax/event.do', {
-    	 mno : $.session.get("mem_num"),
-    	 eno : $("input[name='likeEvent']:checked").val()
-     },function(resultObj) {
-    	 
-     },'json');
-    $.post('/allstar/member/ajax/update.do', {
+     $.get('/allstar/member/ajax/event.do?mno='+$.session.get("mem_num")+'&eno='+$("input[name='fgender']:checked").val());
+     $.post('/allstar/member/ajax/update.do', {
       mno : $.session.get("mem_num"),
       name : $('#fname').val(),
       email : $('#femail').val(),

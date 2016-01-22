@@ -19,8 +19,8 @@ public class DefaultLike_EventService implements Like_EventService {
   }
 
   @Override
-  public void register(Like_Event like_event) {
-    eventDao.insert(like_event);
+  public void register(int mno, int eno) {
+    eventDao.insert(mno, eno);
   }
 
   @Override

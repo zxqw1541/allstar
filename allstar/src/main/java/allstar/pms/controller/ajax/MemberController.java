@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import allstar.pms.domain.AjaxResult;
-import allstar.pms.domain.Like_Event;
 import allstar.pms.domain.Member;
 import allstar.pms.service.Like_EventService;
 import allstar.pms.service.MemberService;
@@ -80,12 +79,10 @@ public class MemberController {
     return new AjaxResult("success", null);
   }
   
-  @RequestMapping(value="event", method = RequestMethod.POST)
+  @RequestMapping("event")
   public AjaxResult likeEvent(
-      Like_Event like_event) throws Exception {
-    System.out.println(like_event);
-    //    like_eventService.remove(like_event.getMno());
-    like_eventService.register(like_event);
+      int mno, int eno) throws Exception {
+    like_eventService.register(mno, eno);
     
     return new AjaxResult("success", null);
   }
