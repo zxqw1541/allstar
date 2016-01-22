@@ -54,7 +54,7 @@ $(function() {
                  </li>
                   <li class='has-sub'><a href="#tournament_cat">대회</a>
                     <ul>
-                      <li><a href="/allstar/ui/boardList11.html">농구</a></li>
+                      <li><a href="/allstar/ui/boardList12.html">농구</a></li>
 				                <li><a href="#">축구</a></li>
 				                <li><a href="#">야구</a></li>
 				                <li><a href="#">볼링</a></li>
@@ -109,7 +109,7 @@ $(function() {
         <div class="listFrame listNotice" style="background-color: white; width:500px;">
           <div class="header clearFix">
             <h3 class="titNotice">TOP 게시물</h3>
-            <p class="btnMore"><a href="boardList11.html" class="sprBtn"> 더 보기</a></p>
+            <p class="btnMore"><a href="boardList12.html" class="sprBtn"> 더 보기</a></p>
           </div>
   <div class="contents tabArea">
 <!-- left tab -->  
@@ -124,7 +124,7 @@ $(function() {
 <div class="listFrame listGM commonTab" style="background-color: white; width:500px;">
   <div class="header clearFix">
     <h3 class="titGM">최근 게시물</h3>
-     <p class="btnMore"><a href="boardList11.html" class="sprBtn"> 더 보기</a></p>
+     <p class="btnMore"><a href="boardList12.html" class="sprBtn"> 더 보기</a></p>
 <!--     <ul class="nav">
       <li><a href="#" class="on">공략</a></li>
       <li><a href="#">UCC</a></li>
@@ -421,7 +421,7 @@ $(document).ready( function() {
     	   var eventmenu = $("#eventmenu");
     	    for (var event of resultObj.events) {
     	        $("<li>" )
-    	            .html("<a href='/allstar/ui/boardList11.html'>" + event.name + "</a>")
+    	            .html("<a href='/allstar/ui/boardList12.html'>" + event.name + "</a>")
     	            .appendTo(eventmenu);
     	      }
 
@@ -489,7 +489,7 @@ $(document).ready( function() {
               "<a href='#' class='detailLink' teamTno='" + team.tno + "'>"
                 +"<img src='../team/img/"+ emblem +"' alt='"+ team.name +"' >"
                 +"<span>"+team.name+"</span>"
-                +"<span>"+team.bas_addr+"</span>"
+                +"<span>"+team.baseAddr+"</span>"
                 +"<span>소개 : "+team.introduce+"</span>"
               +"</a></li>" )
     .appendTo(ul);
