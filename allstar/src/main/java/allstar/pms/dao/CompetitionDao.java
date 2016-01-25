@@ -17,6 +17,6 @@ public interface CompetitionDao {
   
   Competition selectOne(int no);
   
-  int selectCountAll();
+  int selectCountAll(Map<String,Object> paramMap);
 
 }

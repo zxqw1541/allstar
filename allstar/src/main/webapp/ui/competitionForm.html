@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link type="text/css" rel="stylesheet" href="css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<link rel="stylesheet" type="text/css" href="css/competition.css" />
+
+
+<link rel="stylesheet" href="css/tos/tos.css" />
+<link rel="Shortcut Icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
+<link rel="icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
+
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script type="text/javascript" src="js/jquery.gracket.js"></script>
+<script>
+$(function(){
+	
+	  $("#header").load("header.html"); 
+	  $("#footer").load("footer.html"); 
+	});
+</script>
+</head>
+<body>
+<div id="header"></div>
+<div style="height:100px;"></div>
+
+<div id="container">
+	<div id="contents" style='background-color: white; min-width: 1258px; margin: auto; overflow: auto;'>
+		<div class="viewWrap boardContents boardView"
+			style="width: 100%; overflow-y: auto;">
+			<article id="subject" class="mainArea">
+
+	     <!--  <h2> 대진표</h2>
+	      <div class="div_left_tournament">
+	        <div class="container-secondary">
+	          <div class="wrapper">
+	            <div class="my_gracket"></div>
+	          </div>
+	          <div class="wrapper secondary-bracket">
+	            <div class="my_gracket2"></div>
+	          </div>
+	        </div>
+	      </div> -->
+
+      </article>
+			<aside id="rightSide" class="sideArea">
+			  <h3 class='blind'>참여 정보</h3>
+			  <div class='info clearFix'>
+				  <h2>참여 정보</h2>
+				  <div class='contents'>
+				    <p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png' alt='프로필 사진'>
+			    </div>
+			  </div>
+			  <div class='btnArea'>
+			    <p class='btnHome'><a href='#' id='btnArticleJoin' style='margin-left:0%; margin-bottom:34px' class='btn btnType5'>참여하기</a></p>
+			    <div class="btm clearFix">
+            <a href="#" id="btnArticleWrite" class="btn btnType6 btnWrite" style='margin-left:0%'>글쓰기</a>
+            <a href="#" id="btnArticleList" class="btn btnType6 btnList" style='margin-left:0%'>목록</a>
+          </div>
+			    
+        </div>
+			  
+			</aside>
+		</div>
+	</div>
+</div>
+
+<div id="footer"></div>
+
+<!-- 참가하기 버튼 리스너 -->
+<script>
+$('#btnArticleJoin').on('click', function(event){
+    event.preventDefault();
+    alert('참여하기버튼');
+  });
+</script>
+<!-- 수정 삭제 버튼 추가(해당 글쓴이만!, 지금은 모두에게 보여주는것으로 구현 -->
+<script>
+var div = $('.btnArea');
+$('<div>').addClass('btm clearFix')
+  .html(
+		  "<a href='#' id='btnArticleUpdate' class='btn btnType6 btnWrite' style='margin-left:0%'>글수정</a>"
+    + "<a href='#' id='btnArticleRemove' class='btn btnType6 btnList' style='margin-left:0%'>글삭제</a>"
+		  ).appendTo(div);
+</script>
+
+<!-- 수정 버튼 리스너 -->
+<script>
+$('#btnArticleUpdate').on('click', function(event){
+    event.preventDefault();
+    if (status != '모집예정') {
+    	alert('모집 전에만 수정할 수 있습니다!');
+    	return;
+    }
+    alert('수정버튼');
+    
+  });
+</script>
+
+<!-- 삭제 버튼 리스너 -->
+<script>
+$('#btnArticleRemove').on('click', function(event){
+	  event.preventDefault();
+	  $.getJSON('/allstar/competition/delete.do?no=' + no, function(resultObj) {
+		  var ajaxResult = resultObj.ajaxResult;
+		    if (ajaxResult.status == "success") {
+		    	alert('삭제 성공!');
+		    	location.href = 'competitionList.html';
+		    } else {
+		    	alert('삭제 실패!');	
+		    }
+		  });
+	});
+</script>
+
+<!-- 목록 버튼 리스너-->
+<script>
+$('#btnArticleList').on('click', function(event){
+  event.preventDefault();
+  location.href="competitionList.html";
+  /* history.go(-1); */
+});
+</script>
+
+<!-- 새글 버튼 리스너-->
+<script>
+$('#btnArticleWrite').on('click', function(event){
+	event.preventDefault();
+  alert('새글버튼');
+  location.href = 'competitionAdd.html';  
+});
+</script>
+
+<!-- 기본 정보 출력 -->
+<script>
+var no = -1;
+if (location.href.indexOf('?') != -1)
+  no = location.href.split('?')[1].split('=')[1];
+var status = '모집예정'
+$.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
+	var ajaxResult = resultObj.ajaxResult;
+    if (ajaxResult.status == "success") {
+    	var c = ajaxResult.data;
+    	var rsd = new Date(c.recruitStartDate).getTime();
+    	var red = new Date(c.recruitEndDate).getTime();
+    	var sd = new Date(c.startDate).getTime();
+    	var ed = new Date(c.endDate).getTime();
+    	var nowd = new Date().getTime();
+     	/* console.log(rsd);
+    	console.log(red);
+    	console.log(sd);
+    	console.log(ed);
+    	console.log(nowd); */
+    	if (rsd < nowd && nowd < red) {
+    		status = '모집중';
+    	} else if (red < nowd && nowd < sd){
+    		status = '대회준비중';
+    	} else if (sd < nowd && nowd < ed) {
+    		status = '대회중';
+    	} else if (ed < nowd) {
+    		status = '대회종료';
+    	}
+    	
+			var sub_article = $("#subject")
+			var detail =
+				  "<header id='test1'class='header'  style='height:90px'>"
+					+ "<div class='inner clearFix'>"
+					+ "  <div class='subject'>"
+					+ "    <h2 class='tit'>" + c.name  + "</h2>"
+					+ "    <p class='etc'><span class='date'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate 
+					+        "<br>대회시작 : " + c.startDate + "</span></p>"
+					+ "  </div>"
+					+ "  <p class='cnt'>"
+					+ "  <span class='view'><strong>" + status + "</strong></span></p>"
+					+ "</div>"
+					+ "</header>"
+					+ "<div id='test2' class='viewContents'>"
+					+ "  <img src='../competition/img/" + c.poster + "'>"
+					+ "  <h2> 대진표</h2>"
+					+ "  <div class='div_left_tournament'>"
+					+ "    <div class='container-secondary'>"
+					+ "      <div class='wrapper'>"
+					+ "        <div class='my_gracket'></div>"
+					+ "      </div>"
+					+ "      <div class='wrapper secondary-bracket'>"
+					+ "        <div class='my_gracket2'></div>"
+					+ "      </div>"
+					+ "    </div>"
+					+ "  </div>"
+					+ "  <h2> 장소</h2>"
+					+ "  <div class='div_left_map'>"
+					+ "  <iframe src='https://www.google.com/maps/d/embed?mid=zouJJd1kxH7U.kb2sjmzfDunA' width='750px' height='600px' ></iframe>"
+					+ "  </div>"
+					+ "</div>";
+			sub_article.append(detail);
+    }
+	});
+</script>
+
+<!-- 대진표 -->
+<script type="text/javascript">
+  (function(win, doc, $){
+      
+      console.warn("Make sure the min-width of the .gracket_h3 element is set to width of the largest name/player. Gracket needs to build its canvas based on the width of the largest element. We do this my giving it a min width. I'd like to change that!");
+
+      // Fake Data
+      win.TestData = [
+        [       
+          [ {"name" : "Erik Zettersten", "id" : "erik-zettersten", "seed" : 1, "displaySeed": "D1", "score" : 47 }, {"name" : "Andrew Miller", "id" : "andrew-miller", "seed" : 2} ],
+          [ {"name" : "James Coutry", "id" : "james-coutry", "seed" : 3}, {"name" : "Sam Merrill", "id" : "sam-merrill", "seed" : 4}],
+          [ {"name" : "Anothy Hopkins", "id" : "anthony-hopkins", "seed" : 5}, {"name" : "Everett Zettersten", "id" : "everett-zettersten", "seed" : 6} ],
+          [ {"name" : "John Scott", "id" : "john-scott", "seed" : 7}, {"name" : "Teddy Koufus", "id" : "teddy-koufus", "seed" : 8}],
+          [ {"name" : "Arnold Palmer", "id" : "arnold-palmer", "seed" : 9}, {"name" : "Ryan Anderson", "id" : "ryan-anderson", "seed" : 10} ],
+          [ {"name" : "Jesse James", "id" : "jesse-james", "seed" : 1}, {"name" : "Scott Anderson", "id" : "scott-anderson", "seed" : 12}],
+          [ {"name" : "Josh Groben", "id" : "josh-groben", "seed" : 13}, {"name" : "Sammy Zettersten", "id" : "sammy-zettersten", "seed" : 14} ],
+          [ {"name" : "Jake Coutry", "id" : "jake-coutry", "seed" : 15}, {"name" : "Spencer Zettersten", "id" : "spencer-zettersten", "seed" : 16}]
+        ], 
+        [
+          [ {"name" : "Erik Zettersten", "id" : "erik-zettersten", "seed" : 1}, {"name" : "James Coutry", "id" : "james-coutry", "seed" : 3} ],
+          [ {"name" : "Anothy Hopkins", "id" : "anthony-hopkins", "seed" : 5}, {"name" : "Teddy Koufus", "id" : "teddy-koufus", "seed" : 8} ],
+          [ {"name" : "Ryan Anderson", "id" : "ryan-anderson", "seed" : 10}, {"name" : "Scott Anderson", "id" : "scott-anderson", "seed" : 12} ],
+          [ {"name" : "Sammy Zettersten", "id" : "sammy-zettersten", "seed" : 14}, {"name" : "Jake Coutry", "id" : "jake-coutry", "seed" : 15} ]
+        ],
+        [
+          [ {"name" : "Erik Zettersten", "id" : "erik-zettersten", "seed" : 1}, {"name" : "Anothy Hopkins", "id" : "anthony-hopkins", "seed" : 5} ],
+          [ {"name" : "Ryan Anderson", "id" : "ryan-anderson", "seed" : 10}, {"name" : "Sammy Zettersten", "id" : "sammy-zettersten", "seed" : 14} ]
+        ],
+        [
+          [ {"name" : "Erik Zettersten", "id" : "erik-zettersten", "seed" : 1}, {"name" : "Ryan Anderson", "id" : "ryan-anderson", "seed" : 10} ]
+        ],
+        [
+          [ {"name" : "Erik Zettersten", "id" : "erik-zettersten", "seed" : 1} ]
+        ]
+      ];
+      win.secData = [
+        [
+          [ {"name" : "Anothy Hopkins", "id" : "anthony-hopkins", "seed" : 5}, {"name" : "Sammy Zettersten", "id" : "sammy-zettersten", "seed" : 14} ]
+        ],
+        [
+          [ {"name" : "Sammy Zettersten", "id" : "sammy-zettersten", "seed" : 14} ]
+        ]
+      ];
+
+      // initializer
+      $(".my_gracket").gracket({ 
+        src : win.TestData,
+        roundLabels : ["SPORTS : 16", "SPORTS : 8", "SPORTS : 4","결승"]
+        });
+        
+      $(".my_gracket2").gracket({ 
+        src : win.secData,
+        roundLabels : ["SPORTS : 3 vs 4" ]
+        });
+
+    })(window, document, jQuery);
+  </script>
+
+
+</body>
+</html>

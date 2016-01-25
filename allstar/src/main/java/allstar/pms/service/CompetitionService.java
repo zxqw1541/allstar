@@ -6,7 +6,7 @@ import allstar.pms.domain.Competition;
 
 public interface CompetitionService {
   
-  List<Competition> getCompetitionList(int pageNo, int pageSize, String keyword, String align);
+  List<Competition> getCompetitionList(int pageNo, int pageSize, String keyword, String align, String search1, String search2);
 
   void register(Competition competition);
   
@@ -16,6 +16,6 @@ public interface CompetitionService {
   
   Competition retrieve(int no);
   
-  int countAllCompetition();
+  int countAllCompetition(String search1, String search2);
   
 }
