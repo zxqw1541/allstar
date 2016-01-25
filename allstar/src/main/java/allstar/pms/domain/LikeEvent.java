@@ -2,7 +2,7 @@ package allstar.pms.domain;
 
 import java.io.Serializable;
 
-public class Like_Event implements Serializable {
+public class LikeEvent implements Serializable {
   private static final long serialVersionUID = 1L;
   
   protected int mno;

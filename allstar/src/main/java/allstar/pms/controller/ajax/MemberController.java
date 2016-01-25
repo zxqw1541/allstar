@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Member;
-import allstar.pms.service.Like_EventService;
+import allstar.pms.service.LikeEventService;
 import allstar.pms.service.MemberService;
 import allstar.pms.util.MultipartHelper;
 import net.coobird.thumbnailator.Thumbnails;
@@ -33,7 +33,7 @@ public class MemberController {
   public static Logger log = Logger.getLogger(MemberController.class);
   @Autowired
   MemberService memberService;
-  Like_EventService like_eventService;
+  LikeEventService likeEventService;
   @Autowired
   ServletContext servletContext;
 
@@ -123,7 +123,9 @@ public class MemberController {
   @RequestMapping("event")
   public AjaxResult likeEvent(
       int mno, int eno) throws Exception {
-    like_eventService.register(mno, eno);
+    System.out.println("mno = "+ mno);
+    System.out.println("eno = "+ eno);
+    likeEventService.register(mno, eno);
     
     return new AjaxResult("success", null);
   }
