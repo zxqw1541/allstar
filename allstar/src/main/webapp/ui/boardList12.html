@@ -122,16 +122,18 @@ $(function() {
 </div>
 </div>
 
-            <div id="contents" style='display:none; background-color: white; min-width:1258px; margin:auto; overflow:auto;'>
-          <div class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
+            <div id="contents" style='display:none; background-color: white; width:1258px; margin:auto; overflow-y: auto; height: 770px;'>
+          <div class="viewWrap boardContents boardView" >
               <article id="subject" class="mainArea">
              
-             
+                
               </article>
+           
               <aside id="rightSide" class="sideArea">
                 
               </aside>
-
+   <div class='bbsReply' style='float: left; '>
+                </div>
 
             </div>
           </div>
@@ -154,6 +156,7 @@ $(function() {
           <div class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
               <article id="subject" class="mainArea">
              
+              
               </article>
               <aside id="rightSide" class="sideArea">
                 
@@ -191,7 +194,7 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=' + pageSize + '&pageNo=' + page
     		  +"<a href='#' onclick='window.open('/barrack/guest.aspx?n8NexonSN=973206215&n8CharacterSN=24146306139339', 'barrack', 'width=1200. height=665, scrollbars=no');'>"
     		  +"<div class='contents'>"
     		  +"<p class='name'>"
-    		  +"<span class='nameChar'>" + board.member.name +"</span>"
+    		  +"<span class='nameChar'>" + board.member.id +"</span>"
 
     		  +"</div>"
     		  +"</a>"
@@ -305,6 +308,7 @@ function clickEnd() {
 function clickDetailLnk(event) {
 $('#subject').empty();
 $('#rightSide').empty();
+$('.bbsReply').empty();
   $.getJSON('../board/ajax/detail.do?no=' + $(event.target).attr("boardBno"), function(resultObj) {
 	    var ajaxResult = resultObj.ajaxResult;
 	    var board = ajaxResult.data;
@@ -335,11 +339,62 @@ $('#rightSide').empty();
 	               +"</div>")
 	          .appendTo(article);
 	        }
-	       
+	        var div = $(".bbsReply");
+	        $("<section class='listComments' >")
+	        .html("<h3>총 n개의 댓글</h3>"
+	             +"<fieldset class='commentWrite'>"
+	             +"<legend>댓글 쓰기</legend>"
+	             +"<textarea cols='50' id='txtComment' onkeydown='javascript:textCounter(200,'#txtComment', '#textlimit');'"
+	             +"placeholder='답글을 작성하세요.' onkeyup='javascript:textCounter(200,'#txtComment', '#textlimit');' rows='3' disabled></textarea>"
+	             +"<button type='button' onclick='addComment();' class='btn btnType4 btnWrite'>등록</button>"
+	             +"</fieldset>"
+	             +"<ul class='list'>"
+	             +"<div class='commentWrap'>"
+	             +"<li class='comment1'>"
+	             +"<dl>"
+	             +"<dt>이름, 작성일</dt>"
+	             +"<dd class='nameWrap'>"
+	             +"<p class='img'>"
+	             +"<img src='" + + "'>"
+	             +"</p>"
+	             +"<div class='contents'>"
+	             +"<p class='name'>"
+	             +"<span class='id'>" + board.member.id + "</span>"
+	             +"</p>"
+	             +"<p class='lvs'>"
+	             +"<span class='eName'>" + board.event.name + "</span>"
+	             +"<span class='creDt'>" + board.createDate + "</span>"
+	             +"</p></div></dd>"
+	             +"<dt>댓글내용</dt>"
+	             +"<dd class='contents'>"
+	             +"<a href='#' class='comment'>답글달기</a>"
+	             +"</dd></dl>"
+	            +"</li>"
+	             +"<li class='comment2 comment2First'>"
+	             +"<dl>"
+	             +"<dt>이름, 작성일</dt>"
+	             +"<dd class='nameWrap'>"
+	             +"<p class='img'>"
+	             +"<img src='" + + "'>"
+	             +"</p>"
+	             +"<div class='contents'>"
+	             +"<p class='name'>"
+	             +"<span class='id'>" + board.member.id + "</span>"
+	             +"</p>"
+	             +"<p class='lvs'>"
+	             +"<span class='eName'>" + board.event.name + "</span>"
+	             +"<span class='creDt'>" + board.createDate + "</span>"
+	             +"</p></div></dd>"
+	             +"<dt>댓글내용</dt>"
+	             +"<dd class='contents'>" + + "</dd>"
+	             +"</dl></li>"
+	             +"<span class='bul' style='height: 66px;'></span>"
+	             +"</ul></section>")
+          .appendTo(div);
 	        var aside = $("#rightSide");
 	        $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
 	        .html("<p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png' alt='프로필 사진'>"
-	              + "</p><div class='contents'><p class='name'>" + board.member.name 
+	              + "</p><div class='contents'><p class='id'>" + board.member.id
 	              + "</p><p class='lvs'><span class='lv'> 축구 </span></p></div></div>")
 	              .appendTo(aside);
 	        $("<div class='btnArea'>")
@@ -414,7 +469,7 @@ function clickUpdate(event) {
 	          var aside = $("#rightSide");
 	          $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
 	          .html("<p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png' alt='프로필 사진'>"
-	                + "</p><div class='contents'><p class='name'>" + board.member.name 
+	                + "</p><div class='contents'><p class='name'>" + board.member.id 
 	                + "</p><p class='lvs'><span class='lv'> 축구 </span></p></div></div>")
 	                .appendTo(aside);
 	          $("<div class='btnArea'>")

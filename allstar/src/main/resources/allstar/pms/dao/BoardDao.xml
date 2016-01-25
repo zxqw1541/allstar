@@ -19,7 +19,7 @@
     </association>
     <association property="member" javaType="Member">
       <id column="m_mno"        property="mno"/>
-      <result column="m_name"   property="name"/>
+      <result column="m_name"   property="name"/><result column="m_id"   property="id"/>
     </association>
   </resultMap>
   
@@ -31,6 +31,7 @@
            e.eno as e_eno, 
            e.name as e_name, 
            m.name as m_name, 
+           m.id as m_id,
            b.title, 
            b.content, 
            b.cre_dt, 
