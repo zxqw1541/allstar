@@ -1,5 +1,7 @@
 package allstar.pms.controller;
 
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -10,10 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Competition;
 import allstar.pms.service.CompetitionService;
+import allstar.pms.util.MultipartHelper;
 
 @Controller
 @RequestMapping("/competition/*")
@@ -56,12 +61,34 @@ public class CompetitionController {
   }
   
   @RequestMapping(value = "add", method = RequestMethod.POST)
-  public AjaxResult add(Competition competition) {
-    log.info("add");
-    log.info(competition);
-    competition.setEno(2);
-    competition.setTno(2);
-    competitionService.register(competition);    
+  public AjaxResult add(Competition competition, MultipartHttpServletRequest uploadedFile) throws Exception {
+    log.info("competition = " + competition);
+    log.info("file = " + uploadedFile);
+    /* 필수 데이터 (임시저장) */
+    competition.setPoster("1");
+    competition.setTno(1);
+    /* 나중에 입력 받아오면 지울 것 */
+    
+    Iterator<String> itr =  uploadedFile.getFileNames();
+    if(itr.hasNext()) {
+      MultipartFile mpf = uploadedFile.getFile(itr.next());
+      
+      String path=uploadedFile.getServletContext().getRealPath("/");
+      String sep = System.getProperty("file.separator");
+      String fileName = MultipartHelper.generateFilename(mpf.getOriginalFilename());
+      String filePath = path+ sep + "competition" + sep + "img" + sep;
+      
+      System.out.println(mpf.getOriginalFilename() +" uploaded!");
+      try {
+        MultipartHelper.generateFile(mpf, filePath+fileName);
+        competition.setPoster(fileName);
+      } catch (IOException e) {
+        e.printStackTrace();
+        return new AjaxResult("failure", null);
+      }
+    }
+    
+    competitionService.register(competition);
     return new AjaxResult("success", null);
   }
   
