@@ -189,7 +189,7 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=' + pageSize + '&pageNo=' + page
     		  + "</td>"
     		  +"<td class='author'>"
     		  +"<p class='img'>"
-    		  +"<img src='"+ board.member.photo + "' alt='프로필사진' />" 
+    		  +"<img src='../member/img/"+ board.member.photo + "' alt='프로필사진' />" 
     		  +"</p>"
     		  +"<a href='#' onclick='window.open('/barrack/guest.aspx?n8NexonSN=973206215&n8CharacterSN=24146306139339', 'barrack', 'width=1200. height=665, scrollbars=no');'>"
     		  +"<div class='contents'>"
@@ -345,8 +345,8 @@ $('.bbsReply').empty();
 	             +"<fieldset class='commentWrite'>"
 	             +"<legend>댓글 쓰기</legend>"
 	             +"<textarea cols='50' id='txtComment' onkeydown='javascript:textCounter(200,'#txtComment', '#textlimit');'"
-	             +"placeholder='답글을 작성하세요.' onkeyup='javascript:textCounter(200,'#txtComment', '#textlimit');' rows='3' disabled></textarea>"
-	             +"<button type='button' onclick='addComment();' class='btn btnType4 btnWrite'>등록</button>"
+	             +"placeholder='답글을 작성하세요.' onkeyup='javascript:textCounter(200,'#txtComment', '#textlimit');' rows='3'></textarea>"
+	             +"<button type='button' boardBno='"+ board.no +"' onclick='addComment();' class='btn btnType4 btnWrite'>등록</button>"
 	             +"</fieldset>"
 	             +"<ul class='list'>"
 	             +"<div class='commentWrap'>"
@@ -426,6 +426,29 @@ $('.bbsReply').empty();
 	  });
 	    
   
+}
+function addComment(event){
+	console.log("boardBno: " + $(event.target).attr("boardBno"));
+	data.append('mno',$.session.get("mem_num"));
+	data.append('bno',$(event.target).attr("boardBno"));
+	data.append('comm',$('#txtComment').val());
+	
+	$.ajax({
+		url: "/allstar/boarComm/ajax/insert.do",
+		type: "POST",
+		dataType: "json",
+		success: function(result) {
+			if(result.ajaxResult.status == "success") {
+				alert("댓글을 등록하였습니다.");
+				location.href = "#";
+			} else {
+				alert("댓글 등록에 실패했습니다.");
+			}
+		},
+		error: function(result){
+			alert("error");
+		}
+	});
 }
 /* board detail 끝 */
 </script>
