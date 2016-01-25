@@ -35,8 +35,9 @@ $(function() {
 <!---start-content---->
 <div class="content">
   <div class="wrap">
-    <div id="main" role="main" style="margin:0">
+    <div id="main" role="main" style="margin:0;">
     <div id="saveurl" hidden="true"></div>
+    <div id="saveparam" hidden="true"></div>
     <div class="btnArea clearFix">
       <p class="fR">
         <a id="newBtn" class="newbtn btnType1" rel='leanModal' href='#add_team'>새 팀</a>
@@ -88,12 +89,10 @@ $(function() {
           </select>
         </form>
       </div><br>
-
-      <ul id="tiles">
-        <!-- These are our grid blocks -->
-        <!-- End of grid blocks -->
-      </ul>
-      
+        <ul id="tiles">
+          <!-- These are our grid blocks -->
+          <!-- End of grid blocks -->
+        </ul>
     </div>
   </div>
 </div>
@@ -247,27 +246,19 @@ $(function() {
   <script src="../team/js/jquery.imagesloaded.js"></script>
   <script src="../team/js/jquery.wookmark.js"></script>
   
-<!-- 중요한 것 -->
+<!-- 리스트 첫 부분 -->
   <script>
   var showFirst = (function ($){
       var $tiles = $('#tiles'),
           $handler = $('li', $tiles),
           $main = $('#main'),
-          $window = $(window),
-          $document = $(document),
-          $saveurl = $('#saveurl'),
           options = {
             autoResize: true, // This will auto-update the layout when the browser window is resized.
             container: $main, // Optional, used for some extra CSS styling
             offset: 20, // Optional, the distance between grid items
             itemWidth:280 // Optional, the width of a grid item
-          },
-          pageNo = 2;
-          listSize = 0;
-          $.getJSON('../team/ajax/all.do', function(resultObj) {
-            listSize = resultObj.size;
-          });
-          
+          }
+      
       /**
        * Reinitializes the wookmark handler after all images have loaded
        */
@@ -277,7 +268,7 @@ $(function() {
           if ($handler.wookmarkInstance) {
             $handler.wookmarkInstance.clear();
           }
-
+          
           // Create a new layout handler.
           $handler = $('li', $tiles);
           $handler.wookmark(options);
@@ -286,7 +277,7 @@ $(function() {
       return {
         layout : layout
       }
-    })(jQuery);
+  })(jQuery);
   </script>
   
 <!-- 무한 스크롤 -->
@@ -298,19 +289,21 @@ $(function() {
               $window = $(window),
               $document = $(document),
               $saveurl = $('#saveurl'),
+              $saveparam = $('#saveparam'),
               options = {
                 autoResize: true, // This will auto-update the layout when the browser window is resized.
                 container: $main, // Optional, used for some extra CSS styling
                 offset: 20, // Optional, the distance between grid items
                 itemWidth:280 // Optional, the width of a grid item
               },
-              pageNo = 2;
+              $page = 2;
               listSize = 0;
+              sListSize = 0;
               keyword = 'event';
               $.getJSON('../team/ajax/all.do', function(resultObj) {
                 listSize = resultObj.size;
               });
-              
+             
           /**
            * Reinitializes the wookmark handler after all images have loaded
            */
@@ -325,16 +318,24 @@ $(function() {
               $handler = $('li', $tiles);
               $handler.wookmark(options);
             });
+        	  
+            if (sListSize == $('li', $tiles).length) {
+            	  $page = 2;
+            }
           }
           
           /**
            * When scrolled all the way to the bottom, add more tiles
            */
           function onScroll() {
+             $.getJSON('../team/ajax/count.do' + $saveparam.val(), function(resultObj) {
+               sListSize = resultObj.count;
+             });
+                 
              if ($(window).data('ajaxready') === false)
                   return;
              
-             if (listSize >= $('li', $tiles).length) {
+             if (sListSize > $('li', $tiles).length) {
                  // Check if we're within 100 pixels of the bottom edge of the broser window.
                var winHeight = window.innerHeight ? window.innerHeight : $window.height(), // iphone fix
                    closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 500);
@@ -343,7 +344,6 @@ $(function() {
                  $(window).data('ajaxready', false);
                  
                  var url;
-                 
                  if ($saveurl.val().indexOf('?') == '-1') {
                    url = $saveurl.val() + '?';
                  } else {
@@ -351,14 +351,13 @@ $(function() {
                  }
                  
                  $.ajax({
-                    url: url + 'pageNo=' + pageNo,
+                    url: url + 'pageNo=' + $page,
                     type:'GET',
                     async:false,
                     dataType:'json',
-                    data:'resultObj',
                     success:function(resultObj) {
                       if (resultObj.teams.length != 0) {
-                         pageNo++;
+                    	   $page++;
                          var tiles = $("#tiles");
                          for (var team of resultObj.teams) {
                            var emblem = team.emblem; 
@@ -407,14 +406,15 @@ $(function() {
     
           // Capture scroll event.
           $window.bind('scroll.wookmark', onScroll);
-
      })(jQuery);
   </script>
   <!----//wookmark-scripts---->
 
+
   <!-- 처음 리스트 출력 -->
   <script>
   var url = '../team/ajax/list.do';
+  var param = '';
   firstList(url);
   
   function loadPage() {
@@ -455,11 +455,13 @@ $(function() {
         }
       }
     }
+    param = url.split('do');
     firstList(url);
   }
   
   function firstList(url) {
     $("#saveurl").val(url);
+    $("#saveparam").val(param[1]);
     
     $.ajax({
       url:url,
@@ -499,6 +501,8 @@ $(function() {
         $(function() {
              $('li[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
          });
+        // 상세 정보 가져오기
+        $(".teamList").on("click", load_detail_func);
       }
     });
   }

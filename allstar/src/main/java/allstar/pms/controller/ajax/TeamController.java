@@ -45,6 +45,23 @@ public class TeamController {
     return resultMap;
   }
 
+  @RequestMapping("count")
+  public Object listCount(
+      @RequestParam(defaultValue="null") String event,
+      @RequestParam(defaultValue="null") String addr,
+      @RequestParam(defaultValue="null") String possible,
+      @RequestParam(defaultValue="null") String play,
+      @RequestParam(defaultValue="null") String enroll) throws Exception {
+    
+    List<Team> teams = teamService.getCount(event, addr, possible, play, enroll);
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("count", teams.size());
+    System.out.println(teams.size());
+    
+    return resultMap;
+  }
+
   @RequestMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
@@ -58,7 +75,7 @@ public class TeamController {
     List<Team> teams = teamService.getTeamList(
         pageNo, pageSize, event, addr, possible, play, enroll);
     List<Event> events = eventService.getEventList();
-    
+
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("teams", teams);
@@ -75,26 +92,17 @@ public class TeamController {
     Iterator<String> itr =  uploadedFile.getFileNames();
     if(itr.hasNext()) {
       MultipartFile mpf = uploadedFile.getFile(itr.next());
+      
+      String path=uploadedFile.getServletContext().getRealPath("/");
+      String sep = System.getProperty("file.separator");
+      String fileName = MultipartHelper.generateFilename(mpf.getOriginalFilename());
+      String filePath = path+ sep + "team" + sep + "img" + sep;
+      
       System.out.println(mpf.getOriginalFilename() +" uploaded!");
       try {
-          String path=uploadedFile.getServletContext().getRealPath("/");
-          byte[] bytes = mpf.getBytes();
-          String sep = System.getProperty("file.separator");
-          String fileName = MultipartHelper.generateFilename(mpf.getOriginalFilename());
-          String filePath = path+ sep + "team" + sep + "img" + sep;
-          File file=new File(filePath + fileName);
-          BufferedOutputStream stream = new BufferedOutputStream(
-              new FileOutputStream(file));
-          stream.write(bytes);
-          stream.close();
-          
-          /* Thumbnails */
-          Thumbnails.of(new File(filePath + fileName))
-          .width(280)
-          .outputQuality(0.8)
-          .toFile(new File(filePath + "tl_" + fileName));
-          
-          team.setEmblem(fileName);
+        MultipartHelper.generateFile(mpf, filePath+fileName);
+        MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_TEAM);
+        team.setEmblem(fileName);
       } catch (IOException e) {
         e.printStackTrace();
         return new AjaxResult("failure", null);
@@ -103,7 +111,6 @@ public class TeamController {
     
     teamService.register(team);
     return new AjaxResult("success", null);
-    
   }
   
   @RequestMapping("detail")
@@ -120,26 +127,17 @@ public class TeamController {
       Iterator<String> itr =  uploadedFile.getFileNames();
       if(itr.hasNext()) {
         MultipartFile mpf = uploadedFile.getFile(itr.next());
+        
+        String path=uploadedFile.getServletContext().getRealPath("/");
+        String sep = System.getProperty("file.separator");
+        String fileName = MultipartHelper.generateFilename(mpf.getOriginalFilename());
+        String filePath = path+ sep + "team" + sep + "img" + sep;
+        
         System.out.println(mpf.getOriginalFilename() +" uploaded!");
         try {
-            String path=uploadedFile.getServletContext().getRealPath("/");
-            byte[] bytes = mpf.getBytes();
-            String sep = System.getProperty("file.separator");
-            String fileName = MultipartHelper.generateFilename(mpf.getOriginalFilename());
-            String filePath = path+ sep + "team" + sep + "img" + sep;
-            File file=new File(filePath + fileName);
-            BufferedOutputStream stream = new BufferedOutputStream(
-                new FileOutputStream(file));
-            stream.write(bytes);
-            stream.close();
-            
-            /* Thumbnails */
-            Thumbnails.of(new File(filePath + fileName))
-            .width(280)
-            .outputQuality(0.8)
-            .toFile(new File(filePath + "tl_" + fileName));
-            
-            team.setEmblem(fileName);
+          MultipartHelper.generateFile(mpf, filePath+fileName);
+          MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_TEAM);
+          team.setEmblem(fileName);
         } catch (IOException e) {
           e.printStackTrace();
           return new AjaxResult("failure", null);
@@ -164,7 +162,7 @@ public class TeamController {
     return new AjaxResult("success", null);
   }
   
-  @RequestMapping(value="uploadFile", method=RequestMethod.POST)
+ /* @RequestMapping(value="uploadFile", method=RequestMethod.POST)
   public AjaxResult handleFileUpload(MultipartHttpServletRequest request) throws Exception{
     Iterator<String> itr =  request.getFileNames();
     if(itr.hasNext()) {
@@ -188,7 +186,7 @@ public class TeamController {
     } else {
       return new AjaxResult("fail", null);
     }
-  }
+  }*/
   
   
 }

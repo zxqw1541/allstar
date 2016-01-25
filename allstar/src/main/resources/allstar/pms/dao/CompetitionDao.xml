@@ -43,9 +43,14 @@
     from competition c 
          left outer join event e on c.eno = e.eno
          left outer join team t on c.tno = t.tno
+         
+    <if test="search1 != 'null' or search2 != 'null'"> where </if>
+    <if test="search1 != 'null'"> c.name like concat('%',#{search1},'%') </if>
+    <if test="search2 != 'null'"> c.content like concat('%',#{search2},'%') </if>
+    
     order by 
     <choose>
-      <when test="keyword == 'type'">type </when>
+      <when test="keyword == 'newer'">c.sdt </when>
       <when test="keyword == 'sdt'">sdt </when>
       <otherwise>cno </otherwise>
     </choose>
@@ -91,19 +96,21 @@
   
   <select id="selectOne" resultMap="CompetitionMap" parameterType="int">
     <include refid="select_inc"/>
-    from competition
-    where cno=#{no}
+    from competition c
+         left outer join event e on c.eno = e.eno
+         left outer join team t on c.tno = t.tno
+    where c.cno=#{no}
   </select>
   
-  <select id="selectCountAll" resultType="int">
+  <select id="selectCountAll" resultType="int" parameterType="map">
     select count(*)
-    from competition
+    from competition c 
+         left outer join event e on c.eno = e.eno
+         left outer join team t on c.tno = t.tno
+    <if test="search1 != 'null' or search2 != 'null'"> where </if>
+    <if test="search1 != 'null'"> c.name like concat('%',#{search1},'%') </if>
+    <if test="search2 != 'null'"> c.content like concat('%',#{search2},'%') </if>
+    
   </select>
 </mapper>
-
-
-
-
-
-
 
