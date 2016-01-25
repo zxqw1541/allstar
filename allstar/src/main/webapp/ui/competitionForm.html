@@ -142,7 +142,6 @@ $('#btnArticleWrite').on('click', function(event){
 var no = -1;
 if (location.href.indexOf('?') != -1)
   no = location.href.split('?')[1].split('=')[1];
-console.log("no =",no);
 var status = '모집예정'
 $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
 	var ajaxResult = resultObj.ajaxResult;
