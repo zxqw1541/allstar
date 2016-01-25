@@ -6,7 +6,7 @@ import allstar.pms.domain.LikeEvent;
 
 public interface LikeEventDao {
   List<LikeEvent> selectList();
-  int insert(int mno, int eno);
+  int insert(LikeEvent likeEvent);
   int delete(int mno);
 }
 

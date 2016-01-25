@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import allstar.pms.domain.AjaxResult;
+import allstar.pms.domain.LikeEvent;
 import allstar.pms.domain.Member;
 import allstar.pms.service.LikeEventService;
 import allstar.pms.service.MemberService;
@@ -33,6 +34,7 @@ public class MemberController {
   public static Logger log = Logger.getLogger(MemberController.class);
   @Autowired
   MemberService memberService;
+  @Autowired
   LikeEventService likeEventService;
   @Autowired
   ServletContext servletContext;
@@ -125,7 +127,8 @@ public class MemberController {
       int mno, int eno) throws Exception {
     System.out.println("mno = "+ mno);
     System.out.println("eno = "+ eno);
-    likeEventService.register(mno, eno);
+
+    likeEventService.register(new LikeEvent(mno, eno));
     
     return new AjaxResult("success", null);
   }

@@ -8,6 +8,10 @@ public class LikeEvent implements Serializable {
   protected int mno;
   protected int eno;
   
+  public LikeEvent(int mno, int eno) {
+    this.mno = mno;
+    this.eno = eno;
+  }
   
   @Override
   public String toString() {

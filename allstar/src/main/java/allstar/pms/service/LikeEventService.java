@@ -7,7 +7,7 @@ import allstar.pms.domain.LikeEvent;
 public interface LikeEventService {
   List<LikeEvent> getLikeEventList();
   
-  void register(int mno, int eno);
+  void register(LikeEvent likeEvent);
   
   int remove(int mno);
 }
