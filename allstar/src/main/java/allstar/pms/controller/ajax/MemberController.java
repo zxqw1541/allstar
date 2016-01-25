@@ -1,6 +1,11 @@
 package allstar.pms.controller.ajax;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -11,11 +16,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Member;
 import allstar.pms.service.Like_EventService;
 import allstar.pms.service.MemberService;
+import allstar.pms.util.MultipartHelper;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Controller("ajax.MemberController")
 @RequestMapping("/member/ajax/*")
@@ -61,7 +70,39 @@ public class MemberController {
   }
   
   @RequestMapping(value = "update", method = RequestMethod.POST)
-  public AjaxResult update(Member member) throws Exception {
+  public AjaxResult update(Member member, MultipartHttpServletRequest uploadedFile) throws Exception {
+  
+    log.info("member = " + member);
+    if(member.getPhoto() == null) {
+      Iterator<String> itr =  uploadedFile.getFileNames();
+      if(itr.hasNext()) {
+        MultipartFile mpf = uploadedFile.getFile(itr.next());
+        System.out.println(mpf.getOriginalFilename() +" uploaded!");
+        try {
+            String path=uploadedFile.getServletContext().getRealPath("/");
+            byte[] bytes = mpf.getBytes();
+            String sep = System.getProperty("file.separator");
+            String fileName = MultipartHelper.generateFilename(mpf.getOriginalFilename());
+            String filePath = path+ sep + "member" + sep + "img" + sep;
+            File file=new File(filePath + fileName);
+            BufferedOutputStream stream = new BufferedOutputStream(
+                new FileOutputStream(file));
+            stream.write(bytes);
+            stream.close();
+            
+            /* Thumbnails */
+            Thumbnails.of(new File(filePath + fileName))
+            .width(280)
+            .outputQuality(0.8)
+            .toFile(new File(filePath + "me_" + fileName));
+            
+            member.setPhoto(fileName);
+        } catch (IOException e) {
+          e.printStackTrace();
+          return new AjaxResult("failure", null);
+        }
+      }
+    }
     
     if (memberService.change(member) <= 0) {
       return new AjaxResult("failure", null);
