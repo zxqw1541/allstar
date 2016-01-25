@@ -89,19 +89,10 @@ public class BoardController {
   }
 
   @RequestMapping(value="update", method=RequestMethod.POST)
-  public AjaxResult update(Board board/*, MultipartFile file*/) throws Exception {
-    /*
-    if (file.getSize() > 0) {
-      String newFileName = MultipartHelper.generateFilename(file.getOriginalFilename());  
-      File attachfile = new File(servletContext.getRealPath(SAVED_DIR) 
-                                  + "/" + newFileName);
-      file.transferTo(attachfile);
-      board.setAttachFile(newFileName);
-    } else if (board.getAttachFile().length() == 0) {
-      board.setAttachFile(null);
-    }
-    */
-    
+  public AjaxResult update(Board board) throws Exception {
+    System.out.println("---------------------------" );
+    System.out.println("update: " + board);
+    System.out.println("---------------------------" );
     if (boardService.change(board) <= 0)
       return new AjaxResult("failure", null);
     return new AjaxResult("success", null);

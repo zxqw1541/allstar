@@ -81,7 +81,7 @@ $(function() {
 
 
 
-<div style="height:130px;"></div>
+<div style="height:100px;"></div>
 <!-- tournament slider start -->
 <section id="photostack-3" class="photostack" >
   <div id="photo_div">
@@ -369,8 +369,15 @@ $(document).ready( function() {
             numSession = ajaxResult.data.mno;
             $.session.set('loginSession',emailSession);
             $.session.set('mem_num',numSession);
-  
-            /* location.href = "/allstar/ui/boardList10.html"; */
+            $("#logout").show();
+            $("#login").hide();
+            console.log($.session._cookieCache["loginSession"]);
+              var session_id=$.session._cookieCache["loginSession"];
+              var span = $("#logout");
+              $("<a style='margin-right:10px;color:white;'  href='#'>"+session_id+"</a>")
+                .appendTo(span);
+                
+           
             console.log("success");
           } else {
             alert("아이디와 패스워드가 일치하지 않습니다.");

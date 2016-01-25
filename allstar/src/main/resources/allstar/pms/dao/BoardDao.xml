@@ -94,7 +94,7 @@
     update board set
       eno = #{eno},
       mno = #{mno},
-      title = #{content},
+      title = #{title},
       content = #{content},
       views = #{views},
       cre_dt = now()
