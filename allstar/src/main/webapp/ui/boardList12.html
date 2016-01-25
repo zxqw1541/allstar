@@ -126,6 +126,7 @@ $(function() {
           <div class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
               <article id="subject" class="mainArea">
              
+             
               </article>
               <aside id="rightSide" class="sideArea">
                 
@@ -328,11 +329,13 @@ $('#rightSide').empty();
 	        .appendTo(article);
 	        if ($.session.get("mem_num") == board.member.mno) {
 	        $("<div class='viewContentsBtm clearFix'>")
-	          .html("<p class='btnEtc'><a rel='leanModal'  boardBno='"+ board.no +"' href='#updateWrite' id='updateb' class='edit'>" + '수정' + "</a>"
-	               +"<a href='javascript:;' id='deleteBtn' class='del'>" + '삭제' + "</a></p>"
+	          .html("<p class='btnEtc'>"
+	        		   +"<a rel='leanModal'  boardBno='"+ board.no +"' href='#updateWrite' id='updateb' class='edit'>수정</a>"
+	               +"<a href='javascript:' id='deleteBtn' boardBno='"+ board.no +"' type='button' class='del'>삭제</a></p>"
 	               +"</div>")
 	          .appendTo(article);
 	        }
+	       
 	        var aside = $("#rightSide");
 	        $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
 	        .html("<p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png' alt='프로필 사진'>"
@@ -364,6 +367,7 @@ $('#rightSide').empty();
 	              + "</div></a></li></ul></div>")
 	      .appendTo(aside);
 	        $("#updateb").click(clickUpdate);
+	        $("#deleteBtn").click(clickDel);
 	  });
 	    
   
@@ -401,8 +405,8 @@ function clickUpdate(event) {
 	                +"<div id='loading' style='display:none'><img src='http://s.nx.com/s2/game/tos/common/img_loading.gif' alt='' /></div>" 
 	                +"<div>" 
 	                +"<div style='margin:2% 81px 4% 805px;'>" 
-	                +"<button id='updateBtn'  type='button' boardBno='"+ board.no +"' style='margin-bottom: 40px"
-	                +"font-size:30px width:170px height:44px;'>수정</button>" 
+	                +"<button id='updateBtn'  type='button' boardBno='"+ board.no +"' style='margin-bottom: 40px;"
+	                +"font-size:25px; width:170px; height:44px;'>수정</button>" 
 	                +"</div>"
 	                +"</div>")
 	          .appendTo(article);
@@ -538,8 +542,9 @@ function updateBod(event) {
 	}
 
 //삭제 버튼을 위한 이벤트 리스너 추가하기
-$('#deleteBtn').click(function(event) {
-  $.getJSON('../board/ajax/delete.do?no=' + no,
+function clickDel(event) {
+	console.log($(event.target).attr("boardBno"));
+  $.getJSON('../board/ajax/delete.do?no=' + $(event.target).attr("boardBno"),
     function(resultObj) {
       var ajaxResult = resultObj.ajaxResult;
       if (ajaxResult.status == "success") {
@@ -548,7 +553,7 @@ $('#deleteBtn').click(function(event) {
           alert("게시물 삭제에 실패했습니다.");
       }
   });
-});
+}
 
 $(document).ready(function() {
   if ($.session.get("mem_num") != undefined) {
