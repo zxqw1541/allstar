@@ -96,8 +96,10 @@
   
   <select id="selectOne" resultMap="CompetitionMap" parameterType="int">
     <include refid="select_inc"/>
-    from competition
-    where cno=#{no}
+    from competition c
+         left outer join event e on c.eno = e.eno
+         left outer join team t on c.tno = t.tno
+    where c.cno=#{no}
   </select>
   
   <select id="selectCountAll" resultType="int" parameterType="map">

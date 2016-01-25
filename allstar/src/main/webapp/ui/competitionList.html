@@ -96,7 +96,7 @@ $(function() {
         
         <div class="btnArea clearFix">
           <p class="fR">
-              <a id="newBtn" rel='leanModal' href="#newWrite" class="btn btnType1 btnWrite">글쓰기</a>
+              <a id="newBtn" href="#newWrite" class="btn btnType1 btnWrite">글쓰기</a>
           </p>
         </div>
         <div class="paging">
@@ -117,30 +117,15 @@ $(function() {
 </div>
 </div>
 
-<div id="contents" style='display:none; background-color: white; min-width:1258px; margin:auto; overflow:auto;'>
-  <div class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
-    <article id="subject" class="mainArea">
-    </article>
-    <aside id="rightSide" class="sideArea">
-    </aside>
-
-  </div>
-</div>
-
-<div id="newWrite" style=' display:none; border:1px black solid; background-color: white; width:auto; /* margin:auto; */ left:40%; overflow:auto;'>
-  <div id="newBoard" class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
-    
-              
-  </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10" style="margin-left:30%;">
-          <button id='addBtn' type='button' class="newForm btn btn-primary btn-xs">등록</button>
-        </div>
-      </div>
-</div> 
 <div id="footer"></div>
 
- 
+<!-- 새 대회 등록 버튼 -->
+<script>
+$('#newBtn').on('click', function(event){
+	  event.preventDefault();
+	  location.href = 'competitionAdd.html';  
+	});
+</script>
 
 <!-- 대회 리스트 출력 -->
 <script>

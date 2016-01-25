@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link type="text/css" rel="stylesheet" href="css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<link rel="stylesheet" type="text/css" href="css/competition.css" />
+<link rel="stylesheet" type="text/css" href="css/competitionAdd.css" />
+
+
+<!-- <link rel="stylesheet" href="css/tos/tos.css" /> -->
+<link rel="Shortcut Icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
+<link rel="icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
+
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script>
+$(function(){
+	  $("#header").load("header.html"); 
+	  $("#footer").load("footer.html"); 
+	});
+</script>
+</head>
+<body>
+<div id="header"></div>
+<div style="height:100px;"></div>
+
+<div id="container">
+	<div id="contents" style='background-color: white; min-width: 1258px; margin: auto; overflow: auto;'>
+		<div class="viewWrap boardContents boardView"
+			style="width: 100%; overflow-y: auto;">
+			<article id="subject" class="mainArea">
+			<header id='test1'class='header'  style='height:30px'>
+        <div class='inner clearFix'>
+          <div class='subject'>
+            <h2 class='tit'>대회 등록하기</h2>
+          </div>
+            <p class='cnt'>
+        </div>
+      </header>
+	      <div id='add_competition' class='viewContents'>
+	        <form id='addCompForm' class="form-horizontal" enctype="multipart/form-data">
+				    <div class="txt-fld">
+				      <label for="fname">대회명</label>
+				      <input id="fname" class="good_input" type="text" placeholder="대회명을 입력해주세요."/>
+				    </div>
+				    <div class="txt-fld">
+				      <label for="fevent">종목</label>
+				      <div>
+				        <select id="fevent" class="good_input">
+				          <option value=''>종목선택</option>
+				          <option value='2'>농구</option>
+				          <option value='3'>축구</option>
+				          <option value='4'>야구</option>
+				          <option value='5'>볼링</option>
+				          <option value='6'>탁구</option>
+				        </select>
+				      </div>
+				    </div>   
+				    <div class="txt-fld">
+				      <label for="fteamNum">최대 팀수</label>
+				      <input id="fteamNum" class="good_input" type="text" placeholder="숫자를 입력해주세요."/>
+				    </div>
+				    <div class="txt-fld">
+				      <label for="fcost">참가비</label>
+				      <input id="fcost" class="good_input" type="text" placeholder="숫자를 입력해주세요."/>
+				    </div>
+				    <div class="txt-fld">
+					    <label for='frecruitStartDate'>모집시작일</label>
+					    <input id='frecruitStartDate' class="good_input" type='date'/>
+					  </div>
+					  <div class="txt-fld">
+              <label for='frecruitEndDate'>모집종료일</label>
+              <input id='frecruitEndDate' class="good_input" type='date'/>
+            </div>
+            <div class="txt-fld">
+              <label for='fstartDate'>대회시작일</label>
+              <input id='fstartDate' class="good_input" type='date'/>
+            </div>
+            <div class="txt-fld">
+              <label for='fendDate'>대회종료일</label>
+              <input id='fendDate' class="good_input" type='date'/>
+            </div>
+				    
+				    <div class="txt-fld">
+				      <label for="fpostno">우편번호</label>
+				      <input id="fpostno" class="good_input" type="text" placeholder="우편번호를 입력해주세요." onclick="sample2_execDaumPostcode()"/>
+				    </div>
+				    <div class="txt-fld">
+				      <label for="faddr">연고지</label>
+				      <input id="faddr" class="good_input" type="text" placeholder="연고지를 입력해주세요." onclick="sample2_execDaumPostcode()"/>
+				    </div>
+				    <div class="txt-fld">
+				      <label for="fposter">대회 포스터</label>
+				      <div>
+				        <input type="file" class="form-control" id="fposter">
+				      </div>
+				    </div>
+				    <div class="txtarea-fld">
+						  <label for="fcontent">대회 소개</label>
+						  <div>
+						    <textarea id="fcontent" class="form-control" rows='10' cols='60'
+						        placeholder="팀소개를 입력해주세요."></textarea>
+						  </div>
+						</div>
+			      <div class='btnArea'>
+		          <div class="btm clearFix">
+		            <a href="#" id="btnCompetitionAdd" class="btn btnType5" style='margin-left:0%'>글쓰기</a>
+		          </div>
+		        </div>
+			    </form>
+	      </div>
+	      
+      </article>
+      <!--  
+			<aside id="rightSide" class="sideArea">
+			  <h3 class='blind'>참여 정보</h3>
+			  <div class='info clearFix'>
+				  <h2>참여 정보</h2>
+				  <div class='contents'>
+				    <p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png' alt='프로필 사진'>
+			    </div>
+			  </div>
+			  <div class='btnArea'>
+			    <p class='btnHome'><a href='#' id='btnArticleJoin' style='margin-left:0%; margin-bottom:34px' class='btn btnType5'>참여하기</a></p>
+			    <div class="btm clearFix">
+            <a href="#" id="btnArticleWrite" class="btn btnType6 btnWrite" style='margin-left:0%'>글쓰기</a>
+            <a href="#" id="btnArticleList" class="btn btnType6 btnList" style='margin-left:0%'>목록</a>
+          </div>
+			    
+        </div>
+			  
+			</aside>
+			-->
+		</div>
+	</div>
+</div>
+
+<div id="footer"></div>
+
+<!-- 대회 추가 -->
+<script>
+$(function() {
+      $("#btnCompetitionAdd").click(function() {
+        var form = $('form')[0];
+        var data = new FormData();
+        $.each($('#fposter')[0].files, function(i, file) {
+          data.append('file', file)
+        });
+        if($('#fname').val() == "") {
+          alert('대회명을 입력하세요');
+            return;
+        }
+        if($('#fevent').val() == "") {
+          alert('종목을 선택하세요');
+          return;
+        }
+        if($('#fteamNum').val() == "") {
+          alert('인원수를 입력하세요');
+            return;
+        }
+        if($('#fcost').val() == "") {
+          alert('회비를 입력하세요');
+            return;
+        }
+        if($('#frecruitStartDate').val() == "") {
+            alert('모집시작일을 입력하세요');
+              return;
+        }
+        if($('#frecruitEndDate').val() == "") {
+            alert('모집마감일을 입력하세요');
+              return;
+        }
+        if($('#fstartDate').val() == "") {
+            alert('대회시작일을 입력하세요');
+              return;
+        }if($('#fendDate').val() == "") {
+            alert('대회마감일을 입력하세요');
+            return;
+        }
+        if($('#fpostno').val() == "") {
+          alert('우편번호를 입력하세요');
+            return;
+        }
+        if($('#faddr').val() == "") {
+          alert('연고지를 입력하세요');
+            return;
+        }
+        if($('#fcontent').val() == "") {
+          alert('팀소개를 입력하세요');
+            return;
+        }
+        
+        data.append('eno', $('#fevent').val());
+        data.append('name', $('#fname').val());
+        data.append('teamNum', $('#fteamNum').val());
+        data.append('cost', $('#fcost').val());
+        data.append('recruitStartDate', $('#frecruitStartDate').val());
+        data.append('recruitEndDate', $('#frecruitEndDate').val());
+        data.append('startDate', $('#fstartDate').val());
+        data.append('endDate', $('#fendDate').val());
+        data.append('baseAddr', $('#faddr').val());
+        data.append('postNo', $('#fpostno').val());
+        data.append('content', $('#fcontent').val());
+
+        $.ajax({
+          url : "../competition/add.do",
+          data : data,
+          type : "POST",
+          dataType: "json",
+          enctype: 'multipart/form-data',
+          processData: false, 
+          contentType:false,
+          success : function(result) {
+          if (result.ajaxResult.status == "success") {
+        	  alert("대회를 등록하였습니다.");
+            location.href = "/allstar/ui/competitionList.html";
+          } else {
+              alert("대회등록에 실패했습니다.");
+         }
+       },
+       error : function(result){
+          alert('error');
+       }
+     });
+  });
+});
+</script>
+
+
+
+</body>
+</html>
