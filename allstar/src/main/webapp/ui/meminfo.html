@@ -160,7 +160,11 @@ console.log("edddd");
         var data = new FormData();
         var is_uploadfile = false;
 	     console.log($.session.get("mem_num"));
-	     console.log($("input[name='likeEvent']:checked").val());
+	       $.each($("input[name='likeEvent']:checked"), function() {
+	           console.log($("input[name='likeEvent']:checked").val());
+	           });
+	          
+	     
 $.get('/allstar/member/ajax/event.do?mno='+$.session.get("mem_num")+'&eno='+$("input[name='likeEvent']:checked").val()); 
 	     $.each($('#fphoto')[0].files, function(i, file) {
 	    	 is_uploadfile = true;
