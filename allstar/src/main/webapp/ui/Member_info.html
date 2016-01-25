@@ -48,7 +48,6 @@ $(function(){
 </section>
   </div>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
 
     $(function () {
@@ -92,60 +91,6 @@ $('#my_info').click(function(event) {
 
 
 
-console.log($.session.get("mem_num"));
-$.getJSON('/allstar/member/ajax/detail.do?mno=' + $.session.get("mem_num"), function(resultObj) {
-    var ajaxResult = resultObj.ajaxResult;
-    if (ajaxResult.status == "success") {
-      var member = ajaxResult.data;
-      $("#fname").val(member.name);
-      $("#femail").val(member.email);
-      $("#ftel").val(member.tel);
-      $("#fpst_no").val(member.pst_no);
-      $("#fbas_addr").val(member.bas_addr);  
-      $("#faddress").val(member.address);
-      $("#fgender").val(member.gender);
-      $("#fage").val(member.age);
-      $("#fphoto").text(member.photo);
-      $("#fintroduce").val(member.introduce);
-    }
-  });
-  
-$('#infoupBtn').click(function(event) {
-/*     console.log("name" + $('#fname').val());
-    console.log("email" + $('#femail').val());
-    console.log("tel" + $('#ftel').val());
-    console.log("pst_no" + $('#fpst_no').val());
-    console.log("address" + $('#faddress').val());
-    console.log("gender" + $("input[name='fgender']:checked").val());
-    console.log("age" + $('#fage').val());
-    console.log("photo" + $('#fphoto').val());
-    console.log("introduce" + $('#fintroduce').val());
-     */
-     console.log($.session.get("mem_num"));
-     console.log($("input[name='likeEvent']:checked").val());
-     $.get('/allstar/member/ajax/event.do?mno='+$.session.get("mem_num")+'&eno='+$("input[name='fgender']:checked").val());
-     $.post('/allstar/member/ajax/update.do', {
-      mno : $.session.get("mem_num"),
-      name : $('#fname').val(),
-      email : $('#femail').val(),
-      tel : $('#ftel').val(),
-      pst_no: $('#fpst_no').val(),
-      bas_addr: $('#fbas_addr').val(),
-      address : $('#faddress').val(),
-      gender : $("input[name='fgender']:checked").val(),
-      age : $('#fage').val(),
-      photo : $('#fphoto').val(),
-      introduce : $('#fintroduce').val()
-    }, function(resultObj) {
-      var ajaxResult = resultObj.ajaxResult;
-      if (ajaxResult.status == "success") {
-        location.href = "Member_info.html";
-      } else {
-        alert("정보 등록에 실패했습니다.");
-      }
-    }, 'json');
-  });
-  
 </script>
 
 </body>

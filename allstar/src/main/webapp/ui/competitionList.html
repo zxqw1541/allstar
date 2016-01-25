@@ -123,7 +123,7 @@ $(function() {
 <script>
 $('#newBtn').on('click', function(event){
 	  event.preventDefault();
-	  location.href = 'competitionAdd.html';  
+	  location.href = 'competitionForm.html?no=-1';  
 	});
 </script>
 
@@ -156,7 +156,7 @@ $.getJSON(url, function(resultObj) {
     + "<td class='subject'><a href='#' data-ajax-board='free_view' pageno='" + c.no + "'><strong>" + c.name + "<small>(3)</small></strong>"
     + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
     + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
-    + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr +"</span></td>"
+    + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>"
     )
     .appendTo(tbody);
   }
@@ -166,7 +166,7 @@ $.getJSON(url, function(resultObj) {
 
 $(document).on('click', 'a[data-ajax-board]', function (e) {
   e.preventDefault();
-  location.href = "competitionForm.html?no=" + $(this).attr("pageno");
+  location.href = "competitionDetail.html?no=" + $(this).attr("pageno");
 });
 </script>
 
