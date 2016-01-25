@@ -16,8 +16,8 @@
 <link rel="icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 
 <script src="js/jquery-1.11.3.js"></script>
-<script src="js/jquery.leanModal.min.js"></script>
 <script src="js/modernizr.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 $(function(){
 	  $("#header").load("header.html"); 
@@ -37,7 +37,8 @@ $(function(){
 			<header id='test1'class='header'  style='height:30px'>
         <div class='inner clearFix'>
           <div class='subject'>
-            <h2 class='tit'>대회 등록하기</h2>
+            <h2 class='newForm tit'>대회 등록하기</h2>
+            <h2 class='modForm tit'>대회 수정하기</h2>
           </div>
             <p class='cnt'>
         </div>
@@ -51,7 +52,7 @@ $(function(){
 				    <div class="txt-fld">
 				      <label for="fevent">종목</label>
 				      <div>
-				        <select id="fevent" class="good_input">
+				        <select id="fevent" class="newForm good_input">
 				          <option value=''>종목선택</option>
 				          <option value='2'>농구</option>
 				          <option value='3'>축구</option>
@@ -59,6 +60,8 @@ $(function(){
 				          <option value='5'>볼링</option>
 				          <option value='6'>탁구</option>
 				        </select>
+				        <input id="fmevent" class="modForm good_input" type="text" readonly/>
+                <input id="feno" type="hidden"/>
 				      </div>
 				    </div>   
 				    <div class="txt-fld">
@@ -88,16 +91,17 @@ $(function(){
 				    
 				    <div class="txt-fld">
 				      <label for="fpostno">우편번호</label>
-				      <input id="fpostno" class="good_input" type="text" placeholder="우편번호를 입력해주세요." onclick="sample2_execDaumPostcode()"/>
+				      <input id="fpostno" class="good_input" type="text" placeholder="우편번호를 입력해주세요." onclick="sample2_execDaumPostcode()" readonly/>
 				    </div>
 				    <div class="txt-fld">
 				      <label for="faddr">연고지</label>
-				      <input id="faddr" class="good_input" type="text" placeholder="연고지를 입력해주세요." onclick="sample2_execDaumPostcode()"/>
+				      <input id="faddr" class="good_input" type="text" placeholder="연고지를 입력해주세요." onclick="sample2_execDaumPostcode()" readonly/>
 				    </div>
 				    <div class="txt-fld">
 				      <label for="fposter">대회 포스터</label>
 				      <div>
-				        <input type="file" class="form-control" id="fposter">
+				        <input type="file" class="form-control" id="fposter"/>
+				        <input type="hidden" id="fposterName"/>
 				      </div>
 				    </div>
 				    <div class="txtarea-fld">
@@ -109,7 +113,8 @@ $(function(){
 						</div>
 			      <div class='btnArea'>
 		          <div class="btm clearFix">
-		            <a href="#" id="btnCompetitionAdd" class="btn btnType5" style='margin-left:0%'>글쓰기</a>
+		            <a href="#" id="btnCompetitionAdd" class="newForm btn btnType5" style='margin-left:0%'>글쓰기</a>
+		            <a href="#" id="btnCompetitionMod" class="modForm btn btnType5" style='margin-left:0%'>수정하기</a>
 		          </div>
 		        </div>
 			    </form>
@@ -141,6 +146,188 @@ $(function(){
 </div>
 
 <div id="footer"></div>
+
+<!-- 우편번호 팝업 창 -->
+<div id="post_layer" style="display:none;position:fixed;overflow:hidden;z-index:11001;-webkit-overflow-scrolling:touch;">
+<img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+</div>
+
+<!-- 우편번호 받기 -->
+<script>
+    var element_layer = document.getElementById('post_layer');
+
+    function closeDaumPostcode() {
+        element_layer.style.display = 'none';
+    }
+
+    function sample2_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+
+                var fullAddr = data.address; 
+                var extraAddr = ''; 
+
+                if(data.addressType === 'R'){
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+                document.getElementById('fpostno').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('faddr').value = fullAddr;
+
+                element_layer.style.display = 'none';
+            },
+            width : '100%',
+            height : '100%'
+        }).embed(element_layer);
+
+        element_layer.style.display = 'block';
+
+        initLayerPosition();
+    }
+
+    function initLayerPosition(){
+        var width = 300; 
+        var height = 460;
+        var borderWidth = 5; 
+
+        element_layer.style.width = width + 'px';
+        element_layer.style.height = height + 'px';
+        element_layer.style.border = borderWidth + 'px solid';
+        element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+    }
+</script>
+
+
+<!-- 추가/수정(정보불러오기) 구분 -->
+<script>
+var no = location.href.split('?')[1].split('=')[1];
+if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
+	  $('.modForm').css('display', 'none');// 상세정보 출력을 위한 폼 항목은 감춘다.
+	  $('.newForm').css('display', '');// 새 글 등록을 위한 폼 항목은 보인다.
+	  
+	} else { // 상세정보 출력폼으로 전환한다.
+	  $('.modForm').css('display', '');
+	  $('.newForm').css('display', 'none');
+	  
+	  $.getJSON('../competition/detail.do?no=' + no, function(resultObj) {
+	    var ajaxResult = resultObj.ajaxResult;
+	    if (ajaxResult.status == "success") {
+	      var c = ajaxResult.data;
+	      console.log(c);
+	      $("#feno").val(c.eno);
+	      $("#fmevent").val(c.event.name);
+	      $('#fname').val(c.name);
+	      $("#fteamNum").val(c.teamNum);
+	      $("#fcost").val(c.cost);
+	      $("#frecruitStartDate").val(c.recruitStartDate);
+	      $("#frecruitEndDate").val(c.recruitEndDate);
+	      $("#fstartDate").val(c.startDate);
+	      $("#fendDate").val(c.endDate);
+	      $("#faddr").val(c.baseAddr);
+	      $("#fpostno").val(c.postNo);
+	      $("#fcontent").val(c.content);
+	      $("#fposterName").val(c.poster);
+	    }
+	  });
+	}
+
+</script>
+
+<!-- 대회 수정 -->
+<script>
+$(function() {
+      $("#btnCompetitionMod").click(function() {
+        var form = $('form')[0];
+        var data = new FormData();
+        $.each($('#fposter')[0].files, function(i, file) {
+          data.append('file', file)
+        });
+        if($('#fname').val() == "") {
+          alert('대회명을 입력하세요');
+            return;
+        }
+        if($('#fteamNum').val() == "") {
+          alert('인원수를 입력하세요');
+            return;
+        }
+        if($('#fcost').val() == "") {
+          alert('회비를 입력하세요');
+            return;
+        }
+        if($('#frecruitStartDate').val() == "") {
+            alert('모집시작일을 입력하세요');
+              return;
+        }
+        if($('#frecruitEndDate').val() == "") {
+            alert('모집마감일을 입력하세요');
+              return;
+        }
+        if($('#fstartDate').val() == "") {
+            alert('대회시작일을 입력하세요');
+              return;
+        }if($('#fendDate').val() == "") {
+            alert('대회마감일을 입력하세요');
+            return;
+        }
+        if($('#fpostno').val() == "") {
+          alert('우편번호를 입력하세요');
+            return;
+        }
+        if($('#faddr').val() == "") {
+          alert('연고지를 입력하세요');
+            return;
+        }
+        if($('#fcontent').val() == "") {
+          alert('팀소개를 입력하세요');
+            return;
+        }
+        
+        console.log("no = ", no);
+        console.log("eno = ", $('#feno').val());
+        data.append('no', no);
+        data.append('eno', $('#feno').val());
+        data.append('name', $('#fname').val());
+        data.append('teamNum', $('#fteamNum').val());
+        data.append('cost', $('#fcost').val());
+        data.append('recruitStartDate', $('#frecruitStartDate').val());
+        data.append('recruitEndDate', $('#frecruitEndDate').val());
+        data.append('startDate', $('#fstartDate').val());
+        data.append('endDate', $('#fendDate').val());
+        data.append('baseAddr', $('#faddr').val());
+        data.append('postNo', $('#fpostno').val());
+        data.append('content', $('#fcontent').val());
+        data.append('poster', $('#fposterName').val());
+
+        $.ajax({
+          url : "../competition/update.do",
+          data : data,
+          type : "POST",
+          dataType: "json",
+          enctype: 'multipart/form-data',
+          processData: false, 
+          contentType:false,
+          success : function(result) {
+          if (result.ajaxResult.status == "success") {
+            alert("수정 완료!");
+            location.href = "/allstar/ui/competitionDetail.html?no=" + no;
+          } else {
+              alert("수정 실패!");
+         }
+       },
+       error : function(result){
+          alert('error');
+       }
+     });
+  });
+});
+</script>
+
 
 <!-- 대회 추가 -->
 <script>
@@ -217,7 +404,7 @@ $(function() {
           contentType:false,
           success : function(result) {
           if (result.ajaxResult.status == "success") {
-        	  alert("대회를 등록하였습니다.");
+            alert("대회를 등록하였습니다.");
             location.href = "/allstar/ui/competitionList.html";
           } else {
               alert("대회등록에 실패했습니다.");

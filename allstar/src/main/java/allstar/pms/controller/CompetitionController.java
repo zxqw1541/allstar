@@ -99,7 +99,34 @@ public class CompetitionController {
   }
   
   @RequestMapping(value = "update", method = RequestMethod.POST)
-  public AjaxResult update(Competition competition) {
+  public AjaxResult update(Competition competition, MultipartHttpServletRequest uploadedFile) throws Exception {
+    
+    /* 필수 데이터 (임시저장) */
+    competition.setTno(1);
+    /* --------------- */
+    if (uploadedFile != null) {
+      Iterator<String> itr = uploadedFile.getFileNames();
+      if (itr.hasNext()) {
+        log.info("--- 파일 업로드 ----");
+        MultipartFile mpf = uploadedFile.getFile(itr.next());
+
+        String path = uploadedFile.getServletContext().getRealPath("/");
+        String sep = System.getProperty("file.separator");
+        String fileName = MultipartHelper.generateFilename(mpf.getOriginalFilename());
+        String filePath = path + sep + "competition" + sep + "img" + sep;
+
+        System.out.println(mpf.getOriginalFilename() + " uploaded!");
+        try {
+          MultipartHelper.generateFile(mpf, filePath + fileName);
+          competition.setPoster(fileName);
+        } catch (IOException e) {
+          e.printStackTrace();
+          return new AjaxResult("failure", null);
+        }
+      }
+    }
+    
+    
     if (competitionService.change(competition) <= 0)
       return new AjaxResult("failure", null);
     return new AjaxResult("success", null);
