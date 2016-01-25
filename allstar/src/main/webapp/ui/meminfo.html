@@ -3,16 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script type="text/javascript" src="js/preview.image.js"></script>
 </head>
 <body>
     
   <section id="mem_info" style="width:400px; height:700px; background-color:white;border:2px black solid; font-weight: 900; margin-left:auto; margin-right:auto;padding:30px; ">
-    <form method="post">
+  <img id="detail_preview_img" style='width:100px; float:right;'src="#"/>
+    <form id='detail_mem' method="post" enctype='multipart/form-data'>
     <div style="border-bottom:1px gray solid;">
       <h2>회원정보</h2>
       </div>
       <div style="margin-top:20px;">
+      <input id="fdphoto" type="hidden"/>
        <label for="fname" style="margin-top:5px;">이름</label>
         <input type="text" id="fname" placeholder="이름" style="margin-top:5px;"><br>
       <label for="femail" style="margin-top:10px;">이메일</label>
@@ -20,7 +22,10 @@
       <label for="ftel"  style="margin-top:10px;">전화번호</label>  
         <input type="tel" id="ftel" placeholder="111-1111-1111"  style="margin-top:10px;"><br>
         <label for="fphoto"  style="margin-top:20px;">프로필사진</label>
-        <input type="file" id="fphoto"  style="margin-top:10px;">        <br>
+         <div id="deatil_member_div">
+          <input type="file" class="form-control" id="fphoto" >
+        </div>
+        <br>
         <label for="fpst_no"  style="margin-top:10px;">우편번호</label>
         <input type="text" id="fpst_no" placeholder="우편번호"  style="margin-top:10px;"><br>
 <input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"><br>
@@ -117,5 +122,91 @@
     </div>
     </form>      
   </section>
+  
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquery.session.js"></script>
+  <script>
+
+  $('#fphoto').remove();
+  var fphoto = '<input type="file" class="form-control" id="fphoto" >';
+  $('#deatil_member_div').append(fphoto);
+  
+  
+  $.getJSON('/allstar/member/ajax/detail.do?mno=' + $.session.get("mem_num"), function(resultObj) {
+console.log("edddd");
+	    var ajaxResult = resultObj.ajaxResult;
+	    if (ajaxResult.status == "success") {
+	      var member = ajaxResult.data;
+	      $("#fname").val(member.name);
+	      $("#femail").val(member.email);
+	      $("#ftel").val(member.tel);
+	      $("#fpst_no").val(member.pst_no);
+	      $("#fbas_addr").val(member.bas_addr);  
+	      $("#faddress").val(member.address);
+	      $("#fgender").val(member.gender);
+	      $("#fage").val(member.age);
+	      $("#fdphoto").val(member.photo);
+	      $("#fintroduce").val(member.introduce);
+	      if (member.photo != null && member.photo != '')
+              $('#detail_preview_img').attr('src', '../member/img/'+member.photo);
+            else
+              $('#detail_preview_img').attr('src', '../member/img/allstardefault.png');
+          }
+	   
+	  });
+	  
+	$('#infoupBtn').click(function(event) {
+		var form = $('detail_mem');
+        var data = new FormData();
+        var is_uploadfile = false;
+	     console.log($.session.get("mem_num"));
+	     console.log($("input[name='likeEvent']:checked").val());
+$.get('/allstar/member/ajax/event.do?mno='+$.session.get("mem_num")+'&eno='+$("input[name='likeEvent']:checked").val()); 
+	     $.each($('#fphoto')[0].files, function(i, file) {
+	    	 is_uploadfile = true;
+	         data.append('file', file)
+	       });
+	      
+	     if($('#fdphoto').val() != "" ){
+	       if(!is_uploadfile)
+	       data.append('photo', $('#fdphoto').val());
+	     }
+	     
+	     data.append('mno',$.session.get("mem_num"));
+	     data.append('name',$('#fname').val());
+	     data.append('email',$('#femail').val());
+	     data.append('tel',$('#ftel').val());
+	     data.append('pst_no',$('#fpst_no').val());
+	     data.append('bas_addr',$('#fbas_addr').val());
+	     data.append('address',$('#faddress').val());
+	     data.append('gender',$("input[name='fgender']:checked").val());
+	     data.append('age',$('#fage').val());
+	     data.append('introduce',$('#fintroduce').val());
+	     
+	     
+	     $.ajax({
+	         url: "/allstar/member/ajax/update.do",
+	         data : data,
+	         type : "POST",
+	         dataType : 'json',
+	         enctype : 'multipart/form-data',
+	         processData : false,
+	         contentType : false,
+	         success : function(result) {
+	           if (result.ajaxResult.status == "success") {
+	             location.href = "/allstar/ui/Member_info.html";
+	             alert('변경 하였습니다.');
+	           } else {
+	             alert('변경하지 못했습니다.');
+	           }
+	         },
+	         error : function(result) {
+	           alert('error');
+	         }
+	         
+	       });
+	});
+	  
+  </script>
 </body>
 </html>
