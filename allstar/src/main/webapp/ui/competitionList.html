@@ -178,8 +178,6 @@ if (location.href.indexOf('&') != -1) {
     url1 = url1 + "?search2=" + location.href.split('&')[1].split('=')[1];
   }
   
-  console.log("위 => " + location.href);
-  
 }
 $.getJSON(url1, function(resultObj) {
 	  totalPage = Math.ceil(resultObj.ajaxResult.data / pageSize);
@@ -273,8 +271,6 @@ function clickEnd() {
 <script>
 function search() {
 	
-	console.log(location.href.indexOf('&'));
-	
 	var select = $('#csearch option:selected').val();
 	
 	if (location.href.indexOf('&') == '-1') {
@@ -294,7 +290,7 @@ function search() {
 	}
  	
 	
-}
+} 
 </script>
 
 <!-- 정렬 -->
