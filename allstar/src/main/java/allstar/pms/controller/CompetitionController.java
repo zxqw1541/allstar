@@ -24,8 +24,13 @@ public class CompetitionController {
   @Autowired ServletContext servletContext;
   
   @RequestMapping("all")
-  public AjaxResult countAll() {
-    return new AjaxResult("success",competitionService.countAllCompetition());
+  public AjaxResult countAll(
+      @RequestParam(defaultValue = "null") String search1,
+      @RequestParam(defaultValue = "null") String search2) {
+    
+    int count = competitionService.countAllCompetition(search1, search2);
+    
+    return new AjaxResult("success",count);
   }
 
   @RequestMapping("list")
@@ -33,11 +38,14 @@ public class CompetitionController {
       @RequestParam(defaultValue = "1") int pageNo,
       @RequestParam(defaultValue = "10") int pageSize,
       @RequestParam(defaultValue = "id") String keyword, 
-      @RequestParam(defaultValue = "desc") String align) {
+      @RequestParam(defaultValue = "desc") String align,
+      @RequestParam(defaultValue = "null") String search1,
+      @RequestParam(defaultValue = "null") String search2) {
     
     List<Competition> competitions = competitionService.getCompetitionList(
-        pageNo, pageSize, keyword, align);
+        pageNo, pageSize, keyword, align, search1, search2);
     log.info(competitions);
+    System.out.println(keyword);
     
     return new AjaxResult("success", competitions);
   }

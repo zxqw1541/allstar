@@ -590,6 +590,16 @@ insert competition(eno, tno, name, team_num, cost, sdt, edt, rsdt, redt, content
 values(3,4,'대회4',36,100000,'2015-01-01','2015-01-02','2015-01-03','2015-01-04','내용4','그림4','12345','기본주소');
 insert competition(eno, tno, name, team_num, cost, sdt, edt, rsdt, redt, content, poster, pst_no, bas_addr)
 values(4,5,'대회5',36,100000,'2015-01-01','2015-01-02','2015-01-03','2015-01-04','내용5','그림5','12345','기본주소');
+insert competition(eno, tno, name, team_num, cost, sdt, edt, rsdt, redt, content, poster, pst_no, bas_addr)
+values(4,5,'대회6',36,100000,'2015-01-01','2015-01-02','2015-01-03','2015-01-04','내용5','그림5','12345','기본주소');
+insert competition(eno, tno, name, team_num, cost, sdt, edt, rsdt, redt, content, poster, pst_no, bas_addr)
+values(4,5,'대회7',36,100000,'2015-01-01','2015-01-02','2015-01-03','2015-01-04','내용5','그림5','12345','기본주소');
+insert competition(eno, tno, name, team_num, cost, sdt, edt, rsdt, redt, content, poster, pst_no, bas_addr)
+values(4,5,'대회8',36,100000,'2015-01-01','2015-01-02','2015-01-03','2015-01-04','내용5','그림5','12345','기본주소');
+insert competition(eno, tno, name, team_num, cost, sdt, edt, rsdt, redt, content, poster, pst_no, bas_addr)
+values(4,5,'대회9',36,100000,'2015-01-01','2015-01-02','2015-01-03','2015-01-04','내용5','그림5','12345','기본주소');
+insert competition(eno, tno, name, team_num, cost, sdt, edt, rsdt, redt, content, poster, pst_no, bas_addr)
+values(4,5,'대회10',36,100000,'2015-01-01','2015-01-02','2015-01-03','2015-01-04','내용5','그림5','12345','기본주소')
 
 /* 종목게시판 */
 insert board(eno, mno, title, content, cre_dt) values (2,1,'게시물1','내용1',now());

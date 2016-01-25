@@ -45,6 +45,23 @@ public class TeamController {
     return resultMap;
   }
 
+  @RequestMapping("count")
+  public Object listCount(
+      @RequestParam(defaultValue="null") String event,
+      @RequestParam(defaultValue="null") String addr,
+      @RequestParam(defaultValue="null") String possible,
+      @RequestParam(defaultValue="null") String play,
+      @RequestParam(defaultValue="null") String enroll) throws Exception {
+    
+    List<Team> teams = teamService.getCount(event, addr, possible, play, enroll);
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("count", teams.size());
+    System.out.println(teams.size());
+    
+    return resultMap;
+  }
+
   @RequestMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
@@ -58,7 +75,7 @@ public class TeamController {
     List<Team> teams = teamService.getTeamList(
         pageNo, pageSize, event, addr, possible, play, enroll);
     List<Event> events = eventService.getEventList();
-    
+
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("teams", teams);

@@ -4,9 +4,11 @@
 .content {
    background-image: url("../img/basketball_court2.jpg");
    background-attachment: fixed;
+   min-height: 623px;
 }
 #main {
 	margin: 0;
+	padding-bottom: 100px;
 }
 #teamForm {
 	width:500px;
