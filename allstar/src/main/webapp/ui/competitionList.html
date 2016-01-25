@@ -69,7 +69,7 @@ $(function() {
           <h2 class="snbTitSub tit">대회 게시판</h2>
           <div class="sort">
             <ul class="list">
-              <li><a href="#" id="lnewer" class='on'>최신순</a></li>
+              <li><a href="#" id="lnewer">최신순</a></li>
               <li><a href="#" id="lreply">댓글순</a></li>
             </ul>
           </div>
@@ -192,6 +192,9 @@ if (location.href.indexOf('&') != -1) {
   else {
     url1 = url1 + "?search2=" + location.href.split('&')[1].split('=')[1];
   }
+  
+  console.log("위 => " + location.href);
+  
 }
 $.getJSON(url1, function(resultObj) {
 	  totalPage = Math.ceil(resultObj.ajaxResult.data / pageSize);
@@ -284,14 +287,40 @@ function clickEnd() {
 <!-- 검색 -->
 <script>
 function search() {
+	
+	console.log(location.href.indexOf('&'));
+	
 	var select = $('#csearch option:selected').val();
-	if (select == '1') {
-		location.href = "competitionList.html?pageNo=" + pageNo + "&search1=" + $("#ccontent").val();
+	
+	if (location.href.indexOf('&') == '-1') {
+	  if (select == '1') {
+		  location.href = "competitionList.html?pageNo=" + pageNo + "&search1=" + $("#ccontent").val();
+	  }
+	  else {
+	    location.href = "competitionList.html?pageNo=" + pageNo + "&search2=" + $("#ccontent").val();
+	  }
+	} else {
+	  if (select == '1') {
+	    location.href = location.href + "&search1=" + $("#ccontent").val();
+	  }
+	  else {
+		  location.href = location.href + "&search2=" + $("#ccontent").val();
+	  }
 	}
-	else {
-	  location.href = "competitionList.html?pageNo=" + pageNo + "&search2=" + $("#ccontent").val();
-	}
+ 	
+	
 }
+</script>
+
+<!-- 정렬 -->
+<script>
+$("#lnewer").click(sorting);
+
+function sorting() {
+	$("#lnewer").addClass('on');
+	location.href = location.href + "&keyword=newer";
+}
+
 </script>
 
 </body>
