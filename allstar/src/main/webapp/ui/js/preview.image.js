@@ -33,6 +33,7 @@ function fileSelected() {
 	// 어느 폼이 활성화 되어있는지 (add_team, detail_team중)
     var a_form = document.getElementById('add_team').style.display;
     var d_form = document.getElementById('detail_team').style.display;
+    
     var arr = [];
     console.log(a_form);
     console.log(d_form);

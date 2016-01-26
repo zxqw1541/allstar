@@ -8,19 +8,18 @@
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/component.css" />
 <link rel="stylesheet" type="text/css" href="css/competition.css" />
+<link rel="stylesheet" type="text/css" href="css/competitionAdd.css" />
 
 
-<link rel="stylesheet" href="css/tos/tos.css" />
+<!-- <link rel="stylesheet" href="css/tos/tos.css" /> -->
 <link rel="Shortcut Icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 <link rel="icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 
 <script src="js/jquery-1.11.3.js"></script>
-<script src="js/jquery.leanModal.min.js"></script>
 <script src="js/modernizr.min.js"></script>
-<script type="text/javascript" src="js/jquery.gracket.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 $(function(){
-	
 	  $("#header").load("header.html"); 
 	  $("#footer").load("footer.html"); 
 	});
@@ -35,20 +34,94 @@ $(function(){
 		<div class="viewWrap boardContents boardView"
 			style="width: 100%; overflow-y: auto;">
 			<article id="subject" class="mainArea">
-
-	     <!--  <h2> 대진표</h2>
-	      <div class="div_left_tournament">
-	        <div class="container-secondary">
-	          <div class="wrapper">
-	            <div class="my_gracket"></div>
-	          </div>
-	          <div class="wrapper secondary-bracket">
-	            <div class="my_gracket2"></div>
-	          </div>
-	        </div>
-	      </div> -->
-
+			<header id='test1'class='header'  style='height:30px'>
+        <div class='inner clearFix'>
+          <div class='subject'>
+            <h2 class='newForm tit'>대회 등록하기</h2>
+            <h2 class='modForm tit'>대회 수정하기</h2>
+          </div>
+            <p class='cnt'>
+        </div>
+      </header>
+	      <div id='add_competition' class='viewContents'>
+	        <form id='addCompForm' class="form-horizontal" enctype="multipart/form-data">
+				    <div class="txt-fld">
+				      <label for="fname">대회명</label>
+				      <input id="fname" class="good_input" type="text" placeholder="대회명을 입력해주세요."/>
+				    </div>
+				    <div class="txt-fld">
+				      <label for="fevent">종목</label>
+				      <div>
+				        <select id="fevent" class="newForm good_input">
+				          <option value=''>종목선택</option>
+				          <option value='2'>농구</option>
+				          <option value='3'>축구</option>
+				          <option value='4'>야구</option>
+				          <option value='5'>볼링</option>
+				          <option value='6'>탁구</option>
+				        </select>
+				        <input id="fmevent" class="modForm good_input" type="text" readonly/>
+                <input id="feno" type="hidden"/>
+				      </div>
+				    </div>   
+				    <div class="txt-fld">
+				      <label for="fteamNum">최대 팀수</label>
+				      <input id="fteamNum" class="good_input" type="text" placeholder="숫자를 입력해주세요."/>
+				    </div>
+				    <div class="txt-fld">
+				      <label for="fcost">참가비</label>
+				      <input id="fcost" class="good_input" type="text" placeholder="숫자를 입력해주세요."/>
+				    </div>
+				    <div class="txt-fld">
+					    <label for='frecruitStartDate'>모집시작일</label>
+					    <input id='frecruitStartDate' class="good_input" type='date'/>
+					  </div>
+					  <div class="txt-fld">
+              <label for='frecruitEndDate'>모집종료일</label>
+              <input id='frecruitEndDate' class="good_input" type='date'/>
+            </div>
+            <div class="txt-fld">
+              <label for='fstartDate'>대회시작일</label>
+              <input id='fstartDate' class="good_input" type='date'/>
+            </div>
+            <div class="txt-fld">
+              <label for='fendDate'>대회종료일</label>
+              <input id='fendDate' class="good_input" type='date'/>
+            </div>
+				    
+				    <div class="txt-fld">
+				      <label for="fpostno">우편번호</label>
+				      <input id="fpostno" class="good_input" type="text" placeholder="우편번호를 입력해주세요." onclick="sample2_execDaumPostcode()" readonly/>
+				    </div>
+				    <div class="txt-fld">
+				      <label for="faddr">연고지</label>
+				      <input id="faddr" class="good_input" type="text" placeholder="연고지를 입력해주세요." onclick="sample2_execDaumPostcode()" readonly/>
+				    </div>
+				    <div class="txt-fld">
+				      <label for="fposter">대회 포스터</label>
+				      <div>
+				        <input type="file" class="form-control" id="fposter"/>
+				        <input type="hidden" id="fposterName"/>
+				      </div>
+				    </div>
+				    <div class="txtarea-fld">
+						  <label for="fcontent">대회 소개</label>
+						  <div>
+						    <textarea id="fcontent" class="form-control" rows='10' cols='60'
+						        placeholder="팀소개를 입력해주세요."></textarea>
+						  </div>
+						</div>
+			      <div class='btnArea'>
+		          <div class="btm clearFix">
+		            <a href="#" id="btnCompetitionAdd" class="newForm btn btnType5" style='margin-left:0%'>글쓰기</a>
+		            <a href="#" id="btnCompetitionMod" class="modForm btn btnType5" style='margin-left:0%'>수정하기</a>
+		          </div>
+		        </div>
+			    </form>
+	      </div>
+	      
       </article>
+      <!--  
 			<aside id="rightSide" class="sideArea">
 			  <h3 class='blind'>참여 정보</h3>
 			  <div class='info clearFix'>
@@ -67,200 +140,284 @@ $(function(){
         </div>
 			  
 			</aside>
+			-->
 		</div>
 	</div>
 </div>
 
 <div id="footer"></div>
 
-<!-- 참가하기 버튼 리스너 -->
-<script>
-$('#btnArticleJoin').on('click', function(event){
-    event.preventDefault();
-    alert('참여하기버튼');
-  });
-</script>
-<!-- 수정 삭제 버튼 추가(해당 글쓴이만!, 지금은 모두에게 보여주는것으로 구현 -->
-<script>
-var div = $('.btnArea');
-$('<div>').addClass('btm clearFix')
-  .html(
-		  "<a href='#' id='btnArticleUpdate' class='btn btnType6 btnWrite' style='margin-left:0%'>글수정</a>"
-    + "<a href='#' id='btnArticleRemove' class='btn btnType6 btnList' style='margin-left:0%'>글삭제</a>"
-		  ).appendTo(div);
-</script>
+<!-- 우편번호 팝업 창 -->
+<div id="post_layer" style="display:none;position:fixed;overflow:hidden;z-index:11001;-webkit-overflow-scrolling:touch;">
+<img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+</div>
 
-<!-- 수정 버튼 리스너 -->
+<!-- 우편번호 받기 -->
 <script>
-$('#btnArticleUpdate').on('click', function(event){
-    event.preventDefault();
-    if (status != '모집예정') {
-    	alert('모집 전에만 수정할 수 있습니다!');
-    	return;
+    var element_layer = document.getElementById('post_layer');
+
+    function closeDaumPostcode() {
+        element_layer.style.display = 'none';
     }
-    alert('수정버튼');
-    
-  });
-</script>
 
-<!-- 삭제 버튼 리스너 -->
-<script>
-$('#btnArticleRemove').on('click', function(event){
-	  event.preventDefault();
-	  $.getJSON('/allstar/competition/delete.do?no=' + no, function(resultObj) {
-		  var ajaxResult = resultObj.ajaxResult;
-		    if (ajaxResult.status == "success") {
-		    	alert('삭제 성공!');
-		    	location.href = 'competitionList.html';
-		    } else {
-		    	alert('삭제 실패!');	
-		    }
-		  });
-	});
-</script>
+    function sample2_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
 
-<!-- 목록 버튼 리스너-->
-<script>
-$('#btnArticleList').on('click', function(event){
-  event.preventDefault();
-  location.href="competitionList.html";
-  /* history.go(-1); */
-});
-</script>
+                var fullAddr = data.address; 
+                var extraAddr = ''; 
 
-<!-- 새글 버튼 리스너-->
-<script>
-$('#btnArticleWrite').on('click', function(event){
-	event.preventDefault();
-  alert('새글버튼');
-  location.href = 'competitionAdd.html';  
-});
-</script>
+                if(data.addressType === 'R'){
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+                document.getElementById('fpostno').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('faddr').value = fullAddr;
 
-<!-- 기본 정보 출력 -->
-<script>
-var no = -1;
-if (location.href.indexOf('?') != -1)
-  no = location.href.split('?')[1].split('=')[1];
-console.log("no =",no);
-var status = '모집예정'
-$.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
-	var ajaxResult = resultObj.ajaxResult;
-    if (ajaxResult.status == "success") {
-    	var c = ajaxResult.data;
-    	var rsd = new Date(c.recruitStartDate).getTime();
-    	var red = new Date(c.recruitEndDate).getTime();
-    	var sd = new Date(c.startDate).getTime();
-    	var ed = new Date(c.endDate).getTime();
-    	var nowd = new Date().getTime();
-     	/* console.log(rsd);
-    	console.log(red);
-    	console.log(sd);
-    	console.log(ed);
-    	console.log(nowd); */
-    	if (rsd < nowd && nowd < red) {
-    		status = '모집중';
-    	} else if (red < nowd && nowd < sd){
-    		status = '대회준비중';
-    	} else if (sd < nowd && nowd < ed) {
-    		status = '대회중';
-    	} else if (ed < nowd) {
-    		status = '대회종료';
-    	}
-    	
-			var sub_article = $("#subject")
-			var detail =
-				  "<header id='test1'class='header'  style='height:90px'>"
-					+ "<div class='inner clearFix'>"
-					+ "  <div class='subject'>"
-					+ "    <h2 class='tit'>" + c.name  + "</h2>"
-					+ "    <p class='etc'><span class='date'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate 
-					+        "<br>대회시작 : " + c.startDate + "</span></p>"
-					+ "  </div>"
-					+ "  <p class='cnt'>"
-					+ "  <span class='view'><strong>" + status + "</strong></span></p>"
-					+ "</div>"
-					+ "</header>"
-					+ "<div id='test2' class='viewContents'>"
-					+ "  <img src='../competition/img/" + c.poster + "'>"
-					+ "  <h2> 대진표</h2>"
-					+ "  <div class='div_left_tournament'>"
-					+ "    <div class='container-secondary'>"
-					+ "      <div class='wrapper'>"
-					+ "        <div class='my_gracket'></div>"
-					+ "      </div>"
-					+ "      <div class='wrapper secondary-bracket'>"
-					+ "        <div class='my_gracket2'></div>"
-					+ "      </div>"
-					+ "    </div>"
-					+ "  </div>"
-					+ "  <h2> 장소</h2>"
-					+ "  <div class='div_left_map'>"
-					+ "  <iframe src='https://www.google.com/maps/d/embed?mid=zouJJd1kxH7U.kb2sjmzfDunA' width='750px' height='600px' ></iframe>"
-					+ "  </div>"
-					+ "</div>";
-			sub_article.append(detail);
+                element_layer.style.display = 'none';
+            },
+            width : '100%',
+            height : '100%'
+        }).embed(element_layer);
+
+        element_layer.style.display = 'block';
+
+        initLayerPosition();
     }
-	});
+
+    function initLayerPosition(){
+        var width = 300; 
+        var height = 460;
+        var borderWidth = 5; 
+
+        element_layer.style.width = width + 'px';
+        element_layer.style.height = height + 'px';
+        element_layer.style.border = borderWidth + 'px solid';
+        element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+    }
 </script>
 
-<!-- 대진표 -->
-<script type="text/javascript">
-  (function(win, doc, $){
-      
-      console.warn("Make sure the min-width of the .gracket_h3 element is set to width of the largest name/player. Gracket needs to build its canvas based on the width of the largest element. We do this my giving it a min width. I'd like to change that!");
 
-      // Fake Data
-      win.TestData = [
-        [       
-          [ {"name" : "Erik Zettersten", "id" : "erik-zettersten", "seed" : 1, "displaySeed": "D1", "score" : 47 }, {"name" : "Andrew Miller", "id" : "andrew-miller", "seed" : 2} ],
-          [ {"name" : "James Coutry", "id" : "james-coutry", "seed" : 3}, {"name" : "Sam Merrill", "id" : "sam-merrill", "seed" : 4}],
-          [ {"name" : "Anothy Hopkins", "id" : "anthony-hopkins", "seed" : 5}, {"name" : "Everett Zettersten", "id" : "everett-zettersten", "seed" : 6} ],
-          [ {"name" : "John Scott", "id" : "john-scott", "seed" : 7}, {"name" : "Teddy Koufus", "id" : "teddy-koufus", "seed" : 8}],
-          [ {"name" : "Arnold Palmer", "id" : "arnold-palmer", "seed" : 9}, {"name" : "Ryan Anderson", "id" : "ryan-anderson", "seed" : 10} ],
-          [ {"name" : "Jesse James", "id" : "jesse-james", "seed" : 1}, {"name" : "Scott Anderson", "id" : "scott-anderson", "seed" : 12}],
-          [ {"name" : "Josh Groben", "id" : "josh-groben", "seed" : 13}, {"name" : "Sammy Zettersten", "id" : "sammy-zettersten", "seed" : 14} ],
-          [ {"name" : "Jake Coutry", "id" : "jake-coutry", "seed" : 15}, {"name" : "Spencer Zettersten", "id" : "spencer-zettersten", "seed" : 16}]
-        ], 
-        [
-          [ {"name" : "Erik Zettersten", "id" : "erik-zettersten", "seed" : 1}, {"name" : "James Coutry", "id" : "james-coutry", "seed" : 3} ],
-          [ {"name" : "Anothy Hopkins", "id" : "anthony-hopkins", "seed" : 5}, {"name" : "Teddy Koufus", "id" : "teddy-koufus", "seed" : 8} ],
-          [ {"name" : "Ryan Anderson", "id" : "ryan-anderson", "seed" : 10}, {"name" : "Scott Anderson", "id" : "scott-anderson", "seed" : 12} ],
-          [ {"name" : "Sammy Zettersten", "id" : "sammy-zettersten", "seed" : 14}, {"name" : "Jake Coutry", "id" : "jake-coutry", "seed" : 15} ]
-        ],
-        [
-          [ {"name" : "Erik Zettersten", "id" : "erik-zettersten", "seed" : 1}, {"name" : "Anothy Hopkins", "id" : "anthony-hopkins", "seed" : 5} ],
-          [ {"name" : "Ryan Anderson", "id" : "ryan-anderson", "seed" : 10}, {"name" : "Sammy Zettersten", "id" : "sammy-zettersten", "seed" : 14} ]
-        ],
-        [
-          [ {"name" : "Erik Zettersten", "id" : "erik-zettersten", "seed" : 1}, {"name" : "Ryan Anderson", "id" : "ryan-anderson", "seed" : 10} ]
-        ],
-        [
-          [ {"name" : "Erik Zettersten", "id" : "erik-zettersten", "seed" : 1} ]
-        ]
-      ];
-      win.secData = [
-        [
-          [ {"name" : "Anothy Hopkins", "id" : "anthony-hopkins", "seed" : 5}, {"name" : "Sammy Zettersten", "id" : "sammy-zettersten", "seed" : 14} ]
-        ],
-        [
-          [ {"name" : "Sammy Zettersten", "id" : "sammy-zettersten", "seed" : 14} ]
-        ]
-      ];
+<!-- 추가/수정(정보불러오기) 구분 -->
+<script>
+var no = location.href.split('?')[1].split('=')[1];
+if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
+	  $('.modForm').css('display', 'none');// 상세정보 출력을 위한 폼 항목은 감춘다.
+	  $('.newForm').css('display', '');// 새 글 등록을 위한 폼 항목은 보인다.
+	  
+	} else { // 상세정보 출력폼으로 전환한다.
+	  $('.modForm').css('display', '');
+	  $('.newForm').css('display', 'none');
+	  
+	  $.getJSON('../competition/detail.do?no=' + no, function(resultObj) {
+	    var ajaxResult = resultObj.ajaxResult;
+	    if (ajaxResult.status == "success") {
+	      var c = ajaxResult.data;
+	      console.log(c);
+	      $("#feno").val(c.eno);
+	      $("#fmevent").val(c.event.name);
+	      $('#fname').val(c.name);
+	      $("#fteamNum").val(c.teamNum);
+	      $("#fcost").val(c.cost);
+	      $("#frecruitStartDate").val(c.recruitStartDate);
+	      $("#frecruitEndDate").val(c.recruitEndDate);
+	      $("#fstartDate").val(c.startDate);
+	      $("#fendDate").val(c.endDate);
+	      $("#faddr").val(c.baseAddr);
+	      $("#fpostno").val(c.postNo);
+	      $("#fcontent").val(c.content);
+	      $("#fposterName").val(c.poster);
+	    }
+	  });
+	}
 
-      // initializer
-      $(".my_gracket").gracket({ 
-        src : win.TestData,
-        roundLabels : ["SPORTS : 16", "SPORTS : 8", "SPORTS : 4","결승"]
+</script>
+
+<!-- 대회 수정 -->
+<script>
+$(function() {
+      $("#btnCompetitionMod").click(function() {
+        var form = $('form')[0];
+        var data = new FormData();
+        $.each($('#fposter')[0].files, function(i, file) {
+          data.append('file', file)
         });
+        if($('#fname').val() == "") {
+          alert('대회명을 입력하세요');
+            return;
+        }
+        if($('#fteamNum').val() == "") {
+          alert('인원수를 입력하세요');
+            return;
+        }
+        if($('#fcost').val() == "") {
+          alert('회비를 입력하세요');
+            return;
+        }
+        if($('#frecruitStartDate').val() == "") {
+            alert('모집시작일을 입력하세요');
+              return;
+        }
+        if($('#frecruitEndDate').val() == "") {
+            alert('모집마감일을 입력하세요');
+              return;
+        }
+        if($('#fstartDate').val() == "") {
+            alert('대회시작일을 입력하세요');
+              return;
+        }if($('#fendDate').val() == "") {
+            alert('대회마감일을 입력하세요');
+            return;
+        }
+        if($('#fpostno').val() == "") {
+          alert('우편번호를 입력하세요');
+            return;
+        }
+        if($('#faddr').val() == "") {
+          alert('연고지를 입력하세요');
+            return;
+        }
+        if($('#fcontent').val() == "") {
+          alert('팀소개를 입력하세요');
+            return;
+        }
         
-      $(".my_gracket2").gracket({ 
-        src : win.secData,
-        roundLabels : ["SPORTS : 3 vs 4" ]
-        });
+        console.log("no = ", no);
+        console.log("eno = ", $('#feno').val());
+        data.append('no', no);
+        data.append('eno', $('#feno').val());
+        data.append('name', $('#fname').val());
+        data.append('teamNum', $('#fteamNum').val());
+        data.append('cost', $('#fcost').val());
+        data.append('recruitStartDate', $('#frecruitStartDate').val());
+        data.append('recruitEndDate', $('#frecruitEndDate').val());
+        data.append('startDate', $('#fstartDate').val());
+        data.append('endDate', $('#fendDate').val());
+        data.append('baseAddr', $('#faddr').val());
+        data.append('postNo', $('#fpostno').val());
+        data.append('content', $('#fcontent').val());
+        data.append('poster', $('#fposterName').val());
 
-    })(window, document, jQuery);
-  </script>
+        $.ajax({
+          url : "../competition/update.do",
+          data : data,
+          type : "POST",
+          dataType: "json",
+          enctype: 'multipart/form-data',
+          processData: false, 
+          contentType:false,
+          success : function(result) {
+          if (result.ajaxResult.status == "success") {
+            alert("수정 완료!");
+            location.href = "/allstar/ui/competitionDetail.html?no=" + no;
+          } else {
+              alert("수정 실패!");
+         }
+       },
+       error : function(result){
+          alert('error');
+       }
+     });
+  });
+});
+</script>
+
+
+<!-- 대회 추가 -->
+<script>
+$(function() {
+      $("#btnCompetitionAdd").click(function() {
+        var form = $('form')[0];
+        var data = new FormData();
+        $.each($('#fposter')[0].files, function(i, file) {
+          data.append('file', file)
+        });
+        if($('#fname').val() == "") {
+          alert('대회명을 입력하세요');
+            return;
+        }
+        if($('#fevent').val() == "") {
+          alert('종목을 선택하세요');
+          return;
+        }
+        if($('#fteamNum').val() == "") {
+          alert('인원수를 입력하세요');
+            return;
+        }
+        if($('#fcost').val() == "") {
+          alert('회비를 입력하세요');
+            return;
+        }
+        if($('#frecruitStartDate').val() == "") {
+            alert('모집시작일을 입력하세요');
+              return;
+        }
+        if($('#frecruitEndDate').val() == "") {
+            alert('모집마감일을 입력하세요');
+              return;
+        }
+        if($('#fstartDate').val() == "") {
+            alert('대회시작일을 입력하세요');
+              return;
+        }if($('#fendDate').val() == "") {
+            alert('대회마감일을 입력하세요');
+            return;
+        }
+        if($('#fpostno').val() == "") {
+          alert('우편번호를 입력하세요');
+            return;
+        }
+        if($('#faddr').val() == "") {
+          alert('연고지를 입력하세요');
+            return;
+        }
+        if($('#fcontent').val() == "") {
+          alert('팀소개를 입력하세요');
+            return;
+        }
+        
+        data.append('eno', $('#fevent').val());
+        data.append('name', $('#fname').val());
+        data.append('teamNum', $('#fteamNum').val());
+        data.append('cost', $('#fcost').val());
+        data.append('recruitStartDate', $('#frecruitStartDate').val());
+        data.append('recruitEndDate', $('#frecruitEndDate').val());
+        data.append('startDate', $('#fstartDate').val());
+        data.append('endDate', $('#fendDate').val());
+        data.append('baseAddr', $('#faddr').val());
+        data.append('postNo', $('#fpostno').val());
+        data.append('content', $('#fcontent').val());
+
+        $.ajax({
+          url : "../competition/add.do",
+          data : data,
+          type : "POST",
+          dataType: "json",
+          enctype: 'multipart/form-data',
+          processData: false, 
+          contentType:false,
+          success : function(result) {
+          if (result.ajaxResult.status == "success") {
+            alert("대회를 등록하였습니다.");
+            location.href = "/allstar/ui/competitionList.html";
+          } else {
+              alert("대회등록에 실패했습니다.");
+         }
+       },
+       error : function(result){
+          alert('error');
+       }
+     });
+  });
+});
+</script>
+
 
 
 </body>

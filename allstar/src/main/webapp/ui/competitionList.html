@@ -123,7 +123,7 @@ $(function() {
 <script>
 $('#newBtn').on('click', function(event){
 	  event.preventDefault();
-	  location.href = 'competitionAdd.html';  
+	  location.href = 'competitionForm.html?no=-1';  
 	});
 </script>
 
@@ -185,13 +185,20 @@ $.getJSON(url, function(resultObj) {
     $("<tr>")
     .html(
     "<td class='num'>" + c.event.name +"</td>"
-    + "<td class='subject'><a href='#' data-ajax-board='free_view' articlesn=" + c.cno + "><strong>" + c.name + "<small>(3)</small></strong>"
+    + "<td class='subject'><a href='#' data-ajax-board='free_view' pageno='" + c.no + "'><strong>" + c.name + "<small>(3)</small></strong>"
     + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
     + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
-    + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr +"</span></td>"
+    + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>"
     )
     .appendTo(tbody);
   }
+});
+
+//게시물 제목을 클릭했을 때 호출될 함수
+
+$(document).on('click', 'a[data-ajax-board]', function (e) {
+  e.preventDefault();
+  location.href = "competitionDetail.html?no=" + $(this).attr("pageno");
 });
 </script>
 

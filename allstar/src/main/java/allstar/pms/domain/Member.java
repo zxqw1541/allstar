@@ -17,14 +17,15 @@ protected String address;
 protected String gender;
 protected int age;
 protected String introduce;
-//protected Event event;
-//
-//public Event getEvent() {
-//  return event;
-//}
-//public void setEvent(Event event) {
-//  this.event = event;
-//}
+
+
+
+@Override
+public String toString() {
+  return "Member [mno=" + mno + ", id=" + id + ", email=" + email + ", tel=" + tel + ", name=" + name + ", pwd=" + pwd
+      + ", photo=" + photo + ", pst_no=" + pst_no + ", bas_addr=" + bas_addr + ", address=" + address + ", gender="
+      + gender + ", age=" + age + ", introduce=" + introduce + "]";
+}
 public int getMno() {
   return mno;
 }

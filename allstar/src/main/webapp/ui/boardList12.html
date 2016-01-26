@@ -122,15 +122,18 @@ $(function() {
 </div>
 </div>
 
-            <div id="contents" style='display:none; background-color: white; min-width:1258px; margin:auto; overflow:auto;'>
-          <div class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
+            <div id="contents" style='display:none; background-color: white; width:1258px; margin:auto; overflow-y: auto; height: 770px;'>
+          <div class="viewWrap boardContents boardView" >
               <article id="subject" class="mainArea">
              
+                
               </article>
+           
               <aside id="rightSide" class="sideArea">
                 
               </aside>
-
+   <div class='bbsReply' style='float: left; '>
+                </div>
 
             </div>
           </div>
@@ -153,6 +156,7 @@ $(function() {
           <div class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
               <article id="subject" class="mainArea">
              
+              
               </article>
               <aside id="rightSide" class="sideArea">
                 
@@ -185,12 +189,12 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=' + pageSize + '&pageNo=' + page
     		  + "</td>"
     		  +"<td class='author'>"
     		  +"<p class='img'>"
-    		  +"<img src='"+ board.member.photo + "' alt='프로필사진' />" 
+    		  +"<img src='../member/img/"+ board.member.photo + "' alt='프로필사진' />" 
     		  +"</p>"
     		  +"<a href='#' onclick='window.open('/barrack/guest.aspx?n8NexonSN=973206215&n8CharacterSN=24146306139339', 'barrack', 'width=1200. height=665, scrollbars=no');'>"
     		  +"<div class='contents'>"
     		  +"<p class='name'>"
-    		  +"<span class='nameChar'>" + board.member.name +"</span>"
+    		  +"<span class='nameChar'>" + board.member.id +"</span>"
 
     		  +"</div>"
     		  +"</a>"
@@ -304,6 +308,7 @@ function clickEnd() {
 function clickDetailLnk(event) {
 $('#subject').empty();
 $('#rightSide').empty();
+$('.bbsReply').empty();
   $.getJSON('../board/ajax/detail.do?no=' + $(event.target).attr("boardBno"), function(resultObj) {
 	    var ajaxResult = resultObj.ajaxResult;
 	    var board = ajaxResult.data;
@@ -328,15 +333,68 @@ $('#rightSide').empty();
 	        .appendTo(article);
 	        if ($.session.get("mem_num") == board.member.mno) {
 	        $("<div class='viewContentsBtm clearFix'>")
-	          .html("<p class='btnEtc'><a rel='leanModal'  boardBno='"+ board.no +"' href='#updateWrite' id='updateb' class='edit'>" + '수정' + "</a>"
-	               +"<a href='javascript:;' id='deleteBtn' class='del'>" + '삭제' + "</a></p>"
+	          .html("<p class='btnEtc'>"
+	        		   +"<a rel='leanModal'  boardBno='"+ board.no +"' href='#updateWrite' id='updateb' class='edit'>수정</a>"
+	               +"<a href='javascript:' id='deleteBtn' boardBno='"+ board.no +"' type='button' class='del'>삭제</a></p>"
 	               +"</div>")
 	          .appendTo(article);
 	        }
+	        var div = $(".bbsReply");
+	        $("<section class='listComments' >")
+	        .html("<h3>총 n개의 댓글</h3>"
+	             +"<fieldset class='commentWrite'>"
+	             +"<legend>댓글 쓰기</legend>"
+	             +"<textarea cols='50' id='txtComment' "
+	             +"placeholder='답글을 작성하세요.'  rows='3'></textarea>"
+	             +"<button type='button' boardBno='"+ board.no +"' onclick='addComment();' class='btn btnType4 btnWrite'>등록</button>"
+	             +"</fieldset>"
+	             +"<ul class='list'>"
+	             +"<div class='commentWrap'>"
+	             +"<li class='comment1'>"
+	             +"<dl>"
+	             +"<dt>이름, 작성일</dt>"
+	             +"<dd class='nameWrap'>"
+	             +"<p class='img'>"
+	             +"<img src='" + + "'>"
+	             +"</p>"
+	             +"<div class='contents'>"
+	             +"<p class='name'>"
+	             +"<span class='id'>" + board.member.id + "</span>"
+	             +"</p>"
+	             +"<p class='lvs'>"
+	             +"<span class='eName'>" + board.event.name + "</span>"
+	             +"<span class='creDt'>" + board.createDate + "</span>"
+	             +"</p></div></dd>"
+	             +"<dt>댓글내용</dt>"
+	             +"<dd class='contents'>"
+	             +"<a href='#' class='comment'>답글달기</a>"
+	             +"</dd></dl>"
+	            +"</li>"
+	             +"<li class='comment2 comment2First'>"
+	             +"<dl>"
+	             +"<dt>이름, 작성일</dt>"
+	             +"<dd class='nameWrap'>"
+	             +"<p class='img'>"
+	             +"<img src='" + + "'>"
+	             +"</p>"
+	             +"<div class='contents'>"
+	             +"<p class='name'>"
+	             +"<span class='id'>" + board.member.id + "</span>"
+	             +"</p>"
+	             +"<p class='lvs'>"
+	             +"<span class='eName'>" + board.event.name + "</span>"
+	             +"<span class='creDt'>" + board.createDate + "</span>"
+	             +"</p></div></dd>"
+	             +"<dt>댓글내용</dt>"
+	             +"<dd class='contents'>" + + "</dd>"
+	             +"</dl></li>"
+	             +"<span class='bul' style='height: 66px;'></span>"
+	             +"</ul></section>")
+          .appendTo(div);
 	        var aside = $("#rightSide");
 	        $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
 	        .html("<p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png' alt='프로필 사진'>"
-	              + "</p><div class='contents'><p class='name'>" + board.member.name 
+	              + "</p><div class='contents'><p class='id'>" + board.member.id
 	              + "</p><p class='lvs'><span class='lv'> 축구 </span></p></div></div>")
 	              .appendTo(aside);
 	        $("<div class='btnArea'>")
@@ -364,9 +422,33 @@ $('#rightSide').empty();
 	              + "</div></a></li></ul></div>")
 	      .appendTo(aside);
 	        $("#updateb").click(clickUpdate);
+	        $("#deleteBtn").click(clickDel);
 	  });
 	    
   
+}
+function addComment(event){
+	console.log("boardBno: " + $(event.target).attr("boardBno"));
+	data.append('mno',$.session.get("mem_num"));
+	data.append('bno',$(event.target).attr("boardBno"));
+	data.append('comm',$('#txtComment').val());
+	
+	$.ajax({
+		url: "/allstar/boarComm/ajax/insert.do",
+		type: "POST",
+		dataType: "json",
+		success: function(result) {
+			if(result.ajaxResult.status == "success") {
+				alert("댓글을 등록하였습니다.");
+				location.href = "#";
+			} else {
+				alert("댓글 등록에 실패했습니다.");
+			}
+		},
+		error: function(result){
+			alert("error");
+		}
+	});
 }
 /* board detail 끝 */
 </script>
@@ -401,8 +483,8 @@ function clickUpdate(event) {
 	                +"<div id='loading' style='display:none'><img src='http://s.nx.com/s2/game/tos/common/img_loading.gif' alt='' /></div>" 
 	                +"<div>" 
 	                +"<div style='margin:2% 81px 4% 805px;'>" 
-	                +"<button id='updateBtn'  type='button' boardBno='"+ board.no +"' style='margin-bottom: 40px"
-	                +"font-size:30px width:170px height:44px;'>수정</button>" 
+	                +"<button id='updateBtn'  type='button' boardBno='"+ board.no +"' style='margin-bottom: 40px;"
+	                +"font-size:25px; width:170px; height:44px;'>수정</button>" 
 	                +"</div>"
 	                +"</div>")
 	          .appendTo(article);
@@ -410,7 +492,7 @@ function clickUpdate(event) {
 	          var aside = $("#rightSide");
 	          $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
 	          .html("<p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png' alt='프로필 사진'>"
-	                + "</p><div class='contents'><p class='name'>" + board.member.name 
+	                + "</p><div class='contents'><p class='name'>" + board.member.id 
 	                + "</p><p class='lvs'><span class='lv'> 축구 </span></p></div></div>")
 	                .appendTo(aside);
 	          $("<div class='btnArea'>")
@@ -538,8 +620,9 @@ function updateBod(event) {
 	}
 
 //삭제 버튼을 위한 이벤트 리스너 추가하기
-$('#deleteBtn').click(function(event) {
-  $.getJSON('../board/ajax/delete.do?no=' + no,
+function clickDel(event) {
+	console.log($(event.target).attr("boardBno"));
+  $.getJSON('../board/ajax/delete.do?no=' + $(event.target).attr("boardBno"),
     function(resultObj) {
       var ajaxResult = resultObj.ajaxResult;
       if (ajaxResult.status == "success") {
@@ -548,7 +631,7 @@ $('#deleteBtn').click(function(event) {
           alert("게시물 삭제에 실패했습니다.");
       }
   });
-});
+}
 
 $(document).ready(function() {
   if ($.session.get("mem_num") != undefined) {
