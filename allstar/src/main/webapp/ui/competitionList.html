@@ -127,24 +127,56 @@ $('#newBtn').on('click', function(event){
 	});
 </script>
 
+<script>
+getParameter = function(name) {
+    search = location.href;
+    if (!search) {
+      return false;
+    }
+    search = search.split("?");
+    data = search[1].split("=");
+    
+    /* if(search[1].indexOf(name) == -1 || data[0] != name) {
+      return "";
+    } */
+    if (search[1].indexOf("&") == (-1)) {
+      data = search[1].split("=");
+      return data[1];
+    } else {
+    	
+      data = search[1].split("&");
+      for(i = 0; i <= data.length-1; i++) {
+        l_data = data[i].split("=");
+        if (l_data[0] == name) {
+          return l_data[1];
+          break;
+        } else continue;
+        }
+      }
+    }
+</script>
+
 <!-- 대회 리스트 출력 -->
 <script>
 var pageNo = 1;
 var search = '';
 
-if (location.href.indexOf('?') != -1)
-	pageNo = location.href.split('?')[1].split('=')[1].split('&')[0];
-	
+if (location.href.indexOf('pageNo') != -1) {
+	pageNo = getParameter('pageNo');
+}
   url = '/allstar/competition/list.do?pageSize=' + pageSize + '&pageNo=' + pageNo;
 
 if (location.href.indexOf('&') != -1) {
-	search = location.href.split('&')[1].split('=')[0];
-	if (search == 'search1') {
-		url = url + "&search1=" + location.href.split('&')[1].split('=')[1];
+	if (location.href.indexOf('search1') != -1) {
+		url = url + "&search1=" + getParameter('search1');
 	}
-	else {
-		url = url + "&search2=" + location.href.split('&')[1].split('=')[1];
+	else if (location.href.indexOf('search2') != -1) {
+		url = url + "&search2=" + getParameter("search2");
 	}
+}
+
+if (location.href.indexOf('keyword') != -1) {
+  url = url + "&keyword=" + getParameter('keyword');
 }
 
 $.getJSON(url, function(resultObj) {
@@ -172,20 +204,20 @@ $(document).on('click', 'a[data-ajax-board]', function (e) {
 
 <!-- 페이징 -->
 <script>
-var totalPage = 1;
 
 var url1 = '/allstar/competition/all.do';
 
-if (location.href.indexOf('&') != -1) {
-  search = location.href.split('&')[1].split('=')[0];
-  if (search == 'search1') {
-    url1 = url1 + "?search1=" + location.href.split('&')[1].split('=')[1];
+ if (location.href.indexOf('&') != -1) {
+  if (location.href.indexOf('search1') != -1) {
+    url1 = url1 + "?search1=" + getParameter('search1');
   }
-  else {
-    url1 = url1 + "?search2=" + location.href.split('&')[1].split('=')[1];
+  else if (location.href.indexOf('search2') != -1) {
+    url1 = url1 + "?search2=" + getParameter("search2");
   }
-  
 }
+
+var totalPage = 1;
+
 $.getJSON(url1, function(resultObj) {
 	  totalPage = Math.ceil(resultObj.ajaxResult.data / pageSize);
 	  var lp10 = Math.floor((totalPage - 1) / 10) * 10;
@@ -226,7 +258,7 @@ $.getJSON(url1, function(resultObj) {
 		    .html(i).appendTo(pageDiv);
 		  }
 	  };
-	  $(".a_pageNo").click(clickPageNo)
+	  $(".a_pageNo").click(clickPageNo);
 	  
 	  /* >, >> 버튼 추가 */
 	  if (pageNo > lp10) {
@@ -244,7 +276,14 @@ $.getJSON(url1, function(resultObj) {
 //페이징 번호를 클릭했을 때 호출될 함수
 function clickPageNo(event) {
 	event.preventDefault();
-  location.href = "competitionList.html?pageNo=" + $(event.target).attr("pageno");
+	
+	 if (location.href.indexOf('&') == -1) {
+	   location.href = "competitionList.html?pageNo=" + $(event.target).attr("pageno");
+	 } else {
+		 var str = location.href;
+     var newURL = updateURLParameter(location.href, 'pageNo', $(event.target).attr("pageno"));
+     location.href = newURL;
+	 }
 }
 
 //<<버튼을 클릭했을 때 호출될 함수
@@ -279,25 +318,57 @@ function clickEnd() {
 function search() {
 	
 	var select = $('#csearch option:selected').val();
-	
-	if (location.href.indexOf('&') == '-1') {
-	  if (select == '1') {
-		  location.href = "competitionList.html?pageNo=" + pageNo + "&search1=" + $("#ccontent").val();
+	if (location.href.indexOf('&') == -1) {
+	  if (select == '1' && location.href.indexOf('search1') == -1) {
+		  location.href = "competitionList.html?pageNo=1&search1=" + $("#ccontent").val();
 	  }
-	  else {
-	    location.href = "competitionList.html?pageNo=" + pageNo + "&search2=" + $("#ccontent").val();
+	  else if (location.href.indexOf('search2') == -1){
+	    location.href = "competitionList.html?pageNo=1&search2=" + $("#ccontent").val();
 	  }
 	} else {
-	  if (select == '1') {
-	    location.href = location.href + "&search1=" + $("#ccontent").val();
+		  // 대회명
+	    if (select == '1') {
+			  var url = updateURLParameter(location.href, 'pageNo', 1);
+			  if (location.href.indexOf('keyword') != -1) {
+				  url = removeParam("keyword", url);
+			  }
+		  
+	    	if (location.href.indexOf('search1') == -1) {
+	    		if (location.href.indexOf('search2') == -1) {
+	          location.href = url + "&search1=" + $("#ccontent").val();
+	    		} else {
+	          var str = updateURLParameter(url, 'search2', $("#ccontent").val());
+	          location.href = str.replace(str.substr(str.search('search2') + 6, 1), '1');
+	    		}
+	      } else {
+	    	  location.href = updateURLParameter(url, 'search1', $("#ccontent").val());
+	      }
+	    }
+		  
+	    // 내용
+      if (select == '2') {
+		    var url = updateURLParameter(location.href, 'pageNo', 1);
+		    if (location.href.indexOf('keyword') != -1) {
+	        url = removeParam("keyword", url);
+	      }
+	    
+	    	if (location.href.indexOf('search2') == -1) {
+	        if (location.href.indexOf('search1') == -1) {
+	            location.href = url + "&search2=" + $("#ccontent").val();
+          } else {
+            var str = updateURLParameter(location.href, 'search1', $("#ccontent").val());
+            str = updateURLParameter(str, 'pageNo', 1);
+            if (str.indexOf('keyword') != -1) {
+                str = removeParam("keyword", str);
+            }
+            location.href = str.replace(str.substr(str.search('search1') + 6, 1), '2');
+          }
+	      } else {
+	    	  location.href = updateURLParameter(url, 'search2', $("#ccontent").val());
+        }
+	    }
 	  }
-	  else {
-		  location.href = location.href + "&search2=" + $("#ccontent").val();
-	  }
-	}
- 	
-	
-} 
+}
 </script>
 
 <!-- 정렬 -->
@@ -305,10 +376,84 @@ function search() {
 $("#lnewer").click(sorting);
 
 function sorting() {
+	
 	$("#lnewer").addClass('on');
-	location.href = location.href + "&keyword=newer";
+	if (location.href.indexOf('keyword') == -1) {
+	  if (location.href.indexOf('&') == -1) {
+		      location.href = "competitionList.html?pageNo=" + pageNo + "&keyword=newer";
+		} else {
+			if (location.href.indexOf('keyword') == -1) {
+				location.href = location.href + "&keyword=newer";
+			}
+		}	
+	}
 }
+</script>
 
+<script>
+function updateURLParameter(url, param, paramVal)
+{
+    var TheAnchor = null;
+    var newAdditionalURL = "";
+    var tempArray = url.split("?");
+    var baseURL = tempArray[0];
+    var additionalURL = tempArray[1];
+    var temp = "";
+
+    if (additionalURL) 
+    {
+        var tmpAnchor = additionalURL.split("#");
+        var TheParams = tmpAnchor[0];
+            TheAnchor = tmpAnchor[1];
+        if(TheAnchor)
+            additionalURL = TheParams;
+
+        tempArray = additionalURL.split("&");
+
+        for (i=0; i<tempArray.length; i++)
+        {
+            if(tempArray[i].split('=')[0] != param)
+            {
+                newAdditionalURL += temp + tempArray[i];
+                temp = "&";
+            }
+        }        
+    }
+    else
+    {
+        var tmpAnchor = baseURL.split("#");
+        var TheParams = tmpAnchor[0];
+            TheAnchor  = tmpAnchor[1];
+
+        if(TheParams)
+            baseURL = TheParams;
+    }
+    if(TheAnchor)
+        paramVal += "#" + TheAnchor;
+
+    var rows_txt = temp + "" + param + "=" + paramVal;
+    return baseURL + "?" + newAdditionalURL + rows_txt;
+}
+</script>
+
+<script>
+function removeParam(key, sourceURL) {
+    var rtn = sourceURL.split("?")[0],
+        param,
+        params_arr = [],
+        queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+    if (queryString !== "") {
+        params_arr = queryString.split("&");
+        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+            param = params_arr[i].split("=")[0];
+            if (param === key) {
+                params_arr.splice(i, 1);
+            }
+        }
+        rtn = rtn + "?" + params_arr.join("&");
+    }
+    return rtn;
+}
 </script>
 
 </body>
