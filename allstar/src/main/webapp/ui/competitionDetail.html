@@ -62,6 +62,70 @@ $(function(){
 
 <div id="footer"></div>
 
+<!-- 기본 정보 출력 -->
+<script type='text/javascript' src='../lib/jquery-bracket/jquery.bracket.min.js'></script>
+<script>
+var no = -1;
+if (location.href.indexOf('?') != -1)
+  no = location.href.split('?')[1].split('=')[1];
+var status = '모집예정'
+$.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
+  var ajaxResult = resultObj.ajaxResult;
+    if (ajaxResult.status == "success") {
+      var c = ajaxResult.data;
+      var rsd = new Date(c.recruitStartDate).getTime();
+      var red = new Date(c.recruitEndDate).getTime();
+      var sd = new Date(c.startDate).getTime();
+      var ed = new Date(c.endDate).getTime();
+      var nowd = new Date().getTime();
+
+      if (rsd < nowd && nowd < red) {
+        status = '모집중';
+      } else if (red < nowd && nowd < sd){
+        status = '대회준비중';
+      } else if (sd < nowd && nowd < ed) {
+        status = '대회중';
+      } else if (ed < nowd) {
+        status = '대회종료';
+      }
+      
+      var sub_article = $("#subject")
+      var detail =
+          "<header id='test1'class='header'  style='height:90px'>"
+          + "<div class='inner clearFix'>"
+          + "  <div class='subject'>"
+          + "    <h2 class='tit'>" + c.name  + "</h2>"
+          + "    <p class='etc'><span class='date'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate 
+          +        "<br>대회시작 : " + c.startDate 
+          + "       <br>참가비 : " + c.cost + "원</span></p>"
+          + "  </div>"
+          + "  <p class='cnt'>"
+          + "  <span class='view'><strong>" + status + "</strong></span></p>"
+          + "</div>"
+          + "</header>"
+          + "<div id='test2' class='viewContents'>"
+          + "  <img src='../competition/img/" + c.poster + "'>"
+          + "  <pre>" + c.content + "</pre>"
+          + "  <h2> 대진표</h2>"
+          + "  <div id='minimal'>"
+          + "    <div class='demo'></div>"
+          + "  </div>"      
+          + "  <h2> 장소</h2>"
+/*          + "  <div class='div_left_map'>"
+          + "  <iframe src='https://www.google.com/maps/d/embed?mid=zouJJd1kxH7U.kb2sjmzfDunA' width='750px' height='600px' ></iframe>"
+          + "  </div>" */
+          + "</div>";
+      sub_article.append(detail);
+      
+
+          console.log($('#minimal .demo'));
+          $('#minimal .demo').bracket({init: JSON.parse(c.operation) });
+      
+    }
+  });
+</script>
+
+
 <!-- 참가하기 버튼 리스너 -->
 <script>
 $('#btnArticleJoin').on('click', function(event){
@@ -127,68 +191,6 @@ $('#btnArticleWrite').on('click', function(event){
 </script>
 
 
-<!-- 기본 정보 출력 -->
-<script type='text/javascript' src='../lib/jquery-bracket/jquery.bracket.min.js'></script>
-<script>
-var no = -1;
-if (location.href.indexOf('?') != -1)
-  no = location.href.split('?')[1].split('=')[1];
-var status = '모집예정'
-$.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
-	var ajaxResult = resultObj.ajaxResult;
-    if (ajaxResult.status == "success") {
-    	var c = ajaxResult.data;
-    	var rsd = new Date(c.recruitStartDate).getTime();
-    	var red = new Date(c.recruitEndDate).getTime();
-    	var sd = new Date(c.startDate).getTime();
-    	var ed = new Date(c.endDate).getTime();
-    	var nowd = new Date().getTime();
-
-    	if (rsd < nowd && nowd < red) {
-    		status = '모집중';
-    	} else if (red < nowd && nowd < sd){
-    		status = '대회준비중';
-    	} else if (sd < nowd && nowd < ed) {
-    		status = '대회중';
-    	} else if (ed < nowd) {
-    		status = '대회종료';
-    	}
-    	
-			var sub_article = $("#subject")
-			var detail =
-				  "<header id='test1'class='header'  style='height:90px'>"
-					+ "<div class='inner clearFix'>"
-					+ "  <div class='subject'>"
-					+ "    <h2 class='tit'>" + c.name  + "</h2>"
-					+ "    <p class='etc'><span class='date'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate 
-					+        "<br>대회시작 : " + c.startDate 
-					+ "       <br>참가비 : " + c.cost + "원</span></p>"
-					+ "  </div>"
-					+ "  <p class='cnt'>"
-					+ "  <span class='view'><strong>" + status + "</strong></span></p>"
-					+ "</div>"
-					+ "</header>"
-					+ "<div id='test2' class='viewContents'>"
-					+ "  <img src='../competition/img/" + c.poster + "'>"
-					+ "  <pre>" + c.content + "</pre>"
-					+ "  <h2> 대진표</h2>"
-					+ "  <div id='minimal'>"
-			    + "    <div class='demo'></div>"
-			    + "  </div>"      
-					+ "  <h2> 장소</h2>"
-					+ "  <div class='div_left_map'>"
-					+ "  <iframe src='https://www.google.com/maps/d/embed?mid=zouJJd1kxH7U.kb2sjmzfDunA' width='750px' height='600px' ></iframe>"
-					+ "  </div>"
-					+ "</div>";
-			sub_article.append(detail);
-			
-
-				  console.log($('#minimal .demo'));
-			    $('#minimal .demo').bracket({init: JSON.parse(c.operation) });
-			
-    }
-	});
-</script>
 
 </body>
 </html>
