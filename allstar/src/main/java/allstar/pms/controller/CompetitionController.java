@@ -17,7 +17,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Competition;
+import allstar.pms.domain.JoinComp;
 import allstar.pms.service.CompetitionService;
+import allstar.pms.service.JoinCompService;
 import allstar.pms.util.MultipartHelper;
 import allstar.pms.util.TournamentHelper;
 
@@ -27,6 +29,7 @@ public class CompetitionController {
   
   public static Logger log = Logger.getLogger(CompetitionController.class);
   @Autowired CompetitionService competitionService;
+  @Autowired JoinCompService joinCompService;
   @Autowired ServletContext servletContext;
   
   @RequestMapping("all")
@@ -77,7 +80,7 @@ public class CompetitionController {
     log.info("file = " + uploadedFile);
     /* 필수 데이터 (임시저장) */
     competition.setPoster("1");
-    competition.setTno(1);
+    competition.setTno(100);
     /* 나중에 입력 받아오면 지울 것 */
     
     /* 대진표 테스트 */
@@ -157,5 +160,23 @@ public class CompetitionController {
       return  new AjaxResult("failure", null);
     return new AjaxResult("success", null);
   }
+  
+  @RequestMapping(value = "joinc", method = RequestMethod.GET)
+  public AjaxResult joinCompetition(JoinComp joinComp){
+    log.debug(joinComp);
+    if (joinCompService.retrive(joinComp) != 0)
+      return new AjaxResult("already", null);
+    
+    try {
+      joinCompService.register(joinComp);
+    } catch (Exception e) {
+        return new AjaxResult("failure", null);
+    }
+    return new AjaxResult("success", null);
+  }
+  
+  
+  
+  
 }
  
