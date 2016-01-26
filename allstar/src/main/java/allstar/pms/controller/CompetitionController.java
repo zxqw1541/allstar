@@ -19,6 +19,7 @@ import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Competition;
 import allstar.pms.service.CompetitionService;
 import allstar.pms.util.MultipartHelper;
+import allstar.pms.util.TournamentHelper;
 
 @Controller
 @RequestMapping("/competition/*")
@@ -78,6 +79,14 @@ public class CompetitionController {
     competition.setPoster("1");
     competition.setTno(1);
     /* 나중에 입력 받아오면 지울 것 */
+    
+    /* 대진표 테스트 */
+    String oper = TournamentHelper.makeTournament(competition.getTeamNum());
+    competition.setOperation(oper);
+    log.debug("-------------------------------------------------------");
+    log.debug("oper = " + oper);
+    log.debug("-------------------------------------------------------");
+    /*--------- */
     
     Iterator<String> itr =  uploadedFile.getFileNames();
     if(itr.hasNext()) {
