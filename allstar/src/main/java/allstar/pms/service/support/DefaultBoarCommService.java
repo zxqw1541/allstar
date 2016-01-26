@@ -19,7 +19,6 @@ public class DefaultBoarCommService implements BoarCommService {
     return boarCommDao.selectListByBoard(bno);
   }
   
-
   
   @Override
   public void register(BoarComm boarComm) {

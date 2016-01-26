@@ -11,7 +11,24 @@ public class BoarComm  implements Serializable {
   protected int bno;
   protected String comm;
   protected Date createdDate;
+  protected Board board;
+  protected Member member;
  
+  
+  
+  
+  public Board getBoard() {
+    return board;
+  }
+  public void setBoard(Board board) {
+    this.board = board;
+  }
+  public Member getMember() {
+    return member;
+  }
+  public void setMember(Member member) {
+    this.member = member;
+  }
   public int getBcno() {
     return bcno;
   }

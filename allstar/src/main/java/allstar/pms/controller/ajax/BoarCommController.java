@@ -19,22 +19,21 @@ import allstar.pms.service.BoarCommService;
 @RequestMapping("/boarComm/ajax/*")
 public class BoarCommController { 
   
-  //public static final String SAVED_DIR = "/attachfile";
   public static Logger log = Logger.getLogger(BoarCommController.class);
   @Autowired BoarCommService boarCommService;
   @Autowired ServletContext servletContext;
   
   @RequestMapping("list")
   public Object list(int bno) throws Exception {
-    
-    List<BoarComm> boarComms = null;
-    
-    boarComms = boarCommService.getBoarCommListByBoard(bno);
+    System.out.println("bno: " + bno);
+
+    List<BoarComm> boarComms = boarCommService.getBoarCommListByBoard(bno);
     
     System.out.println("--------------------------------------------------");
     for(BoarComm b: boarComms)
       System.out.println(b);
     System.out.println("--------------------------------------------------");
+    
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("boarComms", boarComms);

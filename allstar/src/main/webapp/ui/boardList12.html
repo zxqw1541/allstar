@@ -121,7 +121,7 @@ $(function() {
   </div>
 </div>
 </div>
-
+<!-- detail -->
             <div id="contents" style='display:none; background-color: white; width:1258px; margin:auto; overflow-y: auto; height: 770px;'>
           <div class="viewWrap boardContents boardView" >
               <article id="subject" class="mainArea">
@@ -132,8 +132,10 @@ $(function() {
               <aside id="rightSide" class="sideArea">
                 
               </aside>
-   <div class='bbsReply' style='float: left; '>
+              <div class='bbsReply' style='float: left; '>
+ 
                 </div>
+   
 
             </div>
           </div>
@@ -175,9 +177,14 @@ if (location.href.indexOf('?') != -1)
   pageNo = location.href.split('?')[1].split('=')[1];
 $.getJSON('/allstar/board/ajax/list.do?pageSize=' + pageSize + '&pageNo=' + pageNo, function(resultObj) {
   var table = $("#boardtable");
-  console.log("list.do")
+  console.log("list.do");
+
   for (var board of resultObj.boards) {
-    $("<tr>")
+	  var photo = board.member.photo;
+	  if(photo == null){
+	    photo = 'allstardefault.png';
+	  }
+	  $("<tr>")
     .html("<td class='num'>"+ board.event.name +"</td>"
     		  + "<td class='subject'>"
     		  + "<a href='#contents' class='trigger'  rel='leanModal'  boardBno='"+ board.no +"'>"
@@ -189,13 +196,12 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=' + pageSize + '&pageNo=' + page
     		  + "</td>"
     		  +"<td class='author'>"
     		  +"<p class='img'>"
-    		  +"<img src='../member/img/"+ board.member.photo + "' alt='프로필사진' />" 
+    		  +"<img src='../member/img/"+ photo + "' alt='프로필사진' />" 
     		  +"</p>"
     		  +"<a href='#' onclick='window.open('/barrack/guest.aspx?n8NexonSN=973206215&n8CharacterSN=24146306139339', 'barrack', 'width=1200. height=665, scrollbars=no');'>"
     		  +"<div class='contents'>"
     		  +"<p class='name'>"
     		  +"<span class='nameChar'>" + board.member.id +"</span>"
-
     		  +"</div>"
     		  +"</a>"
     		  +"</td>"
@@ -313,7 +319,10 @@ $('.bbsReply').empty();
 	    var ajaxResult = resultObj.ajaxResult;
 	    var board = ajaxResult.data;
 	    console.log($.session.get("mem_num"));
-	   
+	    var photo = board.member.photo;
+	    if(photo == null){
+	      photo = 'allstardefault.png';
+	    }
 	      var article = $("#subject");
 	        $("<header id='test1'class='header'>")
 	        .html("<p class='cat1 clearFix'><span class='dep1'>종목별 게시판</span></p>"
@@ -339,58 +348,6 @@ $('.bbsReply').empty();
 	               +"</div>")
 	          .appendTo(article);
 	        }
-	        var div = $(".bbsReply");
-	        $("<section class='listComments' >")
-	        .html("<h3>총 n개의 댓글</h3>"
-	             +"<fieldset class='commentWrite'>"
-	             +"<legend>댓글 쓰기</legend>"
-	             +"<textarea cols='50' id='txtComment' "
-	             +"placeholder='답글을 작성하세요.'  rows='3'></textarea>"
-	             +"<button type='button' boardBno='"+ board.no +"' onclick='addComment();' class='btn btnType4 btnWrite'>등록</button>"
-	             +"</fieldset>"
-	             +"<ul class='list'>"
-	             +"<div class='commentWrap'>"
-	             +"<li class='comment1'>"
-	             +"<dl>"
-	             +"<dt>이름, 작성일</dt>"
-	             +"<dd class='nameWrap'>"
-	             +"<p class='img'>"
-	             +"<img src='" + + "'>"
-	             +"</p>"
-	             +"<div class='contents'>"
-	             +"<p class='name'>"
-	             +"<span class='id'>" + board.member.id + "</span>"
-	             +"</p>"
-	             +"<p class='lvs'>"
-	             +"<span class='eName'>" + board.event.name + "</span>"
-	             +"<span class='creDt'>" + board.createDate + "</span>"
-	             +"</p></div></dd>"
-	             +"<dt>댓글내용</dt>"
-	             +"<dd class='contents'>"
-	             +"<a href='#' class='comment'>답글달기</a>"
-	             +"</dd></dl>"
-	            +"</li>"
-	             +"<li class='comment2 comment2First'>"
-	             +"<dl>"
-	             +"<dt>이름, 작성일</dt>"
-	             +"<dd class='nameWrap'>"
-	             +"<p class='img'>"
-	             +"<img src='" + + "'>"
-	             +"</p>"
-	             +"<div class='contents'>"
-	             +"<p class='name'>"
-	             +"<span class='id'>" + board.member.id + "</span>"
-	             +"</p>"
-	             +"<p class='lvs'>"
-	             +"<span class='eName'>" + board.event.name + "</span>"
-	             +"<span class='creDt'>" + board.createDate + "</span>"
-	             +"</p></div></dd>"
-	             +"<dt>댓글내용</dt>"
-	             +"<dd class='contents'>" + + "</dd>"
-	             +"</dl></li>"
-	             +"<span class='bul' style='height: 66px;'></span>"
-	             +"</ul></section>")
-          .appendTo(div);
 	        var aside = $("#rightSide");
 	        $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
 	        .html("<p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png' alt='프로필 사진'>"
@@ -420,40 +377,87 @@ $('.bbsReply').empty();
 	              + "<strong class='tit'>test07</strong>" 
 	              + "<span class='etc'><span class='date'>2016.01.14</span></span>" 
 	              + "</div></a></li></ul></div>")
-	      .appendTo(aside);
-	        $("#updateb").click(clickUpdate);
+	        .appendTo(aside);
+	        
 	        $("#deleteBtn").click(clickDel);
-	  });
-	    
+	        $("#updateb").click(clickUpdate);
+	        
+	   var div = $(".bbsReply");
+	  $("<fieldset class='commentWrite' style='width:800px; margin-left: 50px;'>")
+      .html("<legend>댓글 쓰기</legend>"
+      +"<textarea cols='50' id='txtComment' placeholder='답글을 작성하세요.'  rows='4' style='float:left; width:660px;'></textarea>"
+      +"<button type='button' boardBno='"+board.no+"' id='replyadd' class='btn btnType4 btnWrite'>등록</button>"
+      +"</fieldset>").appendTo(div);
+	  
+	  $("#replyadd").click(addComment);
+      
+  });
   
-}
-function addComment(event){
-	console.log("boardBno: " + $(event.target).attr("boardBno"));
-	data.append('mno',$.session.get("mem_num"));
-	data.append('bno',$(event.target).attr("boardBno"));
-	data.append('comm',$('#txtComment').val());
-	
-	$.ajax({
-		url: "/allstar/boarComm/ajax/insert.do",
-		type: "POST",
-		dataType: "json",
-		success: function(result) {
-			if(result.ajaxResult.status == "success") {
-				alert("댓글을 등록하였습니다.");
-				location.href = "#";
-			} else {
-				alert("댓글 등록에 실패했습니다.");
-			}
-		},
-		error: function(result){
-			alert("error");
-		}
-	});
+      console.log('boardBno = '+ $(event.target).attr("boardBno"));
+        $.getJSON('../boarComm/ajax/list.do?bno=' + $(event.target).attr("boardBno"), function(resultObj) {
+        	 for (var boarComm of resultObj.boarComms) {
+            var photo = boarComm.member.photo;
+            if(photo == null){
+              photo = 'allstardefault.png';
+            }
+          var div = $(".bbsReply");
+          $("<section class='listComments' style='margin-left: 50px;'>")
+          .html("<ul class='list'>"
+               +"<div class='commentWrap'>"
+               +"<li class='comment1'>"
+               +"<dl>"
+               +"<dt>이름, 작성일</dt>"
+               +"<dd class='nameWrap'>"
+               +"<p class='img'>"
+               +"<img src='../member/img/"+ photo + "'>"
+               +"</p>"
+               +"<div class='contents'>"
+               +"<p class='name'>"
+               +"<span class='id'>" + boarComm.member.id + "</span>"
+               +"</p>"
+               +"<p class='lvs'>"
+               +"<span class='creDt'>" + boarComm.createdDate + "</span>"
+               +"</p></div></dd>"
+               +"<dt>답글</dt>"
+               +"<span>"+boarComm.comm+"</span>"
+               +"</dl>"
+              +"</li>"
+               +"</ul></section>")
+          .appendTo(div);
+          
+        	 }
+     
+});
+  
 }
 /* board detail 끝 */
 </script>
 
 <script>
+
+	function addComment(event){
+	console.log("boardBno: " + $(event.target).attr("boardBno"));
+	
+	console.log('mno'+ $.session.get("mem_num"));
+	console.log('bno'+ $(event.target).attr("boardBno"));
+	console.log('comm'+ $('#txtComment').val());
+
+	$.post('/allstar/boarComm/ajax/add.do', {
+	mno : $.session.get("mem_num"),
+	bno : $(event.target).attr("boardBno"),
+	comm : $('#txtComment').val()
+	},
+	function(result) {
+	if(result.ajaxResult.status == "success") {
+	alert("댓글을 등록하였습니다.");
+	 location.reload();
+	} else {
+	alert("댓글 등록에 실패했습니다.");
+	}
+	}, 'json');
+	}
+
+
 /* board update & delete 시작 */
 
 function clickUpdate(event) {
@@ -522,9 +526,7 @@ function clickUpdate(event) {
 	          $("#updateBtn").click(updateBod);
 	    });
 	      
-	
-	
-	
+
 }
 
 
@@ -594,6 +596,7 @@ $('#addBtn').click(function(event) {
         alert("게시물 등록에 실패했습니다.");
     }
   }, 'json');
+ 
 });
 
 //변경 버튼을 위한 이벤트 리스너 추가하기
