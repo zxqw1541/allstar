@@ -44,13 +44,23 @@ public class CompetitionController {
       @RequestParam(defaultValue = "10") int pageSize,
       @RequestParam(defaultValue = "id") String keyword, 
       @RequestParam(defaultValue = "desc") String align,
+      @RequestParam(defaultValue = "null") String event,
+      @RequestParam(defaultValue = "null") String addr,
+      @RequestParam(defaultValue = "null") String recruit,
+      @RequestParam(defaultValue = "null") String start,
+      @RequestParam(defaultValue = "null") String reply,
       @RequestParam(defaultValue = "null") String search1,
       @RequestParam(defaultValue = "null") String search2) {
+    
+    System.out.println(event);
+    System.out.println(addr);
+    System.out.println(recruit);
+    System.out.println(start);
+    System.out.println(reply);
     
     List<Competition> competitions = competitionService.getCompetitionList(
         pageNo, pageSize, keyword, align, search1, search2);
     log.info(competitions);
-    System.out.println(keyword);
     
     return new AjaxResult("success", competitions);
   }
