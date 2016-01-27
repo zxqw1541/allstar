@@ -178,8 +178,8 @@ $(document).ready( function() {
           if (ajaxResult.status == "success") {
             emailSession = ajaxResult.data.id;
             number = ajaxResult.data.mno;
-            $.session.set('loginSession',emailSession);
-            $.session.set('mem_num',number);
+            sessionStorage.setItem('loginSession',emailSession);
+            sessionStorage.setItem('mem_num',number);
             console.log("success");
           } else {
             alert("이메일과 패스워드가 일치하지 않습니다.");
@@ -189,11 +189,11 @@ $(document).ready( function() {
   
   
   $(document).ready( function() {
-  if ($.session.get("loginSession") != undefined) {
+  if (sessionStorage.getItem("loginSession") != undefined) {
     $("#logout").show();
     $("#login").hide();
-    console.log($.session._cookieCache["loginSession"]);
-      var session_id=$.session._cookieCache["loginSession"];
+    console.log(sessionStorage.getItem("loginSession"));
+      var session_id=sessionStorage.getItem("loginSession");
       var span = $("#logout");
       $("<a style='margin-right:10px;color:white;'  href='#'>"+session_id+"</a>")
         .appendTo(span);
@@ -206,8 +206,7 @@ $(document).ready( function() {
 }); 
   
   $('#out').click( function(event) {
-    $.session.remove("loginSession");  
-    $.session.remove("mem_num");  
+    $.session.clear();
     console.log("logout");
     var span = $("#login");
     $("<a style='margin-right:10px;color:white;'  href='#'>가입하세요.</a>")

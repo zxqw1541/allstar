@@ -358,7 +358,7 @@ $(document).ready( function() {
         } else {
           $.cookie("id", "");
         }  
-         console.log("login?");
+        
         $.post('../auth/ajax/login.do', {
           id : $('#id_input').val(),
           password : $('#pass_input').val()
@@ -367,8 +367,8 @@ $(document).ready( function() {
           if (ajaxResult.status == "success") {
             emailSession = ajaxResult.data.id;
             numSession = ajaxResult.data.mno;
-            $.session.set('loginSession',emailSession);
-            $.session.set('mem_num',numSession);
+            sessionStorage.setItem('loginSession',emailSession);
+            sessionStorage.setItem('mem_num',numSession);
             $("#logout").show();
             $("#login").hide();
             console.log($.session._cookieCache["loginSession"]);
@@ -386,11 +386,11 @@ $(document).ready( function() {
       });
   
   $(document).ready( function() {
-  if ($.session.get("loginSession") != undefined) {
+  if (sessionStorage.getItem("loginSession") != undefined) {
 	  $("#logout").show();
 	  $("#login").hide();
-	  console.log($.session._cookieCache["loginSession"]);
-	    var session_id=$.session._cookieCache["loginSession"];
+	  console.log(sessionStorage.getItem("loginSession"));
+	    var session_id=sessionStorage.getItem("loginSession");
 	    var span = $("#logout");
 	    $("<a style='margin-right:10px;color:white;'  href='#'>"+session_id+"</a>")
         .appendTo(span);
@@ -403,13 +403,10 @@ $(document).ready( function() {
 }); 
   
   $('#out').click( function(event) {
-	  $.session.remove("loginSession");  
+	    $.session.clear();
 	  $("#login").show();
 	  $("#logout").hide();
-	   /*  var span = $("#login");
-	    $("<a style='margin-right:10px;color:white;' id='go' rel='leanModal' href='#signup'>Login</a>"     
-	      +"<a style='margin-right:10px;color:white;' href='#'>Sign In</a>")
-	      .appendTo(span); */
+
 	  
   });
   
@@ -545,29 +542,6 @@ $(document).ready( function() {
     
            </script>
 
-<!--            <script>
-           $('#check').click(function(event) {
-        	 /*   $('#check_id').attr("src","http://localhost:8989/idTest?id=" + $('#id_signin').val());
-        	   location.href="#"; */
-
-        	        var uID = $('#id_signin').val();
-        	        var duplBool = false;
-        	        var ID_dupl_resTxt = $("#check_id");
-        	        
-        	            if( uID == "" ){
-        	                alert('ID를 입력해주세요.');
-        	                return false;
-        	            }
-        	            var param = encodeURI('id='+uID);
-        	            ID_dupl_resTxt.load('http://localhost:8989/idTest?id=' + param, complete);
-        	            function complete(){
-        	                var res = $("#id_res_Bool").text();
-        	                duplBool = res;
-        	            }
-  
-           });
-           </script> 
-            -->
     <script src="js/classie.js"></script>
     <script src="js/photostack.js"></script> 
     <script>

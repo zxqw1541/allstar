@@ -316,7 +316,7 @@ $('.bbsReply').empty();
   $.getJSON('../board/ajax/detail.do?no=' + $(event.target).attr("boardBno"), function(resultObj) {
 	    var ajaxResult = resultObj.ajaxResult;
 	    var board = ajaxResult.data;
-	    console.log($.session.get("mem_num"));
+	    console.log(sessionStorage.getItem("mem_num"));
 	    var photo = board.member.photo;
 	    if(photo == null){
 	      photo = 'allstardefault.png';
@@ -338,7 +338,7 @@ $('.bbsReply').empty();
 	              + "<div id='loading' style='display:none'><img src='http://s.nx.com/s2/game/tos/common/img_loading.gif' alt='' /></div>" 
 	              + "</div>")
 	        .appendTo(article);
-	        if ($.session.get("mem_num") == board.member.mno) {
+	        if (sessionStorage.getItem("mem_num") == board.member.mno) {
 	        $("<div class='viewContentsBtm clearFix'>")
 	          .html("<p class='btnEtc'>"
 	        		   +"<a rel='leanModal'  boardBno='"+ board.no +"' href='#updateWrite' id='updateb' class='edit'>수정</a>"
@@ -439,12 +439,12 @@ $('.bbsReply').empty();
 	function addComment(event){
 	console.log("boardBno: " + $(event.target).attr("boardBno"));
 	
-	console.log('mno'+ $.session.get("mem_num"));
+	console.log('mno'+ sessionStorage.getItem("mem_num"));
 	console.log('bno'+ $(event.target).attr("boardBno"));
 	console.log('comm'+ $('#txtComment').val());
 
 	$.post('/allstar/boarComm/ajax/add.do', {
-	mno : $.session.get("mem_num"),
+	mno : sessionStorage.getItem("mem_num"),
 	bno : $(event.target).attr("boardBno"),
 	comm : $('#txtComment').val()
 	},
@@ -468,7 +468,7 @@ function clickUpdate(event) {
 	  $.getJSON('../board/ajax/detail.do?no=' + $(event.target).attr("boardBno"), function(resultObj) {
 	      var ajaxResult = resultObj.ajaxResult;
 	      var board = ajaxResult.data;
-	      console.log($.session.get("mem_num"));
+	      console.log(sessionStorage.getItem("mem_num"));
 	      var photo = board.member.photo;
 	      if(photo == null){
 	        photo = 'allstardefault.png';
@@ -540,8 +540,8 @@ function clickUpdate(event) {
 <script>
 /* 새 글 작성 시작 */
 function clickNewWrite(event) {
-	console.log($.session.get("mem_num"));
-	if ($.session.get("mem_num") != undefined) {
+	console.log(sessionStorage.getItem("mem_num"));
+	if (sessionStorage.getItem("mem_num") != undefined) {
 		$('.bbsReply').hide();
 		$('#subject').empty();
 		$('#rightSide').empty();
@@ -565,7 +565,7 @@ function clickNewWrite(event) {
 		$("<div style='display:none;'>")
     .html("<label for='fmno' class='col-sm-2 control-label'>멤버번호</label>"
     		  +"<div class='col-sm-10'>"
-		      +"<input type='text' class='form-control' id='fmno' value='"+$.session.get("mem_num")+"' readonly>"
+		      +"<input type='text' class='form-control' id='fmno' value='"+sessionStorage.getItem("mem_num")+"' readonly>"
 		      +"</div></div>")
     .appendTo(div);
 		
@@ -645,7 +645,7 @@ function clickDel(event) {
 }
 
 $(document).ready(function() {
-  if ($.session.get("mem_num") != undefined) {
+  if (sessionStorage.getItem("mem_num") != undefined) {
       console.log("글쓰기 버튼 활성화.");
     $('#newBtn').attr({
     rel : 'leanModal',
@@ -654,7 +654,7 @@ $(document).ready(function() {
 
   }
   
- if ($.session.get("mem_num") == undefined) {
+ if (sessionStorage.getItem("mem_num") == undefined) {
         console.log("글쓰기 버튼 비활성화.");
       $('#newBtn').attr({
       rel : '',
