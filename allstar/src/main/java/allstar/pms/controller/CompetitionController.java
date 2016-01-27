@@ -34,10 +34,17 @@ public class CompetitionController {
   
   @RequestMapping("all")
   public AjaxResult countAll(
+      @RequestParam(defaultValue = "null") String event,
+      @RequestParam(defaultValue = "null") String addr,
       @RequestParam(defaultValue = "null") String search1,
       @RequestParam(defaultValue = "null") String search2) {
     
-    int count = competitionService.countAllCompetition(search1, search2);
+    System.out.println(event);
+    System.out.println(addr);
+    System.out.println(search1);
+    System.out.println(search2);
+    
+    int count = competitionService.countAllCompetition(event, addr, search1, search2);
     
     return new AjaxResult("success",count);
   }
@@ -46,8 +53,6 @@ public class CompetitionController {
   public AjaxResult list(
       @RequestParam(defaultValue = "1") int pageNo,
       @RequestParam(defaultValue = "10") int pageSize,
-      @RequestParam(defaultValue = "id") String keyword, 
-      @RequestParam(defaultValue = "desc") String align,
       @RequestParam(defaultValue = "null") String event,
       @RequestParam(defaultValue = "null") String addr,
       @RequestParam(defaultValue = "null") String recruit,
@@ -56,14 +61,8 @@ public class CompetitionController {
       @RequestParam(defaultValue = "null") String search1,
       @RequestParam(defaultValue = "null") String search2) {
     
-    System.out.println(event);
-    System.out.println(addr);
-    System.out.println(recruit);
-    System.out.println(start);
-    System.out.println(reply);
-    
     List<Competition> competitions = competitionService.getCompetitionList(
-        pageNo, pageSize, keyword, align, search1, search2);
+        pageNo, pageSize, event, addr, recruit, start, reply, search1, search2);
     log.info(competitions);
     
     return new AjaxResult("success", competitions);

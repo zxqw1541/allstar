@@ -15,12 +15,17 @@ public class DefaultCompetitionService implements CompetitionService {
   @Autowired CompetitionDao competitionDao;
 
   @Override
-  public List<Competition> getCompetitionList(int pageNo, int pageSize, String keyword, String align, String search1, String search2) {
+  public List<Competition> getCompetitionList(int pageNo, int pageSize, 
+      String event, String addr, String recruit, String start, String reply,
+      String search1, String search2) {
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", (pageNo - 1) * pageSize);
     paramMap.put("length", pageSize);
-    paramMap.put("keyword", keyword);
-    paramMap.put("align", align);
+    paramMap.put("event", event);
+    paramMap.put("addr", addr);
+    paramMap.put("recruit", recruit);
+    paramMap.put("start", start);
+    paramMap.put("reply", reply);
     paramMap.put("search1", search1);
     paramMap.put("search2", search2);
     
@@ -48,8 +53,10 @@ public class DefaultCompetitionService implements CompetitionService {
   }
 
   @Override
-  public int countAllCompetition(String search1, String search2) {
+  public int countAllCompetition(String event, String addr, String search1, String search2) {
     HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("event", event);
+    paramMap.put("addr", addr);
     paramMap.put("search1", search1);
     paramMap.put("search2", search2);
     

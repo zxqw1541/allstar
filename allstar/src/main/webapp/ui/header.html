@@ -6,6 +6,9 @@
 
 <link type="text/css" rel="stylesheet" href="css/header_footer.css" />
 
+ <script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquery.session.js"></script>
+
  <script src="js/jquery.leanModal.min.js"></script> 
 <script>
 
@@ -148,15 +151,14 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=5', function(resultObj){
 });
 </script>
  -->
- <script type="text/javascript" src="js/jquery.cookie.js"></script>
-<script type="text/javascript" src="js/jquery.session.js"></script>
+
 <script>
 //로그인 시작
 $(document).ready( function() {
   var id = $.cookie("id");
   if (id != null && id != "") {
-    $("#id_input").val(); // email textbox에 쿠키값 출력
-    $("#saveId").attr("checked", "checked"); // 체크박스에 체크
+    $("#id_input").val(); 
+    $("#saveId").attr("checked", "checked"); 
   }
 }); 
 

@@ -68,52 +68,10 @@ $(function() {
         <div class="listHeader clearFix">
           <h2 class="snbTitSub tit">대회 게시판</h2>
           <div class="sort">
-          <br><br>
-        <form id="compForm">
-          <select id="cevent" onchange="sorting()">
-              <option value='-1'>종목</option>
-              <option value='2'>농구</option>
-              <option value='3'>축구</option>
-              <option value='4'>야구</option>
-              <option value='5'>볼링</option>
-              <option value='6'>탁구</option>
-          </select>
-          <select id="caddr" onchange="sorting()">
-              <option value='-1'>지역</option>
-              <option value='강원'>강원도</option>
-              <option value='경기'>경기도</option>
-              <option value='경남'>경상남도</option>
-              <option value='경북'>경상북도</option>
-              <option value='광주'>광주광역시</option>
-              <option value='대구'>대구광역시</option>
-              <option value='대전'>대전광역시</option>
-              <option value='부산'>부산광역시</option>
-              <option value='서울'>서울특별시</option>
-              <option value='세종특별자치시'>세종특별자치시</option>
-              <option value='울산'>울산광역시</option>
-              <option value='인천'>인천광역시</option>
-              <option value='전남'>전라남도</option>
-              <option value='전북'>전라북도</option>
-              <option value='제주특별자치도'>제주특별자치도</option>
-              <option value='충남'>충청남도</option>
-              <option value='충북'>충청북도</option>
-          </select>
-          <select id="crecruit" onchange="sorting()">
-              <option value='-1'>모집일</option>
-              <option value='new'>최신 순</option>
-              <option value='old'>오래된 순</option>
-          </select>
-          <select id="cstart" onchange="sorting()">
-              <option value='-1'>대회일</option>
-              <option value='new'>최신 순</option>
-              <option value='old'>오래된 순</option>
-          </select>
-          <select id="creply" onchange="sorting()">
-              <option value='-1'>댓글</option>
-              <option value='low'>많은순</option>
-              <option value='high'>적은순</option>
-          </select>
-        </form>
+            <ul class="list">
+              <li><a href="#" id="lnewer">대회시작일순</a></li>
+              <li><a href="#" id="lreply">댓글순</a></li>
+            </ul>
           </div>
         </div>
         
@@ -200,67 +158,67 @@ getParameter = function(name) {
 
 <!-- 대회 리스트 출력 -->
 <script>
-	var pageNo = 1;
-	var search = '';
-	
-	if (location.href.indexOf('pageNo') != -1) pageNo = getParameter('pageNo');
-	 
-	url = '/allstar/competition/list.do?pageSize=' + pageSize + '&pageNo=' + pageNo;
-	
-	if (location.href.indexOf('&') != -1) {
-		if (location.href.indexOf('search1') != -1) {
-			url = url + "&search1=" + getParameter('search1');
-		}
-		else if (location.href.indexOf('search2') != -1) {
-			url = url + "&search2=" + getParameter("search2");
-		}
+var pageNo = 1;
+var search = '';
+
+if (location.href.indexOf('pageNo') != -1) {
+	pageNo = getParameter('pageNo');
+}
+  url = '/allstar/competition/list.do?pageSize=' + pageSize + '&pageNo=' + pageNo;
+
+if (location.href.indexOf('&') != -1) {
+	if (location.href.indexOf('search1') != -1) {
+		url = url + "&search1=" + getParameter('search1');
 	}
-	
-	if (location.href.indexOf('event') != -1) url = url + "&event=" + getParameter('event');
-	if (location.href.indexOf('addr') != -1) url = url + "&addr=" + getParameter('addr');
-	if (location.href.indexOf('recruit') != -1) url = url + "&recruit=" + getParameter('recruit');
-  if (location.href.indexOf('start') != -1) url = url + "&start=" + getParameter('start');
-  if (location.href.indexOf('reply') != -1) url = url + "&reply=" + getParameter('reply');
-	
-	$.getJSON(url, function(resultObj) {
-	  var tbody = $("#boardtable tbody");
-	  for (var c of resultObj.ajaxResult.data) {
-	    $("<tr>")
-	    .html(
-	    "<td class='num'>" + c.event.name +"</td>"
-	    + "<td class='subject'><a href='#' data-ajax-board='free_view' pageno='" + c.no + "'><strong>" + c.name + "<small>(3)</small></strong>"
-	    + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
-	    + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
-	    + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>"
-	    )
-	    .appendTo(tbody);
-	  }
-	});
-	
-	//게시물 제목을 클릭했을 때 호출될 함수
-	
-	$(document).on('click', 'a[data-ajax-board]', function (e) {
-	  e.preventDefault();
-	  location.href = "competitionDetail.html?no=" + $(this).attr("pageno");
-	});
+	else if (location.href.indexOf('search2') != -1) {
+		url = url + "&search2=" + getParameter("search2");
+	}
+}
+
+if (location.href.indexOf('keyword') != -1) {
+  url = url + "&keyword=" + getParameter('keyword');
+}
+
+$.getJSON(url, function(resultObj) {
+  var tbody = $("#boardtable tbody");
+  for (var c of resultObj.ajaxResult.data) {
+    $("<tr>")
+    .html(
+    "<td class='num'>" + c.event.name +"</td>"
+    + "<td class='subject'><a href='#' data-ajax-board='free_view' pageno='" + c.no + "'><strong>" + c.name + "<small>(3)</small></strong>"
+    + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
+    + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
+    + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>"
+    )
+    .appendTo(tbody);
+  }
+});
+
+//게시물 제목을 클릭했을 때 호출될 함수
+
+$(document).on('click', 'a[data-ajax-board]', function (e) {
+  e.preventDefault();
+  location.href = "competitionDetail.html?no=" + $(this).attr("pageno");
+});
 </script>
 
 <!-- 페이징 -->
 <script>
-  var url1 = '/allstar/competition/all.do';
 
-  if (location.href.indexOf('&') != -1) {
-	  if (location.href.indexOf('search1') != -1) {
-	    url1 = url1 + "?search1=" + getParameter('search1');
-	  }
-	  else if (location.href.indexOf('search2') != -1) {
-	    url1 = url1 + "?search2=" + getParameter("search2");
-	  }
+var url1 = '/allstar/competition/all.do';
+
+ if (location.href.indexOf('&') != -1) {
+  if (location.href.indexOf('search1') != -1) {
+    url1 = url1 + "?search1=" + getParameter('search1');
   }
+  else if (location.href.indexOf('search2') != -1) {
+    url1 = url1 + "?search2=" + getParameter("search2");
+  }
+}
 
-  var totalPage = 1;
+var totalPage = 1;
 
-  $.getJSON(url1, function(resultObj) {
+$.getJSON(url1, function(resultObj) {
 	  totalPage = Math.ceil(resultObj.ajaxResult.data / pageSize);
 	  var lp10 = Math.floor((totalPage - 1) / 10) * 10;
 	  var start = Math.floor((pageNo - 1) / 10) * 10 + 1;
@@ -323,8 +281,8 @@ function clickPageNo(event) {
 	   location.href = "competitionList.html?pageNo=" + $(event.target).attr("pageno");
 	 } else {
 		 var str = location.href;
-     var url = updateURLParameter(location.href, 'pageNo', $(event.target).attr("pageno"));
-     location.href = url;
+     var newURL = updateURLParameter(location.href, 'pageNo', $(event.target).attr("pageno"));
+     location.href = newURL;
 	 }
 }
 
@@ -358,6 +316,7 @@ function clickEnd() {
 <!-- 검색 -->
 <script>
 function search() {
+	
 	var select = $('#csearch option:selected').val();
 	if (location.href.indexOf('&') == -1) {
 	  if (select == '1' && location.href.indexOf('search1') == -1) {
@@ -370,12 +329,9 @@ function search() {
 		  // 대회명
 	    if (select == '1') {
 			  var url = updateURLParameter(location.href, 'pageNo', 1);
-			  
-	    	if (location.href.indexOf('event') != -1) url = removeParam("event", url);
-        if (location.href.indexOf('addr') != -1) url = removeParam("addr", url);
-        if (location.href.indexOf('recruit') != -1) url = removeParam("recruit", url);
-        if (location.href.indexOf('start') != -1) url = removeParam("start", url);
-        if (location.href.indexOf('reply') != -1) url = removeParam("reply", url);
+			  if (location.href.indexOf('keyword') != -1) {
+				  url = removeParam("keyword", url);
+			  }
 		  
 	    	if (location.href.indexOf('search1') == -1) {
 	    		if (location.href.indexOf('search2') == -1) {
@@ -392,11 +348,9 @@ function search() {
 	    // 내용
       if (select == '2') {
 		    var url = updateURLParameter(location.href, 'pageNo', 1);
-		    if (location.href.indexOf('event') != -1) url = removeParam("event", url);
-		    if (location.href.indexOf('addr') != -1) url = removeParam("addr", url);
-		    if (location.href.indexOf('recruit') != -1) url = removeParam("recruit", url);
-		    if (location.href.indexOf('start') != -1) url = removeParam("start", url);
-		    if (location.href.indexOf('reply') != -1) url = removeParam("reply", url);
+		    if (location.href.indexOf('keyword') != -1) {
+	        url = removeParam("keyword", url);
+	      }
 	    
 	    	if (location.href.indexOf('search2') == -1) {
 	        if (location.href.indexOf('search1') == -1) {
@@ -419,54 +373,21 @@ function search() {
 
 <!-- 정렬 -->
 <script>
-  function sorting() {
-    url = location.href;
+$("#lnewer").click(sorting);
 
-    var eVal = $('#cevent option:selected').val();
-    var aVal = $('#caddr option:selected').val();
-    var rVal = $('#crecruit option:selected').val();
-    var sVal = $('#cstart option:selected').val();
-    var pVal = $('#creply option:selected').val();
-    
-    if (location.href.indexOf('?') == -1) {
-	    if (eVal != -1) {
-	        url = url + '?event=' + eVal;
-	      if (aVal != -1) url = url + '&addr=' + aVal;
-	      if (rVal != -1) url = url + '&recruit=' + rVal;
-	      if (sVal != -1) url = url + '&start=' + sVal;
-	      if (pVal != -1) url = url + '&reply=' + pVal;
-	    } else {
-	      if (aVal != -1) {
-	        url = url + '?addr=' + aVal;
-	        if (rVal != -1) url = url + '&recruit=' + rVal;
-	        if (sVal != -1) url = url + '&start=' + sVal;
-	        if (pVal != -1) url = url + '&reply=' + pVal;
-	      } else {
-	        if (rVal != -1) {
-	          url = url + '?recruit=' + rVal;
-	          if (sVal != -1) url = url + '&start=' + sVal;
-	          if (pVal != -1) url = url + '&reply=' + pVal;
-	        } else {
-	          if (sVal != -1) {
-	            url = url + '?start=' + sVal;
-	            if (pVal != -1) url = url + '&reply=' + pVal;
-	          } else {
-	            if (pVal != -1) url = url + '?reply=' + pVal; 
-	          }
-	        }
-	      }
-	    }
-    } else {
-        if (eVal != -1) url = url + '&event=' + eVal;
-        if (aVal != -1) url = url + '&addr=' + aVal;
-        if (rVal != -1) url = url + '&recruit=' + rVal;
-        if (sVal != -1) url = url + '&start=' + sVal;
-        if (pVal != -1) url = url + '&reply=' + pVal;
-    }
-    
-    console.log(url);
-    location.href = url;
-  }
+function sorting() {
+	
+	$("#lnewer").addClass('on');
+	if (location.href.indexOf('keyword') == -1) {
+	  if (location.href.indexOf('&') == -1) {
+		      location.href = "competitionList.html?pageNo=" + pageNo + "&keyword=newer";
+		} else {
+			if (location.href.indexOf('keyword') == -1) {
+				location.href = location.href + "&keyword=newer";
+			}
+		}	
+	}
+}
 </script>
 
 <script>

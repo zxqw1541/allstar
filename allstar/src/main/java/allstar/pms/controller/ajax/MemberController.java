@@ -20,8 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import allstar.pms.domain.AjaxResult;
+import allstar.pms.domain.Board;
+import allstar.pms.domain.JoinTeam;
 import allstar.pms.domain.LikeEvent;
 import allstar.pms.domain.Member;
+import allstar.pms.service.JoinTeamService;
 import allstar.pms.service.LikeEventService;
 import allstar.pms.service.MemberService;
 import allstar.pms.util.MultipartHelper;
@@ -34,6 +37,8 @@ public class MemberController {
   public static Logger log = Logger.getLogger(MemberController.class);
   @Autowired
   MemberService memberService;
+  @Autowired
+  JoinTeamService joinTeamService;
   @Autowired
   LikeEventService likeEventService;
   @Autowired
@@ -132,5 +137,45 @@ public class MemberController {
     
     return new AjaxResult("success", null);
   }
-
+  
+  @RequestMapping("joint")
+  public AjaxResult joinTeamList(JoinTeam joinTeam){
+    log.debug(joinTeam);
+    
+    if(joinTeamService.retrieve(joinTeam) != 0) {
+      return new AjaxResult("already", null);
+    }
+    try {
+      joinTeamService.register(joinTeam);
+    } catch (Exception e) {
+        return new AjaxResult("failure", null);
+    }
+    return new AjaxResult("success", null);
+  }
+  
+  @RequestMapping("teamJoin")
+  public Object getJoinTeamT(int tno){
+    List<JoinTeam> joinTeams = joinTeamService.getJoinTeamByTeam(tno);
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("data", joinTeams);
+    return resultMap;
+  }
+  
+  @RequestMapping("memberJoin")
+  public Object getJoinTeamM(int mno){
+    System.out.println("memberjoin : "
+        + mno);
+    List<JoinTeam> joinTeams = joinTeamService.getJoinTeamByMember(mno);
+    System.out.println("-----------------------------------------------------------------");
+    for(JoinTeam jt: joinTeams)
+      System.out.println(jt);
+    System.out.println("-----------------------------------------------------------------");
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("data", joinTeams);
+    return resultMap;
+  }
+  
 }
