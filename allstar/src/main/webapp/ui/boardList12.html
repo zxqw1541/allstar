@@ -216,6 +216,12 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=' + pageSize + '&pageNo=' + page
 
 <!-- 페이징 -->
 <script>
+$.getJson('../board/ajax/list.do', function(resultObj) {
+	var ajaxResult = resultObj.ajaxResult;
+	var boards = 
+})
+</script>
+<script>
 var totalPage = 1;
 $.getJSON('../board/ajax/all.do', function(resultObj) {
 	  var ajaxResult = resultObj.ajaxResult;
@@ -382,7 +388,7 @@ $('.bbsReply').empty();
 	      
 	        $('#newB').click(clickNewWrite);
 	        
-	        
+	        	        
 	   var div = $(".bbsReply");
 	  $("<fieldset class='commentWrite' style='width:800px; margin-left: 50px;'>")
       .html("<legend>댓글 쓰기</legend>"
