@@ -38,14 +38,15 @@
 			  <div class='info clearFix'>
 				  <h2>참여 정보</h2>
 				  <div class='contents'>
-				    <span class='lefttt'></span>
-				    <span class='righttt'></span>
+				    <span id='thumLeftBtn'></span>
+				    <span id='thumRightBtn'></span>
 				    <p class='img'>
 				    <p class='img'>
 				    <p class='img'>
 				    <p class='img'>
-				    
 			    </div>
+			    <!-- 팀명 보여줌 -->
+			    <div class='teamName'><h2></h2></div>
 			  </div>
 			  <div class='btnArea'>
 			    <p class='btnHome'><a href='#' id='btnArticleJoin' style='margin-left:0%; margin-bottom:34px' class='btn btnType5'>참여하기</a></p>
@@ -131,34 +132,80 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
 $.getJSON('/allstar/competition/imglist.do?cno=' + no, function(resultObj) {
 	var ajaxResult = resultObj.ajaxResult;
 	if (ajaxResult.status == "success") {
-		var emList = ajaxResult.data;
+		var teamList = ajaxResult.data;
 
-		/* console.log(emList[0]);
-		console.log(emList[1]);
-		console.log(emList[2]);
-		console.log(emList[3]); */
-		/* for (var s of emList) {
-			console.log(s);
-		} */
-		changeThumb(emList);
-		
+		changeThumb(teamList, 0);
+ 		nextThumb(teamList, Math.ceil(teamList.length/4));
 	} else if (ajaxResult.status == "empty") {
 		console.log("empty");
+		emptyThumb();
 	}
 });
 
-function changeThumb(emList) {
-	console.log(emList);
+function emptyThumb() {
 	$(".img").each(function(index, item) {
+	    $(this).children().remove();
+	    var path = '../team/img/invisible_team.png';
+      $("<img>").attr({ 
+        src : path
+      }).appendTo($(this));
+	  });
+	$('.teamName h2').text('참가한 팀이 없습니다.');
+}
+
+/* 그림 넣기 */
+function changeThumb(teamList, page) {
+	$(".img").each(function(index, item) {
+		$(this).children().remove();
 		var path='../team/img/tcd_file-1453879458179-1.png';
-		if(emList[index] != null)
-			  path = '../team/img/tcd_' + emList[index];
-		console.log(path);
-		$("<img>").attr({
-			src : path
-		}).appendTo($(this));
+		if (page*4 + index*1 >= teamList.length) {
+			path = '../team/img/invisible_team.png';
+		}
+		else if (teamList[page*4+index].emblem != null)
+			path = '../team/img/tcd_' + teamList[page*4+index].emblem;
+
+	    $("<img>").attr({
+	    	class : 'team_img',
+	    	teamno : page*4 + index, 
+			  src : path
+		  }).appendTo($(this));
+	});
+	imgMouseEvent(teamList);
+	
+}
+/* < , >  */
+function nextThumb(teamList, si){
+	var i = 0;
+	$("#thumLeftBtn").click(function(event) {
+		  i--;
+		  if(i < 0) {
+			  i = si-1;
+		  }
+		  changeThumb(teamList, i);
+	});
+	
+	$("#thumRightBtn").click(function(event) {
+    i++;
+    if(i == si) {
+      i = 0;
+    }
+    changeThumb(teamList, i);
 	});
 }
+
+function imgMouseEvent(teamList) {
+	$('.team_img').mouseenter(function(){
+		var i = $(this).attr('teamno');
+		if (teamList.length <= i)
+			$('.teamName h2').text('');
+		else
+			$('.teamName h2').text(teamList[i].name)
+  });
+  $('.team_img').mouseout(function(){
+	  $('.teamName h2').text('')
+  });
+}
+
 </script>
 
 <!-- 참가하기 버튼 리스너 -->

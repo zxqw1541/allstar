@@ -13,5 +13,5 @@ public interface TeamDao {
   int insert(Team team);
   int delete(int no);
   int update(Team team);
-  String selectEmblem(int tno);
+  Team selectEmblem(int tno);
 }

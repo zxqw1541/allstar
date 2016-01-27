@@ -60,7 +60,7 @@ public class DefaultTeamService implements TeamService {
   }
 
   @Override
-  public String getEmblemByTno(int tno) {
+  public Team getEmblemByTno(int tno) {
     return teamDao.selectEmblem(tno);
   }
 }

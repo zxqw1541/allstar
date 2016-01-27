@@ -13,5 +13,5 @@ public interface TeamService {
   Team retrieve(int no);
   int change(Team team);
   int remove(int no);
-  String getEmblemByTno(int tno);
+  Team getEmblemByTno(int tno);
 }
