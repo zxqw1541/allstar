@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import allstar.pms.domain.AjaxResult;
-import allstar.pms.domain.Board;
 import allstar.pms.domain.JoinTeam;
 import allstar.pms.domain.LikeEvent;
 import allstar.pms.domain.Member;
