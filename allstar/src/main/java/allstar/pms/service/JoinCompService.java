@@ -15,4 +15,6 @@ public interface JoinCompService {
   int remove(JoinComp joinComp);
   
   int retrive(JoinComp joinComp);
+  
+  List<Integer> getTnoList(int cno);
 }

@@ -40,10 +40,10 @@
 				  <div class='contents'>
 				    <span class='lefttt'></span>
 				    <span class='righttt'></span>
-				    <p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png'  alt='프로필 사진'>
-				    <p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png'  alt='프로필 사진'>
-				    <p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png'  alt='프로필 사진'>
-				    <p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png'  alt='프로필 사진'>
+				    <p class='img'>
+				    <p class='img'>
+				    <p class='img'>
+				    <p class='img'>
 				    
 			    </div>
 			  </div>
@@ -126,6 +126,40 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
   });
 </script>
 
+<!-- 참여한 팀 섬네일 출력 -->
+<script>
+$.getJSON('/allstar/competition/imglist.do?cno=' + no, function(resultObj) {
+	var ajaxResult = resultObj.ajaxResult;
+	if (ajaxResult.status == "success") {
+		var emList = ajaxResult.data;
+
+		/* console.log(emList[0]);
+		console.log(emList[1]);
+		console.log(emList[2]);
+		console.log(emList[3]); */
+		/* for (var s of emList) {
+			console.log(s);
+		} */
+		changeThumb(emList);
+		
+	} else if (ajaxResult.status == "empty") {
+		console.log("empty");
+	}
+});
+
+function changeThumb(emList) {
+	console.log(emList);
+	$(".img").each(function(index, item) {
+		var path='../team/img/tcd_file-1453879458179-1.png';
+		if(emList[index] != null)
+			  path = '../team/img/tcd_' + emList[index];
+		console.log(path);
+		$("<img>").attr({
+			src : path
+		}).appendTo($(this));
+	});
+}
+</script>
 
 <!-- 참가하기 버튼 리스너 -->
 <script>

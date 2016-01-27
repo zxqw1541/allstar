@@ -14,4 +14,6 @@ public interface JoinCompDao {
   int delete(JoinComp joinComp);
   
   int selectOne(JoinComp joinComp);
+  
+  List<Integer> selectTnoList(int cno);
 }
