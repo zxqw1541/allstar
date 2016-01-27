@@ -42,4 +42,10 @@
       where cno = #{cno} and tno = #{tno}
     </select>
     
+    <select id="selectTnoList" resultType="int" parameterType="int">
+      select tno
+      from join_comp
+      where cno = #{cno}
+    </select>
+    
 </mapper>

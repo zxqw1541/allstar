@@ -1,8 +1,5 @@
 package allstar.pms.controller.ajax;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,7 +20,6 @@ import allstar.pms.domain.Team;
 import allstar.pms.service.EventService;
 import allstar.pms.service.TeamService;
 import allstar.pms.util.MultipartHelper;
-import net.coobird.thumbnailator.Thumbnails;
 
 @Controller("ajax.TeamController")
 @RequestMapping("/team/ajax/*")
@@ -101,7 +97,8 @@ public class TeamController {
       System.out.println(mpf.getOriginalFilename() +" uploaded!");
       try {
         MultipartHelper.generateFile(mpf, filePath+fileName);
-        MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_TEAM);
+        MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_TEAM); // 리스트 섬네일
+        MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_COMPDETAIL_TEAM); // 대회 디테일 섬네일
         team.setEmblem(fileName);
       } catch (IOException e) {
         e.printStackTrace();
@@ -136,7 +133,8 @@ public class TeamController {
         System.out.println(mpf.getOriginalFilename() +" uploaded!");
         try {
           MultipartHelper.generateFile(mpf, filePath+fileName);
-          MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_TEAM);
+          MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_TEAM); // 리스트 섬네일
+          MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_COMPDETAIL_TEAM); // 대회 디테일 섬네일
           team.setEmblem(fileName);
         } catch (IOException e) {
           e.printStackTrace();

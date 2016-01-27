@@ -58,4 +58,9 @@ public class DefaultTeamService implements TeamService {
   public int remove(int no) {
     return teamDao.delete(no);
   }
+
+  @Override
+  public String getEmblemByTno(int tno) {
+    return teamDao.selectEmblem(tno);
+  }
 }

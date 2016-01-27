@@ -37,4 +37,9 @@ public class DefaultJoinCompService implements JoinCompService {
   public int retrive(JoinComp joinComp) {
     return joinCompDao.selectOne(joinComp);
   }
+
+  @Override
+  public List<Integer> getTnoList(int cno) {
+    return joinCompDao.selectTnoList(cno);
+  }
 }

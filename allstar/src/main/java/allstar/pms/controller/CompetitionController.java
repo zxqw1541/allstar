@@ -1,6 +1,7 @@
 package allstar.pms.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import allstar.pms.domain.Competition;
 import allstar.pms.domain.JoinComp;
 import allstar.pms.service.CompetitionService;
 import allstar.pms.service.JoinCompService;
+import allstar.pms.service.TeamService;
 import allstar.pms.util.MultipartHelper;
 import allstar.pms.util.TournamentHelper;
 
@@ -29,6 +31,7 @@ public class CompetitionController {
   
   public static Logger log = Logger.getLogger(CompetitionController.class);
   @Autowired CompetitionService competitionService;
+  @Autowired TeamService teamService;
   @Autowired JoinCompService joinCompService;
   @Autowired ServletContext servletContext;
   
@@ -123,7 +126,7 @@ public class CompetitionController {
   public AjaxResult update(Competition competition, MultipartHttpServletRequest uploadedFile) throws Exception {
     
     /* 필수 데이터 (임시저장) */
-    competition.setTno(1);
+    competition.setTno(100);
     /* --------------- */
     if (uploadedFile != null) {
       Iterator<String> itr = uploadedFile.getFileNames();
@@ -175,7 +178,20 @@ public class CompetitionController {
   }
   
   
-  
-  
+  @RequestMapping(value="imglist", method=RequestMethod.GET)
+  public AjaxResult getImgPathByCno(int cno) {
+    log.debug("*******cno = " + cno);
+    List<Integer> tnoList = joinCompService.getTnoList(cno);
+    
+    if (tnoList.isEmpty())
+      return new AjaxResult("empty",null);
+    
+    List<String> emblemList = new ArrayList<>();
+    for (int tno : tnoList) {
+      log.debug(tno);
+      emblemList.add(teamService.getEmblemByTno(tno));
+    }
+    return new AjaxResult("success", emblemList);
+  }
 }
  
