@@ -64,7 +64,7 @@
     <select id="selectListByTeam" resultMap="joinTeamMap" parameterType="int">
         <include refid="select_inc"/>
        from join_team jt
-         left outer join team t on jt.tno = t.eno
+         left outer join team t on jt.tno = t.tno
          left outer join member m on jt.mno = m.mno
         where jt.tno = #{tno}
     </select>
@@ -72,7 +72,7 @@
     <select id="selectListByMember" resultMap="joinTeamMap" parameterType="int">
         <include refid="select_inc"/>
        from join_team jt
-         left outer join team t on jt.tno = t.eno
+         left outer join team t on jt.tno = t.tno
          left outer join member m on jt.mno = m.mno
         where jt.mno = #{mno}
     </select>
@@ -80,7 +80,7 @@
       <select id="selectOneByTeamMember" resultMap="joinTeamMap" parameterType="map">
         <include refid="select_inc"/>
        from join_team jt
-         left outer join team t on jt.tno = t.eno
+         left outer join team t on jt.tno = t.tno
          left outer join member m on jt.mno = m.mno
         where jt.tno = #{tno} and jt.mno=#{mno}
     </select>
