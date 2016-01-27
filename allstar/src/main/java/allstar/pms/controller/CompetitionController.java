@@ -189,8 +189,10 @@ public class CompetitionController {
     
     List<Team> teamList = new ArrayList<>();
     for (int tno : tnoList) {
-      log.debug(tno);
-      teamList.add(teamService.getEmblemByTno(tno));
+      Team addTeam = teamService.getEmblemByTno(tno);
+      addTeam.setTno(tno);
+      log.debug(addTeam);
+      teamList.add(addTeam);
     }
     return new AjaxResult("success", teamList);
   }
