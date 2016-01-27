@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Competition;
 import allstar.pms.domain.JoinComp;
+import allstar.pms.domain.Team;
 import allstar.pms.service.CompetitionService;
 import allstar.pms.service.JoinCompService;
 import allstar.pms.service.TeamService;
@@ -186,12 +187,12 @@ public class CompetitionController {
     if (tnoList.isEmpty())
       return new AjaxResult("empty",null);
     
-    List<String> emblemList = new ArrayList<>();
+    List<Team> teamList = new ArrayList<>();
     for (int tno : tnoList) {
       log.debug(tno);
-      emblemList.add(teamService.getEmblemByTno(tno));
+      teamList.add(teamService.getEmblemByTno(tno));
     }
-    return new AjaxResult("success", emblemList);
+    return new AjaxResult("success", teamList);
   }
 }
  

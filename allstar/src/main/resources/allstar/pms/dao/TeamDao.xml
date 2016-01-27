@@ -138,8 +138,8 @@
 		where tno=#{tno}
 	</select>
 	
-	<select id="selectEmblem" resultType="String" parameterType="int">
-	  select emblem from team
+	<select id="selectEmblem" resultType="team" parameterType="int">
+	  select emblem, name  from team
 	  where tno = #{tno}
 	</select>
 	
