@@ -10,7 +10,7 @@
 <body>
 
 	<div>
-		<h2 style="text-align: center;">내가 만든 팀</h2>
+		<h2 style="text-align: center;">내가 참가한 팀</h2>
 		<div class="container demo-3">
 			<!-- Top Navigation -->
 
@@ -20,7 +20,7 @@
 			</ul>
 		</div>
 		<!-- /container -->
-		
+		<script src="js/test/toucheffects.js"></script>
 
 	</div>
 	<script>
@@ -28,7 +28,7 @@ $.getJSON('../member/ajax/memberJoin.do?mno=' +$.session.get("mem_num"), functio
     console.log(resultObj.data);
     if(resultObj.status == "success"){
     for (var joinTeam of resultObj.data ){
-    	if(joinTeam.level == 1){
+    	if(joinTeam.level == 0){
     	var event =0;
     	console.log("tno : "+joinTeam.tno+"  eno : "+joinTeam.team.eno);
     	switch(joinTeam.team.eno){
@@ -63,12 +63,12 @@ $.getJSON('../member/ajax/memberJoin.do?mno=' +$.session.get("mem_num"), functio
     	).appendTo(ul);
     } else {
     	 var ul = $('#myteams');
-         $("<li>").html(+ "현재 개설한 팀이 없습니다. </li>").appendTo(ul);
+         $("<li>").html("현재 참가한 팀이 없습니다. </li>").appendTo(ul);
     }
     }
     } else {
     	var ul = $('#myteams');
-    	$("<li>").html(+ "현재 개설한 팀이 없습니다. </li>").appendTo(ul);
+    	$("<li>").html("현재 참가한 팀이 없습니다. </li>").appendTo(ul);
     }
 });
 </script>

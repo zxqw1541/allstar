@@ -29,6 +29,7 @@ public class TeamController {
   @Autowired TeamService teamService;
   @Autowired EventService eventService;
   
+  
   @RequestMapping("all")
   public Object listAll() throws Exception {
     
