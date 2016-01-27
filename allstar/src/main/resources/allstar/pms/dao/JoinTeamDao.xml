@@ -11,7 +11,7 @@
       <result column="content" property="content"/>
       <result column="state" property="state"/>
       <result column="level" property="level"/>
-        <association property="member" javaType="Member">
+    <association property="member" javaType="Member">
       <id column="m_mno"        property="mno"/>
       <result column="m_name"   property="name"/>
       <result column="m_photo"   property="photo"/>
@@ -91,11 +91,9 @@
       where mno = #{mno}
     </update>
 
-
-    
     <insert id="insert" parameterType="joinTeam">
-      insert into join_team(mno, tno,cre_dt, state,level)
-      values(#{mno},#{tno},now(),#{state},#{level})
+      insert into join_team(mno,tno,cre_dt,state,content)
+      values(#{mno},#{tno},now(),#{state},#{content})
     </insert>
 
     <delete id="delete" parameterType="int">

@@ -20,7 +20,7 @@ public class Team implements Serializable {
   protected String  aForm;
   protected String  postNo;
   protected String  baseAddr;
-  protected Event event;
+  protected Event   event;
   
   @Override
   public String toString() {

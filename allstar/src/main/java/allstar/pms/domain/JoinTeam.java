@@ -8,14 +8,12 @@ public class JoinTeam implements Serializable {
   
   protected int     mno;
   protected int     tno;
-  protected Date  createdDate;
-  protected String content;
+  protected Date    createdDate;
+  protected String  content;
   protected int     state;
   protected int     level;
-  protected Team team;
-  protected Member member;
-  
-  
+  protected Team    team;
+  protected Member  member;
  
   public Team getTeam() {
     return team;

@@ -1,8 +1,5 @@
 package allstar.pms.controller.ajax;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,9 +18,9 @@ import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Event;
 import allstar.pms.domain.Team;
 import allstar.pms.service.EventService;
+import allstar.pms.service.JoinTeamService;
 import allstar.pms.service.TeamService;
 import allstar.pms.util.MultipartHelper;
-import net.coobird.thumbnailator.Thumbnails;
 
 @Controller("ajax.TeamController")
 @RequestMapping("/team/ajax/*")
@@ -32,6 +29,7 @@ public class TeamController {
 
   @Autowired TeamService teamService;
   @Autowired EventService eventService;
+  @Autowired JoinTeamService joinTeamService;
   
   @RequestMapping("all")
   public Object listAll() throws Exception {
@@ -144,8 +142,6 @@ public class TeamController {
         }
       }
     }
-    
-    
     if (teamService.change(team) <= 0) {
       return new AjaxResult("failure", null);
     }
@@ -161,6 +157,7 @@ public class TeamController {
     
     return new AjaxResult("success", null);
   }
+  
   
  /* @RequestMapping(value="uploadFile", method=RequestMethod.POST)
   public AjaxResult handleFileUpload(MultipartHttpServletRequest request) throws Exception{
