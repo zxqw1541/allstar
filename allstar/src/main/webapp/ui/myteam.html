@@ -14,29 +14,55 @@
   <div class="container demo-3">
       <!-- Top Navigation -->
 
-      <ul class="grid cs-style-4">
-        <li>
-          <figure>
-            <div><img src="../team/img/allstardefault.png" style="width:300px;"alt="img05"></div>
-            <figcaption>
-              <h3>FC 서울</h3>
-              <span>팀장 : 이승렬 </span><br>
-              <span >인원수 : 1 / 20</span><br>
-<span >연고지 : 서울 </span><br>
-<span >종목 : 축구 </span><br>
-<span>전적 : 0승 0무 0패</span><br>
-<span>내용 : 서초 길거리 축구대회를 개최합니다. 서초 길거리 축구대회를 개최합니다. 서초 길거리 축구대회를 개최합니다.</span><br>
-              <a href="#">팀 정보 보기</a>
-            </figcaption>
-          </figure>
-        </li>
+      <ul class="grid cs-style-4" id="myteams">
+       
         
       </ul>
     </div><!-- /container -->
     <script src="js/test/toucheffects.js"></script>
 
 </div>
-
+<script>
+$.getJSON('../member/ajax/memberJoin.do?mno=' +$.session.get("mem_num"), function(resultObj) {
+    console.log(resultObj.data);
+    if(resultObj.status == "success"){
+    for (var joinTeam of resultObj.data ){
+    	var event =0;
+    	console.log("tno : "+joinTeam.tno+"  eno : "+joinTeam.team.eno);
+    	switch(joinTeam.team.eno){
+    	case 2:  event = "농구";
+    	   break;
+    	case 3:  event = "축구";
+        break;
+    	case 4:  event = "야구";
+        break;
+    	case 5:  event = "탁구";
+        break;
+    	case 6:  event = "볼링";
+        break;
+    	}
+    	var emblem = joinTeam.team.emblem;
+    	if(emblem == null){
+    		emblem = "allstardefault.png";
+    	}
+    	var ul = $('#myteams');
+    	$("<li>")
+    	.html("<figure><div>"
+    			+"<img src='../team/img/"+emblem+"' style='width:300px;' alt='"+ joinTeam.team.name+"'></div>"
+    			+"<figcaption>"
+    			+"<h3>"+joinTeam.team.name+"</h3>"
+    			+"<span>팀장 : 아 시발 팀장 호출 만들어야대</span><br>"
+    			+"<span >연고지 : "+joinTeam.team.postNo+" "+joinTeam.team.baseAddr+" </span><br>"
+    			+"<span >종목 : "+event+" </span><br>"
+    			+"<span>전적 : "+joinTeam.team.win+" 승  "+joinTeam.team.draw+" 무  "+joinTeam.team.lose+" 패</span><br>"
+    			+"<span>내용 : "+joinTeam.team.introduce+"</span><br>"
+    			+"<a href='#'>팀 정보 보기</a>"
+    			+"</figcaption></figure></li>"
+    	).appendTo(ul);
+    }
+    }
+});
+</script>
 
 
 </body>

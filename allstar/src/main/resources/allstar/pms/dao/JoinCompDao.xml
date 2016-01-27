@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="allstar.pms.dao.JoinCompDao">
+
+    <resultMap type="joinComp" id="joinCompMap">
+      <id     column="cno"     property="cno" />
+      <id     column="tno"     property="tno"/>
+      <result column="cre_dt"  property="createDate"/>
+      <result column="content" property="content"/>
+      <result column="state"   property="state"/>
+      <result column="rank"    property="rank"/>
+    </resultMap>
+    
+    <select id="selectListByCno" resultMap="joinCompMap" parameterType="int">
+      select cno, tno, cre_dt, content, state, rank
+      from join_comp
+      where cno = #{cno} 
+    </select>
+    
+    <select id="selectListByTno" resultMap="joinCompMap" parameterType="int">
+      select cno, tno, cre_dt, content, state, rank
+      from join_comp
+      where tno = #{tno} 
+    </select>
+    
+    <insert id="insert" parameterType="joinComp">
+      insert into join_comp(cno, tno, cre_dt, content, state)
+      values (#{cno},#{tno},now(),#{content},1)
+    </insert>
+    
+    <delete id="delete" parameterType="joinComp">
+      delete from join_comp
+      where cno = #{cno} and tno = #{tno} 
+    </delete>
+    
+    <select id="selectOne" resultType="int" parameterType="joinComp">
+      select count(*)
+      from join_comp
+      where cno = #{cno} and tno = #{tno}
+    </select>
+    
+</mapper>

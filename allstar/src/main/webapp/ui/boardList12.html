@@ -385,7 +385,7 @@ $('.bbsReply').empty();
 	   var div = $(".bbsReply");
 	  $("<fieldset class='commentWrite' style='width:800px; margin-left: 50px;'>")
       .html("<legend>댓글 쓰기</legend>"
-      +"<textarea cols='50' id='txtComment' placeholder='답글을 작성하세요.'  rows='4' style='float:left; width:660px;'></textarea>"
+      +"<textarea cols='50' id='txtComment' placeholder='댓글을 작성하세요.'  rows='4' style='float:left; width:660px;'></textarea>"
       +"<button type='button' boardBno='"+board.no+"' id='replyadd' class='btn btnType4 btnWrite'>등록</button>"
       +"</fieldset>").appendTo(div);
 	  
@@ -418,7 +418,7 @@ $('.bbsReply').empty();
                +"<p class='lvs'>"
                +"<span class='creDt'>" + boarComm.createdDate + "</span>"
                +"</p></div></dd>"
-               +"<dt>답글</dt>"
+               +"<dt>댓글</dt>"
                +"<span>"+boarComm.comm+"</span>"
                +"</dl>"
               +"</li>"
