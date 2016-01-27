@@ -64,12 +64,12 @@
     <if test="recruit == 'new'"> c.rsdt desc </if>   
     <if test="recruit == 'old'"> c.rsdt asc </if>
     <if test="start == 'new'">
-      <if test="play != 'null'"> ,c.sdt desc </if>
-      <if test="play == 'null'"> c.sdt desc </if>
+      <if test="recruit != 'null'"> ,c.sdt desc </if>
+      <if test="recruit == 'null'"> c.sdt desc </if>
     </if>
     <if test="start == 'old'">
-      <if test="play != 'null'"> ,c.sdt asc </if>
-      <if test="play == 'null'"> c.sdt asc </if>
+      <if test="recruit != 'null'"> ,c.sdt asc </if>
+      <if test="recruit == 'null'"> c.sdt asc </if>
     </if>
     <if test="reply == 'high'">
       <if test="recruit != 'null' or start != 'null'"> ,c.sdt desc </if>

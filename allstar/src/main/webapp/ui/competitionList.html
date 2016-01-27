@@ -172,7 +172,7 @@ $('#newBtn').on('click', function(event){
 <script>
 getParameter = function(name) {
     search = location.href;
-    if (!search) {
+    if (!search || search.indexOf("?") == -1) {
       return false;
     }
     search = search.split("?");
@@ -307,8 +307,8 @@ getParameter = function(name) {
         if (checkSearch1 != -1) {
           url = url + '?search1=' + search1;
           if (checkSearch2 != -1) url = url + '&search2=' + search2;
-        } else {
-          url = url + '?search2=' + search2;
+        } else if (checkSearch2 != -1){
+        	url = url + '?search2=' + search2;
         }
       }
     }
