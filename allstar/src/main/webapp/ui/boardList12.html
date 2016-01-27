@@ -73,7 +73,7 @@ $(function() {
             <ul class="list">
               <li><a href="#"  class='on'>최신순</a></li>
               <li><a href="#"  >댓글순</a></li>
-              <li><a href="#"  >좋아요순</a></li>
+              <!-- <li><a href="#"  >좋아요순</a></li> -->
             </ul>
           </div>
         </div>
@@ -163,8 +163,6 @@ $(function() {
               <aside id="rightSide" class="sideArea">
                 
               </aside>
-
-
             </div>
           </div>
 <!-- 새 글 작성 끝 -->
@@ -207,7 +205,6 @@ $.getJSON('/allstar/board/ajax/list.do?pageSize=' + pageSize + '&pageNo=' + page
     		  +"</td>"
     		  +"<td class='cnt'>"
     		  +"<span class='view'><strong>"+ board.views +"</strong>조회</span>"
-    		  +"<span class='like'><strong>"+0+"</strong>좋아요</span>"
     		  +"</td>")
     .appendTo(table);
     
@@ -314,11 +311,12 @@ function clickEnd() {
 function clickDetailLnk(event) {
 $('#subject').empty();
 $('#rightSide').empty();
+$('.bbsReply').show();
 $('.bbsReply').empty();
   $.getJSON('../board/ajax/detail.do?no=' + $(event.target).attr("boardBno"), function(resultObj) {
 	    var ajaxResult = resultObj.ajaxResult;
 	    var board = ajaxResult.data;
-	    console.log($.session.get("mem_num"));
+	    console.log(sessionStorage.getItem("mem_num"));
 	    var photo = board.member.photo;
 	    if(photo == null){
 	      photo = 'allstardefault.png';
@@ -340,7 +338,7 @@ $('.bbsReply').empty();
 	              + "<div id='loading' style='display:none'><img src='http://s.nx.com/s2/game/tos/common/img_loading.gif' alt='' /></div>" 
 	              + "</div>")
 	        .appendTo(article);
-	        if ($.session.get("mem_num") == board.member.mno) {
+	        if (sessionStorage.getItem("mem_num") == board.member.mno) {
 	        $("<div class='viewContentsBtm clearFix'>")
 	          .html("<p class='btnEtc'>"
 	        		   +"<a rel='leanModal'  boardBno='"+ board.no +"' href='#updateWrite' id='updateb' class='edit'>수정</a>"
@@ -350,15 +348,15 @@ $('.bbsReply').empty();
 	        }
 	        var aside = $("#rightSide");
 	        $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
-	        .html("<p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png' alt='프로필 사진'>"
+	        .html("<p class='img'><img src='../member/img/"+ photo + "' alt='프로필 사진'>"
 	              + "</p><div class='contents'><p class='id'>" + board.member.id
-	              + "</p><p class='lvs'><span class='lv'> 축구 </span></p></div></div>")
+	              + "</p><p class='lvs'><span class='lv'>"+ board.event.name + "</span></p></div></div>")
 	              .appendTo(aside);
 	        $("<div class='btnArea'>")
 	        .html("<p class='btnHome'><a href='#' style='margin-left:0%' onclick='window.open('/barrack/guest.aspx?n8NexonSN=184613159&n8CharacterSN=87990995043730', 'barrack', 'width=1200. height=665, scrollbars=no');' class='btn btnType5'>회원정보보기</a></p>"
 	              + "<div class='btm clearFix' style='margin-left:0%'>"
-	              + "<a href='' style='margin-left:0%' id='btnArticleWrite' class='btn btnType6 btnWrite'>글쓰기</a>"
-	              + "<a href='http://tos.nexon.com/community/free/list.aspx?n4ArticleSN=0' style='margin-left:0%' class='btn btnType6 btnList'>목록</a>"
+	              + "<a style='margin-left:0%' rel = 'leanModal' href='#newWrite' id='newB' class='btn btnType6 btnWrite'>글쓰기</a>"
+	              + "<a href='../ui/boardList12.html' style='margin-left:0%' id='btnArticleList' class='btn btnType6 btnList'>목록</a>"
 	              + "</div></div>")
 	              .appendTo(aside);
 	        $("<div class='history' >")
@@ -381,6 +379,9 @@ $('.bbsReply').empty();
 	        
 	        $("#deleteBtn").click(clickDel);
 	        $("#updateb").click(clickUpdate);
+	      
+	        $('#newB').click(clickNewWrite);
+	        
 	        
 	   var div = $(".bbsReply");
 	  $("<fieldset class='commentWrite' style='width:800px; margin-left: 50px;'>")
@@ -438,12 +439,12 @@ $('.bbsReply').empty();
 	function addComment(event){
 	console.log("boardBno: " + $(event.target).attr("boardBno"));
 	
-	console.log('mno'+ $.session.get("mem_num"));
+	console.log('mno'+ sessionStorage.getItem("mem_num"));
 	console.log('bno'+ $(event.target).attr("boardBno"));
 	console.log('comm'+ $('#txtComment').val());
 
 	$.post('/allstar/boarComm/ajax/add.do', {
-	mno : $.session.get("mem_num"),
+	mno : sessionStorage.getItem("mem_num"),
 	bno : $(event.target).attr("boardBno"),
 	comm : $('#txtComment').val()
 	},
@@ -461,13 +462,17 @@ $('.bbsReply').empty();
 /* board update & delete 시작 */
 
 function clickUpdate(event) {
+	$('.bbsReply').hide();
 	$('#subject').empty();
 	$('#rightSide').empty();
 	  $.getJSON('../board/ajax/detail.do?no=' + $(event.target).attr("boardBno"), function(resultObj) {
 	      var ajaxResult = resultObj.ajaxResult;
 	      var board = ajaxResult.data;
-	      console.log($.session.get("mem_num"));
-	     
+	      console.log(sessionStorage.getItem("mem_num"));
+	      var photo = board.member.photo;
+	      if(photo == null){
+	        photo = 'allstardefault.png';
+	      }
 	        var article = $("#subject");
 	          $("<form method='post'>")
 	        		  .html("<header id='test1'class='header'>"
@@ -495,15 +500,15 @@ function clickUpdate(event) {
 	         
 	          var aside = $("#rightSide");
 	          $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
-	          .html("<p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png' alt='프로필 사진'>"
+	          .html("<p class='img'><img src='../member/img/" + photo + "' alt='프로필 사진'>"
 	                + "</p><div class='contents'><p class='name'>" + board.member.id 
-	                + "</p><p class='lvs'><span class='lv'> 축구 </span></p></div></div>")
+	                + "</p><p class='lvs'><span class='lv'>"+ board.event.name + "</span></p></div></div>")
 	                .appendTo(aside);
 	          $("<div class='btnArea'>")
 	          .html("<p class='btnHome'><a href='#' style='margin-left:0%' onclick='window.open('/barrack/guest.aspx?n8NexonSN=184613159&n8CharacterSN=87990995043730', 'barrack', 'width=1200. height=665, scrollbars=no');' class='btn btnType5'>회원정보보기</a></p>"
 	                + "<div class='btm clearFix' style='margin-left:0%'>"
 	                + "<a href='' style='margin-left:0%' id='btnArticleWrite' class='btn btnType6 btnWrite'>글쓰기</a>"
-	                + "<a href='http://tos.nexon.com/community/free/list.aspx?n4ArticleSN=0' style='margin-left:0%' class='btn btnType6 btnList'>목록</a>"
+	                + "<a href='../ui/boardList12.html' style='margin-left:0%' class='btn btnType6 btnList'>목록</a>"
 	                + "</div></div>")
 	                .appendTo(aside);
 	          $("<div class='history' >")
@@ -535,11 +540,14 @@ function clickUpdate(event) {
 <script>
 /* 새 글 작성 시작 */
 function clickNewWrite(event) {
-	console.log($.session.get("mem_num"));
-	if ($.session.get("mem_num") != undefined) {
-
+	console.log(sessionStorage.getItem("mem_num"));
+	if (sessionStorage.getItem("mem_num") != undefined) {
+		$('.bbsReply').hide();
+		$('#subject').empty();
+		$('#rightSide').empty();
 	$('#newBoard').empty();
 	$.getJSON('../board/ajax/add.do?no=' + -1, function(resultObj) {
+		  console.log("mem_num");
 		var fbevent = resultObj.eno;
 		var div = $("#newBoard");
 		$("<div style='margin-top:20px; margin-bottom:5%; height:35px;'>")
@@ -557,7 +565,7 @@ function clickNewWrite(event) {
 		$("<div style='display:none;'>")
     .html("<label for='fmno' class='col-sm-2 control-label'>멤버번호</label>"
     		  +"<div class='col-sm-10'>"
-		      +"<input type='text' class='form-control' id='fmno' value='"+$.session.get("mem_num")+"' readonly>"
+		      +"<input type='text' class='form-control' id='fmno' value='"+sessionStorage.getItem("mem_num")+"' readonly>"
 		      +"</div></div>")
     .appendTo(div);
 		
@@ -637,15 +645,16 @@ function clickDel(event) {
 }
 
 $(document).ready(function() {
-  if ($.session.get("mem_num") != undefined) {
+  if (sessionStorage.getItem("mem_num") != undefined) {
       console.log("글쓰기 버튼 활성화.");
     $('#newBtn').attr({
     rel : 'leanModal',
     href : '#newWrite'
   });
+
   }
   
- if ($.session.get("mem_num") == undefined) {
+ if (sessionStorage.getItem("mem_num") == undefined) {
         console.log("글쓰기 버튼 비활성화.");
       $('#newBtn').attr({
       rel : '',

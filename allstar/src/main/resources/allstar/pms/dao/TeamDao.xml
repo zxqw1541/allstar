@@ -137,4 +137,10 @@
 		from team t left outer join event e on t.eno=e.eno
 		where tno=#{tno}
 	</select>
+	
+	<select id="selectEmblem" resultType="String" parameterType="int">
+	  select emblem from team
+	  where tno = #{tno}
+	</select>
+	
 </mapper>

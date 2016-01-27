@@ -10,7 +10,8 @@ import net.coobird.thumbnailator.Thumbnails;
 
 public class MultipartHelper {
   public static final int CATE_TEAM = 1;
-  public static final int CATE_COMPETITION = 2;
+  public static final int CATE_COMPDETAIL_TEAM = 2;
+  public static final int CATE_COMPETITION = 3;
   
   public static void generateFile(MultipartFile mpf, String path) throws Exception {
       byte[] bytes = mpf.getBytes();
@@ -28,8 +29,11 @@ public class MultipartHelper {
       .outputQuality(0.8)
       .toFile(new File(path + "tl_" + name));
       break;
-    case CATE_COMPETITION:
-      
+    case CATE_COMPDETAIL_TEAM:
+      Thumbnails.of(new File(path + name))
+      .forceSize(45,45)
+      .outputQuality(0.8)
+      .toFile(new File(path + "tcd_" + name));
       break;
     
     }

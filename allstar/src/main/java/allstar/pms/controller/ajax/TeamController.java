@@ -31,6 +31,7 @@ public class TeamController {
   @Autowired EventService eventService;
   @Autowired JoinTeamService joinTeamService;
   
+  
   @RequestMapping("all")
   public Object listAll() throws Exception {
     
@@ -99,7 +100,8 @@ public class TeamController {
       System.out.println(mpf.getOriginalFilename() +" uploaded!");
       try {
         MultipartHelper.generateFile(mpf, filePath+fileName);
-        MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_TEAM);
+        MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_TEAM); // 리스트 섬네일
+        MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_COMPDETAIL_TEAM); // 대회 디테일 섬네일
         team.setEmblem(fileName);
       } catch (IOException e) {
         e.printStackTrace();
@@ -134,7 +136,8 @@ public class TeamController {
         System.out.println(mpf.getOriginalFilename() +" uploaded!");
         try {
           MultipartHelper.generateFile(mpf, filePath+fileName);
-          MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_TEAM);
+          MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_TEAM); // 리스트 섬네일
+          MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_COMPDETAIL_TEAM); // 대회 디테일 섬네일
           team.setEmblem(fileName);
         } catch (IOException e) {
           e.printStackTrace();

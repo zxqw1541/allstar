@@ -1,5 +1,16 @@
 @CHARSET "UTF-8";
 
+/* Reserved Class
+-------------------------------------------------------------- */
+.blind{width:1px; height:1px; font-size:0; line-height:0; position:absolute; top:0; left:-1000%; overflow:hidden;}
+.show{display:block;}
+.hide{display:none;}
+.fL{float:left;}
+.fR{float:right;}
+.clearFix{zoom:1;}
+.clearFix:after{clear:both; display:block; content:'';}
+.sprBtn{background:url(http://s.nx.com/s2/game/tos/obt/common/spr_btn.png) no-repeat; text-indent:-9999px; display:block;}
+
 #add_competition {
 	width: 800px;
 	height: 88%;
@@ -33,7 +44,7 @@
 #add_competition_img { float:right; }
 
 /* view Wrap */
-.viewWrap .mainArea{width:798px; background:#fff; padding:48px 50px; margin:auto;}
+.viewWrap .mainArea{width:798px; background:#fff; padding:48px 50px; margin:auto; float:left;}
 .viewWrap .header{width:798px; border-bottom:2px solid #b2b2b2; margin:0 0 17px 0; padding:0 0 24px 0; top:-15px;}
 .viewWrap .header .cat1{font-size:12px; margin:0 0 27px 0;}
 .viewWrap .header .cat1 .dep1{height:26px; line-height:26px; color:#fff; background:#907c6e; padding:0 8px; float:left;}
@@ -123,8 +134,8 @@
 
 .viewWrap .sideArea{width:260px; padding:33px 30px 0; float:left;}
 .viewWrap .sideArea .info{margin:0 0 20px 0;}
-.viewWrap .sideArea .info .img{width:47px; float:left;}
-.viewWrap .sideArea .info .img img{width:35px; display:block;}
+.viewWrap .sideArea .info .img{width:45px; float:left; margin:0px 6px;}
+.viewWrap .sideArea .info .img img{width:45px; display:block;}
 .viewWrap .sideArea .info .img img.gm{width:auto;}
 .viewWrap .sideArea .info .contents{float:left;}
 .viewWrap .sideArea .info .contents .name{font-size:14px; color:#666; margin:0 0 11px 0; padding:4px 0 0 0;}
@@ -189,7 +200,6 @@
 .boardContents .listWrap .btnArea{padding:25px 0 0 0;}
 
 
-
 /* 추가한 것 */
 .boardContents #btnCompetitionAdd{margin-top:50px;}
 /* ------ */
@@ -200,3 +210,8 @@
 .boardContents .searchArea .inputTxt{width:231px; height:34px; line-height:34px; margin:0; padding:0 10px; border:0 none; border-bottom:1px solid #d8d8d8;}
 .boardContents .searchArea .btn{width:72px; height:35px; line-height:35px; text-align:center; color:#fff; background:#666; margin:0; padding:0; border:0; cursor:pointer;}
 
+/* < > 버튼 */
+.lefttt {width:15px; height:30px; background:url(http://s.nx.com/s2/game/tos/obt/common/spr_btn.png) no-repeat; vertical-align:top; display:inline-block; margin-top:3px; float:left}
+.lefttt  {background-position: -34px -257px;}
+.righttt {width:15px; height:30px; background:url(http://s.nx.com/s2/game/tos/obt/common/spr_btn.png) no-repeat; vertical-align:top; display:inline-block; margin-top:3px;}
+.righttt  {background-position: -115px -257px;}
