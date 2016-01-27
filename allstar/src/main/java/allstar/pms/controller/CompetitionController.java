@@ -112,7 +112,7 @@ public class CompetitionController {
         return new AjaxResult("failure", null);
       }
     }
-    
+    competition.setOperation("");
     competitionService.register(competition);
     return new AjaxResult("success", null);
   }
@@ -151,7 +151,7 @@ public class CompetitionController {
       }
     }
     
-    
+    competition.setOperation("");
     if (competitionService.change(competition) <= 0)
       return new AjaxResult("failure", null);
     return new AjaxResult("success", null);

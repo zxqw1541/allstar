@@ -301,6 +301,7 @@ $('#btnArticleJoin2').on('click', function(event){
         		tno--;
             alert("참가 성공");
           } else if (result.ajaxResult.status == "already") {
+        	  tno--;
             alert("이미참가");
           } else {
         	  alert("?????")
