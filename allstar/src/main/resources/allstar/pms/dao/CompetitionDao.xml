@@ -44,20 +44,44 @@
          left outer join event e on c.eno = e.eno
          left outer join team t on c.tno = t.tno
          
-    <if test="search1 != 'null' or search2 != 'null'"> where </if>
-    <if test="search1 != 'null'"> c.name like concat('%',#{search1},'%') </if>
-    <if test="search2 != 'null'"> c.content like concat('%',#{search2},'%') </if>
+    <if test="search1 != 'null' or search2 != 'null' or event != 'null' or addr != 'null'"> where </if>
+
+    <if test="event != 'null'"> c.eno=#{event} </if>
+    <if test="addr != 'null'">
+      <if test="event != 'null'"> and c.bas_addr like concat('%',#{addr},'%') </if>
+      <if test="event == 'null'"> c.bas_addr like concat('%',#{addr},'%') </if>
+    </if>
+    <if test="search1 != 'null'">
+      <if test="event != 'null' or addr != 'null'"> and c.name like concat('%',#{search1},'%') </if>
+      <if test="event == 'null' and addr == 'null'"> c.name like concat('%',#{search1},'%') </if>
+    </if>
+    <if test="search2 != 'null'">
+      <if test="event != 'null' or addr != 'null'"> and c.content like concat('%',#{search2},'%') </if>
+      <if test="event == 'null' and addr == 'null'"> c.content like concat('%',#{search2},'%') </if>
+    </if>
+
+    <if test="recruit != 'null' or start != 'null' or reply != 'null'">order by </if>
+    <if test="recruit == 'new'"> c.rsdt desc </if>   
+    <if test="recruit == 'old'"> c.rsdt asc </if>
+    <if test="start == 'new'">
+      <if test="play != 'null'"> ,c.sdt desc </if>
+      <if test="play == 'null'"> c.sdt desc </if>
+    </if>
+    <if test="start == 'old'">
+      <if test="play != 'null'"> ,c.sdt asc </if>
+      <if test="play == 'null'"> c.sdt asc </if>
+    </if>
+    <if test="reply == 'high'">
+      <if test="recruit != 'null' or start != 'null'"> ,c.sdt desc </if>
+      <if test="recruit == 'null' and start == 'null'"> c.sdt desc </if>
+    </if>
+    <if test="reply == 'low'">
+      <if test="recruit != 'null' or start != 'null'"> ,c.sdt asc </if>
+      <if test="recruit == 'null' and start == 'null'"> c.sdt asc </if>
+    </if>
     
-    order by 
-    <choose>
-      <when test="keyword == 'newer'">c.sdt </when>
-      <when test="keyword == 'sdt'">sdt </when>
-      <otherwise>cno </otherwise>
-    </choose>
-    <choose>
-      <when test="align == 'asc'">asc</when>
-      <otherwise>desc</otherwise>
-    </choose>
+    <if test="recruit == 'null' and start == 'null'">order by c.cno desc</if>
+    
     limit #{startIndex}, #{length}
   </select>
   
@@ -107,9 +131,21 @@
     from competition c 
          left outer join event e on c.eno = e.eno
          left outer join team t on c.tno = t.tno
-    <if test="search1 != 'null' or search2 != 'null'"> where </if>
-    <if test="search1 != 'null'"> c.name like concat('%',#{search1},'%') </if>
-    <if test="search2 != 'null'"> c.content like concat('%',#{search2},'%') </if>
+    <if test="search1 != 'null' or search2 != 'null' or event != 'null' or addr != 'null'"> where </if>
+
+    <if test="event != 'null'"> c.eno=#{event} </if>
+    <if test="addr != 'null'">
+      <if test="event != 'null'"> and c.bas_addr like concat('%',#{addr},'%') </if>
+      <if test="event == 'null'"> c.bas_addr like concat('%',#{addr},'%') </if>
+    </if>
+    <if test="search1 != 'null'">
+      <if test="event != 'null' or addr != 'null'"> and c.name like concat('%',#{search1},'%') </if>
+      <if test="event == 'null' and addr == 'null'"> c.name like concat('%',#{search1},'%') </if>
+    </if>
+    <if test="search2 != 'null'">
+      <if test="event != 'null' or addr != 'null'"> and c.content like concat('%',#{search2},'%') </if>
+      <if test="event == 'null' and addr == 'null'"> c.content like concat('%',#{search2},'%') </if>
+    </if>
     
   </select>
 </mapper>
