@@ -13,6 +13,8 @@ public interface JoinTeamDao {
   JoinTeam selectOneByTeamMember(JoinTeam joinTeam);
 
   int updateState(int mno);
+  
+  int updateLevel(int mno);
 
   int insert(JoinTeam joinTeam);
 
