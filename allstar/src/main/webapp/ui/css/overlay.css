@@ -119,3 +119,7 @@
 #applyBtn {
 	margin-right:70px;
 }
+
+/* competitionDetail.html 에서 사용 */
+#detail_team  p { width:244px; display:inline-block;  text-align:left; color: #444; font-size: 1.3em; margin: 0; text-shadow: none; padding:8px; }
+#detail_team .txtarea-fld .comp_team_detail { background:#FFFFFF; border-top:0px; border-left:0px; border-right:0px; border-bottom:0px;}
