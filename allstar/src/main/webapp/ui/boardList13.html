@@ -104,14 +104,12 @@ $(function() {
                 <th class="th3" scope="col">작성자</th>
                 <th class="th4" scope="col">조회</th>
               </tr>
-              
             </thead>
-
+            <tbody>
+            
+            </tbody>
           </table>
-          
         </div>
-        
-        
         <div class="btnArea clearFix">
           <p class="fR">
                         
@@ -201,7 +199,7 @@ getParameter = function(name) {
        dataType:'json',
        success:function(resultObj) {
     var tbody = $("#boardtable tbody");
-    for (var c of resultObj.ajaxResult.data) {
+    for (var b of resultObj.ajaxResult.data) {
     	$("<tr>")
         .html("<td class='num'>"+ board.event.name +"</td>"
               + "<td class='subject'>"
@@ -230,6 +228,7 @@ getParameter = function(name) {
       }
       $("a.trigger").click(clickDetailLnk);
       $('#newBtn').click(clickNewWrite);
+       }
     });
   
   if (checkEvent != -1) {
