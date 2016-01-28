@@ -1,11 +1,15 @@
+@font-face {
+    font-family: 'nexonFont';
+    src: url("../../fonts/NEXON Football Gothic L.otf") format("opentype");
+}
+
 /* The main content */
 
 .main-content {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: 'nexonFont';
 	max-width: 900px;
 	padding-top: 40px;
 	margin: auto;
-	border: 1px black solid;
 
 	min-height: 700px;
 }
@@ -14,7 +18,7 @@
 /* The left sidebar */
 
 .sidebar-left {
-	font-family: Arial, Helvetica, sans-serif;
+	/* font-family: Arial, Helvetica, sans-serif; */
 	position: fixed;
 	top: 100px;
 	left: 0;
@@ -27,7 +31,7 @@
 .sidebar-left a.company-logo {
 	display: block;
 	text-decoration: none;
-	font-family: Cookie, cursive;
+	font-family: 'nexonFont';
 	width: 76px;
 	height: 76px;
 	margin: 0 auto;
@@ -179,4 +183,5 @@
 body {
 	margin: 0;
 	padding: 0;
+	font-family:'nexonFont';
 }

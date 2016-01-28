@@ -1,5 +1,8 @@
 @charset "UTF-8";
-
+@font-face {
+    font-family: 'nexonFont';
+    src: url("../fonts/NEXON Football Gothic L.otf") format("opentype");
+}
 /*--------------------*/
 /* header & footer */
 /*--------------------*/
@@ -73,6 +76,7 @@ background:
 background-size: 100% 810px ;	
 position:relative;
 min-width:1024px;
+font-family: 'nexonFont';
 }
 li {
 	list-style-type: none;

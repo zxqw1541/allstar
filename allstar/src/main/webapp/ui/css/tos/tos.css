@@ -1,7 +1,13 @@
 @CHARSET "UTF-8";
 @import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
 
-
+@font-face {
+    font-family: 'nexonFont';
+    src: url("../fonts/NEXON Football Gothic L.otf") format("opentype");
+}
+body {
+  font-family: 'nexonFont';
+}
 /* CSS Reset
 -------------------------------------------------------------- */
 /* html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, a, img, strong, small, dl, dt, dd, ol, ul, li, fieldset, form, input, button, label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0; padding:0; font-size:100%;}
@@ -23,6 +29,7 @@ caption, legend{width:0; height:0; font-size:0; line-height:0; text-indent:-9999
 
 /* Reserved Class
 -------------------------------------------------------------- */
+
 .blind{width:1px; height:1px; font-size:0; line-height:0; position:absolute; top:0; left:-1000%; overflow:hidden;}
 .show{display:block;}
 .hide{display:none;}
