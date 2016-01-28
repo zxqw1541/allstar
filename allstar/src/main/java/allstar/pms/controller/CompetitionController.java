@@ -211,5 +211,18 @@ public class CompetitionController {
     
     return new AjaxResult("success", teamService.getTeamListByTnoEno(mno, eno));
   }
+  
+  @RequestMapping(value="joincomp", method=RequestMethod.GET)
+  public AjaxResult addJoinCompetition(JoinComp joinComp) {
+    log.debug("joinComp = " + joinComp);
+    log.debug("count : " + joinCompService.retrive(joinComp));
+    if (joinCompService.retrive(joinComp) > 0)
+      return new AjaxResult("already", null);
+    
+    joinCompService.register(joinComp);
+    
+    
+    return new AjaxResult("success", null);
+  }
 }
  

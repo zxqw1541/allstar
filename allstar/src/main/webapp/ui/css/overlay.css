@@ -162,7 +162,7 @@
 #apply_comp-header  p { color: #444; font-size: 1.3em; margin: 0; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); text-shadow: none; }
 
 #apply_comp .txt-fld { position: relative; width: 450px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
-#apply_comp .btn-fld { width: 350px; overflow: hidden; padding: 12px 0px 12px 150px; margin-left:-80px;}
+#apply_comp .btn-fld { width: 420px; overflow: hidden; padding: 12px 0px 12px 150px; margin-left:-80px;}
 
 #apply_comp_img { float:right; }
 #apply_comp  p { width:244px; display:inline-block;  text-align:left; color: #444; font-size: 1.3em; margin: 0; text-shadow: none; padding:8px; }
