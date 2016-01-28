@@ -56,7 +56,6 @@ public class TeamController {
     
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("count", teams.size());
-    System.out.println(teams.size());
     
     return resultMap;
   }
