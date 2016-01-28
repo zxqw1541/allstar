@@ -47,11 +47,6 @@ public class CompetitionController {
       @RequestParam(defaultValue = "null") String search1,
       @RequestParam(defaultValue = "null") String search2) {
     
-    System.out.println(event);
-    System.out.println(addr);
-    System.out.println(search1);
-    System.out.println(search2);
-    
     int count = competitionService.countAllCompetition(event, addr, search1, search2);
     
     return new AjaxResult("success",count);

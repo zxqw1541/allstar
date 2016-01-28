@@ -154,6 +154,17 @@
 <!-- 기본 정보 출력 -->
 <script type='text/javascript' src='../lib/jquery-bracket/jquery.bracket.min.js'></script>
 <script>
+function saveFn(data, userData) {
+    var json = jQuery.toJSON(data)
+    $('#saveOutput').text('POST '+userData+' '+json)
+    /* You probably want to do something like this
+    jQuery.ajax("rest/"+userData, {contentType: 'application/json',
+                                  dataType: 'json',
+                                  type: 'post',
+                                  data: json})
+    */
+  }
+
 var no = -1;
 var eno = -1;
 var tno = -1;

@@ -12,6 +12,7 @@ public class TournamentHelper {
    */
   @SuppressWarnings("unchecked")
   public static String makeTournament(int teamCount) {
+    int realCount = teamCount;
     teamCount = makePowerOfTwo(teamCount);
     System.out.println(teamCount);
     
@@ -20,8 +21,27 @@ public class TournamentHelper {
     JSONArray teamList = new JSONArray();
     for (int i = 0; i < teamCount; i+=2) {
       JSONArray vsTeam = new JSONArray();
-      vsTeam.add("Team" + i);
-      vsTeam.add("Team" + (i+1));
+      
+      if (realCount % 2 == 0) {
+        if (i >= realCount) {
+          vsTeam.add("undefined");
+          vsTeam.add("undefined");
+        } else {
+          vsTeam.add("Team" + i);
+          vsTeam.add("Team" + (i+1));
+        }
+      } else {
+        if (i == (realCount-1)) {
+          vsTeam.add("Team" + i);
+          vsTeam.add("undefined");
+        } else if (i > (realCount-1)) {
+          vsTeam.add("undefined");
+          vsTeam.add("undefined");
+        } else {
+          vsTeam.add("Team" + i);
+          vsTeam.add("Team" + (i+1));
+        }
+      }
       teamList.add(vsTeam);
     }    
     jsonroot.put("teams", teamList);
@@ -41,10 +61,10 @@ public class TournamentHelper {
         do {
           b = r.nextInt(15);
         } while(a == b);
-        
+
         JSONArray score = new JSONArray();
-        score.add(a);
-        score.add(b);
+        score.add(0);
+        score.add(0);
         rounds.add(score);
       }
       results.add(rounds);
