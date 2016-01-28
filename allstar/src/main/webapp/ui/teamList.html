@@ -24,8 +24,13 @@ $(function(){
 });
 
 $(function() {
-    $('li[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+    $('li[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });
 });
+
+var teamName;
+var teamEvent;
+var teamForm;
+
 </script>
 </head>
 <body>
@@ -184,7 +189,6 @@ $(function() {
     <form id='detailTeamForm' class="form-horizontal" enctype="multipart/form-data">
       <input id="fdtno" type="hidden"/>
       <input id="fdoemblem" type="hidden"/>
-      <input id="faform" type="hidden"/>
       <div class="txt-fld">
         <label for="fdname">팀명</label>
         <input id="fdname" class="good_input" type="text" readonly/>
@@ -233,23 +237,41 @@ $(function() {
               placeholder="팀 가입 양식을 입력해주세요."></textarea>
         </div>
       </div>
-      <div class="txtarea-fld">
-        <label class="memberForm" for="applyForm">팀 가입양식</label>
-        <div>
-          <textarea id="applyForm" class="memberForm form-control" rows='10' cols='60'
-              placeholder="팀 가입 양식을 입력해주세요."></textarea>
-        </div>
-      </div>
-      
       <div class="btn-fld">
-        <button class="memberForm" id="applyTeamBtn" type="button">가입신청 &raquo;</button>
+        <button class="applyForm" id="applyJoinBtn" type="button">가입신청 &raquo;</button>
         <button class="captainForm" id="delTeamBtn" type="button">삭제 &raquo;</button>
         <button class="captainForm" id="modTeamBtn" type="button">변경 &raquo;</button>
       </div>
-      
     </form>
   </div>
 
+<!-- 가입 신청 폼 -->
+  <div id="apply_team">
+    <div id="apply_team-header">
+      <h2>가입 신청</h2>
+      <a class="modal_close" href="#"></a>
+    </div>
+    <form id='applyTeamForm' class="form-horizontal">
+      <input id="fatno" type="hidden"/>
+      <div class="txt-fld">
+        <label for="faname">팀명</label>
+        <input id="faname" class="good_input" type="text" readonly/>
+      </div>
+      <div class="txt-fld">
+        <label for="faevent">종목</label>
+        <input id="faevent" class="good_input" type="text" readonly/>
+      </div>
+      <div class="txtarea-fld">
+        <label for="faaform">팀 가입양식</label>
+        <div>
+          <textarea id="faaform" class="form-control" rows='10' cols='60'></textarea>
+        </div>
+      </div>
+      <div class="btn-fld">
+        <button id="applyBtn" type="button">신청 &raquo;</button>
+      </div>
+    </form>
+  </div>
 <!---//End-content---->
 <!----wookmark-scripts---->
   <script src="../team/js/jquery.imagesloaded.js"></script>
@@ -351,7 +373,7 @@ $(function() {
                  
                if (closeToBottom) {
                  $(window).data('ajaxready', false);
-                 
+
                  var url;
                  if ($saveurl.val().indexOf('?') == '-1') {
                    url = $saveurl.val() + '?';
@@ -418,7 +440,6 @@ $(function() {
      })(jQuery);
   </script>
   <!----//wookmark-scripts---->
-
 
   <!-- 처음 리스트 출력 -->
   <script>
@@ -525,13 +546,12 @@ var load_detail_func = function(){
     var fdemblem = '<input type="file" class="form-control" id="fdemblem" onchange="fileSelected()">';
     $('#deatil_emblem_div').append(fdemblem);
     
-    if ($.session.get("mem_num") != undefined) {
+    if (sessionStorage.getItem("mem_num") != undefined) {
     	$('.captainForm').css('display', 'none');
-      $('.memberForm').css('display', '');
+      $('.applyForm').css('display', '');
     } else {
-    	$("#applyForm").val($("#faform").val());
     	$('.captainForm').css('display', '');
-      $('.memberForm').css('display', 'none');
+      $('.applyForm').css('display', 'none');
     }
     
     //삭제 추가 코드 넣기
@@ -552,7 +572,12 @@ var load_detail_func = function(){
               $("#fdpostno").val(team.postNo);
               $("#fdaddr").val(team.baseAddr);
               $("#fdoemblem").val(team.emblem);
-              $("#faform").val(team.aForm);
+              
+              $("#fatno").val(team.tno);
+              $("#faname").val(team.name);
+              $("#faevent").val(team.event.name);
+              $("#faaform").val(team.aForm);
+              
               if (team.emblem != null)
                 $('#detail_preview_img').attr('src', '../team/img/'+team.emblem);
               else
@@ -804,36 +829,59 @@ $(function() {
     }
 </script>
 
+<!-- 가입신청 버튼 -->
 <script>
-$(function() {
-	$("#applyTeamBtn").click(function() {
-          data.append('mno', $.session.get("mem_num"));
-          data.append('tno', $('#fdtno').val());
-          data.append('state', 0);
-          data.append('content', $('#applyForm').val());
+   $(document).ready(function() {
+    $('#applyJoinBtn').attr({
+        rel : 'leanModal',
+        href : '#apply_team'
+    });
+    $('button[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });
+  });
+  
+  $("#applyJoinBtn").on("click", applyJoinButton);
 
-          $.ajax({
-            url : "../member/ajax/joint.do",
-            data : data,
-            type : "GET",
-            dataType: "json",
-            enctype: 'multipart/form-data',
-            processData: false, 
-            contentType:false,
-            success : function(result) {
-            if (result.ajaxResult.status == "success") {
-                location.href = "/allstar/ui/teamList.html";
-            } else {
-                alert("가입 신청에 실패했습니다.");
-           }
-         },
-         error : function(result){
-            alert('error');
-         }
-       });
-	}
-}
+  function applyJoinButton() {
+      $('.applyForm').css('display', '');
+      $('#detail_team').css('display', '');
+  };
+</script>
 
+<!-- 신청 버튼-->
+<script>
+  $(function() {
+	  $("#applyBtn").click(function() {
+        var data = new FormData();
+
+        data.append('mno', $.session.get("mem_num"));
+        data.append('tno', $('#fdtno').val());
+        data.append('state', 0);
+        data.append('content', $('#faaform').val());
+        
+        $.ajax({
+          url : "../member/ajax/joint.do",
+          data : data,
+          type : "POST",
+          dataType: "json",
+          processData: false, 
+          contentType:false,
+          success : function(result) {
+          if (result.ajaxResult.status == "success") {
+        	  alert("신청이 완료되었습니다.");
+              location.href = "/allstar/ui/teamList.html";
+          } else if (result.ajaxResult.status == "already") {
+        	  alert("이미 신청된 팀입니다.");
+        	  location.href = "/allstar/ui/teamList.html";
+          } else {
+            alert("가입 신청에 실패했습니다.");
+          }
+        },
+        error : function(result){
+          alert('error');
+        }
+      });
+	  });
+  });
 </script>
 
 </body>
