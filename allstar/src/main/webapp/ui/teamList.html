@@ -177,7 +177,70 @@ var teamForm;
     </form>
   </div>
 
+<!-- 상세 폼 -->
+  <div id="detail_team">
+    <div id="detail_team-header">
+      <h2>상세 정보</h2>
+      <a class="modal_close" href="#"></a>
+    </div>
+    <div id="detail_team_img">
+      <img id="detail_preview_img" src="img/allstardefault.png"/>
+    </div>
+    <form id='detailTeamForm' class="form-horizontal" enctype="multipart/form-data">
+      <input id="fdtno" type="hidden"/>
+      <input id="fdoemblem" type="hidden"/>
+      <div class="txt-fld">
+        <label for="fdname">팀명</label>
+        <p id="fdname" class="good_input">&nbsp;</p>
+      </div>
+      <div class="txt-fld">
+        <label for="fdevent">종목</label>
+        <p id="fdevent" class="good_input">&nbsp;</p>
+      </div>
+      <div class="txt-fld">
+        <label for="fdtotalnum">인원수</label>
+        <p id="fdtotalnum" class="good_input">&nbsp;</p>
+      </div>
+      <div class="txt-fld">
+        <label for="fdfee">회비</label>
+        <p id="fdfee" class="good_input">&nbsp;</p>
+      </div>
+      <div class="txt-fld">
+        <label for="fdmeetday">정모요일</label>
+        <p id="fdmeetday" class="good_input">&nbsp;</p>
+      </div>
+      <div class="txt-fld">
+        <label for="fdpostno">우편번호</label>
+        <p id="fdpostno" class="good_input">&nbsp;</p>
+      </div>
+      <div class="txt-fld">
+        <label for="fdaddr">연고지</label>
+        <p id="fdaddr" class="good_input">&nbsp;</p>
+      </div>
+      <div class="txtarea-fld">
+        <label for="fdintroduce">팀 소개</label>
+        <div>
+          <textarea id="fdintroduce" class="form-control" rows='10' cols='60'
+              style="resize: none;background-color: white; border: none" readonly ></textarea>
+        </div>
+      </div>
+      <div class="txtarea-fld">
+        <label for="fdaform">팀 가입양식</label>
+        <div>
+          <textarea id="fdaform" class="form-control" rows='10' cols='60'
+              style="resize: none;background-color: white; border: none" readonly ></textarea>
+        </div>
+      </div>
+      <div class="btn-fld">
+        <button class="applyForm" id="applyJoinBtn" type="button">가입신청 &raquo;</button>
+        <button class="captainForm" id="delTeamBtn" type="button">삭제 &raquo;</button>
+        <button class="captainForm" id="modTeamBtn" type="button">변경 &raquo;</button>
+      </div>
+    </form>
+  </div>
+
 <!-- 수정 삭제 폼 -->
+<!-- 
   <div id="detail_team">
     <div id="detail_team-header">
       <h2>상세 정보</h2>
@@ -244,8 +307,10 @@ var teamForm;
       </div>
     </form>
   </div>
-
-<!-- 가입 신청 폼 -->
+  
+ -->
+ 
+ <!-- 가입 신청 폼 -->
   <div id="apply_team">
     <div id="apply_team-header">
       <h2>가입 신청</h2>
@@ -550,7 +615,7 @@ var load_detail_func = function(){
     	$('.captainForm').css('display', 'none');
       $('.applyForm').css('display', '');
     } else {
-    	$('.captainForm').css('display', '');
+    	$('.captainForm').css('display', 'none');
       $('.applyForm').css('display', 'none');
     }
     
@@ -561,16 +626,16 @@ var load_detail_func = function(){
             if (ajaxResult.status == "success") {
               var team = ajaxResult.data;
               $("#fdtno").val(team.tno);
-              $("#fdevent").val(team.event.name);
-              $("#fdname").val(team.name);
-              $("#fdtotalnum").val(team.totalNum);
-              $("#fdscore").val(team.win+"승 "+team.draw+"무 "+team.lose+"패");
-              $("#fdfee").val(team.fee);
-              $("#fdmeetday").val(team.meetDay);
-              $("#fdintroduce").val(team.introduce);
-              $("#fdaform").val(team.aForm);
-              $("#fdpostno").val(team.postNo);
-              $("#fdaddr").val(team.baseAddr);
+              $("#fdevent").text(team.event.name);
+              $("#fdname").text(team.name);
+              $("#fdtotalnum").text(team.totalNum);
+              $("#fdscore").text(team.win+"승 "+team.draw+"무 "+team.lose+"패");
+              $("#fdfee").text(team.fee);
+              $("#fdmeetday").text(team.meetDay);
+              $("#fdintroduce").text(team.introduce);
+              $("#fdaform").text(team.aForm);
+              $("#fdpostno").text(team.postNo);
+              $("#fdaddr").text(team.baseAddr);
               $("#fdoemblem").val(team.emblem);
               
               $("#fatno").val(team.tno);
