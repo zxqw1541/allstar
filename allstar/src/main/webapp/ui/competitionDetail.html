@@ -225,10 +225,10 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
       
 
           console.log($('#minimal .demo'));
-          $('#minimal .demo').bracket({init: JSON.parse(c.operation) });
           
-          //기본 값 세팅후 실행해야함
-          getFormData();
+          getFormData(); // 대회신청 폼
+          
+         $('#minimal .demo').bracket({init: JSON.parse(c.operation) });
     }
 
   });
