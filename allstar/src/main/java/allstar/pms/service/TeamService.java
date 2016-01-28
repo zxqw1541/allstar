@@ -14,4 +14,6 @@ public interface TeamService {
   int change(Team team);
   int remove(int no);
   Team getEmblemByTno(int tno);
+  
+  List<Team> getTeamListByTnoEno(int tno, int eno);
 }

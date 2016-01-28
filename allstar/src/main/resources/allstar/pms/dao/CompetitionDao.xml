@@ -148,5 +148,14 @@
     </if>
     
   </select>
+  
+  <select id="selectMnoByCno" resultType="int" parameterType="int">
+    select jt.mno
+    from competition c
+         left outer join join_team jt on c.tno = jt.tno
+    where c.tno = (select tno from competition where cno = #{cno})  
+          and jt.level = 1 and c.cno = #{cno}
+  </select>
+  
 </mapper>
 

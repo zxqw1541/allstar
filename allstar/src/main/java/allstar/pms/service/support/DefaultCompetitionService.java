@@ -63,4 +63,9 @@ public class DefaultCompetitionService implements CompetitionService {
     return competitionDao.selectCountAll(paramMap);
   }
 
+  @Override
+  public int getMnoByCno(int cno) {
+    return competitionDao.selectMnoByCno(cno);
+  }
+
 }

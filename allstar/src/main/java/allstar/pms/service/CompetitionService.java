@@ -19,4 +19,6 @@ public interface CompetitionService {
   
   int countAllCompetition(String event, String addr, String search1, String search2);
   
+  int getMnoByCno(int cno);
+  
 }
