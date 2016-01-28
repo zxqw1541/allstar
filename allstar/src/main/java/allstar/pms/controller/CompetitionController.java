@@ -43,11 +43,6 @@ public class CompetitionController {
       @RequestParam(defaultValue = "null") String search1,
       @RequestParam(defaultValue = "null") String search2) {
     
-    System.out.println(event);
-    System.out.println(addr);
-    System.out.println(search1);
-    System.out.println(search2);
-    
     int count = competitionService.countAllCompetition(event, addr, search1, search2);
     
     return new AjaxResult("success",count);
@@ -83,7 +78,7 @@ public class CompetitionController {
     log.info("file = " + uploadedFile);
     /* 필수 데이터 (임시저장) */
     competition.setPoster("1");
-    competition.setTno(100);
+    competition.setTno(53);
     /* 나중에 입력 받아오면 지울 것 */
     
     /* 대진표 테스트 */
@@ -195,6 +190,34 @@ public class CompetitionController {
       teamList.add(addTeam);
     }
     return new AjaxResult("success", teamList);
+  }
+  
+  @RequestMapping(value="master", method=RequestMethod.GET)
+  public AjaxResult getCompetitionMaster(int no) {
+    log.debug("no = " + no);
+    int a = competitionService.getMnoByCno(no);
+    log.debug("a  = " + a);
+    return new AjaxResult("success", a);
+  }
+  
+  @RequestMapping(value="availteam", method=RequestMethod.GET)
+  public AjaxResult getTeamListByMNno(int mno, int eno) {
+    log.debug("mno = " + mno + " eno = " + eno);
+    
+    return new AjaxResult("success", teamService.getTeamListByTnoEno(mno, eno));
+  }
+  
+  @RequestMapping(value="joincomp", method=RequestMethod.GET)
+  public AjaxResult addJoinCompetition(JoinComp joinComp) {
+    log.debug("joinComp = " + joinComp);
+    log.debug("count : " + joinCompService.retrive(joinComp));
+    if (joinCompService.retrive(joinComp) > 0)
+      return new AjaxResult("already", null);
+    
+    joinCompService.register(joinComp);
+    
+    
+    return new AjaxResult("success", null);
   }
 }
  

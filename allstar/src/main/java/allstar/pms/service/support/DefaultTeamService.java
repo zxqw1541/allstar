@@ -63,4 +63,12 @@ public class DefaultTeamService implements TeamService {
   public Team getEmblemByTno(int tno) {
     return teamDao.selectEmblem(tno);
   }
+
+  @Override
+  public List<Team> getTeamListByTnoEno(int mno, int eno) {
+    HashMap<String,Integer> paramMap = new HashMap<>();
+    paramMap.put("mno", mno);
+    paramMap.put("eno", eno);
+    return teamDao.selectTeamByMnoEno(paramMap);
+  }
 }

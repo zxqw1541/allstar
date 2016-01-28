@@ -50,14 +50,17 @@
 			    <div class='teamName'><h2></h2></div>
 			  </div>
 			  <div class='btnArea'>
-			    <p class='btnHome'><a href='#' id='btnArticleJoin' style='margin-left:0%; margin-bottom:34px' class='btn btnType5'>참여하기</a></p>
+			    <p class='btnHome'>
+			   
+			      <a id='btnArticleJoin' style='margin-left:0%; margin-bottom:34px' class='btn btnType5' rel='leanModal' href='#apply_comp' >참여하기</a>
+			    </p>
 			    <div class="btm clearFix">
-            <a href="#" id="btnArticleWrite" class="btn btnType6 btnWrite" style='margin-left:0%'>글쓰기</a>
+            <a href="#" id="btnArticleWrite" class="btn btnType6 btnWrite requireLogin" style='margin-left:0%'>새 대회 만들기</a>
             <a href="#" id="btnArticleList" class="btn btnType6 btnList" style='margin-left:0%'>목록</a>
           </div>
 			    
         </div>
-			  <p class='btnHome'><a href='#' id='btnArticleJoin2' style='margin-left:0%; margin-bottom:34px' class='btn btnType5'>강제참여</a></p>
+			  
 			</aside>
 		</div>
 	</div>
@@ -110,14 +113,62 @@
     </div>
   </div>    
   <div class="btn-fld">
-    <button class="close_btn" id="applyTeamBtn" type="button">닫기 &raquo;</button>
+    <button class="close_btn" type="button">닫기 &raquo;</button>
   </div>
+</div>
+
+<!-- 팀 참가 폼 -->
+<div id="apply_comp">
+  <div id="apply_comp-header">
+    <h2>대회 참가</h2>
+    <button class="modal_close close_btn"></button>
+  </div>
+  <form id='applyCompForm' class="form-horizontal">
+  <div id="apply_comp_img">
+    <img id="apply_preview_img" src="img/allstardefault.png"/>
+  </div>
+  <div class="txt-fld">
+    <label for="acname">팀명</label>
+    <div>
+        <select id="acname" class="good_input">
+        </select>
+      </div>
+  </div>
+  <div class="txt-fld">
+    <label for="acevent">종목</label>
+    <p id="acevent" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txtarea-fld">
+    <label for="accontent">내용</label>
+    <div>
+      <textarea id="accontent" class="form-control comp_team_detail" rows='10' cols='60'></textarea>
+    </div>
+  </div>    
+  <div class="btn-fld">
+    <button class="close_btn" type="button">닫기 &raquo;</button>
+    <button class="submit_btn" id="applyTeamBtn" type="button" style='margin-right:50px'>신청 &raquo;</button>
+  </div>
+  </form>
 </div>
 
 <!-- 기본 정보 출력 -->
 <script type='text/javascript' src='../lib/jquery-bracket/jquery.bracket.min.js'></script>
 <script>
+function saveFn(data, userData) {
+    var json = jQuery.toJSON(data)
+    $('#saveOutput').text('POST '+userData+' '+json)
+    /* You probably want to do something like this
+    jQuery.ajax("rest/"+userData, {contentType: 'application/json',
+                                  dataType: 'json',
+                                  type: 'post',
+                                  data: json})
+    */
+  }
+
 var no = -1;
+var eno = -1;
+var tno = -1;
+var ename = "";
 if (location.href.indexOf('?') != -1)
   no = location.href.split('?')[1].split('=')[1];
 var status = '모집예정'
@@ -125,6 +176,9 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
   var ajaxResult = resultObj.ajaxResult;
     if (ajaxResult.status == "success") {
       var c = ajaxResult.data;
+      eno = c.eno;
+      ename = c.event.name;
+      tno = c.tno;
       var rsd = new Date(c.recruitStartDate).getTime();
       var red = new Date(c.recruitEndDate).getTime();
       var sd = new Date(c.startDate).getTime();
@@ -171,7 +225,7 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
       
 
           console.log($('#minimal .demo'));
-          $('#minimal .demo').bracket({init: JSON.parse(c.operation) });
+          $('#minimal .demo').bracket({init: JSON.parse(c.operation)/*  , save:saveFn */});
       
     }
   });
@@ -289,26 +343,83 @@ function imgMouseEvent(teamList) {
 
 </script>
 
-<!-- 참가하기 버튼 리스너 -->
+<!-- 참가하기 버튼 리스너(모달 띄우기) -->
 <script>
 $('#btnArticleJoin').on('click', function(event){
-    event.preventDefault();
-    alert('참여하기버튼');
-  });
+  event.preventDefault();
+  /* if (status != '모집중') {
+   alert('현재 모집기간이 아닙니다.');
+   return;
+  }  */
+  
+  $.getJSON('../competition/availteam.do?mno=' + sessionStorage.getItem("mem_num") 
+		  + '&eno=' + eno, function(resultObj) {
+		    var ajaxResult = resultObj.ajaxResult;
+		    if (ajaxResult.status == "success") {
+		    	var team = ajaxResult.data;
+		    	var acname = $("#acname");
+		    	for(var t of team) {
+		    		if (t.tno == tno)
+		    			continue;
+		    		console.log(t.tno, "/", t.name);
+		    		var h = "<option value='" + t.tno + "'>" + t.name + "</option>";
+		    		acname.append(h);
+		    	}
+	    		$("#acevent").text(ename);
+		    }
+		  });
+});
 </script>
 
-<!-- 수정 삭제 버튼 추가(해당 글쓴이만!, 지금은 모두에게 보여주는것으로 구현 -->
+<!-- 참가하기 (서버 요청) -->
 <script>
-var div = $('.btnArea');
-$('<div>').addClass('btm clearFix')
-  .html(
-		  "<a href='#' id='btnArticleUpdate' class='btn btnType6 btnWrite' style='margin-left:0%'>글수정</a>"
-    + "<a href='#' id='btnArticleRemove' class='btn btnType6 btnList' style='margin-left:0%'>글삭제</a>"
-		  ).appendTo(div);
+$('body').on('click','#applyTeamBtn', function() {
+	var ttno = $('#acname option:selected').val();
+	var content = $('#accontent').val();
+	$.getJSON('../competition/joincomp.do?cno=' + no 
+		      + '&tno=' + ttno + '&content=' + content, function(resultObj) {
+     var ajaxResult = resultObj.ajaxResult;
+     if (ajaxResult.status == "success") {
+    	   alert('등록 완료 했어요');
+    	   location.href = 'competitionDetail.html?no='+no;
+     } else if (ajaxResult.status == "already") {
+    	 alert('이미 등록하셨어요');
+     }
+    		 
+   });
+	
+});
 </script>
 
-<!-- 수정 버튼 리스너 -->
+<!-- 수정 삭제 버튼 추가(해당 글쓴이만!) -->
 <script>
+//mno 요청
+$.getJSON('/allstar/competition/master.do?no=' + no, function(resultObj) {
+	var ajaxResult = resultObj.ajaxResult;
+	  if (ajaxResult.status == "success") {
+		  confirmMaster(ajaxResult.data)
+	  }
+	});
+
+//mno, session값 비교(로그인확인)
+function confirmMaster(mno) {
+	if (mno == sessionStorage.getItem("mem_num"))
+	  {
+	    var div = $('.btnArea');
+	    $('<div>').addClass('btm clearFix')
+	      .html(
+	          "<a href='#' id='btnArticleUpdate' class='btn btnType6 btnWrite' style='margin-left:0%'>대회 수정</a>"
+	        + "<a href='#' id='btnArticleRemove' class='btn btnType6 btnList' style='margin-left:0%'>대회 삭제</a>"
+	          ).appendTo(div);
+	    modAndDelBtnOn();
+	  }	
+}
+
+</script>
+
+<!-- 수정 버튼 리스너 --><!-- 삭제 버튼 리스너 -->
+<script>
+function modAndDelBtnOn() {
 $('#btnArticleUpdate').on('click', function(event){
     event.preventDefault();
     if (status != '모집예정') {
@@ -318,22 +429,25 @@ $('#btnArticleUpdate').on('click', function(event){
     location.href = "competitionForm.html?no=" + no;
     
   });
-</script>
-
-<!-- 삭제 버튼 리스너 -->
-<script>
+  
 $('#btnArticleRemove').on('click', function(event){
 	  event.preventDefault();
-	  $.getJSON('/allstar/competition/delete.do?no=' + no, function(resultObj) {
-		  var ajaxResult = resultObj.ajaxResult;
-		    if (ajaxResult.status == "success") {
-		    	alert('삭제 성공!');
-		    	location.href = 'competitionList.html';
-		    } else {
-		    	alert('삭제 실패!');	
-		    }
-		  });
+	  var result = confirm("정말 삭제하시겠습니까?")
+	  if (result == true){
+		  $.getJSON('/allstar/competition/delete.do?no=' + no, function(resultObj) {
+			  var ajaxResult = resultObj.ajaxResult;
+			    if (ajaxResult.status == "success") {
+			    	alert('삭제 성공!');
+			    	location.href = 'competitionList.html';
+			    } else {
+			    	alert('삭제 실패!');	
+			    }
+			  });
+	  } else {
+		  alert("취소되었습니다.");
+	  }
 	});
+}
 </script>
 
 <!-- 목록 버튼 리스너-->
@@ -349,19 +463,22 @@ $('#btnArticleList').on('click', function(event){
 <script>
 $('#btnArticleWrite').on('click', function(event){
 	event.preventDefault();
-  alert('새글버튼');
-  location.href = 'competitionForm.html?no=-1';  
+	if(sessionStorage.getItem("mem_num"))
+     location.href = 'competitionForm.html?no=-1';
+	else
+		alert("로그인이 필요한 서비스 입니다.");
 });
 </script>
 
 <!-- 팀 정보 모달(섬네일 생성시 불러오는 코드) -->
 <script>
 function applyModal() {
-    $('img[rel*=leanModal]').leanModal({ closeButton: ".close_btn" });   
+    $('a[rel*=leanModal]').leanModal({ closeButton: ".close_btn" });
+    $('img[rel*=leanModal]').leanModal({ closeButton: ".close_btn" });
 };
 
-function getTeamDetail(tno) {
-	$.getJSON('../team/ajax/detail.do?tno=' + tno, function(resultObj) {
+function getTeamDetail(ttno) {
+	$.getJSON('../team/ajax/detail.do?tno=' + ttno, function(resultObj) {
     var ajaxResult = resultObj.ajaxResult;
     if (ajaxResult.status == "success") {
       var team = ajaxResult.data;
@@ -390,7 +507,7 @@ function getTeamDetail(tno) {
 }
 </script>
 
-<!-- 헤더 풋터 -->
+<!-- 헤더 풋터 로그인 정보 포함 -->
 <script>
 $(function(){
   
@@ -398,41 +515,6 @@ $(function(){
     $("#footer").load("footer.html"); 
   });
 </script>
-
-<!-- 강제 참여 리스너 -->
-<script>
-/* 일단 강제 */
-var tno = 100;
-$('#btnArticleJoin2').on('click', function(event){
-    event.preventDefault();
-
-    console.log(no);
-    console.log(tno);
-    
-    $.ajax({
-        url : "../competition/joinc.do?cno="+ no +"&tno="+tno,
-        type : "GET",
-        dataType: "json",
-        processData: false, 
-        contentType:false,
-        success : function(result) {
-        	if (result.ajaxResult.status == "success") {
-        		tno--;
-            alert("참가 성공");
-          } else if (result.ajaxResult.status == "already") {
-        	  tno--;
-            alert("이미참가");
-          } else {
-        	  alert("?????")
-          }
-        },
-		    error : function(result){
-		      alert('error');
-		    }
-    });
-});
-</script>
-
 
 </body>
 </html>
