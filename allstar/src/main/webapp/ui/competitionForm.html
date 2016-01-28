@@ -261,8 +261,9 @@ if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
 	
 function setEventName() {
 	console.log('setEventName');
-	var eno = $('#fteam option:selected').attr('data-eno') - 2;//리스트 0번부터에 1은 자유게시판은 안가져오기 때문에 -2
-	$('#fmevent').val(window.eventList[eno].name);
+	var eno = $('#fteam option:selected').attr('data-eno') ;
+	$('#feno').val(eno);
+	$('#fmevent').val(window.eventList[eno-2].name);//리스트 0번부터에 1은 자유게시판은 안가져오기 때문에 -2
 }
 </script>
 
@@ -369,10 +370,6 @@ $(function() {
           alert('대회명을 입력하세요');
             return;
         }
-        if($('#fevent').val() == "") {
-          alert('종목을 선택하세요');
-          return;
-        }
         if($('#fteamNum').val() == "") {
           alert('인원수를 입력하세요');
             return;
@@ -409,8 +406,8 @@ $(function() {
             return;
         }
         
-        data.append('tno', sessionStorage.getItem("mem_num"));
-        data.append('eno', $('#fevent').val());
+        data.append('tno', $('#fteam option:selected').val());
+        data.append('eno', $('#feno').val());
         data.append('name', $('#fname').val());
         data.append('teamNum', $('#fteamNum').val());
         data.append('cost', $('#fcost').val());
