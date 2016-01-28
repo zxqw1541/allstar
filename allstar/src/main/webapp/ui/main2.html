@@ -44,7 +44,7 @@ function close_modal(modal_id){
 		     </span>
 		     <span id="logout" style="display:none;">
 		                <a style='margin-right:10px;color:white;' id='info' href='Member_info.html'>회원정보</a>
-		        <a style='margin-right:10px;color:white;' id='out' href='#'>Log out</a>
+		        <a style='margin-right:10px;color:white;' id='out' href=''>Log out</a>
         </span>
           </div>
             <div id="cssmenu" >
@@ -358,9 +358,10 @@ var div = $('#photo_div');
             console.log(sessionStorage.getItem("loginSession"));
               var session_id=sessionStorage.getItem("loginSession");
               var span = $("#logout");
-              $("<a style='margin-right:10px;color:white;'  href='#'>"+session_id+"</a>")
+              $("<a style='margin-right:10px;color:white;'  href=''>"+session_id+"</a>")
                 .appendTo(span);
             console.log("success");
+            location.reload();
           } else {
             alert("아이디와 패스워드가 일치하지 않습니다.");
           }
@@ -388,7 +389,7 @@ var div = $('#photo_div');
 	    $.session.clear();
 	  $("#login").show();
 	  $("#logout").hide();
-
+	  location.reload();
 	  
   });
   

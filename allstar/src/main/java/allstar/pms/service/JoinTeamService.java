@@ -10,7 +10,7 @@ public interface JoinTeamService {
   
   List<JoinTeam> getJoinTeamByMember(int mno);
   
-  int retrieve(JoinTeam joinTeam);
+  JoinTeam retrieve(JoinTeam joinTeam);
  
   void register(JoinTeam joinTeam);
   

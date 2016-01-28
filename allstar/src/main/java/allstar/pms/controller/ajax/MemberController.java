@@ -137,11 +137,11 @@ public class MemberController {
     return new AjaxResult("success", null);
   }
   
-  @RequestMapping("joint")
+  @RequestMapping(value = "joint", method = RequestMethod.POST)
   public AjaxResult joinTeamList(JoinTeam joinTeam){
     log.debug(joinTeam);
     
-    if(joinTeamService.retrieve(joinTeam) != 0) {
+    if(joinTeamService.retrieve(joinTeam) != null) {
       return new AjaxResult("already", null);
     }
     try {

@@ -77,7 +77,7 @@
         where jt.mno = #{mno}
     </select>
     
-      <select id="selectOneByTeamMember" resultMap="joinTeamMap" parameterType="map">
+      <select id="selectOneByTeamMember" resultMap="joinTeamMap" parameterType="joinTeam">
         <include refid="select_inc"/>
        from join_team jt
          left outer join team t on jt.tno = t.tno
