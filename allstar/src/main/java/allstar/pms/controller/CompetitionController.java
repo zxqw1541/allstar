@@ -191,5 +191,33 @@ public class CompetitionController {
     }
     return new AjaxResult("success", teamList);
   }
+  
+  @RequestMapping(value="master", method=RequestMethod.GET)
+  public AjaxResult getCompetitionMaster(int no) {
+    log.debug("no = " + no);
+    int a = competitionService.getMnoByCno(no);
+    log.debug("a  = " + a);
+    return new AjaxResult("success", a);
+  }
+  
+  @RequestMapping(value="availteam", method=RequestMethod.GET)
+  public AjaxResult getTeamListByMNno(int mno, int eno) {
+    log.debug("mno = " + mno + " eno = " + eno);
+    
+    return new AjaxResult("success", teamService.getTeamListByTnoEno(mno, eno));
+  }
+  
+  @RequestMapping(value="joincomp", method=RequestMethod.GET)
+  public AjaxResult addJoinCompetition(JoinComp joinComp) {
+    log.debug("joinComp = " + joinComp);
+    log.debug("count : " + joinCompService.retrive(joinComp));
+    if (joinCompService.retrive(joinComp) > 0)
+      return new AjaxResult("already", null);
+    
+    joinCompService.register(joinComp);
+    
+    
+    return new AjaxResult("success", null);
+  }
 }
  

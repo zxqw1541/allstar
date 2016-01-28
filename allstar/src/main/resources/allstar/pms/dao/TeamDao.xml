@@ -143,4 +143,11 @@
 	  where tno = #{tno}
 	</select>
 	
+	<select id="selectTeamByMnoEno" resultMap='teamMap' parameterType='map'>
+	  select t.tno, t.name
+	  from team t
+	       left outer join join_team jt on t.tno = jt.tno
+	  where t.eno = #{eno} and jt.mno = #{mno} and jt.level = 1 
+	</select>
+	
 </mapper>
