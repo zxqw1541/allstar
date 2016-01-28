@@ -91,194 +91,6 @@ $(function() {
               </select>
           </div>
         </div>
-<script>
-  function sorting() {
-    url = location.href;
-
-    var eventVal = $('#bevent option:selected').val();
-    var dateVal = $('#bdate option:selected').val();
-    var replyVal = $('#breply option:selected').val();
-    
-    var url = makeSortingURL(url, eventVal, dateVal, replyVal);
-    
-    location.href = url;
-  }
-  
-  function updateURLParameter(url, param, paramVal)
-  {
-      var TheAnchor = null;
-      var newAdditionalURL = "";
-      var tempArray = url.split("?");
-      var baseURL = tempArray[0];
-      var additionalURL = tempArray[1];
-      var temp = "";
-
-      if (additionalURL) 
-      {
-          var tmpAnchor = additionalURL.split("#");
-          var TheParams = tmpAnchor[0];
-              TheAnchor = tmpAnchor[1];
-          if (TheAnchor)
-              additionalURL = TheParams;
-
-          tempArray = additionalURL.split("&");
-
-          for (i=0; i<tempArray.length; i++)
-          {
-              if(tempArray[i].split('=')[0] != param)
-              {
-                  newAdditionalURL += temp + tempArray[i];
-                  temp = "&";
-              }
-          }        
-      }
-      else
-      {
-          var tmpAnchor = baseURL.split("#");
-          var TheParams = tmpAnchor[0];
-              TheAnchor  = tmpAnchor[1];
-
-          if (TheParams)
-              baseURL = TheParams;
-      }
-      if (TheAnchor)
-          paramVal += "#" + TheAnchor;
-
-      var rows_txt = temp + "" + param + "=" + paramVal;
-      return baseURL + "?" + newAdditionalURL + rows_txt;
-  }
-
-  function removeParam(key, url) {
-      var rtn = url.split("?")[0],
-          param,
-          params_arr = [],
-          queryString = (url.indexOf("?") !== -1) ? url.split("?")[1] : "";
-      if (queryString !== "") {
-          params_arr = queryString.split("&");
-          for (var i = params_arr.length - 1; i >= 0; i -= 1) {
-              param = params_arr[i].split("=")[0];
-              if (param === key) {
-                  params_arr.splice(i, 1);
-              }
-          }
-          rtn = rtn + "?" + params_arr.join("&");
-      }
-      return rtn;
-  }
-
-  function makeSortingURL(url, eventVal, dateVal, replyVal) {
-      var checkIndex = -1;
-          checkOption = -1;
-      var url;
-      
-      if (eventVal == checkOption) {
-        url = removeParam("event", url);
-      }
-      if (addrVal == checkOption) {
-        url = removeParam("addr", url);
-      }   
-      if (recruitVal == checkOption) {
-        url = removeParam("recruit", url);
-      }    
-      if (startVal == checkOption) {
-        url = removeParam("start", url);
-      }    
-      if (replyVal == checkOption) {
-        url = removeParam("reply", url);
-      }    
-      
-      if (url.indexOf('?') == checkIndex) {
-          if (eventVal != checkOption) {
-            if (url.indexOf('event') == checkIndex) url = url + '?event=' + eventVal;
-            else url = updateURLParameter(url, 'event', eventVal);
-            if (addrVal != checkOption) {
-              if (url.indexOf('addr') == checkIndex) url = url + '&addr=' + addrVal;
-              else url = updateURLParameter(url, 'addr', addrVal);
-            }
-            if (recruitVal != checkOption) {
-              if (url.indexOf('recruit') == checkIndex) url = url + '&recruit=' + recruitVal;
-              else url = updateURLParameter(url, 'recruit', recruitVal);
-            }
-            if (startVal != checkOption) {
-              if (url.indexOf('start') == checkIndex) url = url + '&start=' + startVal;
-              else url = updateURLParameter(url, 'start', startVal);
-            }
-            if (replyVal != checkOption) {
-              if (url.indexOf('reply') == checkIndex) url = url + '&reply=' + replyVal;
-              else url = updateURLParameter(url, 'reply', replyVal);
-            }
-          } else {
-            if (addrVal != checkOption) {
-              if (url.indexOf('addr') == checkIndex) url = url + '?addr=' + addrVal;
-              else url = updateURLParameter(url, 'addr', addrVal);
-              if (recruitVal != checkOption) {
-                if (url.indexOf('recruit') == checkIndex) url = url + '&recruit=' + recruitVal;
-                else url = updateURLParameter(url, 'recruit', recruitVal);
-              }
-              if (startVal != checkOption) {
-                 if (url.indexOf('start') == checkIndex) url = url + '&start=' + startVal;
-                 else url = updateURLParameter(url, 'start', startVal);
-              }
-              if (replyVal != checkOption) {
-                if (url.indexOf('reply') == checkIndex) url = url + '&reply=' + replyVal;
-                else url = updateURLParameter(url, 'reply', replyVal);
-              }
-            } else {
-              if (recruitVal != checkOption) {
-                if (url.indexOf('recruit') == checkIndex) url = url + '?recruit=' + recruitVal;
-                else url = updateURLParameter(url, 'recruit', recruitVal);
-                if (startVal != checkOption) {
-                  if (url.indexOf('start') == checkIndex) url = url + '&start=' + startVal;
-                  else url = updateURLParameter(url, 'start', startVal);
-                }
-                if (replyVal != checkOption) {
-                  if (url.indexOf('reply') == checkIndex) url = url + '&reply=' + replyVal;
-                  else url = updateURLParameter(url, 'reply', replyVal);
-                }
-              } else {
-                if (startVal != checkOption) {
-                  if (url.indexOf('start') == checkIndex) url = url + '?start=' + startVal;
-                  else url = updateURLParameter(url, 'start', startVal);
-                  if (replyVal != checkOption) {
-                    if (url.indexOf('reply') == checkIndex) url = url + '&reply=' + replyVal;
-                    else url = updateURLParameter(url, 'reply', replyVal);
-                  }
-                } else {
-                  if (replyVal != checkOption) {
-                    if (url.indexOf('reply') == checkIndex) url = url + '?reply=' + replyVal;
-                    else url = updateURLParameter(url, 'reply', replyVal);
-                  }
-                }
-              }
-            }
-          }
-        } else {
-            if (eventVal != checkOption) {
-              if (url.indexOf('event') == checkIndex) url = url + '&event=' + eventVal;
-              else url = updateURLParameter(url, 'event', eventVal);
-            }
-            if (addrVal != checkOption) {
-              if (url.indexOf('addr') == checkIndex) url = url + '&addr=' + addrVal;
-              else url = updateURLParameter(url, 'addr', addrVal);
-            }
-            if (recruitVal != checkOption) {
-              if (url.indexOf('recruit') == checkIndex) url = url + '&recruit=' + recruitVal;
-              else url = updateURLParameter(url, 'recruit', recruitVal);
-            }
-            if (startVal != checkOption) {
-              if (url.indexOf('start') == checkIndex) url = url + '&start=' + startVal;
-              else url = updateURLParameter(url, 'start', startVal);
-            }
-            if (replyVal != checkOption) {
-              if (url.indexOf('reply') == checkIndex) url = url + '&reply=' + replyVal;
-              else url = updateURLParameter(url, 'reply', replyVal);
-            }
-        }
-    
-        return url;
-  }
-</script>
-
        
         <div class="boardList listType1">
 
@@ -311,12 +123,12 @@ $(function() {
         <!-- 페이징 처리 부분 -->
         </div> 
         <fieldset class="searchArea">
-          <select name="ctl00$Contents$selSearch" id="ctl00_Contents_selSearch">
+          <select id="bsearch">
   <option value="1">제목</option>
   <option value="2">작성자</option>
 </select>
-          <input name="ctl00$Contents$inputSrch" type="text" id="ctl00_Contents_inputSrch" class="inputTxt" />
-                    <input type="submit" name="ctl00$Contents$SearchClick" value="검색" onclick="return search();" id="ctl00_Contents_SearchClick" class="btnSearch btn" />
+          <input type="text" id="bcontent" class="inputTxt" />
+          <input type="submit" value="검색" onclick="return search();" id="bsearchClick" class="btnSearch btn" />
                     
         </fieldset>
       </div>
@@ -324,6 +136,109 @@ $(function() {
   </div>
 </div>
 </div>
+
+<script>
+getParameter = function(name) {
+    search = location.href;
+    if (!search || search.indexOf("?") == -1) {
+      return false;
+    }
+    search = search.split("?");
+    data = search[1].split("=");
+    
+    /* if(search[1].indexOf(name) == -1 || data[0] != name) {
+      return "";
+    } */
+    if (search[1].indexOf("&") == (-1)) {
+      data = search[1].split("=");
+      return data[1];
+    } else {
+      
+      data = search[1].split("&");
+      for(i = 0; i <= data.length-1; i++) {
+        l_data = data[i].split("=");
+        if (l_data[0] == name) {
+          return l_data[1];
+          break;
+        } else continue;
+        }
+      }
+    }
+</script>
+
+<script>
+  var pageNo = 1;
+  var search = '';
+  var checkPageNo = location.href.indexOf('pageNo');
+  var checkEvent = location.href.indexOf('event');
+  var checkDate = location.href.indexOf('date');
+  var checkReply = location.href.indexOf('reply');
+  var checkSearch1 = location.href.indexOf('search1');
+  var checkSerach2 = location.href.indexOf('search2');
+  
+  if (checkPageNo!= -1) pageNo = getParameter('pageNo');
+   
+  url = '/allstar/board/list.do?pageSize=' + pageSize + '&pageNo=' + pageNo;
+  
+  if (location.href.indexOf('&') != -1) {
+    if (checkSearch1 != -1) {
+      url = url + "&search1=" + getParameter('search1');
+    }
+    else if (checkSerach2 != -1) {
+      url = url + "&search2=" + getParameter("search2");
+    }
+  }
+  
+  if (checkEvent != -1) url = url + "&event=" + getParameter('event');
+  if (checkDate != -1) url = url + "&date=" + getParameter('date');
+  if (checkReply != -1) url = url + "&reply=" + getParameter('reply');
+  
+   $.ajax({
+       url: url,
+       type:'GET',
+       async:false,
+       contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+       dataType:'json',
+       success:function(resultObj) {
+    var tbody = $("#boardtable tbody");
+    for (var c of resultObj.ajaxResult.data) {
+      $("<tr>")
+      .html(
+      "<td class='num'>" + c.event.name +"</td>"
+      + "<td class='subject'><a href='#' data-ajax-board='free_view' pageno='" + c.no + "'><strong>" + c.name + "<small>(3)</small></strong>"
+      + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
+      + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
+      + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>"
+      )
+      .appendTo(tbody);
+    }
+       }
+  });
+  
+  if (checkEvent != -1) {
+    $("#cevent").val(getParameter('event'));
+  }
+  if (checkAddr != -1) {
+    var addrParam = decodeURIComponent(getParameter('addr'));
+    $('#caddr option[value="' + addrParam + '"]').attr('selected', 'selected');
+  }
+  if (checkRecruit != -1) {
+    $("#crecruit").val(getParameter('recruit'));
+  }
+  if (checkStart != -1) {
+    $("#cstart").val(getParameter('start'));
+  }
+  if (checkReply != -1) {
+    $("#creply").val(getParameter('reply'));
+  }
+  
+  //게시물 제목을 클릭했을 때 호출될 함수
+  
+  $(document).on('click', 'a[data-ajax-board]', function (e) {
+    e.preventDefault();
+    location.href = "competitionDetail.html?no=" + $(this).attr("pageno");
+  });
+</script>
 <!-- detail -->
             <div id="contents" style='display:none; background-color: white; width:1258px; margin:auto; overflow-y: auto; height: 770px;'>
           <div class="viewWrap boardContents boardView" >
