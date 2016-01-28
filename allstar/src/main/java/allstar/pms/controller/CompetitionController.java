@@ -21,7 +21,9 @@ import allstar.pms.domain.Competition;
 import allstar.pms.domain.JoinComp;
 import allstar.pms.domain.Team;
 import allstar.pms.service.CompetitionService;
+import allstar.pms.service.EventService;
 import allstar.pms.service.JoinCompService;
+import allstar.pms.service.JoinTeamService;
 import allstar.pms.service.TeamService;
 import allstar.pms.util.MultipartHelper;
 import allstar.pms.util.TournamentHelper;
@@ -34,6 +36,8 @@ public class CompetitionController {
   @Autowired CompetitionService competitionService;
   @Autowired TeamService teamService;
   @Autowired JoinCompService joinCompService;
+  @Autowired JoinTeamService joinTeamService;
+  @Autowired EventService eventService;
   @Autowired ServletContext servletContext;
   
   @RequestMapping("all")
@@ -76,10 +80,6 @@ public class CompetitionController {
   public AjaxResult add(Competition competition, MultipartHttpServletRequest uploadedFile) throws Exception {
     log.info("competition = " + competition);
     log.info("file = " + uploadedFile);
-    /* 필수 데이터 (임시저장) */
-    competition.setPoster("1");
-    competition.setTno(53);
-    /* 나중에 입력 받아오면 지울 것 */
     
     /* 대진표 테스트 */
     String oper = TournamentHelper.makeTournament(competition.getTeamNum());
@@ -219,5 +219,17 @@ public class CompetitionController {
     
     return new AjaxResult("success", null);
   }
+  
+  @RequestMapping(value="jointeam", method=RequestMethod.GET)
+  public AjaxResult listJoinTeam(int mno) {
+    log.debug("mno = " + mno);
+    return new AjaxResult("success", joinTeamService.getJoinTeamByMember(mno));
+  }
+  
+  @RequestMapping(value="event", method=RequestMethod.GET)
+  public AjaxResult listEvent() {
+    return new AjaxResult("success", eventService.getEventList());
+  }
+  
 }
  

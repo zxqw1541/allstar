@@ -84,7 +84,6 @@ table {
 /*-----------------------------------------------------------------------------------*/
 
 body {
-	font-family:"Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", Helvetica, Arial, sans-serif;
 	background-color: #f0f0f0;
 	
 	font-size: 13px;
@@ -141,7 +140,6 @@ pre {
 	color: #5d8ba6;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'MidoMedium';
 	font-weight: normal;
 	color: #565656;
 	margin-bottom: 10px;
@@ -194,7 +192,6 @@ img.right {
 	margin-left:20px;
 }
 em {
-	font-family: Georgia, Times, "Times New Roman", serif;
 	font-size: 11px;
 	color: #565656;
 }
