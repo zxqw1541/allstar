@@ -306,18 +306,21 @@ function close_modal(modal_id){
 var div = $('#photo_div');
 
          for (var competition of resultObj.ajaxResult.data) {
+        	 var poster = competition.poster;
+        	 if(poster == null)
+        		 poster=allstarcomp.png;
            $("<figure>")
-           .html("<a href='#' class='photostack-img'><img src='images/tour/basket1.jpeg' /></a>"
+           .html("<a href='competitionDetail.html?no="+competition.no+"' class='photostack-img'><img src='../competition/img/"+poster+"' /></a>"
             +"<figcaption>"
             +"<h2 class='photostack-title'>"+ competition.name +"</h2>"
-            +"<div class='photostack-back'>"
-            +"<p>Tournament Title :" + competition.name + "<br>"+ competition.joinNum +" out of "+ competition.teamNum + " are in!!<br>"
+            +"<div class='photostack-back'><img src='../competition/img/"+poster+"' style='width:150px; text-align:center;'/>"
+            +"<p style='text-align:center;'>Tournament Title :" + competition.name + "<br>"+ competition.joinNum +" out of "+ competition.teamNum + " are in!!<br>"
             + competition.content + "</p>"
             + "</div>"
             +"</figcaption></figure>"
           ).appendTo('#photo_div'); 
            $("<figure data-dummy>"
-           +"<a href='#' class='photostack-img'><img src='images/tour/bad1.jpeg' alt='img16'/></a>"
+           +"<a href='competitionDetail.html?no="+competition.no+"' class='photostack-img'><img src='../competition/img/"+poster+"' alt='img16'/></a>"
            +"<figcaption>"
             +"<h2 class='photostack-title'>"+competition.name+"</h2>"
            +"</figcaption>"
