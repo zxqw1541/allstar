@@ -142,6 +142,7 @@ $.getJSON('/allstar/competition/imglist.do?cno=' + no, function(resultObj) {
 	}
 });
 
+/* 참여한 팀 없을 때 공백 */
 function emptyThumb() {
 	$(".img").each(function(index, item) {
 	    $(this).children().remove();
@@ -155,18 +156,29 @@ function emptyThumb() {
 
 /* 그림 넣기 */
 function changeThumb(teamList, page) {
-	$(".img").each(function(index, item) {
-		$(this).children().remove();
-		var path='../team/img/tcd_file-1453879458179-1.png';
-		if (page*4 + index*1 >= teamList.length) {
-			path = '../team/img/invisible_team.png';
-		}
-		else if (teamList[page*4+index].emblem != null)
-			path = '../team/img/tcd_' + teamList[page*4+index].emblem;
-
+	  $(".img").each(function(index, item) {
+			$(this).children().remove();
+		  var teamNo = -1;
+			var path='../team/img/tcd_allstardefault.png';
+			
+			// 범위 넘어가는것 방지
+			if (page*4 + index*1 >= teamList.length) {
+				path = '../team/img/invisible_team.png';
+			}
+			// 그림 있는 친구들 그림 주소 넣기
+			else if (teamList[page*4+index].emblem != null) {
+				path = '../team/img/tcd_' + teamList[page*4+index].emblem;
+				teamNo = teamList[page*4+index].tno;
+			}
+			// 그림 없는 친구들
+			else {
+				teamNo = teamList[page*4+index].tno;
+			}
+				
 	    $("<img>").attr({
 	    	class : 'team_img',
-	    	teamno : page*4 + index, 
+	    	listno : page*4 + index,
+	      teamno : teamNo,
 			  src : path
 		  }).appendTo($(this));
 	});
@@ -194,15 +206,30 @@ function nextThumb(teamList, si){
 }
 
 function imgMouseEvent(teamList) {
+	
+	/* 그림에 마우스가 들어갈 때 */
 	$('.team_img').mouseenter(function(){
-		var i = $(this).attr('teamno');
+		var i = $(this).attr('listno');0
 		if (teamList.length <= i)
 			$('.teamName h2').text('');
 		else
 			$('.teamName h2').text(teamList[i].name)
   });
+	
+	/* 그림에서 마우스가 벗어날 때 */
   $('.team_img').mouseout(function(){
 	  $('.teamName h2').text('')
+  });
+  
+  /* 그림 클릭시 */
+  $('.team_img').click(function(){
+    var i = $(this).attr('listno');
+    var t = $(this).attr('teamno');
+      if (teamList.length > i) {
+        console.log("click");
+        console.log(i);
+        console.log(t);
+      }
   });
 }
 
