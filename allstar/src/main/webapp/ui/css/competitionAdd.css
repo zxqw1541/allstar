@@ -34,7 +34,7 @@
 
 /* view Wrap */
 .viewWrap .mainArea{width:798px; background:#fff; padding:48px 50px; margin:auto;}
-.viewWrap .header{width:798px; border-bottom:2px solid #b2b2b2; margin:0 0 17px 0; padding:0 0 24px 0; top:-15px;}
+.viewWrap .header{width:798px; border-bottom:2px solid #b2b2b2; margin:0 0 17px 0; padding:0 0 24px 0;}
 .viewWrap .header .cat1{font-size:12px; margin:0 0 27px 0;}
 .viewWrap .header .cat1 .dep1{height:26px; line-height:26px; color:#fff; background:#907c6e; padding:0 8px; float:left;}
 .viewWrap .header .cat1 .bul{height:24px; float:left;}

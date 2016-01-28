@@ -50,20 +50,19 @@ $(function(){
 				      <input id="fname" class="good_input" type="text" placeholder="대회명을 입력해주세요."/>
 				    </div>
 				    <div class="txt-fld">
-				      <label for="fevent">종목</label>
+				      <label for="fteam">참여할 팀</label>
 				      <div>
-				        <select id="fevent" class="newForm good_input">
-				          <option value=''>종목선택</option>
-				          <option value='2'>농구</option>
-				          <option value='3'>축구</option>
-				          <option value='4'>야구</option>
-				          <option value='5'>볼링</option>
-				          <option value='6'>탁구</option>
+				        <select id="fteam" class="newForm good_input" onchange="setEventName()">
 				        </select>
-				        <input id="fmevent" class="modForm good_input" type="text" readonly/>
-                <input id="feno" type="hidden"/>
 				      </div>
-				    </div>   
+				    </div>
+				    <div class="txt-fld">
+              <label for="fmevent">종목</label>
+              <div>   
+			        <input id="fmevent" class="good_input" type="text" readonly/>
+			        </div>
+            </div>
+            <input id="feno" type="hidden"/>
 				    <div class="txt-fld">
 				      <label for="fteamNum">최대 팀수</label>
 				      <input id="fteamNum" class="good_input" type="text" placeholder="숫자를 입력해주세요."/>
@@ -207,9 +206,31 @@ $(function(){
 <!-- 추가/수정(정보불러오기) 구분 -->
 <script>
 var no = location.href.split('?')[1].split('=')[1];
+
+//종목 가져오기
+$.getJSON('../competition/event.do', function(resultObj) {
+	var ajaxResult = resultObj.ajaxResult;
+    if (ajaxResult.status == "success") {
+    	window.eventList = ajaxResult.data;
+    	console.log(window.eventList);
+    }
+});
+
 if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
 	  $('.modForm').css('display', 'none');// 상세정보 출력을 위한 폼 항목은 감춘다.
 	  $('.newForm').css('display', '');// 새 글 등록을 위한 폼 항목은 보인다.
+	  
+	  $.getJSON('../competition/jointeam.do?mno=' + sessionStorage.getItem("mem_num"), function(resultObj){
+		  var ajaxResult = resultObj.ajaxResult;
+		  if (ajaxResult.status == "success") {
+			  var fteam = $("#fteam");
+			  for (var t of ajaxResult.data) {
+				  var h = "<option value='" + t.tno + "' data-eno='" + t.team.eno + "'>" + t.team.name + "</option>";
+				  fteam.append(h);
+			  }
+			  setEventName();
+		  }
+	  });
 	  
 	} else { // 상세정보 출력폼으로 전환한다.
 	  $('.modForm').css('display', '');
@@ -233,10 +254,16 @@ if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
 	      $("#fpostno").val(c.postNo);
 	      $("#fcontent").val(c.content);
 	      $("#fposterName").val(c.poster);
+	      
 	    }
 	  });
 	}
-
+	
+function setEventName() {
+	console.log('setEventName');
+	var eno = $('#fteam option:selected').attr('data-eno') - 2;//리스트 0번부터에 1은 자유게시판은 안가져오기 때문에 -2
+	$('#fmevent').val(window.eventList[eno].name);
+}
 </script>
 
 <!-- 대회 수정 -->
@@ -382,6 +409,7 @@ $(function() {
             return;
         }
         
+        data.append('tno', sessionStorage.getItem("mem_num"));
         data.append('eno', $('#fevent').val());
         data.append('name', $('#fname').val());
         data.append('teamNum', $('#fteamNum').val());

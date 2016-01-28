@@ -215,9 +215,31 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
 
           console.log($('#minimal .demo'));
           $('#minimal .demo').bracket({init: JSON.parse(c.operation) });
-      
+          
+          //기본 값 세팅후 실행해야함
+          getFormData();
     }
+
   });
+
+/* 대회 신청 폼 데이터 받기 */
+function getFormData() {
+	$.getJSON('../competition/availteam.do?mno=' + sessionStorage.getItem("mem_num") 
+		      + '&eno=' + eno, function(resultObj) {
+	   var ajaxResult = resultObj.ajaxResult;
+	   if (ajaxResult.status == "success") {
+	     var team = ajaxResult.data;
+	     var acname = $("#acname");
+	     for(var t of team) {
+	       if (t.tno == tno)
+	         continue;
+	       var h = "<option value='" + t.tno + "'>" + t.name + "</option>";
+	       acname.append(h);
+	     }
+	     $("#acevent").text(ename);
+	   }
+	 });
+}
 </script>
 
 <!-- 참여한 팀 섬네일 출력 -->
@@ -332,31 +354,10 @@ function imgMouseEvent(teamList) {
 
 </script>
 
-<!-- 참가하기 버튼 리스너(모달 띄우기) -->
+<!-- 참가하기 버튼 리스너(모달 띄울떄 주소에 href 방지) -->
 <script>
 $('#btnArticleJoin').on('click', function(event){
-  event.preventDefault();
-  /* if (status != '모집중') {
-   alert('현재 모집기간이 아닙니다.');
-   return;
-  }  */
-  
-  $.getJSON('../competition/availteam.do?mno=' + sessionStorage.getItem("mem_num") 
-		  + '&eno=' + eno, function(resultObj) {
-		    var ajaxResult = resultObj.ajaxResult;
-		    if (ajaxResult.status == "success") {
-		    	var team = ajaxResult.data;
-		    	var acname = $("#acname");
-		    	for(var t of team) {
-		    		if (t.tno == tno)
-		    			continue;
-		    		console.log(t.tno, "/", t.name);
-		    		var h = "<option value='" + t.tno + "'>" + t.name + "</option>";
-		    		acname.append(h);
-		    	}
-	    		$("#acevent").text(ename);
-		    }
-		  });
+  event.preventDefault();  
 });
 </script>
 
