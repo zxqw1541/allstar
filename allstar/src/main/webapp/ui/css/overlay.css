@@ -75,9 +75,51 @@
 #detail_team .txtarea-fld label { display: block; float: left; width: 120px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
 #detail_team .txtarea-fld textarea { width: 494px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
 #detail_team_img { float:right; }
-#delTeamBtn{
+#delTeamBtn {
 	margin-left:50px;
 }
-#applyTeamBtn{
+#applyJoinBtn {
 	margin-right:70px;
 }
+
+/* apply form */
+#apply_team {
+  width: 800px;
+  height: 88%;
+  padding-bottom: 2px;
+  display: none;
+  background: #FFF;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.7);
+  overflow:auto;
+}
+
+#apply_team-header {  padding: 18px 18px 14px 18px; border-bottom: 1px solid #CCC; border-top-left-radius: 5px; -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; border-top-right-radius: 5px; -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px; }
+
+#apply_team-header  h2 { color: #444; font-size: 2em; font-weight: 700; margin-bottom: 3px; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); }
+#apply_team-header  p { color: #444; font-size: 1.3em; margin: 0; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); text-shadow: none; }
+
+#apply_team .txt-fld { position: relative; width: 450px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
+#apply_team .btn-fld { width: 430px; overflow: hidden; padding: 12px 0px 12px 150px; margin-left:-80px;}
+
+#apply_team .txt-fld label { display: block; float: left; width: 90px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
+#apply_team .txt-fld input { width: 244px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
+#apply_team .txt-fld input.error_input { background: #FDE0E0; }
+#apply_team .txt-fld select { width: 262px; padding: 7px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
+
+#apply_team .txtarea-fld { position: relative; width: 735px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
+#apply_team .txtarea-fld div {width:700px; }
+#apply_team .txtarea-fld label { display: block; float: left; width: 120px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
+#apply_team .txtarea-fld textarea { width: 494px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
+
+#applyBtn {
+	margin-right:70px;
+}
+
+/* competitionDetail.html 에서 사용 */
+#detail_team  p { width:244px; display:inline-block;  text-align:left; color: #444; font-size: 1.3em; margin: 0; text-shadow: none; padding:8px; }
+#detail_team .txtarea-fld .comp_team_detail { background:#FFFFFF; border-top:0px; border-left:0px; border-right:0px; border-bottom:0px;}

@@ -43,7 +43,12 @@ public class DefaultJoinTeamService implements JoinTeamService {
   }
  
   @Override
-  public int retrieve(JoinTeam joinTeam) {
+  public int changeLevel(int mno) {
+    return joinTeamDao.updateLevel(mno);
+  }
+  
+  @Override
+  public JoinTeam retrieve(JoinTeam joinTeam) {
     return joinTeamDao.selectOneByTeamMember(joinTeam);
   }
 }

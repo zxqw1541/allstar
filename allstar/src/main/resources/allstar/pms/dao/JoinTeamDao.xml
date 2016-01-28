@@ -77,7 +77,7 @@
         where jt.mno = #{mno}
     </select>
     
-      <select id="selectOneByTeamMember" resultMap="joinTeamMap" parameterType="map">
+      <select id="selectOneByTeamMember" resultMap="joinTeamMap" parameterType="joinTeam">
         <include refid="select_inc"/>
        from join_team jt
          left outer join team t on jt.tno = t.tno
@@ -85,9 +85,15 @@
         where jt.tno = #{tno} and jt.mno=#{mno}
     </select>
         
-    <update id="updatetState" parameterType="joinTeam">
+    <update id="updateState" parameterType="joinTeam">
       update join_team set
       state = #{state} 
+      where mno = #{mno}
+    </update>
+
+<update id="updateLevel" parameterType="joinTeam">
+      update join_team set
+      level = #{level} 
       where mno = #{mno}
     </update>
 
@@ -96,6 +102,7 @@
       values(#{mno},#{tno},now(),#{state},#{content})
     </insert>
 
+    
     <delete id="delete" parameterType="int">
     delete from join_team 
     where mno = #{mno}

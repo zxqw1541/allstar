@@ -48,7 +48,7 @@ $.getJSON('../member/ajax/memberJoin.do?mno=' +sessionStorage.getItem("mem_num")
     		emblem = "allstardefault.png";
     	}
     	var ul = $('#myteams');
-    	$("<li>")
+    	$("<li style='margin-left: 120px;'>")
     	.html("<figure><div>"
     			+"<img src='../team/img/"+emblem+"' style='width:300px;' alt='"+ joinTeam.team.name+"'></div>"
     			+"<figcaption>"
