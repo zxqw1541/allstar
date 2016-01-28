@@ -117,6 +117,17 @@
 <!-- 기본 정보 출력 -->
 <script type='text/javascript' src='../lib/jquery-bracket/jquery.bracket.min.js'></script>
 <script>
+function saveFn(data, userData) {
+    var json = jQuery.toJSON(data)
+    $('#saveOutput').text('POST '+userData+' '+json)
+    /* You probably want to do something like this
+    jQuery.ajax("rest/"+userData, {contentType: 'application/json',
+                                  dataType: 'json',
+                                  type: 'post',
+                                  data: json})
+    */
+  }
+
 var no = -1;
 if (location.href.indexOf('?') != -1)
   no = location.href.split('?')[1].split('=')[1];
@@ -171,7 +182,7 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
       
 
           console.log($('#minimal .demo'));
-          $('#minimal .demo').bracket({init: JSON.parse(c.operation) });
+          $('#minimal .demo').bracket({init: JSON.parse(c.operation)/*  , save:saveFn */});
       
     }
   });

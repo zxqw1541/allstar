@@ -43,11 +43,6 @@ public class CompetitionController {
       @RequestParam(defaultValue = "null") String search1,
       @RequestParam(defaultValue = "null") String search2) {
     
-    System.out.println(event);
-    System.out.println(addr);
-    System.out.println(search1);
-    System.out.println(search2);
-    
     int count = competitionService.countAllCompetition(event, addr, search1, search2);
     
     return new AjaxResult("success",count);
@@ -83,7 +78,7 @@ public class CompetitionController {
     log.info("file = " + uploadedFile);
     /* 필수 데이터 (임시저장) */
     competition.setPoster("1");
-    competition.setTno(100);
+    competition.setTno(53);
     /* 나중에 입력 받아오면 지울 것 */
     
     /* 대진표 테스트 */
