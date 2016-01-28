@@ -219,3 +219,6 @@
 /* 팀 이름 */
 .teamName {float:left;}
 .teamName h2 {width:260px; height:35px; margin-top:10px; overflow:hidden; text-overflow:ellipsis;}
+
+#detail_team-header .modal_close { width:20px; height:20px; background-size:20px; }
+/* 모달 x 버튼 */

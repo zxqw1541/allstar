@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/component.css" />
 <link rel="stylesheet" type="text/css" href="css/competition.css" />
+<link rel="stylesheet" type="text/css" href="css/overlay.css" />
 <link rel='stylesheet' type='text/css' href='../lib/jquery-bracket/jquery.bracket.min.css'/>
 
 
@@ -17,8 +18,8 @@
 <link rel="icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 
 <script src="js/jquery-1.11.3.js"></script>
-
 <script src="js/modernizr.min.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
 
 </head>
 <body>
@@ -63,6 +64,55 @@
 </div>
 
 <div id="footer"></div>
+
+<!-- 팀 상세 정보 모달 -->
+<div id="detail_team">
+  <div id="detail_team-header">
+    <h2>상세 정보</h2>
+    <button class="modal_close close_btn"></button>
+  </div>
+  <div id="detail_team_img">
+    <img id="detail_preview_img" src="img/allstardefault.png"/>
+  </div>
+  <div class="txt-fld">
+    <label for="fdname">팀명</label>
+    <p id="fdname" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txt-fld">
+    <label for="fdevent">종목</label>
+    <p id="fdevent" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txt-fld">
+    <label for="fdtotalnum">인원수</label>
+    <p id="fdtotalnum" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txt-fld">
+    <label for="fdfee">회비</label>
+    <p id="fdfee" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txt-fld">
+    <label for="fdmeetday">정모요일</label>
+    <p id="fdmeetday" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txt-fld">
+    <label for="fdpostno">우편번호</label>
+    <p id="fdpostno" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txt-fld">
+    <label for="fdaddr">연고지</label>
+    <p id="fdaddr" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txtarea-fld">
+    <label for="fdintroduce">팀 소개</label>
+    <div>
+      <textarea id="fdintroduce" class="form-control comp_team_detail" rows='10' cols='60'
+          readonly></textarea>
+    </div>
+  </div>    
+  <div class="btn-fld">
+    <button class="close_btn" id="applyTeamBtn" type="button">닫기 &raquo;</button>
+  </div>
+</div>
 
 <!-- 기본 정보 출력 -->
 <script type='text/javascript' src='../lib/jquery-bracket/jquery.bracket.min.js'></script>
@@ -174,16 +224,19 @@ function changeThumb(teamList, page) {
 			else {
 				teamNo = teamList[page*4+index].tno;
 			}
-				
+			
+			// img태그 에 속성 추가
 	    $("<img>").attr({
 	    	class : 'team_img',
 	    	listno : page*4 + index,
 	      teamno : teamNo,
-			  src : path
+			  src : path,
+			  rel : 'leanModal',
+			  href: '#detail_team'
 		  }).appendTo($(this));
 	});
 	imgMouseEvent(teamList);
-	
+	applyModal();
 }
 /* < , >  */
 function nextThumb(teamList, si){
@@ -229,6 +282,7 @@ function imgMouseEvent(teamList) {
         console.log("click");
         console.log(i);
         console.log(t);
+        getTeamDetail(t);
       }
   });
 }
@@ -242,6 +296,7 @@ $('#btnArticleJoin').on('click', function(event){
     alert('참여하기버튼');
   });
 </script>
+
 <!-- 수정 삭제 버튼 추가(해당 글쓴이만!, 지금은 모두에게 보여주는것으로 구현 -->
 <script>
 var div = $('.btnArea');
@@ -299,6 +354,43 @@ $('#btnArticleWrite').on('click', function(event){
 });
 </script>
 
+<!-- 팀 정보 모달(섬네일 생성시 불러오는 코드) -->
+<script>
+function applyModal() {
+    $('img[rel*=leanModal]').leanModal({ closeButton: ".close_btn" });   
+};
+
+function getTeamDetail(tno) {
+	$.getJSON('../team/ajax/detail.do?tno=' + tno, function(resultObj) {
+    var ajaxResult = resultObj.ajaxResult;
+    if (ajaxResult.status == "success") {
+      var team = ajaxResult.data;
+      $("#fdtno").text(team.tno);
+      $("#fdevent").text(team.event.name);
+      $("#fdname").text(team.name);
+      $("#fdtotalnum").text(team.totalNum);
+      /* $("#fdscore").val(team.win+"승 "+team.draw+"무 "+team.lose+"패"); */
+      $("#fdintroduce").text(team.introduce);
+      $("#fdaform").text(team.aForm);
+      $("#fdpostno").text(team.postNo);
+      $("#fdaddr").text(team.baseAddr);
+      $("#fdfee").text(team.fee);
+      
+      /* 디비 null 허용인 속성들 null 처리 */
+      if (team.meetDay == null)
+        $("#fdmeetday").text('없음');
+      else
+        $("#fdmeetday").text(team.meetDay);
+      if (team.emblem != null)
+        $('#detail_preview_img').attr('src', '../team/img/'+team.emblem);
+      else
+        $('#detail_preview_img').attr('src', '../team/img/allstardefault.png');
+    }
+  });
+}
+</script>
+
+<!-- 헤더 풋터 -->
 <script>
 $(function(){
   
