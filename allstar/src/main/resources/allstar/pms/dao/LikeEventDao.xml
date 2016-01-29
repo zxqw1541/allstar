@@ -3,17 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="allstar.pms.dao.Like_EventDao">
-    <resultMap type="like_event" id="like_eventMap">
+<mapper namespace="allstar.pms.dao.LikeEventDao">
+    <resultMap type="likeEvent" id="likeEventMap">
       <id column="eno" property="eno" />
       <result column="mno" property="mno"/>
     </resultMap>
     
-    <select id="selectList" resultMap="like_eventMap" parameterType="int">
+    <select id="selectList" resultMap="likeEventMap" parameterType="int">
       select eno from like_event where mno=#{mno} 
     </select>
     
-    <insert id="insert" parameterType="like_event">
+    <insert id="insert" parameterType="likeEvent">
       insert into like_event(mno , eno)
       values (#{mno},#{eno})
     </insert>

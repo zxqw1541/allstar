@@ -20,6 +20,8 @@
     <association property="member" javaType="Member">
       <id column="m_mno"        property="mno"/>
       <result column="m_name"   property="name"/>
+      <result column="m_id"   property="id"/>
+      <result column="m_photo"   property="photo"/>
     </association>
   </resultMap>
   
@@ -31,6 +33,8 @@
            e.eno as e_eno, 
            e.name as e_name, 
            m.name as m_name, 
+           m.photo as m_photo,
+           m.id as m_id,
            b.title, 
            b.content, 
            b.cre_dt, 
@@ -41,23 +45,58 @@
     from board b
          left outer join event e on b.eno = e.eno
          left outer join member m on b.mno = m.mno
-    where b.eno > 1 
-    order by 
-    <choose>
-      <when test="keyword == 'views'">b.views </when>
-      <when test="keyword == 'title'">b.title </when>
-      <otherwise>b.bno </otherwise>
-    </choose>
-    <choose>
-      <when test="align == 'asc'">asc</when>
-      <otherwise>desc</otherwise>
-    </choose>
+    <if test="search1 != 'null' or search2 != 'null' or event != 'null' or date != 'null'"> where </if>
+     
+    <if test="event != 'null'"> b.eno=#{event} </if>
+    <if test="date != 'null'">
+      <if test="event != 'null'"> and b.cre_dt like concat('%',#{date},'%') </if>
+      <if test="event == 'null'">  b.cre_dt like concat('%',#{date},'%') </if>
+    </if>
+    <if test="search1 != 'null'">
+      <if test="event != 'null' or date != 'null'"> and b.title like concat('%',#{search1},'%') </if>
+      <if test="event == 'null' and date == 'null'"> b.title like concat('%',#{search1},'%') </if>
+    </if>
+    <if test="search2 != 'null'">
+      <if test="event != 'null' or date != 'null'"> and m_id like concat('%',#{search2},'%') </if>
+      <if test="event == 'null' and date == 'null'"> m_id like concat('%',#{search2},'%') </if>
+    </if>
+
+    <if test="date != 'null' or reply != 'null'">order by </if>
+    <if test="date == 'new'"> b.cre_dt desc </if>   
+    <if test="date == 'old'"> b.cre_dt asc </if>
+    <if test="reply == 'high'">
+      <if test="date != 'null'"> ,b.cre_dt desc </if>
+      <if test="date == 'null'"> b.cre_dt </if>
+    </if>
+    <if test="reply == 'low'">
+      <if test="date != 'null'"> ,b.cre_dt asc </if>
+      <if test="date == 'null'"> b.cre_dt asc </if>
+    </if>
+    
+    <if test="date == 'null' and reply == 'null'"> order by b.bno desc</if>
+    
     limit #{startIndex}, #{length}
   </select>
-  
-  <select id="selectCountAll" resultType="int">
-    select count(*) from board
-    where eno != 1
+    
+  <select id="selectCountAll" resultType="int" parameterType="map">
+    select count(*) 
+    from board b
+         left outer join event e on b.eno = e.eno
+         left outer join member m on b.mno = m.mno
+    <if test="search1 != 'null' or search2 != 'null' or event != 'null' or date != 'null'"> where </if>
+    <if test="event != 'null'"> b.eno=#{event} </if>
+    <if test="date != 'null'">
+      <if test="event != 'null'"> and b.cre_dt like concat('%',#{date},'%') </if>
+      <if test="event == 'null'"> b.cre_dt like concat('%',#{date},'%') </if>
+    </if>
+    <if test="search1 != 'null'">
+      <if test="event != 'null' or date != 'null'"> and b.title like concat('%',#{search1},'%') </if>
+      <if test="event == 'null' and date == 'null'"> b.title like concat('%',#{search1},'%') </if>
+    </if>
+    <if test="search2 != 'null'">
+      <if test="event != 'null' or date != 'null'"> and m_id like concat('%',#{search2},'%') </if>
+      <if test="event == 'null' and date == 'null'"> m_id like concat('%',#{search2},'%') </if>
+    </if>
   </select>
   
   <select id="selectListByEvent" resultMap="boardMap" parameterType="map">
@@ -94,7 +133,7 @@
     update board set
       eno = #{eno},
       mno = #{mno},
-      title = #{content},
+      title = #{title},
       content = #{content},
       views = #{views},
       cre_dt = now()

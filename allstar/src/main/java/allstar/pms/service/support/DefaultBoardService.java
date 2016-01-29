@@ -15,30 +15,43 @@ public class DefaultBoardService implements BoardService {
   @Autowired BoardDao boardDao;
   
   @Override
-  public int countAllBoard() {
-    return boardDao.selectCountAll();
+  public int countAllBoard(String event, String date, String search1, String search2) {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("event", event);
+    paramMap.put("date", date);
+    paramMap.put("search1", search1);
+    paramMap.put("search2", search2);
+    
+    return boardDao.selectCountAll(paramMap);
   }
   
   @Override
   public List<Board> getBoardList(int pageNo, int pageSize, 
-      String keyword, String align) {
+      String event, String date, String reply, String search1, String search2) {
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", (pageNo - 1) * pageSize);
     paramMap.put("length", pageSize);
-    paramMap.put("keyword", keyword);
-    paramMap.put("align", align);
+    paramMap.put("event", event);
+    paramMap.put("date", date);
+    paramMap.put("reply", reply);
+    paramMap.put("search1", search1);
+    paramMap.put("search2", search2);
     
     return boardDao.selectList(paramMap);
   }
   
   @Override
-  public List<Board> getBoardList(int pageNo, int pageSize, String keyword, String align, int eno) {
+  public List<Board> getBoardList(int pageNo, int pageSize, int eno, 
+      String event, String date, String reply, String search1, String search2) {
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", (pageNo - 1) * pageSize);
     paramMap.put("length", pageSize);
-    paramMap.put("keyword", keyword);
-    paramMap.put("align", align);
     paramMap.put("eno", eno);
+    paramMap.put("event", event);
+    paramMap.put("date", date);
+    paramMap.put("reply", reply);
+    paramMap.put("search1", search1);
+    paramMap.put("search2", search2);
     
     return boardDao.selectList(paramMap);
   }

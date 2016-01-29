@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="allstar.pms.dao.JoinTeamDao">
+    <resultMap type="joinTeam" id="joinTeamMap">
+      <id column="mno" property="mno" />
+      <id column="tno" property="tno"/>
+      <result column="cre_dt" property="createdDate"/>
+      <result column="content" property="content"/>
+      <result column="state" property="state"/>
+      <result column="level" property="level"/>
+    <association property="member" javaType="Member">
+      <id column="m_mno"        property="mno"/>
+      <result column="m_name"   property="name"/>
+      <result column="m_photo"   property="photo"/>
+      <result column="m_gender"   property="gender"/>
+      <result column="m_introduce"   property="introduce"/>
+      <result column="m_age"   property="age"/>
+      <result column="m_id"   property="id"/>
+    </association>
+    <association property="team" javaType="Team">
+      <id column="t_tno"        property="tno"/>
+      <result column="t_eno"   property="eno"/>
+      <result column="t_name"   property="name"/>
+      <result column="t_emblem"   property="emblem"/>
+      <result column="t_pst_no"   property="postNo"/>
+      <result column="t_bas_addr"   property="baseAddr"/>
+      <result column="t_win"   property="win"/>
+      <result column="t_draw"   property="draw"/>
+      <result column="t_lose"   property="lose"/>
+      <result column="t_introduce"   property="introduce"/>
+    </association>
+        </resultMap>
+    
+     <sql id="select_inc">
+    select jt.mno,
+           jt.tno,
+           jt.cre_dt,
+           jt.state,
+           jt.content,
+           jt.level,
+           m.mno as m_mno,
+           m.name as m_name,
+           m.photo as m_photo,
+           m.gender as m_gender,
+           m.introduce as m_introduce,
+           m.age as m_age,
+           m.id as m_id, 
+           t.tno as t_tno, 
+           t.eno as t_eno,
+           t.name as t_name,
+           t.emblem as t_emblem,
+           t.pst_no as t_pst_no,
+           t.bas_addr as t_bas_addr,
+           t.win as t_win,
+           t.draw as t_draw,
+           t.lose as t_lose,
+           t.introduce as t_introduce 
+  </sql>
+    
+    
+    <select id="selectListByTeam" resultMap="joinTeamMap" parameterType="int">
+        <include refid="select_inc"/>
+       from join_team jt
+         left outer join team t on jt.tno = t.tno
+         left outer join member m on jt.mno = m.mno
+        where jt.tno = #{tno}
+    </select>
+
+    <select id="selectListByMember" resultMap="joinTeamMap" parameterType="int">
+        <include refid="select_inc"/>
+       from join_team jt
+         left outer join team t on jt.tno = t.tno
+         left outer join member m on jt.mno = m.mno
+        where jt.mno = #{mno}
+    </select>
+    
+      <select id="selectOneByTeamMember" resultMap="joinTeamMap" parameterType="joinTeam">
+        <include refid="select_inc"/>
+       from join_team jt
+         left outer join team t on jt.tno = t.tno
+         left outer join member m on jt.mno = m.mno
+        where jt.tno = #{tno} and jt.mno=#{mno}
+    </select>
+        
+    <update id="updateState" parameterType="joinTeam">
+      update join_team set
+      state = #{state} 
+      where mno = #{mno}
+    </update>
+
+<update id="updateLevel" parameterType="joinTeam">
+      update join_team set
+      level = #{level} 
+      where mno = #{mno}
+    </update>
+
+    <insert id="insert" parameterType="joinTeam">
+      insert into join_team(mno,tno,cre_dt,state,content)
+      values(#{mno},#{tno},now(),#{state},#{content})
+    </insert>
+
+    
+    <delete id="delete" parameterType="int">
+    delete from join_team 
+    where mno = #{mno}
+    </delete>
+
+</mapper>

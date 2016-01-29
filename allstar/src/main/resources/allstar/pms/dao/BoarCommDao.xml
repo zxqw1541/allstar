@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="allstar.pms.dao.BoarCommDao">
+
+  <resultMap type="boarComm" id="boarCommMap">
+    <id 		column="bcno" 		  property="bcno"/>
+    <result column="mno"      property="mno"/>
+    <result column="bno"    property="bno"/>
+    <result column="comm"  property="comm"/>
+    <result column="cre_dt"   property="createdDate"/>
+    <association property="board" javaType="Board">
+      <id column="b_bno"        property="no"/>
+    </association>
+    <association property="member" javaType="Member">
+      <id column="m_mno"        property="mno"/>
+      <result column="m_id"   property="id"/>
+      <result column="m_photo"   property="photo"/>
+    </association>
+  </resultMap>
+  
+  <sql id="select_inc">
+    select bc.bcno,
+           bc.bno,
+           bc.mno,
+           m.mno as m_mno,
+           m.photo as m_photo, 
+           b.bno as b_bno, 
+           m.id as m_id,
+           bc.comm, 
+           bc.cre_dt 
+  </sql>
+  
+  <select id="selectListByBoard" resultMap="boarCommMap" parameterType="int">
+    <include refid="select_inc"/>
+    from boar_Comm bc
+         left outer join board b on bc.bno = b.bno
+         left outer join member m on bc.mno = m.mno
+    where bc.bno = #{bno}
+ order by bc.bcno desc
+  </select>
+  
+  <insert id="insert" parameterType="boarComm">
+    insert into boar_Comm(bno,mno,comm,cre_dt) 
+    values(#{bno},#{mno},#{comm},now())
+  </insert>
+  
+  <delete id="delete" parameterType="int">
+    delete from boar_Comm 
+  	where bcno=#{bcno}
+  </delete>
+  
+</mapper>
+
+
+
+
+
+

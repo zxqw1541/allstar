@@ -2,7 +2,6 @@ package allstar.pms.service;
 
 import java.util.List;
 
-import allstar.pms.domain.Like_Event;
 import allstar.pms.domain.Member;
 
 public interface MemberService {

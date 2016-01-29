@@ -2,12 +2,16 @@ package allstar.pms.domain;
 
 import java.io.Serializable;
 
-public class Like_Event implements Serializable {
+public class LikeEvent implements Serializable {
   private static final long serialVersionUID = 1L;
   
   protected int mno;
   protected int eno;
   
+  public LikeEvent(int mno, int eno) {
+    this.mno = mno;
+    this.eno = eno;
+  }
   
   @Override
   public String toString() {

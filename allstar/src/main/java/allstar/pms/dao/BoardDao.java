@@ -6,7 +6,7 @@ import java.util.Map;
 import allstar.pms.domain.Board;
 
 public interface BoardDao {
-  int selectCountAll();
+  int selectCountAll(Map<String,Object> paramMap);
   
   List<Board> selectList(Map<String,Object> paramMap);
   

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link type="text/css" rel="stylesheet" href="css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<link rel="stylesheet" type="text/css" href="css/competition.css" />
+
+<link rel="stylesheet" href="css/tos/tos.css" />
+<link rel="Shortcut Icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
+<link rel="icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
+
+<style>
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 100px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+#detail {
+  background-color: #000;
+  bottom: 0;
+  left: 0;
+  opacity: 0.5;
+  filter: alpha(opacity = 50);
+  /* IE7 & 8 */ position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 99;
+  display:none;
+}
+</style>
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+
+<script>
+var pageSize = 7;
+var url = '';
+$(function(){
+  $("#header").load("header.html"); 
+  $("#footer").load("footer.html"); 
+});
+
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+});
+
+</script> 
+<script type="text/javascript" src="js/jquery.session.js"></script>
+</head>
+<body>
+<div id="header"></div>
+<div style="height:100px;"></div>
+
+<div id="container">
+
+<div id="content">
+  <div class="boardContents boardList">
+    <div class="innerWrap">
+      <div class="listWrap">
+        <div class="listHeader clearFix">
+          <h2 class="snbTitSub tit">대회 게시판</h2>
+          <div class="sort">
+            <ul class="list">
+              <li><a href="#" id="lnewer">대회시작일순</a></li>
+              <li><a href="#" id="lreply">댓글순</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="boardList listType1">
+          <table id="boardtable">
+            <caption>대회 리스트</caption>
+            <thead>
+              <tr>
+                <th class="th1" scope="col">종목</th>
+                <th class="th2" scope="col">제목</th>
+                <th class="th3" scope="col">작성자</th>
+                <th class="th4" scope="col">조회</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+              </tr>
+              <!-- 리스트 출력 -->
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="btnArea clearFix">
+          <p class="fR">
+              <a id="newBtn" href="#newWrite" class="btn btnType1 btnWrite">글쓰기</a>
+          </p>
+        </div>
+        <div class="paging">
+          <!-- 페이징 처리 부분 -->
+        </div>
+        
+        <fieldset class="searchArea">
+          <select id="csearch">
+            <option value="1">대회명</option>
+            <option value="2">내용</option>
+          </select>
+          <input type="text" id="ccontent" class="inputTxt" />
+          <input type="submit" value="검색" onclick="return search();" id="csearchClick" class="btnSearch btn" />
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="footer"></div>
+
+<!-- 새 대회 등록 버튼 -->
+<script>
+$('#newBtn').on('click', function(event){
+	  event.preventDefault();
+	  location.href = 'competitionForm.html?no=-1';  
+	});
+</script>
+
+<script>
+getParameter = function(name) {
+    search = location.href;
+    if (!search) {
+      return false;
+    }
+    search = search.split("?");
+    data = search[1].split("=");
+    
+    /* if(search[1].indexOf(name) == -1 || data[0] != name) {
+      return "";
+    } */
+    if (search[1].indexOf("&") == (-1)) {
+      data = search[1].split("=");
+      return data[1];
+    } else {
+    	
+      data = search[1].split("&");
+      for(i = 0; i <= data.length-1; i++) {
+        l_data = data[i].split("=");
+        if (l_data[0] == name) {
+          return l_data[1];
+          break;
+        } else continue;
+        }
+      }
+    }
+</script>
+
+<!-- 대회 리스트 출력 -->
+<script>
+var pageNo = 1;
+var search = '';
+
+if (location.href.indexOf('pageNo') != -1) {
+	pageNo = getParameter('pageNo');
+}
+  url = '/allstar/competition/list.do?pageSize=' + pageSize + '&pageNo=' + pageNo;
+
+if (location.href.indexOf('&') != -1) {
+	if (location.href.indexOf('search1') != -1) {
+		url = url + "&search1=" + getParameter('search1');
+	}
+	else if (location.href.indexOf('search2') != -1) {
+		url = url + "&search2=" + getParameter("search2");
+	}
+}
+
+if (location.href.indexOf('keyword') != -1) {
+  url = url + "&keyword=" + getParameter('keyword');
+}
+
+$.getJSON(url, function(resultObj) {
+  var tbody = $("#boardtable tbody");
+  for (var c of resultObj.ajaxResult.data) {
+    $("<tr>")
+    .html(
+    "<td class='num'>" + c.event.name +"</td>"
+    + "<td class='subject'><a href='#' data-ajax-board='free_view' pageno='" + c.no + "'><strong>" + c.name + "<small>(3)</small></strong>"
+    + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
+    + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
+    + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>"
+    )
+    .appendTo(tbody);
+  }
+});
+
+//게시물 제목을 클릭했을 때 호출될 함수
+
+$(document).on('click', 'a[data-ajax-board]', function (e) {
+  e.preventDefault();
+  location.href = "competitionDetail.html?no=" + $(this).attr("pageno");
+});
+</script>
+
+<!-- 페이징 -->
+<script>
+
+var url1 = '/allstar/competition/all.do';
+
+ if (location.href.indexOf('&') != -1) {
+  if (location.href.indexOf('search1') != -1) {
+    url1 = url1 + "?search1=" + getParameter('search1');
+  }
+  else if (location.href.indexOf('search2') != -1) {
+    url1 = url1 + "?search2=" + getParameter("search2");
+  }
+}
+
+var totalPage = 1;
+
+$.getJSON(url1, function(resultObj) {
+	  totalPage = Math.ceil(resultObj.ajaxResult.data / pageSize);
+	  var lp10 = Math.floor((totalPage - 1) / 10) * 10;
+	  var start = Math.floor((pageNo - 1) / 10) * 10 + 1;
+	  var end = start + 10;
+	  
+	  if (end > totalPage)
+		  end = totalPage + 1;
+	  
+	  var pagingDiv = $('.paging');
+
+	  /* <<, < 버튼 추가 */
+	  if (start < 11) {
+		  $("<span>").addClass('fir').appendTo(pagingDiv);
+      $("<span>").addClass('prev').appendTo(pagingDiv);
+	  }
+	  else {
+		  $("<a>").addClass('fir').attr({href:'#'}).appendTo(pagingDiv);
+      $("<a>").addClass('prev').attr({href:'#'}).appendTo(pagingDiv);
+		  $('a.fir').click(clickFir);
+	    $('a.prev').click(clickPrev);
+	  }
+	  
+	  /* 숫자 */
+		var pageDiv = $('<div>').addClass('page_num');
+	  pageDiv.appendTo(pagingDiv);
+	  for (var i = start ; i < end ; i++) {
+		  if(i == pageNo) {
+			  $("<span>").addClass('nowpage')
+			  .html("<b>"+ i + "</b>").appendTo(pageDiv); 
+		  } else {
+		    $("<a>")
+		    .addClass('a_pageNo')
+		    .attr({
+		    	href : '#',
+		    	pageno : i
+		    	})
+		    .html(i).appendTo(pageDiv);
+		  }
+	  };
+	  $(".a_pageNo").click(clickPageNo);
+	  
+	  /* >, >> 버튼 추가 */
+	  if (pageNo > lp10) {
+      $("<span>").addClass('next').appendTo(pagingDiv);
+	    $("<span>").addClass('end').appendTo(pagingDiv);
+	  }
+    else {
+      $("<a>").addClass('next').attr({href:'#'}).appendTo(pagingDiv);
+	    $("<a>").addClass('end').attr({href:'#'}).appendTo(pagingDiv);
+ 	    $('a.next').click(clickNext);
+  	  $('a.end').click(clickEnd);
+    }
+});
+
+//페이징 번호를 클릭했을 때 호출될 함수
+function clickPageNo(event) {
+	event.preventDefault();
+	
+	 if (location.href.indexOf('&') == -1) {
+	   location.href = "competitionList.html?pageNo=" + $(event.target).attr("pageno");
+	 } else {
+		 var str = location.href;
+     var newURL = updateURLParameter(location.href, 'pageNo', $(event.target).attr("pageno"));
+     location.href = newURL;
+	 }
+}
+
+//<<버튼을 클릭했을 때 호출될 함수
+function clickFir() {
+  event.preventDefault();
+  location.href = "competitionList.html";
+}
+
+//<버튼을 클릭했을 때 호출될 함수
+function clickPrev() {
+  event.preventDefault();
+  var no = Math.floor((pageNo - 11) / 10) * 10 + parseInt(1);
+  location.href = "competitionList.html?pageNo=" + no;
+}
+
+//>버튼을 클릭했을 때 호출될 함수
+function clickNext() {
+	event.preventDefault();
+	var no = Math.floor((pageNo*1 + parseInt(9)) / 10) * 10 + parseInt(1);
+	location.href = "competitionList.html?pageNo=" + no;
+}
+
+//>>버튼을 클릭했을 때 호출될 함수
+function clickEnd() {
+  event.preventDefault();
+  location.href = "competitionList.html?pageNo=" + totalPage;
+}
+</script>
+
+<!-- 검색 -->
+<script>
+function search() {
+	
+	var select = $('#csearch option:selected').val();
+	if (location.href.indexOf('&') == -1) {
+	  if (select == '1' && location.href.indexOf('search1') == -1) {
+		  location.href = "competitionList.html?pageNo=1&search1=" + $("#ccontent").val();
+	  }
+	  else if (location.href.indexOf('search2') == -1){
+	    location.href = "competitionList.html?pageNo=1&search2=" + $("#ccontent").val();
+	  }
+	} else {
+		  // 대회명
+	    if (select == '1') {
+			  var url = updateURLParameter(location.href, 'pageNo', 1);
+			  if (location.href.indexOf('keyword') != -1) {
+				  url = removeParam("keyword", url);
+			  }
+		  
+	    	if (location.href.indexOf('search1') == -1) {
+	    		if (location.href.indexOf('search2') == -1) {
+	          location.href = url + "&search1=" + $("#ccontent").val();
+	    		} else {
+	          var str = updateURLParameter(url, 'search2', $("#ccontent").val());
+	          location.href = str.replace(str.substr(str.search('search2') + 6, 1), '1');
+	    		}
+	      } else {
+	    	  location.href = updateURLParameter(url, 'search1', $("#ccontent").val());
+	      }
+	    }
+		  
+	    // 내용
+      if (select == '2') {
+		    var url = updateURLParameter(location.href, 'pageNo', 1);
+		    if (location.href.indexOf('keyword') != -1) {
+	        url = removeParam("keyword", url);
+	      }
+	    
+	    	if (location.href.indexOf('search2') == -1) {
+	        if (location.href.indexOf('search1') == -1) {
+	            location.href = url + "&search2=" + $("#ccontent").val();
+          } else {
+            var str = updateURLParameter(location.href, 'search1', $("#ccontent").val());
+            str = updateURLParameter(str, 'pageNo', 1);
+            if (str.indexOf('keyword') != -1) {
+                str = removeParam("keyword", str);
+            }
+            location.href = str.replace(str.substr(str.search('search1') + 6, 1), '2');
+          }
+	      } else {
+	    	  location.href = updateURLParameter(url, 'search2', $("#ccontent").val());
+        }
+	    }
+	  }
+}
+</script>
+
+<!-- 정렬 -->
+<script>
+$("#lnewer").click(sorting);
+
+function sorting() {
+	
+	$("#lnewer").addClass('on');
+	if (location.href.indexOf('keyword') == -1) {
+	  if (location.href.indexOf('&') == -1) {
+		      location.href = "competitionList.html?pageNo=" + pageNo + "&keyword=newer";
+		} else {
+			if (location.href.indexOf('keyword') == -1) {
+				location.href = location.href + "&keyword=newer";
+			}
+		}	
+	}
+}
+</script>
+
+<script>
+function updateURLParameter(url, param, paramVal)
+{
+    var TheAnchor = null;
+    var newAdditionalURL = "";
+    var tempArray = url.split("?");
+    var baseURL = tempArray[0];
+    var additionalURL = tempArray[1];
+    var temp = "";
+
+    if (additionalURL) 
+    {
+        var tmpAnchor = additionalURL.split("#");
+        var TheParams = tmpAnchor[0];
+            TheAnchor = tmpAnchor[1];
+        if(TheAnchor)
+            additionalURL = TheParams;
+
+        tempArray = additionalURL.split("&");
+
+        for (i=0; i<tempArray.length; i++)
+        {
+            if(tempArray[i].split('=')[0] != param)
+            {
+                newAdditionalURL += temp + tempArray[i];
+                temp = "&";
+            }
+        }        
+    }
+    else
+    {
+        var tmpAnchor = baseURL.split("#");
+        var TheParams = tmpAnchor[0];
+            TheAnchor  = tmpAnchor[1];
+
+        if(TheParams)
+            baseURL = TheParams;
+    }
+    if(TheAnchor)
+        paramVal += "#" + TheAnchor;
+
+    var rows_txt = temp + "" + param + "=" + paramVal;
+    return baseURL + "?" + newAdditionalURL + rows_txt;
+}
+</script>
+
+<script>
+function removeParam(key, sourceURL) {
+    var rtn = sourceURL.split("?")[0],
+        param,
+        params_arr = [],
+        queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+    if (queryString !== "") {
+        params_arr = queryString.split("&");
+        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+            param = params_arr[i].split("=")[0];
+            if (param === key) {
+                params_arr.splice(i, 1);
+            }
+        }
+        rtn = rtn + "?" + params_arr.join("&");
+    }
+    return rtn;
+}
+</script>
+
+</body>
+</html>

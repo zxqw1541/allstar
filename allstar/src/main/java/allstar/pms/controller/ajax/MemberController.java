@@ -1,6 +1,11 @@
 package allstar.pms.controller.ajax;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -11,11 +16,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import allstar.pms.domain.AjaxResult;
+import allstar.pms.domain.JoinTeam;
+import allstar.pms.domain.LikeEvent;
 import allstar.pms.domain.Member;
-import allstar.pms.service.Like_EventService;
+import allstar.pms.service.JoinTeamService;
+import allstar.pms.service.LikeEventService;
 import allstar.pms.service.MemberService;
+import allstar.pms.util.MultipartHelper;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Controller("ajax.MemberController")
 @RequestMapping("/member/ajax/*")
@@ -24,7 +36,10 @@ public class MemberController {
   public static Logger log = Logger.getLogger(MemberController.class);
   @Autowired
   MemberService memberService;
-  Like_EventService like_eventService;
+  @Autowired
+  JoinTeamService joinTeamService;
+  @Autowired
+  LikeEventService likeEventService;
   @Autowired
   ServletContext servletContext;
 
@@ -61,7 +76,39 @@ public class MemberController {
   }
   
   @RequestMapping(value = "update", method = RequestMethod.POST)
-  public AjaxResult update(Member member) throws Exception {
+  public AjaxResult update(Member member, MultipartHttpServletRequest uploadedFile) throws Exception {
+  
+    log.info("member = " + member);
+    if(member.getPhoto() == null) {
+      Iterator<String> itr =  uploadedFile.getFileNames();
+      if(itr.hasNext()) {
+        MultipartFile mpf = uploadedFile.getFile(itr.next());
+        System.out.println(mpf.getOriginalFilename() +" uploaded!");
+        try {
+            String path=uploadedFile.getServletContext().getRealPath("/");
+            byte[] bytes = mpf.getBytes();
+            String sep = System.getProperty("file.separator");
+            String fileName = MultipartHelper.generateFilename(mpf.getOriginalFilename());
+            String filePath = path+ sep + "member" + sep + "img" + sep;
+            File file=new File(filePath + fileName);
+            BufferedOutputStream stream = new BufferedOutputStream(
+                new FileOutputStream(file));
+            stream.write(bytes);
+            stream.close();
+            
+            /* Thumbnails */
+            Thumbnails.of(new File(filePath + fileName))
+            .width(280)
+            .outputQuality(0.8)
+            .toFile(new File(filePath + "me_" + fileName));
+            
+            member.setPhoto(fileName);
+        } catch (IOException e) {
+          e.printStackTrace();
+          return new AjaxResult("failure", null);
+        }
+      }
+    }
     
     if (memberService.change(member) <= 0) {
       return new AjaxResult("failure", null);
@@ -82,9 +129,52 @@ public class MemberController {
   @RequestMapping("event")
   public AjaxResult likeEvent(
       int mno, int eno) throws Exception {
-    like_eventService.register(mno, eno);
+    System.out.println("mno = "+ mno);
+    System.out.println("eno = "+ eno);
+
+    likeEventService.register(new LikeEvent(mno, eno));
     
     return new AjaxResult("success", null);
   }
-
+  
+  @RequestMapping(value = "joint", method = RequestMethod.POST)
+  public AjaxResult joinTeamList(JoinTeam joinTeam){
+    log.debug(joinTeam);
+    
+    if(joinTeamService.retrieve(joinTeam) != null) {
+      return new AjaxResult("already", null);
+    }
+    try {
+      joinTeamService.register(joinTeam);
+    } catch (Exception e) {
+        return new AjaxResult("failure", null);
+    }
+    return new AjaxResult("success", null);
+  }
+  
+  @RequestMapping("teamJoin")
+  public Object getJoinTeamT(int tno){
+    List<JoinTeam> joinTeams = joinTeamService.getJoinTeamByTeam(tno);
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("data", joinTeams);
+    return resultMap;
+  }
+  
+  @RequestMapping("memberJoin")
+  public Object getJoinTeamM(int mno){
+    System.out.println("memberjoin : "
+        + mno);
+    List<JoinTeam> joinTeams = joinTeamService.getJoinTeamByMember(mno);
+    System.out.println("-----------------------------------------------------------------");
+    for(JoinTeam jt: joinTeams)
+      System.out.println(jt);
+    System.out.println("-----------------------------------------------------------------");
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("data", joinTeams);
+    return resultMap;
+  }
+  
 }

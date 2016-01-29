@@ -3,7 +3,7 @@ package allstar.pms.dao;
 import java.util.List;
 import java.util.Map;
 
-import allstar.pms.domain.Like_Event;
+import allstar.pms.domain.LikeEvent;
 import allstar.pms.domain.Member;
 
 public interface MemberDao {

@@ -1,7 +1,13 @@
 @CHARSET "UTF-8";
 @import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
 
-
+@font-face {
+    font-family: 'nexonFont';
+    src: url("../fonts/NEXON Football Gothic L.otf") format("opentype");
+}
+body {
+  font-family: 'nexonFont';
+}
 /* CSS Reset
 -------------------------------------------------------------- */
 /* html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, a, img, strong, small, dl, dt, dd, ol, ul, li, fieldset, form, input, button, label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0; padding:0; font-size:100%;}
@@ -23,6 +29,7 @@ caption, legend{width:0; height:0; font-size:0; line-height:0; text-indent:-9999
 
 /* Reserved Class
 -------------------------------------------------------------- */
+
 .blind{width:1px; height:1px; font-size:0; line-height:0; position:absolute; top:0; left:-1000%; overflow:hidden;}
 .show{display:block;}
 .hide{display:none;}
@@ -544,7 +551,7 @@ iframe[name="google_conversion_frame"]{width:1px; height:1px; font-size:0; line-
 .viewWrap .listComments .commentWrite textarea.placeholder{color:#aaa;}
 .viewWrap .listComments .commentWrite .btnWrite{float:left;}
 .viewWrap .listComments .comment1 .btnWrite{height:44px; line-height:44px;}
-.viewWrap .listComments ul{padding:0 0 50px 0;}
+.viewWrap .listComments ul{}
 .viewWrap .listComments li{position:relative;}
 .viewWrap .listComments li dt{width:1px; height:1px; font-size:0; line-height:0; position:absolute; top:0; left:-1000%; overflow:hidden;}
 .viewWrap .listComments .nameWrap{margin:0 0 3px 0; zoom:1;}
@@ -572,7 +579,7 @@ iframe[name="google_conversion_frame"]{width:1px; height:1px; font-size:0; line-
 .viewWrap .listComments .comment1 .commentWrite textarea{width:631px; height:20px;}
 .viewWrap .listComments .comment2{padding:0 0 22px 0; padding-left:42px; background:url(http://s.nx.com/s2/game/tos/obt/common/bullet/bul_commentdot2.png) 10px 13px no-repeat; z-index:10;}
 .viewWrap .listComments .comment2First{}
-.viewWrap .listComments .commentWrap{border-bottom:1px solid #e5e5e5; padding:30px 0 0 0; position:relative;}
+.viewWrap .listComments .commentWrap{border-bottom:1px solid #e5e5e5;  position:relative;}
 .viewWrap .listComments .commentWrap .bul{width:2px; background:#e0ddda; position:absolute; left:15px; top:76px; z-index:1;}
 .viewWrap .listComments .commentWrap:last-child{border-bottom:0 none;}
 

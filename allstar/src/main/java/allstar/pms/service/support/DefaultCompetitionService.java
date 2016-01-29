@@ -15,12 +15,19 @@ public class DefaultCompetitionService implements CompetitionService {
   @Autowired CompetitionDao competitionDao;
 
   @Override
-  public List<Competition> getCompetitionList(int pageNo, int pageSize, String keyword, String align) {
+  public List<Competition> getCompetitionList(int pageNo, int pageSize, 
+      String event, String addr, String recruit, String start, String reply,
+      String search1, String search2) {
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", (pageNo - 1) * pageSize);
     paramMap.put("length", pageSize);
-    paramMap.put("keyword", keyword);
-    paramMap.put("align", align);
+    paramMap.put("event", event);
+    paramMap.put("addr", addr);
+    paramMap.put("recruit", recruit);
+    paramMap.put("start", start);
+    paramMap.put("reply", reply);
+    paramMap.put("search1", search1);
+    paramMap.put("search2", search2);
     
     return competitionDao.selectList(paramMap);
   }
@@ -46,8 +53,34 @@ public class DefaultCompetitionService implements CompetitionService {
   }
 
   @Override
-  public int countAllCompetition() {
-    return competitionDao.selectCountAll();
+  public int countAllCompetition(String event, String addr, String search1, String search2) {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("event", event);
+    paramMap.put("addr", addr);
+    paramMap.put("search1", search1);
+    paramMap.put("search2", search2);
+    
+    return competitionDao.selectCountAll(paramMap);
+  }
+
+  @Override
+  public int getMnoByCno(int cno) {
+    return competitionDao.selectMnoByCno(cno);
+  }
+
+  @Override
+  public int plus1JoinNum(int cno) {
+    return competitionDao.plusJoinNumByCno(cno);
+  }
+
+  @Override
+  public Competition getJoinNTeamNum(int cno) {
+    return competitionDao.selectJoinNTeamNum(cno);
+  }
+
+  @Override
+  public int getLastAddCno() {
+    return competitionDao.selectMaxCno();
   }
 
 }

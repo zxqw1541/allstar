@@ -6,9 +6,11 @@ import allstar.pms.domain.Board;
 
 public interface BoardService {
   
-  List<Board> getBoardList(int pageNo, int pageSize, String keyword, String align);
+  List<Board> getBoardList(int pageNo, int pageSize, String event, String date, 
+      String reply, String search1, String search2);
   
-  List<Board> getBoardList(int pageNo, int pageSize, String keyword, String align, int eno);
+  List<Board> getBoardList(int pageNo, int pageSize, int eno, String event, 
+      String date, String reply, String search1, String search2);
   
   void register(Board board);
   
@@ -18,7 +20,7 @@ public interface BoardService {
   
   Board retrieve(int bno);
   
-  int countAllBoard();
+  int countAllBoard(String event, String date, String search1, String search2);
 }
 
 

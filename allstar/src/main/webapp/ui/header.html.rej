@@ -1,0 +1,9 @@
+diff a/allstar/src/main/webapp/ui/header.html b/allstar/src/main/webapp/ui/header.html	(rejected hunks)
+@@ -6,7 +6,6 @@
+ 
+ <link type="text/css" rel="stylesheet" href="css/header_footer.css" />
+ 
+-<script src="js/jquery-1.11.3.js"></script>
+  <script src="js/jquery.leanModal.min.js"></script> 
+ <script>
+ 

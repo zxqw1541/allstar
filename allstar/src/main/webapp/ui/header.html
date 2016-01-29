@@ -6,7 +6,9 @@
 
 <link type="text/css" rel="stylesheet" href="css/header_footer.css" />
 
-<script src="js/jquery-1.11.3.js"></script>
+ <script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquery.session.js"></script>
+
  <script src="js/jquery.leanModal.min.js"></script> 
 <script>
 
@@ -14,6 +16,10 @@ $(function() {
     $('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });   
 });
 
+function close_modal(modal_id){
+    $("#lean_overlay").fadeOut(200);
+  $(modal_id).css({"display":"none"})
+                        }
 </script>
 
 </head>
@@ -30,7 +36,7 @@ $(function() {
          </span>
          <span id="logout" style="display:none;">
             <a style='margin-right:10px;color:white;' id='info' href='Member_info.html'>회원정보</a>
-            <a style='margin-right:10px;color:white;' id='out' href='#'>Log out</a>
+            <a style='margin-right:10px;color:white;' id='out' href=''>Log out</a>
         </span>
             </div>
             <div id="cssmenu" >
@@ -38,24 +44,29 @@ $(function() {
                 <ul >
                   <li  class='active has-sub' ><a href="boardList12.html"><span>종목별 게시판</span></a>
                     <ul id="eventmenu">
+                        <li><a href="boardList12.html?event=2">농구</a></li>
+                        <li><a href="boardList12.html?event=3">축구</a></li>
+                        <li><a href="boardList12.html?event=4">야구</a></li>
+                        <li><a href="boardList12.html?event=5">볼링</a></li>
+                        <li><a href="boardList12.html?event=6">탁구</a></li>
                     </ul>
                  </li>
                   <li class='has-sub'><a href="competitionList.html">대회</a>
                     <ul>
-                      <li><a href="competitionList.html">농구</a></li>
-                        <li><a href="#">축구</a></li>
-                        <li><a href="#">야구</a></li>
-                        <li><a href="#">볼링</a></li>
-                        <li><a href="#">탁구</a></li>
+                      <li><a href="competitionList.html?event=2">농구</a></li>
+                        <li><a href="competitionList.html?event=3">축구</a></li>
+                        <li><a href="competitionList.html?event=4">야구</a></li>
+                        <li><a href="competitionList.html?event=5">볼링</a></li>
+                        <li><a href="competitionList.html?event=6">탁구</a></li>
                    </ul>
                 </li>
                   <li class='has-sub'><a href="teamList.html">팀</a>
                     <ul>
-                        <li><a href="#">농구</a></li>
-                        <li><a href="#">축구</a></li>
-                        <li><a href="#">야구</a></li>
-                        <li><a href="#">볼링</a></li>
-                        <li><a href="#">탁구</a></li>
+                        <li><a href="teamList.html?event=2">농구</a></li>
+                        <li><a href="teamList.html?event=3">축구</a></li>
+                        <li><a href="teamList.html?event=4">야구</a></li>
+                        <li><a href="teamList.html?event=5">볼링</a></li>
+                        <li><a href="teamList.html?event=6">탁구</a></li>
                    </ul></li>
                        <li class='last'><a href="#">자유게시판</a></li>
               </ul>
@@ -93,9 +104,8 @@ $(function() {
 
           </div>
           <div class="btn-fld">
-          <button id="addBtn" type="submit">회원가입 &raquo;</button>
-          <input type="checkbox" id="saveId"> 
-          <label id="saveLabel" for="saveId">아이디 저장</label>
+          <button id="addBtn" type="submit">가입하기 &raquo;</button>
+
 </div>
          </form>
       </div>
@@ -128,71 +138,56 @@ $(function() {
 
           </div>
           <div class="btn-fld">
-          <button id="loginBtn" type="submit">로그인 &raquo;</button>
-          <input type="checkbox" id="saveId"> 
-          <label id="saveLabel" for="saveId">아이디 저장</label>
+          <button id="loginBtn" type="button">로그인 &raquo;</button>
+
 </div>
          </form>
       </div>
     </div>
-<!-- 로그인폼 끝 -->
 
 
-<!-- <script>
-$.getJSON('/allstar/board/ajax/list.do?pageSize=5', function(resultObj){
-    var eventmenu = $("#eventmenu");
-     for (var event of resultObj.events) {
-         $("<li>" )
-             .html("<a href='#'>" + event.name + "</a>")
-             .appendTo(eventmenu);
-       }
-});
-</script>
- -->
- <script type="text/javascript" src="js/jquery.cookie.js"></script>
-<script type="text/javascript" src="js/jquery.session.js"></script>
 <script>
 //로그인 시작
-$(document).ready( function() {
-  var id = $.cookie("id");
-  if (id != null && id != "") {
-    $("#id_input").val(); // email textbox에 쿠키값 출력
-    $("#saveId").attr("checked", "checked"); // 체크박스에 체크
-  }
-}); 
+
 
   $('#loginBtn').click( function(event) {
-         var checkStatus = $("#saveId").is(":checked");
-        if (checkStatus) {
-          $.cookie("id", $("#id_input").val());
-        } else {
-          $.cookie("id", "");
-        }  
+
          console.log("login?");
         $.post('../auth/ajax/login.do', {
           id : $('#id_input').val(),
-          password : $('#pass_input').val(),
+          password : $('#pass_input').val()
         }, function(resultObj) {
+        	 console.log("login-ing");
           var ajaxResult = resultObj.ajaxResult;
           if (ajaxResult.status == "success") {
             emailSession = ajaxResult.data.id;
             number = ajaxResult.data.mno;
-            $.session.set('loginSession',emailSession);
-            $.session.set('mem_num',number);
+            sessionStorage.setItem('loginSession',emailSession);
+            sessionStorage.setItem('mem_num',number);
             console.log("success");
+            close_modal("#signup");
+            $("#logout").show();
+            $("#login").hide();
+            console.log(sessionStorage.getItem("loginSession"));
+              var session_id=sessionStorage.getItem("loginSession");
+              var span = $("#logout");
+              $("<a style='margin-right:10px;color:white;'  href=''>"+session_id+"</a>")
+                .appendTo(span);
+              location.reload();
           } else {
             alert("이메일과 패스워드가 일치하지 않습니다.");
           }
         }, 'json');
+        
       });
   
   
   $(document).ready( function() {
-  if ($.session.get("loginSession") != undefined) {
+  if (sessionStorage.getItem("loginSession") != undefined) {
     $("#logout").show();
     $("#login").hide();
-    console.log($.session._cookieCache["loginSession"]);
-      var session_id=$.session._cookieCache["loginSession"];
+    console.log(sessionStorage.getItem("loginSession"));
+      var session_id=sessionStorage.getItem("loginSession");
       var span = $("#logout");
       $("<a style='margin-right:10px;color:white;'  href='#'>"+session_id+"</a>")
         .appendTo(span);
@@ -205,14 +200,12 @@ $(document).ready( function() {
 }); 
   
   $('#out').click( function(event) {
-    $.session.remove("loginSession");  
-    $.session.remove("mem_num");  
+    $.session.clear();
     console.log("logout");
-    var span = $("#login");
-    $("<a style='margin-right:10px;color:white;'  href='#'>가입하세요.</a>")
-      .appendTo(span);
+    
     $("#login").show();
     $("#logout").hide();
+    location.reload();
   });
   
   // 로그인 끝
@@ -236,8 +229,9 @@ $(document).ready( function() {
              contentType:false,
              success : function(result) {
                console.log(result);
+               alert("가입에 성공했습니다.");
              if (result.ajaxResult.status == "success") {
-                location.href = "/allstar/ui/main2.html";
+                location.href = "javascript:;'";
                } else {
                 alert("가입에 실패했습니다.");
                }
