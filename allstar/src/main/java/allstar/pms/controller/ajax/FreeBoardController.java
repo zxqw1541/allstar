@@ -18,6 +18,11 @@ import allstar.pms.domain.FreeBoard;
 public class FreeBoardController {
   @Autowired FreeBoardDao freeBoardDao;
 
+  @RequestMapping("all")
+  public AjaxResult countAll() {
+    return new AjaxResult("success",freeBoardDao.selectCountAll());
+  }
+  
   @RequestMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
@@ -55,6 +60,7 @@ public class FreeBoardController {
   @RequestMapping("detail")
   public Object detail(int no) throws Exception {
     FreeBoard freeBoard = freeBoardDao.selectOne(no);
+    freeBoardDao.upView(no);
     return new AjaxResult("success", freeBoard);
   }
 

@@ -11,4 +11,5 @@ public interface FreeBoardService {
   void remove(int no, String password);
   void change(FreeBoard freeBoard);
   FreeBoard retieve(int no);
+  int countAllFreeBoard();
 }

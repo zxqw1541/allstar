@@ -15,4 +15,8 @@ public interface FreeBoardDao {
   int update(FreeBoard freeBoard);
   
   FreeBoard selectOne(int no);
+  
+  void upView(int no);
+
+  int selectCountAll();
 }

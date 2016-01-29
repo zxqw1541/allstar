@@ -29,8 +29,8 @@ public class FreeBoardController {
   public String list(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="10") int pageSize,
-      @RequestParam(defaultValue="no") String keyword,
-      @RequestParam(defaultValue="desc") String align,
+      @RequestParam(defaultValue="title") String keyword,
+      @RequestParam(defaultValue="asc") String align,
       Model model) throws Exception {
     
     HashMap<String,Object> paramMap = new HashMap<>();

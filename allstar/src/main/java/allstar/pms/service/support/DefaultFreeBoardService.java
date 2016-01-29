@@ -44,5 +44,10 @@ public class DefaultFreeBoardService implements FreeBoardService {
   public FreeBoard retieve(int no) {
     return freeBoardDao.selectOne(no);
   }
+
+@Override
+public int countAllFreeBoard() {
+	return freeBoardDao.selectCountAll();
+}
   
 }

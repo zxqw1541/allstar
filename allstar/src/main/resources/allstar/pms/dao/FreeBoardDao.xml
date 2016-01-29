@@ -50,4 +50,16 @@
 		from board 
 		where bno=#{no}
 	</select>
+	
+	<update id="upView" parameterType="Integer">
+		update board set 
+		views = views+1 
+		where bno=#{no}
+	</update>
+	
+	<select id="selectCountAll" resultType="int">
+    select count(*)
+    from board 
+    where eno=1
+  </select>
 </mapper>

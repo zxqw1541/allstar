@@ -1,58 +1,54 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset='UTF-8'>
-  <title>자유 게시판</title>
-  <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="../css/common.css">
-  <script type="text/javascript" src="../lib/jquery/jquery.js"></script>
-</head>
-<body>
-
-<div class="container">        
-<header>
-운동 관리 시스템 - 
-  <a href="#">로그인</a>
-</header>
-
-<section>
-<h1>자유게시물 폼</h1>
-
-<form id='form1' class="form-horizontal">
-  <div class="detailForm form-group">
-    <label for="fno" class="col-sm-2 control-label">번호</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="fno" readonly="readonly">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="ftitle" class="col-sm-2 control-label">제목</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="ftitle" placeholder="제목">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="fcontent" class="col-sm-2 control-label">내용</label>
-    <div class="col-sm-10">
-      <textarea id="fcontent" class="form-control" 
-                rows='10' cols='60' placeholder="제목"></textarea>
-    </div>
-  </div>
-  <div class="detailForm form-group">
-    <label class="col-sm-2 control-label">조회수</label>
-    <div class="col-sm-10">
-      <p id="fviews" class="form-control-static"></p>
-    </div>
-  </div>
-  <div class="detailForm form-group">
-    <label class="col-sm-2 control-label">등록일</label>
-    <div class="col-sm-10">
-      <p id="fcreatedDate" class="form-control-static"></p>
-    </div>
-  </div>
-  <div>
-  <table id="commentTable" class="table table-condensed"></table>
-  <table class="table table-condensed">
+<html lang="ko">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta charset="utf-8">
+        <!-- meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/ -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+        <!-- Bootstrap -->
+        <link href="./bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요한) -->
+        <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    </head>
+    <body>
+        <!-- 좌우측의 공간 확보 -->
+        <div class="container">
+            <hr/>
+            <div class="row">
+                <div class="col-md-10">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr align="center">
+                                <th width="10%">제목</th>
+                                <th width="60%">게시판 제목 입니다.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>작성일
+                                </td>
+                                <td>
+                                2014-12-15 04:45:23
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>글쓴이
+                                </td>
+                                <td>
+                                husk <span style='float:right'>조회 : 0</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p>이름, 패스워드 내용을 적으시고 확인버튼을 누르세요.</p>
+                        
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="commentTable" class="table table-condensed"></table>
+                    <table class="table table-condensed">
                         <tr>
                             <td>
                                 <span class="form-inline" role="form">
@@ -72,30 +68,21 @@
                             </td>
                         </tr>
                     </table>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button id='addBtn' type='button' 
-        class="newForm btn btn-primary btn-xs">등록</button>
-      <button id='updateBtn' type='button' 
-        class="detailForm btn btn-primary btn-xs">변경</button>
-      <button id='deleteBtn' type='button' 
-        class="detailForm btn btn-primary btn-xs">삭제</button>
-    </div>
-  </div>
-</form>
-</section>
-
-<footer>
-<p><address>
-** 이 웹 애플리케이션의 모든 권리는AllStar 맴버에 있습니다. &copy; AllStar. **
-</address></p>
-</footer>
-</div><!-- container div -->
-
-
-
-<script>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <span style='float:right'>
+                                        <button type="button" id="list" class="btn btn-default">목록</button>
+                                        <button type="button" id="modify" class="btn btn-default">수정</button>
+                                        <button type="button" id="delete" class="btn btn-default">삭제</button>
+                                        <button type="button" id="write" class="btn btn-default">글쓰기</button>
+                                    </span>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <script>
    
                         $(function(){
                                
@@ -258,85 +245,23 @@
                                    
                             });
                                
-                           
+                            $( "#list" ).click(function( event ) {
+                                location.href='/community/notice';
+                            });
+                            $( "#modify" ).click(function( event ) {
+                                location.href='/community/modify/notice/${community.id}';
+                            });
+                            $( "#delete" ).click(function( event ) {
+                                location.href='/community/delete/notice/${community.id}';
+                            });
+                            $( "#write" ).click(function( event ) {
+                                location.href='/community/notice/edit';
+                            });
                         });
                     </script>
-                    
-                    
-<script>
-var no = location.href.split('?')[1].split('=')[1];
-
-if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
-	$('.detailForm').css('display', 'none');// 상세정보 출력을 위한 폼 항목은 감춘다.
-	$('.newForm').css('display', '');// 새 글 등록을 위한 폼 항목은 보인다.
-	$('#commentTable').css('display', 'none');// 상세정보 출력을 위한 폼 항목은 감춘다.
-  
-} else { // 상세정보 출력폼으로 전환한다.
-	$('.detailForm').css('display', '');
-	$('.newForm').css('display', 'none');
-	$('#commentTable').css('display', '');
-	
-	$.getJSON('ajax/detail.do?no=' + no, function(resultObj) {
-		var ajaxResult = resultObj.ajaxResult;
-		if (ajaxResult.status == "success") {
-      var freeBoard = ajaxResult.data;
-      $("#fno").val(freeBoard.no);
-      $("#ftitle").val(freeBoard.title);
-      $("#fcontent").val(freeBoard.content);
-      $("#fviews").text(freeBoard.views);
-      $("#fcreatedDate").text(freeBoard.createdDate);
-    }
-	});
-}
-
-// 등록 버튼을 위한 이벤트 리스너 추가하기
-$('#addBtn').click(function(event) {
-	$.post('ajax/add.do', {
-		title: $('#ftitle').val(),
-		content: $('#fcontent').val(),
-	}, function(resultObj) {
-		var ajaxResult = resultObj.ajaxResult;
-		if (ajaxResult.status == "success") {
-      location.href = "index.html";
-    } else {
-        alert("게시물 등록에 실패했습니다.");
-    }
-	}, 'json');
-});
-
-//변경 버튼을 위한 이벤트 리스너 추가하기
-$('#updateBtn').click(function(event) {
-  $.post('ajax/update.do', {
-	    no: $('#fno').val(),
-	    title: $('#ftitle').val(),
-	    content: $('#fcontent').val(),
-	    
-  }, function(resultObj) {
-    var ajaxResult = resultObj.ajaxResult;
-    if (ajaxResult.status == "success") {
-      location.href = "index.html";
-    } else {
-        alert("게시물 변경에 실패했습니다.");
-    }
-  }, 'json');
-});
-
-//삭제 버튼을 위한 이벤트 리스너 추가하기
-$('#deleteBtn').click(function(event) {
-	$.getJSON('ajax/delete.do?no=' + $('#fno').val(), 
-	  function(resultObj) {
-	    var ajaxResult = resultObj.ajaxResult;
-	    if (ajaxResult.status == "success") {
-	      location.href = "index.html";
-	    } else {
-	        alert("게시물 삭제에 실패했습니다.");
-	    }
-  });
-});
-
-</script>
-
-
-                    
-</body>
+                </div>
+            </div>
+            <hr/>
+        </div>    
+    </body>
 </html>
