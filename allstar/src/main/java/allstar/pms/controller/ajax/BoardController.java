@@ -31,8 +31,15 @@ public class BoardController {
   
   
   @RequestMapping("all")
-  public AjaxResult countAll() throws Exception {
-      return new AjaxResult("success", boardService.countAllBoard());
+  public AjaxResult countAll(
+      @RequestParam(defaultValue = "null") String event,
+      @RequestParam(defaultValue = "null") String date,
+      @RequestParam(defaultValue = "null") String search1,
+      @RequestParam(defaultValue = "null") String search2) {
+    
+    int count = boardService.countAllBoard(event, date, search1, search2);
+    
+    return new AjaxResult("success",count);
     }
 
   
@@ -42,9 +49,12 @@ public class BoardController {
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="10") int pageSize,
-      @RequestParam(defaultValue="no") String keyword,
-      @RequestParam(defaultValue="desc") String align,
-      @RequestParam(defaultValue="-1") int eno) throws Exception {
+      @RequestParam(defaultValue = "null") String event,
+      @RequestParam(defaultValue = "null") String date,
+      @RequestParam(defaultValue = "null") String reply,
+      @RequestParam(defaultValue = "null") String search1,
+      @RequestParam(defaultValue = "null") String search2,
+      @RequestParam(defaultValue="-1") int eno) {
     
     System.out.println("pageNo=" + pageNo);
     System.out.println("pageSize=" + pageSize);
@@ -52,9 +62,9 @@ public class BoardController {
     List<Board> boards = null;
     
     if (eno == -1)
-      boards = boardService.getBoardList(pageNo, pageSize, keyword, align);
+      boards = boardService.getBoardList(pageNo, pageSize, event, date, reply, search1, search2);
     else 
-      boards = boardService.getBoardList(pageNo, pageSize, keyword, align, eno);
+      boards = boardService.getBoardList(pageNo, pageSize, eno, event, date, reply, search1, search2);
     
     System.out.println("--------------------------------------------------");
     for(Board b: boards)
