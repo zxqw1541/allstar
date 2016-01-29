@@ -1,3 +1,7 @@
+@font-face {
+    font-family: 'nexonFont';
+    src: url("../fonts/NEXON Football Gothic L.otf") format("opentype");
+}
 /* reset */
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
 article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
@@ -23,7 +27,7 @@ nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
 body{
-  font-family: "nanum";
+font-family: 'nexonFont';
 	background:#F0EFEE;
 }
 /*---start-wrap----*/
@@ -79,7 +83,7 @@ body{
 	-moz-border-radius: 0.3em;
 	-o-border-radius: 0.3em;
 	-webkit-appearance: none;
-  font-family: "nanum";
+  font-family: 'nexonFont';
 	color:#777;
 	position:relative;
 }
@@ -292,7 +296,7 @@ a.boxclose{
 }
 /*----start-single-page----*/
 .artical-content h3 a{
-	    font-family: "nanum";
+	    font-family: 'nexonFont';
 	font: 400 28px/28px 'nanum', sans-serif;
 	color: #626262;
 	text-align: left;
@@ -412,7 +416,7 @@ p.para {
 	color:#363636;
 	line-height: 1.8em;
 	padding: 2px 0;
-  font-family: "nanum";
+  font-family: 'nexonFont';
 	transition:0.5s all;
 	-webkit-transition:0.5s all;
 	-moz-transition:0.5s all;
@@ -438,7 +442,7 @@ p.para {
 	margin: 0em auto;
 }
 .table-form form input[type="text"]{
-	font-family: "nanum";
+	font-family: 'nexonFont';
 	border: 1px solid rgba(192, 192, 192, 0.61);
 	outline: none;
 	padding: 12px;
@@ -462,7 +466,7 @@ p.para {
 	-o-box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.05);
 }
 .table-form textarea{
-  font-family: "nanum";
+  font-family: 'nexonFont';
 	padding: 8px;
 	outline:none;
 	color: #333333;
@@ -489,7 +493,7 @@ p.para {
 	border: 1px solid #B9CB41;
 }
 .table-form input[type="submit"]{
-  font-family: "nanum";
+  font-family: 'nexonFont';
 	color: #5a5a5a;
 	padding: 0.8em 1.5em;
 	background: #fff;
@@ -517,7 +521,7 @@ p.para {
 .table-form label{
 	display: block;
 	margin: 0.4em 0 0.5em;
-  font-family: "nanum";
+  font-family: 'nexonFont';
 	color:#363636;
 	font-weight:100;
 }
@@ -535,7 +539,7 @@ p.para {
 	background: #fff;
 }
 .contact form{
-	font-family: "nanum";
+	font-family: 'nexonFont';
 
 }
 .map{
@@ -553,7 +557,7 @@ p.para {
 	line-height: 1.8em;
 	font-size: 0.85em;
 	margin-bottom: 5px;
-	font-family: "nanum";
+	font-family: 'nexonFont';
 
 }
 span.mail a {
@@ -565,7 +569,7 @@ span.mail a:hover{
 .contact-to input[type="text"] {
 	padding: 12px 10px;
 	width: 30.66%;
-	font-family: "nanum";
+	font-family: 'nexonFont';
 
 	margin: 12px 0;
 	border: 1px solid rgba(192, 192, 192, 0.61);
@@ -596,7 +600,7 @@ span.mail a:hover{
 	margin: 12px 0;
 	border: 1px solid rgba(192, 192, 192, 0.61);
 	color: #626262;
-	font-family: "nanum";
+	font-family: 'nexonFont';
 
 	outline: none;
 	margin-bottom: 25px;
@@ -624,7 +628,7 @@ span.mail a:hover{
 	border: 1px solid #B9CB41;
 }
 .contact-form input[type="submit"] {
-	font-family: "nanum";
+	font-family: 'nexonFont';
 
 	color: #5a5a5a;
 	padding: 0.8em 1.5em;
@@ -658,7 +662,7 @@ span.mail a:hover{
 	-webkit-transition: 0.5s all;
 	-moz-transition: 0.5s all;
 	-o-transition: 0.5s all;
-	font-family: "nanum";
+	font-family: 'nexonFont';
 
 	margin-bottom: 0.6em;
 }

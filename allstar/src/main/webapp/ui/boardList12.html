@@ -194,7 +194,6 @@ $('body').on('click','#boardtitle',function(event){
   if (checkPageNo!= -1) pageNo = getParameter('pageNo');
    
   url = '/allstar/board/ajax/list.do?pageSize=' + pageSize + '&pageNo=' + pageNo;
-  
   if (location.href.indexOf('&') != -1) {
     if (checkSearch1 != -1) {
       url = url + "&search1=" + getParameter('search1');
@@ -216,8 +215,11 @@ $('body').on('click','#boardtitle',function(event){
        dataType:'json',
        success:function(resultObj) {
     var tbody = $("#boardtable tbody");
-
-    for (var board of resultObj.boards) {
+    console.log("음: "+resultObj.comm);
+    console.log("음: "+resultObj.boards.length);
+    for (i=0; i<resultObj.boards.length; i++) {
+    	var board = resultObj.boards[i];
+    	var comment = resultObj.comm[i];
     	var photo = board.member.photo;
     	if(photo == null)
     		photo = 'allstardefault.png';
@@ -226,7 +228,7 @@ $('body').on('click','#boardtitle',function(event){
               + "<td class='subject'>"
               + "<a href='#contents' class='trigger' rel='leanModal' id='boardtitle' boardBno='"+ board.no +"'>"
               + board.title  
-              + "<small style='pointer-events: none; cursor: default;'>(0)</small>" 
+              + "<small style='pointer-events: none; cursor: default;'>("+comment+")</small>" 
               +"<img src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_img.png' alt='이미지 있음' class='bulArticle bulImg' style='pointer-events: none; cursor: default;' />" 
               +"<img class='bul' src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_new.png' alt='새 글' class='bulArticle bulNew' style='pointer-events: none; cursor: default;'>"
               + "<span class='info' style='pointer-events: none; cursor: default;'>"+ board.createDate +"</span></a>"

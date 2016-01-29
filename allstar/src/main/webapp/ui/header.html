@@ -226,9 +226,9 @@ function close_modal(modal_id){
              dataType: "json",
              enctype: 'multipart/form-data',
              processData: false, 
-             contentType:false,
-             success : function(result) {
-               console.log(result);
+             contentType: false,
+             success : function(resultObj) {
+               console.log(resultObj);
                alert("가입에 성공했습니다.");
              if (result.ajaxResult.status == "success") {
                 location.href = "javascript:;'";
