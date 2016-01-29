@@ -222,6 +222,7 @@
 
 /* 모달 x 버튼 */
 #detail_team-header .modal_close { width:20px; height:20px; background-size:20px; }
+#apply_comp-header .modal_close { width:20px; height:20px; background-size:20px; }
 
 /* 참여정보 글씨 */
 h2.sideInfoTitle{float:left; margin:10px 3px}
