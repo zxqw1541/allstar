@@ -1,9 +1,12 @@
 package allstar.pms.util;
 
+import java.util.List;
 import java.util.Random;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import allstar.pms.domain.Team;
 
 public class TournamentHelper {
   
@@ -11,11 +14,11 @@ public class TournamentHelper {
    * 랜덤으로 숫자만큼 풀세팅 해줌
    */
   @SuppressWarnings("unchecked")
-  public static String makeTournament(int teamCount) {
-    int realCount = teamCount;
-    teamCount = makePowerOfTwo(teamCount);
-    System.out.println(teamCount);
+  public static String makeTournament(List<Team> joinTeamList) {
     
+    int realCount = joinTeamList.size();
+    int teamCount = makePowerOfTwo(realCount);
+
     JSONObject jsonroot = new JSONObject();
     
     JSONArray teamList = new JSONArray();
@@ -27,19 +30,19 @@ public class TournamentHelper {
           vsTeam.add("undefined");
           vsTeam.add("undefined");
         } else {
-          vsTeam.add("Team" + i);
-          vsTeam.add("Team" + (i+1));
+          vsTeam.add(joinTeamList.get(i).getName());
+          vsTeam.add(joinTeamList.get(i + 1).getName());
         }
       } else {
         if (i == (realCount-1)) {
-          vsTeam.add("Team" + i);
+          vsTeam.add(joinTeamList.get(i).getName());
           vsTeam.add("undefined");
         } else if (i > (realCount-1)) {
           vsTeam.add("undefined");
           vsTeam.add("undefined");
         } else {
-          vsTeam.add("Team" + i);
-          vsTeam.add("Team" + (i+1));
+          vsTeam.add(joinTeamList.get(i).getName());
+          vsTeam.add(joinTeamList.get(i + 1).getName());
         }
       }
       teamList.add(vsTeam);
