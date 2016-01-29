@@ -45,7 +45,7 @@ var teamForm;
     <div id="saveparam" hidden="true"></div>
     <div class="btnArea clearFix">
       <p class="fR">
-        <a id="newBtn" class="newbtn btnType1" rel='leanModal' href='#add_team'>새 팀</a>
+        <a id="newBtn" class="newbtn btnType1" rel='leanModal'>새 팀</a>
       </p><br>
       
         <form id="teamForm">
@@ -114,6 +114,7 @@ var teamForm;
       <img id="add_preview_img" src="img/allstardefault.png"/>
     </div>
     <form id='addTeamForm' class="form-horizontal" enctype="multipart/form-data">
+    <input type="hidden" id="fmno" />
     <div class="txt-fld">
       <label for="fname">팀명</label>
       <input id="fname" class="good_input" type="text" placeholder="팀명을 입력해주세요."/>
@@ -345,6 +346,23 @@ var teamForm;
   <script src="../team/js/jquery.imagesloaded.js"></script>
   <script src="../team/js/jquery.wookmark.js"></script>
   
+  
+<script>
+$(document).ready(function() {
+  if (sessionStorage.getItem("mem_num") != undefined) {
+	  window.mem_num = sessionStorage.getItem("mem_num");
+  }
+  
+  $('#applyJoinBtn').attr({
+      rel : 'leanModal',
+      href : '#apply_team'
+  });
+  $('button[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });
+  
+});
+
+</script>  
+  
 <!-- 리스트 첫 부분 -->
   <script>
   var showFirst = (function ($){
@@ -575,7 +593,7 @@ var load_detail_func = function(){
     $(".teamList").on("click", load_detail_func);
 </script>
 
-  <!-- 처음 리스트 출력 -->
+<!-- 처음 리스트 출력 -->
   <script>
   var url = '../team/ajax/list.do';
   var param = '';
@@ -775,6 +793,28 @@ $(function() {
 
 </script>
 
+<!-- 팀 가입 폼 -->
+<script>
+$(document).ready(function() {
+   $('#newBtn').attr({
+       href : '#add_team'
+   });
+});
+  
+$(document).on('click', '#newBtn', function (event) {
+	event.preventDefault();
+	if (sessionStorage.getItem("mem_num") != undefined) {
+	  $(this).attr('href', '#add_team');
+	} else {
+		$(this).attr('href', '');
+	  alert("로그인 후 이용 가능합니다.");
+	  $('#add_team').css('display', 'none');
+	  $('#lean_overlay').css('display', 'none');
+	}
+	
+});
+</script>
+
 <!-- 팀 추가 -->
 <script>
   $(function() {
@@ -817,6 +857,7 @@ $(function() {
           if($('#faform').val() != "")
               data.append('aForm', $('#faform').val());
           
+          data.append('mno', $('#fmno').val());
           data.append('eno', $('#fevent').val());
           data.append('name', $('#fname').val());
           data.append('totalNum', $('#ftotalnum').val());
@@ -915,14 +956,6 @@ $(function() {
 
 <!-- 가입신청 버튼 -->
 <script>
-   $(document).ready(function() {
-    $('#applyJoinBtn').attr({
-        rel : 'leanModal',
-        href : '#apply_team'
-    });
-    $('button[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });
-  });
-  
   $("#applyJoinBtn").on("click", applyJoinButton);
 
   function applyJoinButton() {
