@@ -18,8 +18,10 @@ public class DefaultBoarCommService implements BoarCommService {
    
     return boarCommDao.selectListByBoard(bno);
   }
-  
-  
+  @Override
+  public int countAllCommFromBoard(int bno) {
+     return boarCommDao.selectAllFromBoard(bno);
+  }
   @Override
   public void register(BoarComm boarComm) {
     boarCommDao.insert(boarComm);

@@ -28,7 +28,7 @@ function close_modal(modal_id){
 
 <div id='top_header'>
 <header >
-<a href="main2.html"><img src="images/allstar.png" ></a>
+<a href="main2.html"><img src="images/allstar.png" style="float: left;"></a>
  <div class="auth">
           <span id="login" style="display:none;">
               <a style='margin-right:10px;color:white;' id='go' rel='leanModal' href='#signup'>Login</a>
@@ -68,7 +68,7 @@ function close_modal(modal_id){
                         <li><a href="teamList.html?event=5">볼링</a></li>
                         <li><a href="teamList.html?event=6">탁구</a></li>
                    </ul></li>
-                       <li class='last'><a href="#">자유게시판</a></li>
+                       <li class='last'><a href="freeBoardList.html">자유게시판</a></li>
               </ul>
         </nav>
         </div>
@@ -226,9 +226,9 @@ function close_modal(modal_id){
              dataType: "json",
              enctype: 'multipart/form-data',
              processData: false, 
-             contentType:false,
-             success : function(result) {
-               console.log(result);
+             contentType: false,
+             success : function(resultObj) {
+               console.log(resultObj);
                alert("가입에 성공했습니다.");
              if (result.ajaxResult.status == "success") {
                 location.href = "javascript:;'";

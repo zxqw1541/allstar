@@ -1,5 +1,6 @@
 package allstar.pms.controller.ajax;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Board;
 import allstar.pms.domain.Event;
+import allstar.pms.service.BoarCommService;
 import allstar.pms.service.BoardService;
 import allstar.pms.service.EventService;
 
@@ -26,8 +28,8 @@ public class BoardController {
   public static Logger log = Logger.getLogger(BoardController.class);
   @Autowired BoardService boardService;
   @Autowired EventService eventService;
+  @Autowired BoarCommService boarCommService;
   @Autowired ServletContext servletContext;
-  
   
   
   @RequestMapping("all")
@@ -41,10 +43,10 @@ public class BoardController {
     
     return new AjaxResult("success",count);
     }
+  
 
-  
-  
-  
+
+
   @RequestMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
@@ -56,17 +58,21 @@ public class BoardController {
       @RequestParam(defaultValue = "null") String search2,
       @RequestParam(defaultValue="-1") int eno) {
     
-    System.out.println("pageNo=" + pageNo);
-    System.out.println("pageSize=" + pageSize);
     List<Event> events = eventService.getEventList();
     List<Board> boards = null;
-    
+    List<Integer> boarComment = new ArrayList<>();
+    System.out.println("pageNo=" + pageNo);
+    System.out.println("pageSize=" + pageSize);
     if (eno == -1)
       boards = boardService.getBoardList(pageNo, pageSize, event, date, reply, search1, search2);
     else 
       boards = boardService.getBoardList(pageNo, pageSize, eno, event, date, reply, search1, search2);
     
-    System.out.println("--------------------------------------------------");
+    for(Board board: boards){
+       boarComment.add(boarCommService.countAllCommFromBoard(board.getNo()));
+    }
+    System.out.println(boarComment);
+        System.out.println("--------------------------------------------------");
     for(Board b: boards)
       System.out.println(b);
     System.out.println("--------------------------------------------------");
@@ -74,7 +80,7 @@ public class BoardController {
     resultMap.put("status", "success");
     resultMap.put("boards", boards);
     resultMap.put("events", events);
-    
+    resultMap.put("comm", boarComment);
     return resultMap;
   }
   

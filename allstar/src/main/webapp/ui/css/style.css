@@ -1,4 +1,7 @@
-
+@font-face {
+    font-family: 'nexonFont';
+    src: url("../fonts/NEXON Football Gothic L.otf") format("opentype");
+}
 
 /*-----------------------------------------------------------------------------------*/
 /*	RESET
@@ -85,7 +88,7 @@ table {
 
 body {
 	background-color: #f0f0f0;
-	
+	font-family: 'nexonFont';
 	font-size: 13px;
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -208,7 +211,7 @@ em {
 	font-weight: normal;
 	color: #FFF;
 	cursor: pointer;
-	font-family: 'MidoMedium';
+font-family: 'nexonFont';
 }
 .button span {
 	display: block;
@@ -290,7 +293,7 @@ em {
 	padding:0;
 	margin: 0;
 	margin:10px 8px 3px 0;
-	font-family: 'MidoMedium';
+font-family: 'nexonFont';
 }
 .quote-right, .quote-left {
 	color:#565656;
@@ -414,7 +417,7 @@ em {
 /*-----------------------------------------------------------------------------------*/
 
 .ddsmoothmenu {
-	font-family: 'MidoMedium';
+font-family: 'nexonFont';
 	font-size: 17px;
 	z-index: 1000;
 	position: relative;
@@ -456,7 +459,7 @@ em {
 /*1st sub level menu*/
 .ddsmoothmenu ul li ul {
 	background: none;
-	font-family: 'MidoMedium';
+font-family: 'nexonFont';
 	position: absolute;
 	padding: 22px 0 0 0;
 	left: 0;
@@ -575,7 +578,7 @@ em {
 	font-size: 22px;
 	text-align: center;
 	font-weight: normal;
-	font-family: 'MidoMedium';
+font-family: 'nexonFont';
 	color: #626262;
 }
 .intro {
@@ -673,7 +676,7 @@ ul.gallerynav li {
 }
 ul.gallerynav li a {
 	float:left;
-	font-family: 'MidoMedium';
+font-family: 'nexonFont';
 	color: #565656;
 	margin: 0 15px;
 	font-size: 15px;
@@ -704,7 +707,7 @@ ul#tab-menu {
 	margin:0 20px 0 0;
 	padding: 0 10px;
 	list-style:none;
-	font-family: 'MidoMedium';
+font-family: 'nexonFont';
 	font-size: 17px;
 }
 ul#tab-menu li {

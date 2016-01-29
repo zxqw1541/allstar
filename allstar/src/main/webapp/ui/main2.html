@@ -36,7 +36,7 @@ function close_modal(modal_id){
 <div class="tournament_slider" id="tournament_slider">
 <div id='top_header'>
 <header >
-<a href="#tournament_slider"><img src="images/allstar.png" ></a>
+<a href="#tournament_slider"><img src="images/allstar.png" style="float:left;"></a>
           <div class="auth">
           <span id="login" style="display:none;">
 		          <a style='margin-right:10px;color:white;' id='go' rel='leanModal' href='#signup'>Login</a>
@@ -76,7 +76,7 @@ function close_modal(modal_id){
 				                <li><a href="teamList.html?event=5">볼링</a></li>
                         <li><a href="teamList.html?event=6">탁구</a></li>
 				           </ul></li>
-                       <li class='last'><a href="#">자유게시판</a></li>
+                       <li class='last'><a href="freeBoardList.html">자유게시판</a></li>
               </ul>
         </nav>
         </div>
@@ -160,6 +160,7 @@ function close_modal(modal_id){
 <div class="tournament_cat" id="tournament_cat">
 
 <div style="height:140px;"></div>
+
       <!--Mainimg-->
       <div id="Mainimg" style="width:100%;">
         <a href="competitionList.html?event=4"><img src="images/tour/baseball.jpg"></a>
@@ -416,13 +417,15 @@ var div = $('#photo_div');
 
     	    /* 최신 글 */
     	    var ul = $("#newest_tab");
-    	    for (var board of resultObj.boards) {
+    	    for (i=0; i<resultObj.boards.length; i++) {
+    	        var board = resultObj.boards[i];
+    	        var comment = resultObj.comm[i];
     	      $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='margin-left:-25px;'>")
     	      .html(
     	            "<a href='#' class='detailLink' boardBno='" + board.no + "'>" 
     	            + "<span class='txt'>" 
     	            + "<span class='cat'>" + board.event.name  +"</span>"
-    	            + board.title +"<small>("+0+")</small>" 
+    	            + board.title +"<small>("+comment+")</small>" 
     	            + "<img class='bulArticle bulLike' src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_gmlike.png' alt='최근글' />"
     	            + "</span>"
     	            + "<span class='date'>"+board.createDate+"</span></a></li>")
@@ -442,13 +445,15 @@ var div = $('#photo_div');
     $.getJSON('/allstar/board/ajax/list.do?pageSize=5&keyword=views', function(resultObj){
 
     	 var ul = $("#top_con");
-         for (var board of resultObj.boards) {
+    	   for (i=0; i<resultObj.boards.length; i++) {
+    		      var board = resultObj.boards[i];
+    		      var comment = resultObj.comm[i];
            $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='margin-left:-25px;'>")
            .html(
                  "<a href='#' class='detailLink' boardBno='" + board.no + "'>" 
                  + "<span class='txt'>" 
                  + "<span class='cat'>" + board.event.name  +"</span>"
-                 + board.title +"<small>("+0+")</small>" 
+                 + board.title +"<small>("+comment+")</small>" 
                  + "<img class='bulArticle bulLike' src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_gmlike.png' alt='인기글' />"
                  + "</span>"
                  + "<span class='date'>"+board.createDate+"</span></a></li>")

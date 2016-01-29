@@ -12,6 +12,7 @@ public interface BoarCommService {
   
   int remove(int bcno);
 
+  int countAllCommFromBoard(int bno);
 }
 
 
