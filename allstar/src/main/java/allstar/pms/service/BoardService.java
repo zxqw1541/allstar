@@ -21,6 +21,10 @@ public interface BoardService {
   Board retrieve(int bno);
   
   int countAllBoard(String event, String date, String search1, String search2);
+  
+  int  upView(int no);
+  
+  
 }
 
 

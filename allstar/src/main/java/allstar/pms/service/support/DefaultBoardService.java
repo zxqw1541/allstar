@@ -75,4 +75,9 @@ public class DefaultBoardService implements BoardService {
   public Board retrieve(int no) {
     return boardDao.selectOne(no);
   }
+  
+  @Override public int upView(int no) {
+    boardDao.upView(no);
+    return boardDao.selectViews(no);
+  }
 }

@@ -1,5 +1,6 @@
 package allstar.pms.controller.ajax;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,14 +44,7 @@ public class BoardController {
     return new AjaxResult("success",count);
     }
   
-  @RequestMapping("commCount")
-  public Object commCount(int bno){
-    int commCount = boarCommService.countAllCommFromBoard(bno);
-    HashMap<String,Integer> resultMap = new HashMap<>();
-    resultMap.put("success",commCount );
-    return resultMap;
-  }
-  
+
 
 
   @RequestMapping("list")
@@ -66,7 +60,7 @@ public class BoardController {
     
     List<Event> events = eventService.getEventList();
     List<Board> boards = null;
-    
+    List<Integer> boarComment = new ArrayList<>();
     System.out.println("pageNo=" + pageNo);
     System.out.println("pageSize=" + pageSize);
     if (eno == -1)
@@ -74,7 +68,10 @@ public class BoardController {
     else 
       boards = boardService.getBoardList(pageNo, pageSize, eno, event, date, reply, search1, search2);
     
-
+    for(Board board: boards){
+       boarComment.add(boarCommService.countAllCommFromBoard(board.getNo()));
+    }
+    System.out.println(boarComment);
         System.out.println("--------------------------------------------------");
     for(Board b: boards)
       System.out.println(b);
@@ -83,7 +80,7 @@ public class BoardController {
     resultMap.put("status", "success");
     resultMap.put("boards", boards);
     resultMap.put("events", events);
-    
+    resultMap.put("comm", boarComment);
     return resultMap;
   }
   
@@ -100,6 +97,11 @@ public class BoardController {
     return new AjaxResult("success", null);
   }
   
+  @RequestMapping("views")
+  public AjaxResult getViews(int no) throws Exception {
+    log.info(no);
+    return new AjaxResult("success", boardService.upView(no));
+  }
   @RequestMapping("detail")
   public AjaxResult detail(int no) throws Exception {
     Board board = boardService.retrieve(no);
