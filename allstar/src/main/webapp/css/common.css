@@ -17,3 +17,10 @@ footer {
 	width: 500px;
 	margin: 0px auto;
 }
+ul li {list-style:none;}
+#newBtn {
+	display:inline;
+	margin-top: 5px !important;
+	height: 25px !important;
+	line-height: 0 !important;
+}
