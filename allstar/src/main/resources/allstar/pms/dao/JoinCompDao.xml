@@ -28,7 +28,7 @@
     
     <insert id="insert" parameterType="joinComp">
       insert into join_comp(cno, tno, cre_dt, content, state)
-      values (#{cno},#{tno},now(),#{content},1)
+      values (#{cno},#{tno},now(),#{content},#{state})
     </insert>
     
     <delete id="delete" parameterType="joinComp">

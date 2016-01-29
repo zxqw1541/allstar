@@ -107,8 +107,18 @@ public class CompetitionController {
         return new AjaxResult("failure", null);
       }
     }
-    //competition.setOperation("");
+    
+    // 대회 등록
     competitionService.register(competition);
+    
+    // 등록한 팀 대회 참가하기
+    JoinComp jc = new JoinComp();
+    jc.setCno(competitionService.getLastAddCno());
+    jc.setTno(competition.getTno());
+    jc.setContent("대회 개최팀");
+    jc.setState(1);
+    joinCompetition(jc);
+    
     return new AjaxResult("success", null);
   }
   
@@ -159,19 +169,28 @@ public class CompetitionController {
     return new AjaxResult("success", null);
   }
   
-  @RequestMapping(value = "joinc", method = RequestMethod.GET)
-  public AjaxResult joinCompetition(JoinComp joinComp){
+  @RequestMapping(value="joincomp", method=RequestMethod.GET)
+  public AjaxResult joinCompetition(JoinComp joinComp) {
     log.debug(joinComp);
+    // 이미 등록되어있는지
     if (joinCompService.retrive(joinComp) != 0)
       return new AjaxResult("already", null);
     
+    // 꽉찼을때
+    Competition c = competitionService.getJoinNTeamNum(joinComp.getCno());
+    if (c.getJoinNum() >= c.getTeamNum()) {
+      return new AjaxResult("full", null);
+    }
+    
     try {
       joinCompService.register(joinComp);
+      competitionService.plus1JoinNum(joinComp.getCno());
     } catch (Exception e) {
         return new AjaxResult("failure", null);
     }
     return new AjaxResult("success", null);
   }
+  
   
   
   @RequestMapping(value="imglist", method=RequestMethod.GET)
@@ -207,27 +226,14 @@ public class CompetitionController {
     return new AjaxResult("success", teamService.getTeamListByTnoEno(mno, eno));
   }
   
-  @RequestMapping(value="joincomp", method=RequestMethod.GET)
-  public AjaxResult addJoinCompetition(JoinComp joinComp) {
-    log.debug("joinComp = " + joinComp);
-    log.debug("count : " + joinCompService.retrive(joinComp));
-    if (joinCompService.retrive(joinComp) > 0)
-      return new AjaxResult("already", null);
-    
-    joinCompService.register(joinComp);
-    
-    
-    return new AjaxResult("success", null);
-  }
-  
   @RequestMapping(value="jointeam", method=RequestMethod.GET)
-  public AjaxResult listJoinTeam(int mno) {
+  public AjaxResult getListJoinTeam(int mno) {
     log.debug("mno = " + mno);
     return new AjaxResult("success", joinTeamService.getJoinTeamByMember(mno));
   }
   
   @RequestMapping(value="event", method=RequestMethod.GET)
-  public AjaxResult listEvent() {
+  public AjaxResult getListEvent() {
     return new AjaxResult("success", eventService.getEventList());
   }
   

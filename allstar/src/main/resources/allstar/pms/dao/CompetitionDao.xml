@@ -157,5 +157,25 @@
           and jt.level = 1 and c.cno = #{cno}
   </select>
   
+  <update id="plusJoinNumByCno" parameterType="int">
+    update competition set
+      join_num = join_num + 1
+    where cno = #{cno}
+  </update>
+  
+  <select id="selectJoinNTeamNum" resultMap="CompetitionMap" parameterType="int">
+    select join_num, team_num
+    from competition
+    where cno = #{cno}
+  </select>
+  
+  
+  <select id="selectMaxCno" resultType="int">
+    select max(cno)
+    from competition;
+  </select>
+  
+  
+  
 </mapper>
 
