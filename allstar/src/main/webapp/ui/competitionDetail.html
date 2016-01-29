@@ -367,8 +367,14 @@ function imgMouseEvent(teamList) {
 
 <!-- 참가하기 버튼 리스너(모달 띄울떄 주소에 href 방지) -->
 <script>
-$('#btnArticleJoin').on('click', function(event){
-  event.preventDefault();  
+$(document).on('click', '#btnArticleJoin' , function(event){
+  event.preventDefault();
+  console.log($('#apply_comp'));
+  if (status != '모집중') {
+		  alert('현재 팀을 모집하지 않습니다.');
+		  $('#apply_comp').css('display' , 'none');
+		  $('#lean_overlay').css('display' , 'none');
+	}
 });
 </script>
 
@@ -477,9 +483,9 @@ $('#btnArticleWrite').on('click', function(event){
 
 <!-- 팀 정보 모달(섬네일 생성시 불러오는 코드) -->
 <script>
+
 function applyModal() {
-    $('a[rel*=leanModal]').leanModal({ closeButton: ".close_btn" });
-    $('img[rel*=leanModal]').leanModal({ closeButton: ".close_btn" });
+  $('img[rel*=leanModal]').leanModal({ closeButton: ".close_btn" });
 };
 
 function getTeamDetail(ttno) {
@@ -519,6 +525,11 @@ $(function(){
     $("#header").load("header.html"); 
     $("#footer").load("footer.html"); 
   });
+</script>
+
+<!-- 대회 참여 모달 등록 -->
+<script>
+$('a[rel*=leanModal]').leanModal({ closeButton: ".close_btn" });
 </script>
 
 </body>
