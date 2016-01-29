@@ -42,6 +42,12 @@
  order by bc.bcno desc
   </select>
   
+  
+  <select id="selectAllFromBoard" resultType="int" parameterType="int">
+    select count(*) from boar_Comm where bno=#{bno}
+  </select>
+  
+  
   <insert id="insert" parameterType="boarComm">
     insert into boar_Comm(bno,mno,comm,cre_dt) 
     values(#{bno},#{mno},#{comm},now())

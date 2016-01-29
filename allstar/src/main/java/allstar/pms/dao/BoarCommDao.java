@@ -11,6 +11,8 @@ public interface BoarCommDao {
   int insert(BoarComm boarComm);
   
   int delete(int bcno);
+  
+  int selectAllFromBoard(int bno);
 }
 
 
