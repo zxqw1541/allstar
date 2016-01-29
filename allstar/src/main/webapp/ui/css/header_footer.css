@@ -251,8 +251,8 @@ width:80px;
   position: relative;
 }
 #cssmenu {
-  float:right;
-  margin-right: 100px;
+  float:left;
+  margin-left: 80px;
   line-height: 1;
   border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
@@ -264,7 +264,7 @@ width:80px;
   background: -o-linear-gradient(top, #333333 0%, #141414 100%);
   background: -ms-linear-gradient(top, #333333 0%, #141414 100%);
   background: linear-gradient(to bottom, #333333 0%, #141414 100%); */
-  width: 500px;
+  width: 420px;
   height:100px;
 }
 #cssmenu:after,
