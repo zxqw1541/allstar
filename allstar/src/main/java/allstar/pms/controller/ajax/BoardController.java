@@ -91,6 +91,11 @@ public class BoardController {
     return new AjaxResult("success", null);
   }
   
+  @RequestMapping("views")
+  public AjaxResult getViews(int no) throws Exception {
+    log.info(no);
+    return new AjaxResult("success", boardService.upView(no));
+  }
   @RequestMapping("detail")
   public AjaxResult detail(int no) throws Exception {
     Board board = boardService.retrieve(no);

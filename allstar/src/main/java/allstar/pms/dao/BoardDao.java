@@ -17,6 +17,10 @@ public interface BoardDao {
   int update(Board board);
 
   Board selectOne(int bno);
+  
+  void  upView(int no);
+  
+  int selectViews(int no);
 }
 
 

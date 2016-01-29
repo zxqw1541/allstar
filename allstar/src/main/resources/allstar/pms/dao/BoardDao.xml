@@ -138,7 +138,7 @@
       mno = #{mno},
       title = #{title},
       content = #{content},
-      views = #{views},
+      <!-- views = #{views}, -->
       cre_dt = now()
     where bno=#{no}
   </update>
@@ -148,6 +148,17 @@
     from board b
          left outer join event e on b.eno = e.eno
          left outer join member m on b.mno = m.mno
+    where bno=#{no}
+  </select>
+  
+  <update id="upView" parameterType="Integer">
+    update board set 
+    views = views+1 
+    where bno=#{no}
+  </update>
+  
+  <select id="selectViews" resultType="int" parameterType="int">
+    select views from board
     where bno=#{no}
   </select>
 </mapper>

@@ -162,6 +162,24 @@ getParameter = function(name) {
     }
 </script>
 
+<script>
+
+$('body').on('click','#boardtitle',function(event){
+	var views = -1;
+	$.ajax({
+	       url: '/allstar/board/ajax/views.do?no=' + $(this).attr('boardBno'),
+	       type:'GET',
+	       async:false,
+	       contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+	       dataType:'json',
+	       success:function(resultObj){
+	    	   views = resultObj.ajaxResult.data;
+	       }
+	       });
+	$('#boardviews').text(views);
+});
+</script>
+
 <!-- 대회 리스트 출력 -->
 <script>
   var pageNo = 1;
@@ -205,9 +223,9 @@ getParameter = function(name) {
     	$("<tr>")
         .html("<td class='num'>"+ board.event.name +"</td>"
               + "<td class='subject'>"
-              + "<a href='#contents' class='trigger'  rel='leanModal'  boardBno='"+ board.no +"'>"
+              + "<a href='#contents' class='trigger' rel='leanModal' id='boardtitle' boardBno='"+ board.no +"'>"
               + board.title  
-              + "<small style='pointer-events: none; cursor: default;'>("+ board.views +")</small>" 
+              + "<small style='pointer-events: none; cursor: default;'>(댓글)</small>" 
               +"<img src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_img.png' alt='이미지 있음' class='bulArticle bulImg' style='pointer-events: none; cursor: default;' />" 
               +"<img class='bul' src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_new.png' alt='새 글' class='bulArticle bulNew' style='pointer-events: none; cursor: default;'>"
               + "<span class='info' style='pointer-events: none; cursor: default;'>"+ board.createDate +"</span></a>"
@@ -223,7 +241,7 @@ getParameter = function(name) {
               +"</a>"
               +"</td>"
               +"<td class='cnt'>"
-              +"<span class='view'><strong>"+ board.views +"</strong>조회</span>"
+              +"<span class='view'><strong id='boardviews'>"+ board.views +"</strong>조회</span>"
               +"</td>")
         .appendTo(tbody);
         
@@ -268,7 +286,7 @@ getParameter = function(name) {
                   + "<p class='etc'><span class='date'>" + board.createDate + "</span></p>"
                   + "</div>"
                   + "<p class='cnt'>"
-                  + "<span class='view'><strong>" + board.views + "</strong>조회</span>"
+                  + "<span class='view'><strong>" + (board.views + 1*1)+ "</strong>조회</span>"
                   + "</p></div></header>")
             .appendTo(article);
             $("<div id='test2' class='viewContents'>")
