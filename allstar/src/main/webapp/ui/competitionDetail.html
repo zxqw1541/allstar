@@ -37,7 +37,7 @@
 			<aside id="rightSide" class="sideArea">
 			  <h3 class='blind'>참여 정보</h3>
 			  <div class='info clearFix'>
-				  <h2>참여 정보</h2>
+				  <h2 class='sideInfoTitle'>참여 정보 </h2><h3 id='sideInfoJoinTeam' class='sideInfoTitle'></h3>
 				  <div class='contents'>
 				    <span id='thumLeftBtn'></span>
 				    <span id='thumRightBtn'></span>
@@ -222,7 +222,7 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
           + "  </div>"
           + "</div>";
       sub_article.append(detail);
-      
+      $('#sideInfoJoinTeam').text('(' + c.joinNum + '/' + c.teamNum + ')');
 
           console.log($('#minimal .demo'));
           
@@ -385,6 +385,10 @@ $('body').on('click','#applyTeamBtn', function() {
     	   location.href = 'competitionDetail.html?no='+no;
      } else if (ajaxResult.status == "already") {
     	 alert('이미 등록하셨어요');
+     } else if (ajaxResult.status == "full") {
+    	 alert('더이상 참여할 수 없어요')
+     } else {
+    	 alert('에러가 발생했어요')
      }
     		 
    });

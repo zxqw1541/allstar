@@ -68,4 +68,19 @@ public class DefaultCompetitionService implements CompetitionService {
     return competitionDao.selectMnoByCno(cno);
   }
 
+  @Override
+  public int plus1JoinNum(int cno) {
+    return competitionDao.plusJoinNumByCno(cno);
+  }
+
+  @Override
+  public Competition getJoinNTeamNum(int cno) {
+    return competitionDao.selectJoinNTeamNum(cno);
+  }
+
+  @Override
+  public int getLastAddCno() {
+    return competitionDao.selectMaxCno();
+  }
+
 }
