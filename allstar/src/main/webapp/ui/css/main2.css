@@ -162,16 +162,18 @@ width:80px;
 	width:940px;
   height:473px;
   margin:auto;
+  font-size: 0;
+
   }
   #Mainimg img{
   border:0; vertical-align: middle;
   width : 184px;
   height: 473px;
+    border:1px gray solid;
   }
   #Mainimginfo {
   width:940px;
   height:92px;
-  background-color:#e42d1f;
   opacity:0.9; 
   margin:auto;
   }
@@ -185,6 +187,7 @@ width:80px;
   text-align:center;
   line-height:16px;
   border-right:1px solid black;
+    background-color:#e42d1f;
   }
 
 #Mimginfo2 {
@@ -196,6 +199,7 @@ width:80px;
   text-align:center;
   line-height:16px;
   border-right:1px solid black;
+    background-color:#8BC34A;
   }
 
 #Mimginfo3 {
@@ -207,6 +211,7 @@ width:80px;
   text-align:center;
   line-height:16px;
   border-right:1px solid black;
+    background-color:#9C27B0;
   }
 
 #Mimginfo4 {
@@ -218,6 +223,7 @@ width:80px;
   text-align:center;
   line-height:16px;
   border-right:1px solid black;
+    background-color:#333;
   }
 
 #Mimginfo5 {
@@ -228,6 +234,7 @@ width:80px;
   font-size:13px;
   text-align:center;
   line-height:16px;
+    background-color:#00c0cc;
   }
 
 #Mimginfo6 {

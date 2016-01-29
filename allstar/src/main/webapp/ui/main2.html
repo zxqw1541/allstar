@@ -55,8 +55,8 @@ function close_modal(modal_id){
                         <li><a href="boardList12.html?event=2">농구</a></li>
                         <li><a href="boardList12.html?event=3">축구</a></li>
                         <li><a href="boardList12.html?event=4">야구</a></li>
-                        <li><a href="boardList12.html?event=5">볼링</a></li>
-                        <li><a href="boardList12.html?event=6">탁구</a></li>
+                        <li><a href="boardList12.html?event=6">볼링</a></li>
+                        <li><a href="boardList12.html?event=5">탁구</a></li>
                     </ul>
                  </li>
                   <li class='has-sub'><a href="#tournament_cat">대회</a>
@@ -161,15 +161,15 @@ function close_modal(modal_id){
 
 <div style="height:140px;"></div>
       <!--Mainimg-->
-      <div id="Mainimg">
-        <a href="#"><img src="images/tour/baseball.jpg"></a>
-        <a href="#"><img src="images/tour/football.png"></a>
-        <a href="#"><img src="images/tour/basketball.png"></a>
-        <a href="#"><img src="images/tour/tishtennis.JPG"></a>
-        <a href="#"><img src="images/tour/bowling.jpeg"></a>
+      <div id="Mainimg" style="width:100%;">
+        <a href="competitionList.html?event=4"><img src="images/tour/baseball.jpg"></a>
+        <a href="competitionList.html?event=3"><img src="images/tour/football.png"></a>
+        <a href="competitionList.html?event=2"><img src="images/tour/basketball.png"></a>
+        <a href="competitionList.html?event=6"><img src="images/tour/tishtennis.JPG"></a>
+        <a href="competitionList.html?event=5"><img src="images/tour/bowling.jpeg"></a>
       </div>
       <!--Mainimginfo-->
-      <div id="Mainimginfo">
+      <div id="Mainimginfo" style="width:100%;">
         <div id="Mimginfo1">
           <p ><B>야구</B><BR><B></B>팀 신청 /  팀 가능</p>
         </div>
@@ -478,6 +478,7 @@ var div = $('#photo_div');
               "<a href='#' class='detailLink' teamTno='" + team.tno + "'>"
                 +"<img src='../team/img/"+ emblem +"' alt='"+ team.name +"' >"
                 +"<span>"+team.name+"</span>"
+                +"<span>"+team.event.name+"</span>"
                 +"<span>"+team.baseAddr+"</span>"
                 +"<span>소개 : "+team.introduce+"</span>"
               +"</a></li>" )
