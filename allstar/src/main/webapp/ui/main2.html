@@ -52,25 +52,29 @@ function close_modal(modal_id){
                 <ul >
                   <li  class='active has-sub' ><a href="#top_event_list"><span>종목별 게시판</span></a>
                     <ul id="eventmenu">
-                    
+                        <li><a href="boardList12.html?event=2">농구</a></li>
+                        <li><a href="boardList12.html?event=3">축구</a></li>
+                        <li><a href="boardList12.html?event=4">야구</a></li>
+                        <li><a href="boardList12.html?event=5">볼링</a></li>
+                        <li><a href="boardList12.html?event=6">탁구</a></li>
                     </ul>
                  </li>
                   <li class='has-sub'><a href="#tournament_cat">대회</a>
                     <ul>
-                      <li><a href="competitionList.html">농구</a></li>
-				                <li><a href="#">축구</a></li>
-				                <li><a href="#">야구</a></li>
-				                <li><a href="#">볼링</a></li>
-                        <li><a href="#">탁구</a></li>
+                      <li><a href="competitionList.html?event=2">농구</a></li>
+				                <li><a href="competitionList.html?event=3">축구</a></li>
+				                <li><a href="competitionList.html?event=4">야구</a></li>
+				                <li><a href="competitionList.html?event=5">볼링</a></li>
+                        <li><a href="competitionList.html?event=6">탁구</a></li>
                    </ul>
                 </li>
                   <li class='has-sub'><a href="#newest_team">팀</a>
 				            <ul>
-				                <li><a href="#">농구</a></li>
-				                <li><a href="#">축구</a></li>
-				                <li><a href="#">야구</a></li>
-				                <li><a href="#">볼링</a></li>
-                        <li><a href="#">탁구</a></li>
+				                <li><a href="teamList.html?event=2">농구</a></li>
+				                <li><a href="teamList.html?event=3">축구</a></li>
+				                <li><a href="teamList.html?event=4">야구</a></li>
+				                <li><a href="teamList.html?event=5">볼링</a></li>
+                        <li><a href="teamList.html?event=6">탁구</a></li>
 				           </ul></li>
                        <li class='last'><a href="#">자유게시판</a></li>
               </ul>
@@ -240,8 +244,8 @@ function close_modal(modal_id){
           <div class="txt-fld">
             <label for="username">Username</label>
             <input id="id_signin" class="good_input" name="username" type="text" />
-            <button id="check" >체크</button>
-            <iframe id="check_id" ></iframe>
+<!--             <button id="check" >체크</button>
+            <iframe id="check_id" ></iframe> -->
           </div>
         
           <div class="txt-fld">
@@ -314,7 +318,7 @@ var div = $('#photo_div');
             +"<figcaption>"
             +"<h2 class='photostack-title'>"+ competition.name +"</h2>"
             +"<div class='photostack-back'><img src='../competition/img/"+poster+"' style='width:150px; text-align:center;'/>"
-            +"<p style='text-align:center;'>Tournament Title :" + competition.name + "<br>"+ competition.joinNum +" out of "+ competition.teamNum + " are in!!<br>"
+            +"<p style='overflow-y:auto; height: 237px;'>Tournament Title :" + competition.name + "<br>"+ competition.joinNum +" out of "+ competition.teamNum + " are in!!<br>"
             + competition.content + "</p>"
             + "</div>"
             +"</figcaption></figure>"
@@ -408,12 +412,7 @@ var div = $('#photo_div');
     <script>
     
     $.getJSON('/allstar/board/ajax/list.do?pageSize=5', function(resultObj){
-    	   var eventmenu = $("#eventmenu");
-    	    for (var event of resultObj.events) {
-    	        $("<li>" )
-    	            .html("<a href='/allstar/ui/boardList12.html'>" + event.name + "</a>")
-    	            .appendTo(eventmenu);
-    	      }
+    	   
 
     	    /* 최신 글 */
     	    var ul = $("#newest_tab");
@@ -512,10 +511,11 @@ var div = $('#photo_div');
              contentType:false,
              success : function(result) {
                console.log(result);
+               alert("가입에 성공했습니다.");
              if (result.ajaxResult.status == "success") {
                 location.href = "/allstar/ui/main2.html";
                } else {
-                alert("팀 등록에 실패했습니다.");
+                alert("가입에 실패했습니다.");
                }
              },
              error : function(result){

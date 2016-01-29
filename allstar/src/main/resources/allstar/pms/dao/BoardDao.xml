@@ -84,10 +84,10 @@
          left outer join event e on b.eno = e.eno
          left outer join member m on b.mno = m.mno
     <if test="search1 != 'null' or search2 != 'null' or event != 'null' or date != 'null'"> where </if>
-    <if test="event != 'null'">and b.eno=#{event} </if>
+    <if test="event != 'null'"> b.eno=#{event} </if>
     <if test="date != 'null'">
       <if test="event != 'null'"> and b.cre_dt like concat('%',#{date},'%') </if>
-      <if test="event == 'null'">and b.cre_dt like concat('%',#{date},'%') </if>
+      <if test="event == 'null'"> b.cre_dt like concat('%',#{date},'%') </if>
     </if>
     <if test="search1 != 'null'">
       <if test="event != 'null' or date != 'null'"> and b.title like concat('%',#{search1},'%') </if>
