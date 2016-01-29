@@ -98,8 +98,8 @@
     </update>
 
     <insert id="insert" parameterType="joinTeam">
-      insert into join_team(mno,tno,cre_dt,state,content)
-      values(#{mno},#{tno},now(),#{state},#{content})
+      insert into join_team(mno,tno,cre_dt,state,content,level)
+      values(#{mno},#{tno},now(),#{state},#{content},#{level})
     </insert>
 
     

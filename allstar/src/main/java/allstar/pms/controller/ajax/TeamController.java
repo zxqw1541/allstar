@@ -31,7 +31,6 @@ public class TeamController {
   @Autowired EventService eventService;
   @Autowired JoinTeamService joinTeamService;
   
-  
   @RequestMapping("all")
   public Object listAll() throws Exception {
     
