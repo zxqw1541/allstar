@@ -345,9 +345,9 @@ iframe[name="google_conversion_frame"]{width:1px; height:1px; font-size:0; line-
 .boardContents .listHeader .sortDep2 .frameDisable .tit{color:#aaa; background:url(http://s.nx.com/s2/game/tos/obt/common/bullet/bul_sort_dep2_off.png) right 0 no-repeat; cursor:default;}
 
 .boardContents .boardList table{width:100%; table-layout:fixed;}
-.boardContents .boardList th{height:1px; line-height:0; font-size:0; text-indent:-9999px; overflow:hidden; visibility:hidden;}
+.boardContents .boardList th{height:1px; line-height:0; /* font-size:0; text-indent:-9999px; overflow:hidden; visibility:hidden; */}
 .boardContents .listType1 .th1{width:7.4%;}
-.boardContents .listType1 .th2{width:59.7%;}
+.boardContents .listType1 .th2{width:50.7%;}
 .boardContents .listType1 .th3{width:17.6%;}
 .boardContents .listType1 .th4{width:15.3%;}
 
@@ -360,7 +360,7 @@ iframe[name="google_conversion_frame"]{width:1px; height:1px; font-size:0; line-
 .boardContents .boardList tr.best td{background:#fbfbfb;}
 .boardContents .boardList tr.lastBest td{border-bottom:1px solid #b4b4b4;}
 .boardContents .boardList td.num{font-size:18px; text-align:center; /* text-indent:15px */ font-weight:300; color:#aaa;}
-.boardContents .boardList td.subject a{padding:25px 10px 25px 0; display:block;}
+.boardContents .boardList td.subject a{padding:25px 10px 25px 0; display:block; text-align:center;}
 .boardContents .boardList td.subject a:hover strong{color:#0095a4;}
 .boardContents .boardList td.subject strong{font-size:16px; font-weight:normal; color:#222; margin:0 0 6px 0; display:block;}
 .boardContents .boardList td.subject small{font-size:15px; font-weight:300; color:#cda182; text-decoration:none;}
