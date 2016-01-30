@@ -13,6 +13,8 @@ public interface CompCommService {
   int remove(int ccno);
 
   int countAllCommFromComp(int cno);
+  
+  CompComm getLastCommByComp(int cno);
 }
 
 

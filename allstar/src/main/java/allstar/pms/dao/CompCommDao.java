@@ -13,6 +13,8 @@ public interface CompCommDao {
   int delete(int ccno);
   
   int selectCountFromComp(int cno);
+  
+  CompComm lastCommBycno(int cno);
 }
 
 

@@ -53,6 +53,14 @@
   	where ccno=#{ccno}
   </delete>
   
+  <select id="lastCommBycno" resultMap="CompCommMap" parameterType="int">
+    <include refid="select_comp"/>
+    from COMP_COMM cc
+         left outer join member m on cc.mno = m.mno
+    where cc.ccno = (select max(ccno) from COMP_COMM where cno = #{cno})
+      
+  </select>
+  
 </mapper>
 
 

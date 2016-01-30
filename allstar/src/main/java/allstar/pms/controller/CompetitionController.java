@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import allstar.pms.domain.AjaxResult;
+import allstar.pms.domain.CompComm;
 import allstar.pms.domain.Competition;
 import allstar.pms.domain.JoinComp;
 import allstar.pms.domain.Team;
@@ -261,14 +262,19 @@ public class CompetitionController {
     return new AjaxResult("success", eventService.getEventList());
   }
   
-  @RequestMapping(value="comm", method=RequestMethod.GET)
+  @RequestMapping(value="commlist", method=RequestMethod.GET)
   public AjaxResult getCompCommList(int cno){
-    log.debug("------------------------------------");
     log.debug(compCommService.getCompCommListByComp(cno));
     
     return new AjaxResult("success", compCommService.getCompCommListByComp(cno));
   }
   
+  @RequestMapping(value="addcomm", method=RequestMethod.POST)
+  public AjaxResult addCompComm(CompComm comm){
+    log.debug(comm);
+    compCommService.register(comm);
+    return new AjaxResult("success", compCommService.getLastCommByComp(comm.getCno()));
+  }
   
 }
  

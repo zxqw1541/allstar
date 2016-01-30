@@ -32,5 +32,10 @@ public class DefaultCompCommService implements CompCommService {
   public int countAllCommFromComp(int cno) {
     return compCommDao.selectCountFromComp(cno);
   }
+
+  @Override
+  public CompComm getLastCommByComp(int cno) {
+    return compCommDao.lastCommBycno(cno);
+  }
   
 }
