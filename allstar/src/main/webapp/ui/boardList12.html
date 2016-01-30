@@ -164,20 +164,20 @@ getParameter = function(name) {
 </script>
 
 <script>
-
 $('body').on('click','#boardtitle',function(event){
-	var views = -1;
-	$.ajax({
-	       url: '/allstar/board/ajax/views.do?no=' + $(this).attr('boardBno'),
-	       type:'GET',
-	       async:false,
-	       contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-	       dataType:'json',
-	       success:function(resultObj){
-	    	   views = resultObj.ajaxResult.data;
-	       }
-	       });
-	$('#boardviews').text(views);
+  var views = -1;
+  $.ajax({
+         url: '/allstar/board/ajax/views.do?no=' + $(this).attr('boardBno'),
+         type:'GET',
+         async:false,
+         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+         dataType:'json',
+         success:function(resultObj){
+           views = resultObj.ajaxResult.data;
+         }
+         });
+  var i = $(this).attr('data-list');
+  $('.boardviews:eq('+i+')').text(views);
 });
 </script>
 
@@ -227,7 +227,7 @@ $('body').on('click','#boardtitle',function(event){
     	$("<tr>")
         .html("<td class='num'>"+ board.event.name +"</td>"
               +"<td class='subject'>"
-              +"<a href='#contents' class='trigger' rel='leanModal' id='boardtitle' boardBno='"+ board.no +"'>" + board.title  
+              +"<a href='#contents' class='trigger' data-list='"+i+"' rel='leanModal' id='boardtitle' boardBno='"+ board.no +"'>" + board.title  
               +"<small style='pointer-events: none; cursor: default;'>("+comment+")</small>" 
               +"<img src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_img.png' alt='이미지 있음' class='bulArticle bulImg' style='pointer-events: none; cursor: default;' />" 
               +"<img class='bul' src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_new.png' alt='새 글' class='bulArticle bulNew' style='pointer-events: none; cursor: default;' />"
@@ -244,7 +244,7 @@ $('body').on('click','#boardtitle',function(event){
               +"</a>"
               +"</td>"
               +"<td style='text-align:center;>"
-              +"<span class='view' style='text-align:center;'><strong id='boardviews'>"+ board.views +"</strong></span>"
+              +"<span class='view' style='text-align:center;'><strong class='boardviews'>"+ board.views +"</strong></span>"
               +"</td>"
               +"<td style='text-align:center;>"
               +"<span class='info' style='pointer-events: none; cursor: default;'>"+ board.createDate +"</span>"
@@ -314,7 +314,7 @@ $('body').on('click','#boardtitle',function(event){
                   + "</p><p class='lvs'><span class='lv'>"+ board.event.name + "</span></p></div></div>")
                   .appendTo(aside);
             $("<div class='btnArea'>")
-            .html("<p class='btnHome'><a href='#' style='margin-left:0%' onclick='window.open('/barrack/guest.aspx?n8NexonSN=184613159&n8CharacterSN=87990995043730', 'barrack', 'width=1200. height=665, scrollbars=no');' class='btn btnType5'>회원정보보기</a></p>"
+            .html("<p class='btnHome'><a href='#' style='margin-left:0%; width:100%; height:40px; line-height:40px; background:#cf6418; font-size:15px; text-align:center; text-decoration:none; color:#fff; border:0 none; cursor:pointer; display:block;' rel='leanmodal' class='trigger'>회원정보보기</a></p>"
                   + "<div class='btm clearFix' style='margin-left:0%'>"
                   + "<a style='margin-left:0%' rel = 'leanModal' href='#newWrite' id='newB' class='btn btnType6 btnWrite'>글쓰기</a>"
                   + "<a href='../ui/boardList12.html' style='margin-left:0%' id='btnArticleList' class='btn btnType6 btnList'>목록</a>"

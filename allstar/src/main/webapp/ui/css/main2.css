@@ -175,12 +175,13 @@ width:80px;
   width:940px;
   height:92px;
   opacity:0.9; 
-  margin:auto;
+  margin-top:-15px;
+  
   }
 
 #Mimginfo1 {
   float:left;
-  width:184px;
+  width:185px;
   height:92px;
   color:#FFFFFF;
   font-size:13px;
@@ -192,7 +193,7 @@ width:80px;
 
 #Mimginfo2 {
   float:left;
-  width:184px;
+  width:185px;
   height:92px;
   color:#FFFFFF;
   font-size:13px;
@@ -204,7 +205,7 @@ width:80px;
 
 #Mimginfo3 {
   float:left;
-  width:184px;
+  width:185px;
   height:92px;
   color:#FFFFFF;
   font-size:13px;
@@ -216,7 +217,7 @@ width:80px;
 
 #Mimginfo4 {
   float:left;
-  width:184px;
+  width:185px;
   height:92px;
   color:#FFFFFF;
   font-size:13px;
@@ -228,7 +229,7 @@ width:80px;
 
 #Mimginfo5 {
   float:left;
-  width:184px;
+  width:185px;
   height:92px;
   color:#FFFFFF;
   font-size:13px;
