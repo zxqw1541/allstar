@@ -62,6 +62,22 @@
         </div>
 			  
 			</aside>
+			<!-- 댓글 -->
+			<div class='cdReply'>
+			  <fieldset class='commentWrite'>
+          <legend>댓글 쓰기</legend>
+          <textarea cols='50' id='txtComment' placeholder='댓글을 작성하세요.'  rows='4' style='float:left; width:660px;'></textarea>
+          <button type='button' id='replyadd' class='btn btnType4 btnWrite'>등록</button>
+					</fieldset>
+					<section class='listComments' style='margin-left: 50px;'>
+            <ul class='commList'>
+             <!-- 댓글 div들 -->
+            </ul>
+          </section>
+      </div>
+		
+		
+		
 		</div>
 	</div>
 </div>
@@ -377,6 +393,44 @@ $(document).on('click', '#btnArticleJoin' , function(event){
 	}
 });
 </script>
+
+<!-- 댓글 가져오기 -->
+<script>
+$.getJSON('../competition/comm.do?cno='+ no , function(resultObj) {
+	var ajaxResult = resultObj.ajaxResult;
+	if (ajaxResult.status == 'success') {
+		var ul = $('.commList');
+		var comms = ajaxResult.data;
+		for (var comm of comms) {
+			$("<div>").addClass('commentWrap')
+			  .html(
+            "<li class='comment1'>"
+            + "<dl>"
+            +  "<dt>이름, 작성일</dt>"
+            +    "<dd class='nameWrap'>"
+            +      "<p class='img'>"
+            +      "<img src='../member/img/" + comm.member.photo + "'>"
+            +      "</p>"
+            +      "<div class='contents'>"
+            +        "<p class='name'>"
+            +          "<span class='id'>" + comm.member.id + "</span>"
+            +          "</p>"
+            +          "<p class='lvs'>"
+            +          "<span class='creDt'>" + comm.createdDate + "</span>"
+            +        "</p>"
+            +      "</div>"
+            +    "</dd>"
+            +    "<dt>댓글</dt>"
+            +    "<dd>" + comm.comm + "</dd>"
+            +  "</dl>"
+            +"</li>"
+          ).appendTo(ul);
+		}
+		
+	}
+});
+</script>
+
 
 <!-- 참가하기 (서버 요청) -->
 <script>

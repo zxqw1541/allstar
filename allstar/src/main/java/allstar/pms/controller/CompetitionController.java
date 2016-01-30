@@ -20,6 +20,7 @@ import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Competition;
 import allstar.pms.domain.JoinComp;
 import allstar.pms.domain.Team;
+import allstar.pms.service.CompCommService;
 import allstar.pms.service.CompetitionService;
 import allstar.pms.service.EventService;
 import allstar.pms.service.JoinCompService;
@@ -38,6 +39,7 @@ public class CompetitionController {
   @Autowired JoinCompService joinCompService;
   @Autowired JoinTeamService joinTeamService;
   @Autowired EventService eventService;
+  @Autowired CompCommService compCommService;
   @Autowired ServletContext servletContext;
   
   @RequestMapping("all")
@@ -215,8 +217,6 @@ public class CompetitionController {
     return new AjaxResult("success", null);
   }
   
-  
-  
   @RequestMapping(value="imglist", method=RequestMethod.GET)
   public AjaxResult getImgPathByCno(int cno) {
     log.debug("*******cno = " + cno);
@@ -260,6 +260,15 @@ public class CompetitionController {
   public AjaxResult getListEvent() {
     return new AjaxResult("success", eventService.getEventList());
   }
+  
+  @RequestMapping(value="comm", method=RequestMethod.GET)
+  public AjaxResult getCompCommList(int cno){
+    log.debug("------------------------------------");
+    log.debug(compCommService.getCompCommListByComp(cno));
+    
+    return new AjaxResult("success", compCommService.getCompCommListByComp(cno));
+  }
+  
   
 }
  
