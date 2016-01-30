@@ -257,7 +257,7 @@ body.main .sitemapArea{border-top:0 none;}
 .commonTab .nav li a.on{color:#00c0cc;}
 
 /* 공통 리스트 프레임 */
-.listFrame .header{border-bottom:1px solid #d2d3d5; padding:14px 15px 12px 20px;}
+.listFrame .header{border-bottom:1px solid #d2d3d5; padding:14px 15px 5px 20px;}
 .listFrame .header h3, .listFrame .header h3 a{width:77px; height:28px; float:left;}
 .listFrame .header h3 a{float:none; display:block;}
 .listFrame .header h3.titNotice{width:90px; background-position:-395px -145px;}

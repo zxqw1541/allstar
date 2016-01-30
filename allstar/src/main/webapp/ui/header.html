@@ -35,8 +35,7 @@ function close_modal(modal_id){
        <a style='margin-right:10px;color:white;' href='#signin' rel='leanModal'>Sign In</a>
          </span>
          <span id="logout" style="display:none;">
-            <a style='margin-right:10px;color:white;' id='info' href='Member_info.html'>회원정보</a>
-            <a style='margin-right:10px;color:white;' id='out' href=''>Log out</a>
+            <a style='color:white;' id='out' href=''>Log out</a>
         </span>
             </div>
             <div id="cssmenu" >
@@ -160,19 +159,23 @@ function close_modal(modal_id){
         	 console.log("login-ing");
           var ajaxResult = resultObj.ajaxResult;
           if (ajaxResult.status == "success") {
-            emailSession = ajaxResult.data.id;
-            number = ajaxResult.data.mno;
-            sessionStorage.setItem('loginSession',emailSession);
-            sessionStorage.setItem('mem_num',number);
+              emailSession = ajaxResult.data.id;
+              numSession = ajaxResult.data.mno;
+              photoSession= ajaxResult.data.photo;
+              sessionStorage.setItem('loginSession',emailSession);
+              sessionStorage.setItem('mem_num',numSession);
+              sessionStorage.setItem('mem_photo',photoSession);
             console.log("success");
             close_modal("#signup");
             $("#logout").show();
             $("#login").hide();
             console.log(sessionStorage.getItem("loginSession"));
+            var session_photo=sessionStorage.getItem("mem_photo");
               var session_id=sessionStorage.getItem("loginSession");
               var span = $("#logout");
-              $("<a style='margin-right:10px;color:white;'  href=''>"+session_id+"</a>")
-                .appendTo(span);
+              $("<img src='../member/img/"+session_photo+"' style='width: 70px; height: 70px;'>"
+                    +"<a style='margin-left:10px;color:white;'  href='Member_info.html'>"+session_id+"</a>")
+                      .appendTo(span);
               location.reload();
           } else {
             alert("이메일과 패스워드가 일치하지 않습니다.");
@@ -187,10 +190,12 @@ function close_modal(modal_id){
     $("#logout").show();
     $("#login").hide();
     console.log(sessionStorage.getItem("loginSession"));
+    var session_photo=sessionStorage.getItem("mem_photo");
       var session_id=sessionStorage.getItem("loginSession");
       var span = $("#logout");
-      $("<a style='margin-right:10px;color:white;'  href='#'>"+session_id+"</a>")
-        .appendTo(span);
+      $("<img src='../member/img/"+session_photo+"' style='width: 70px; height: 70px;'>"
+            +"<a style='margin-left:10px;color:white;'  href='Member_info.html'>"+session_id+"</a>")
+              .appendTo(span);
         
   }else {
     $("#login").show();

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="allstar.pms.dao.CompCommDao">
+
+  <resultMap type="compComm" id="CompCommMap">
+    <id 		column="ccno" 		  property="ccno"/>
+    <result column="cno"        property="cno"/>
+    <result column="mno"        property="mno"/>
+    <result column="comm"       property="comm"/>
+    <result column="cre_dt"     property="createdDate"/>
+
+    <association property="member" javaType="Member">
+      <id column="m_mno"        property="mno"/>
+      <result column="m_id"   property="id"/>
+      <result column="m_photo"   property="photo"/>
+    </association>
+  </resultMap>
+  
+  <sql id="select_comp">
+    select cc.ccno,
+           cc.cno,
+           cc.mno,
+           cc.cre_dt,
+           cc.comm, 
+           m.photo as m_photo,  
+           m.id as m_id
+  </sql>
+  
+  <select id="selectListByComp" resultMap="CompCommMap" parameterType="int">
+    <include refid="select_comp"/>
+    from COMP_COMM cc
+         left outer join member m on cc.mno = m.mno
+    where cc.cno = #{cno}
+    order by cc.ccno desc
+  </select>
+  
+  
+  <select id="selectCountFromComp" resultType="int" parameterType="int">
+    select count(*) from COMP_COMM where cno=#{cno}
+  </select>
+  
+  
+  <insert id="insert" parameterType="compComm">
+    insert into COMP_COMM(cno,mno,comm,cre_dt) 
+    values(#{cno},#{mno},#{comm},now())
+  </insert>
+  
+  <delete id="delete" parameterType="int">
+    delete from COMP_COMM 
+  	where ccno=#{ccno}
+  </delete>
+  
+</mapper>
+
+
+
+
+
+

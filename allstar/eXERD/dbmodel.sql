@@ -394,7 +394,7 @@ ALTER TABLE JOIN_TEAM
 
 -- 대회참여
 ALTER TABLE JOIN_COMP
-	ADD CONSTRAINT FK_COMPETITION_TO_JOIN_COMP -- 대회 -> 대회참여
+	ADD CONSTRAINT FK_COMPETITION_TO_JOIN_COMP 
 		FOREIGN KEY (
 			cno -- 대회번호
 		)
@@ -411,6 +411,36 @@ ALTER TABLE JOIN_COMP
 		REFERENCES TEAM ( -- 팀
 			tno -- 팀번호
 		) ON DELETE CASCADE;
+
+-- 팀참여
+		ALTER TABLE JOIN_TEAM
+  ADD CONSTRAINT FK_TEAM_TO_JOIN_TEAM-- 대회 -> 대회참여
+    FOREIGN KEY (
+      tno -- 대회번호
+    )
+    REFERENCES TEAM ( -- 대회
+      tno -- 대회번호
+    ) ON DELETE CASCADE;
+
+-- 멤버참여
+ALTER TABLE JOIN_TEAM
+  ADD CONSTRAINT FK_MEMBER_TO_JOIN_TEAM 
+    FOREIGN KEY (
+      mno -- 팀번호
+    )
+    REFERENCES MEMBER ( 
+      mno -- 팀번호
+    ) ON DELETE CASCADE;
+
+-- 댓글
+    ALTER TABLE BOAR_COMM
+  ADD CONSTRAINT FK_BOARD_TO_BOAR_COMM-- 대회 -> 대회참여
+    FOREIGN KEY (
+      bno 
+    )
+    REFERENCES BOARD ( -- 대회
+      bno
+    ) ON DELETE CASCADE;
 
 -- 선호종목
 ALTER TABLE LIKE_EVENT
