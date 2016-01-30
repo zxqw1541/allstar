@@ -43,8 +43,7 @@ function close_modal(modal_id){
        <a style='margin-right:10px;color:white;' href='#signin' rel='leanModal'>Sign In</a> 
 		     </span>
 		     <span id="logout" style="display:none;">
-		                <a style='margin-right:10px;color:white;' id='info' href='Member_info.html'>회원정보</a>
-		        <a style='margin-right:10px;color:white;' id='out' href=''>Log out</a>
+		        <a style='color:white;' id='out' href=''>Log out</a>
         </span>
           </div>
             <div id="cssmenu" >
@@ -116,7 +115,7 @@ function close_modal(modal_id){
         <div class="listFrame listNotice" style="background-color: white; width:500px;">
           <div class="header clearFix">
             <h3 class="titNotice">TOP 게시물</h3>
-            <p class="btnMore"><a href="boardList12.html" class="sprBtn"> 더 보기</a></p>
+            <p class="btnMore"><a href="boardList12.html" class="sprBtn" style="float:left; margin-top: -7px;"> </a><a href="boardList12.html" >더 보기</a></p>
           </div>
   <div class="contents tabArea">
 <!-- left tab -->  
@@ -131,7 +130,7 @@ function close_modal(modal_id){
 <div class="listFrame listGM commonTab" style="background-color: white; width:500px;">
   <div class="header clearFix">
     <h3 class="titGM">최근 게시물</h3>
-     <p class="btnMore"><a href="boardList12.html" class="sprBtn"> 더 보기</a></p>
+     <p class="btnMore"><a href="boardList12.html" class="sprBtn" style="float:left; margin-top: -7px;"> </a><a href="boardList12.html" >더 보기</a></p>
 <!--     <ul class="nav">
       <li><a href="#" class="on">공략</a></li>
       <li><a href="#">UCC</a></li>
@@ -198,8 +197,7 @@ function close_modal(modal_id){
 <div class="newest_team" id="newest_team">
 <div style="height:172px;"></div>
 <div>
-<h3 class="stit">신생 팀<p class="more"><a href="teamList.html" class="sprBtn"> 더 보기</a></p></h3>
-     
+<h3 class="stit">신생 팀<p class="more" style="margin-top:20px;"><a href="teamList.html" class="sprBtn"style="float:left; margin-top: -7px;"></a><a href="boardList12.html" >더 보기</a></p></h3>
 </div>
 <div class="m_content" >
       <!-- container -->
@@ -358,16 +356,20 @@ var div = $('#photo_div');
           if (ajaxResult.status == "success") {
             emailSession = ajaxResult.data.id;
             numSession = ajaxResult.data.mno;
+            photoSession= ajaxResult.data.photo;
             sessionStorage.setItem('loginSession',emailSession);
             sessionStorage.setItem('mem_num',numSession);
+            sessionStorage.setItem('mem_photo',photoSession);
             close_modal("#signup");
             $("#logout").show();
             $("#login").hide();
             console.log(sessionStorage.getItem("loginSession"));
+              var session_photo=sessionStorage.getItem("mem_photo");
               var session_id=sessionStorage.getItem("loginSession");
               var span = $("#logout");
-              $("<a style='margin-right:10px;color:white;'  href=''>"+session_id+"</a>")
-                .appendTo(span);
+              $("<img src='../member/img/"+session_photo+"' style='width: 70px; height: 70px;'>"
+            	      +"<a style='margin-left:10px;color:white;'  href='Member_info.html'>"+session_id+"</a>")
+            	        .appendTo(span);
             console.log("success");
             location.reload();
           } else {
@@ -382,8 +384,12 @@ var div = $('#photo_div');
 	  $("#login").hide();
 	  console.log(sessionStorage.getItem("loginSession"));
 	    var session_id=sessionStorage.getItem("loginSession");
+	    var session_photo=sessionStorage.getItem("mem_photo");
+	    if(session_photo == null)
+	    	session_photo = 'allstardefault.png';
 	    var span = $("#logout");
-	    $("<a style='margin-right:10px;color:white;'  href='#'>"+session_id+"</a>")
+	    $("<img src='../member/img/"+session_photo+"' style='width: 70px; height: 70px;'>"
+	    +"<a style='margin-left:10px;color:white;'  href='Member_info.html'>"+session_id+"</a>")
         .appendTo(span);
         
   }else {

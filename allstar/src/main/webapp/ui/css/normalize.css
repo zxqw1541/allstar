@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'nexonFont';
+    src: url("../fonts/NEXON Football Gothic L.otf") format("opentype");
+}
+
 article, aside, details, figcaption, figure, footer, header, hgroup,
 	main, nav, section, summary {
 	display: block;
@@ -17,12 +22,12 @@ audio:not ([controls] ){
 }
 
 html {
-	font-family: sans-serif;
 	-ms-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
 }
 
 body {
+	font-family: 'nexonFont';
 	margin: 0;
 }
 
@@ -63,7 +68,6 @@ mark {
 }
 
 code, kbd, pre, samp {
-	font-family: monospace, serif;
 	font-size: 1em;
 }
 
