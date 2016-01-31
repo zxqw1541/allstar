@@ -169,7 +169,7 @@
 
 <!-- 기본 정보 출력 (스크립트 시작)-->
 <script type='text/javascript' src='../lib/jquery-bracket/jquery.bracket.min.js'></script>
-
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
 <script>
 function saveFn(data, userData) {
     var json = jQuery.toJSON(data)
@@ -234,8 +234,9 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
           + "    <div class='demo'></div>"
           + "  </div>"      
           + "  <h2> 장소</h2>"
+          + "  <p>"+ c.baseAddr + "</p>"
           + "  <div class='div_left_map'>"
-          + "  <iframe src='https://www.google.com/maps/d/embed?mid=zouJJd1kxH7U.kb2sjmzfDunA' width='750px' height='600px' ></iframe>"
+          + "    <div id='map' style='width:750px;height:600px;'></div>"
           + "  </div>"
           + "</div>";
       sub_article.append(detail);
@@ -246,9 +247,56 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
           getFormData(); // 대회신청 폼
           
          $('#minimal .demo').bracket({init: JSON.parse(c.operation) });
+          daumMap(c.baseAddr);
     }
 
   });
+/* 다음 지도 */
+function daumMap(site) {
+	// 키워드로 장소를 검색합니다
+	console.log('주소');
+	console.log(site);
+	if (site.indexOf('(') != -1){
+		  site = site.split('(')[0];
+		  console.log(site);
+	}
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new daum.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new daum.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addr2coord(site, function(status, result) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === daum.maps.services.Status.OK) {
+    	  console.log("-----------------")
+    	  console.log(result.addr[0].lat);
+    	  console.log(result.addr[0].lng);
+        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new daum.maps.Marker({
+            map: map,
+            position: coords
+        });
+        // 지도 중심을 변경한다.
+        map.setCenter(coords);
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new daum.maps.InfoWindow({
+            content: '<div style="padding:5px;">' + site + '</div>'
+        });
+        infowindow.open(map, marker);
+    } 
+});    
+}
 
 /* 대회 신청 폼 데이터 받기 */
 function getFormData() {
