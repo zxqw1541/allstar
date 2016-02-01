@@ -72,15 +72,15 @@
       <if test="recruit == 'null'"> c.sdt asc </if>
     </if>
     <if test="reply == 'high'">
-      <if test="recruit != 'null' or start != 'null'"> ,c.sdt desc </if>
-      <if test="recruit == 'null' and start == 'null'"> c.sdt desc </if>
+      <if test="recruit != 'null' or start != 'null'"> ,(select count(*) from comp_comm where cno=c.cno) desc </if>
+      <if test="recruit == 'null' and start == 'null'"> (select count(*) from comp_comm where cno=c.cno) desc </if>
     </if>
     <if test="reply == 'low'">
-      <if test="recruit != 'null' or start != 'null'"> ,c.sdt asc </if>
-      <if test="recruit == 'null' and start == 'null'"> c.sdt asc </if>
+      <if test="recruit != 'null' or start != 'null'"> ,(select count(*) from comp_comm where cno=c.cno) asc </if>
+      <if test="recruit == 'null' and start == 'null'"> (select count(*) from comp_comm where cno=c.cno) asc </if>
     </if>
     
-    <if test="recruit == 'null' and start == 'null'">order by c.cno desc</if>
+    <if test="recruit == 'null' and start == 'null' and reply == 'null'">order by c.cno desc</if>
     
     limit #{startIndex}, #{length}
   </select>

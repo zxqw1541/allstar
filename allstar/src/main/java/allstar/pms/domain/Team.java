@@ -5,29 +5,33 @@ import java.io.Serializable;
 public class Team implements Serializable {
   private static final long serialVersionUID = 1L;
   
-  protected int     tno;
-  protected int     eno;
-  protected String  name;
-  protected int     totalNum;
-  protected int     joinNum;
-  protected int     win;
-  protected int     draw;
-  protected int     lose;
-  protected int     fee;
-  protected String  meetDay;
-  protected String  introduce;
-  protected String  emblem;
-  protected String  aForm;
-  protected String  postNo;
-  protected String  baseAddr;
-  protected Event   event;
+  protected int        tno;
+  protected int        eno;
+  protected String     name;
+  protected int        totalNum;
+  protected int        joinNum;
+  protected int        win;
+  protected int        draw;
+  protected int        lose;
+  protected int        fee;
+  protected String     meetDay;
+  protected String     introduce;
+  protected String     emblem;
+  protected String     aForm;
+  protected String     postNo;
+  protected String     baseAddr;
+  protected Event      event;
+  protected JoinTeam   joinTeam;
+  protected String     captain;
   
+  
+
   @Override
   public String toString() {
     return "Team [tno=" + tno + ", eno=" + eno + ", name=" + name + ", totalNum=" + totalNum + ", joinNum=" + joinNum
         + ", win=" + win + ", draw=" + draw + ", lose=" + lose + ", fee=" + fee + ", meetDay=" + meetDay
         + ", introduce=" + introduce + ", emblem=" + emblem + ", aForm=" + aForm + ", postNo=" + postNo + ", baseAddr="
-        + baseAddr + ", event=" + event + "]";
+        + baseAddr + ", event=" + event + ", joinTeam=" + joinTeam + ", captain=" + captain + "]";
   }
 
   public int getTno() {
@@ -156,6 +160,22 @@ public class Team implements Serializable {
 
   public void setEvent(Event event) {
     this.event = event;
+  }
+
+  public JoinTeam getJoinTeam() {
+    return joinTeam;
+  }
+
+  public void setJoinTeam(JoinTeam joinTeam) {
+    this.joinTeam = joinTeam;
+  }
+
+  public String getCaptain() {
+    return captain;
+  }
+
+  public void setCaptain(String captain) {
+    this.captain = captain;
   }
   
 }

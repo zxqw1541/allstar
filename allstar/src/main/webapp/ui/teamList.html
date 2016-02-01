@@ -142,7 +142,17 @@ var teamForm;
     </div>
     <div class="txt-fld">
       <label for="fmeetday">정모요일</label>
-      <input id="fmeetday" class="good_input" type="text" placeholder="정모요일을 입력해주세요."/>
+      <div>
+        <select id="fmeetday" class="good_input">
+          <option value='일요일'>일요일</option>
+          <option value='월요일'>월요일</option>
+          <option value='화요일'>화요일</option>
+          <option value='수요일'>수요일</option>
+          <option value='목요일'>목요일</option>
+          <option value='금요일'>금요일</option>
+          <option value='토요일'>토요일</option>
+        </select>
+      </div>
     </div>
     <div class="txt-fld">
       <label for="fpostno">우편번호</label>
@@ -272,7 +282,17 @@ var teamForm;
       </div>
       <div class="txt-fld">
         <label for="fdmeetday">정모요일</label>
-        <input id="fdmeetday" class="good_input" type="text" placeholder="정모요일을 입력해주세요."/>
+        <div>
+        <select id="fdmeetday" class="good_input">
+          <option value='일요일'>일요일</option>
+          <option value='월요일'>월요일</option>
+          <option value='화요일'>화요일</option>
+          <option value='수요일'>수요일</option>
+          <option value='목요일'>목요일</option>
+          <option value='금요일'>금요일</option>
+          <option value='토요일'>토요일</option>
+        </select>
+      </div>
       </div>
       <div class="txt-fld">
         <label for="fdscore">전적</label>
@@ -494,7 +514,7 @@ $(document).ready(function() {
                                   "<div class='post-info'>" + 
                                   "<div class='post-basic-info'>" + 
                                   "<h3>" + team.name + "</h3><span>" +
-                                  "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
+                                  "<a href='#'><label></label>" + "by " + team.captain + "</a></span>" +
                                   "<p><br>" + team.event.name + "</p>" +
                                   "<p>" + team.baseAddr + "</p>" + 
                                    "<p>" + team.joinNum + " / " + team.totalNum +
@@ -535,18 +555,23 @@ var load_detail_func = function(){
     var fdemblem = '<input type="file" class="form-control" id="fdemblem" onchange="fileSelected()">';
     $('#deatil_emblem_div').append(fdemblem);
     
-    if (sessionStorage.getItem("mem_num") != undefined) {
-      $('.captainForm').css('display', 'none');
-      $('.applyForm').css('display', '');
-    } else {
-      $('.captainForm').css('display', '');
-      $('.applyForm').css('display', 'none');
-    }
-    
     //삭제 추가 코드 넣기
     var tno = $(this).attr('teamList');
     $.getJSON('../team/ajax/detail.do?tno=' + tno, function(resultObj) {
             var ajaxResult = resultObj.ajaxResult;
+            if (sessionStorage.getItem("mem_num") == undefined) {
+                $('.captainForm').css('display', 'none');
+                $('.applyForm').css('display', 'none');
+            } else {
+            	if (sessionStorage.getItem("mem_num") == ajaxResult.data.joinTeam.mno) {
+	    	    	  $('.captainForm').css('display', '');
+	    	        $('.applyForm').css('display', 'none');    	    	  
+	    	      } else {
+	    	    	  $('.captainForm').css('display', 'none');
+	              $('.applyForm').css('display', '');
+	            }
+            }
+    	
             if (ajaxResult.status == "success") {
               var team = ajaxResult.data;
               
@@ -670,7 +695,7 @@ var load_detail_func = function(){
                   "<div class='post-info'>" + 
                   "<div class='post-basic-info'>" + 
                   "<h3>" + team.name + "</h3><span>" +
-                  "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
+                  "<a href='#'><label></label>" + "by " + team.captain + "</a></span>" +
                   "<p><br>" + team.event.name + "</p>" +
                   "<p>" + team.baseAddr + "</p>" +
                   "<p>" + team.joinNum + " / " + team.totalNum + 
@@ -852,16 +877,15 @@ $(document).on('click', '#newBtn', function (event) {
             alert('팀소개를 입력하세요');
               return;
           }
-          if($('#fmeetday').val() != "")
-            data.append('meetDay', $('#fmeetday').val());
           if($('#faform').val() != "")
               data.append('aForm', $('#faform').val());
           
-          data.append('mno', $('#fmno').val());
+          data.append('mno', window.mem_num);
           data.append('eno', $('#fevent').val());
           data.append('name', $('#fname').val());
           data.append('totalNum', $('#ftotalnum').val());
           data.append('fee', $('#ffee').val());
+          data.append('meetDay', $('#fmeetday').val());
           data.append('baseAddr', $('#faddr').val());
           data.append('postNo', $('#fpostno').val());
           data.append('introduce', $('#fintroduce').val());

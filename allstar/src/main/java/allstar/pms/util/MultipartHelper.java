@@ -12,6 +12,7 @@ public class MultipartHelper {
   public static final int CATE_TEAM = 1;
   public static final int CATE_COMPDETAIL_TEAM = 2;
   public static final int CATE_COMPETITION = 3;
+  public static final int CATE_MEMBER_COMM = 4;
   
   public static void generateFile(MultipartFile mpf, String path) throws Exception {
       byte[] bytes = mpf.getBytes();
@@ -35,7 +36,12 @@ public class MultipartHelper {
       .outputQuality(0.8)
       .toFile(new File(path + "tcd_" + name));
       break;
-    
+    case CATE_MEMBER_COMM:
+      Thumbnails.of(new File(path + name))
+      .forceSize(35,35)
+      .outputQuality(0.8)
+      .toFile(new File(path + "mc_" + name));
+      break;
     }
   }
   
