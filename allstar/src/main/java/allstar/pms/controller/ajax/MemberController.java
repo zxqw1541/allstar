@@ -102,6 +102,8 @@ public class MemberController {
             .outputQuality(0.8)
             .toFile(new File(filePath + "me_" + fileName));
             
+            // 대회 상세 댓글에 섬네일
+            MultipartHelper.generateThumbnail(filePath, fileName, MultipartHelper.CATE_MEMBER_COMM);
             member.setPhoto(fileName);
         } catch (IOException e) {
           e.printStackTrace();

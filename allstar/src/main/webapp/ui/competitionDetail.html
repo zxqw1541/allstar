@@ -456,7 +456,7 @@ $.getJSON('../competition/commlist.do?cno='+ no , function(resultObj) {
             +  "<dt>이름, 작성일</dt>"
             +    "<dd class='nameWrap'>"
             +      "<p class='img'>"
-            +      "<img src='../member/img/" + comm.member.photo + "'>"
+            +      "<img src='../member/img/mc_" + comm.member.photo + "'>"
             +      "</p>"
             +      "<div class='contents'>"
             +        "<p class='name'>"
@@ -641,7 +641,6 @@ if (!sessionStorage.getItem("mem_num")) {
 /* 로그인 되있을 때 */
 else if(sessionStorage.getItem("mem_num")){
 	$('body').on('click','#replyadd', function() {
-		alert('댓글 등록할꺼에요 이 친구가 => ' + sessionStorage.getItem("mem_num"));
 		var data = new FormData();
 		data.append('cno', no);
 		data.append('mno', sessionStorage.getItem("mem_num"));
@@ -659,6 +658,7 @@ else if(sessionStorage.getItem("mem_num")){
 	    		var c = result.ajaxResult.data;
 	    		console.log(c);
 	    		var ul = $('.commList');
+	    		
 	    		var addedComm = $("<div>").addClass('commentWrap')
 	            .html(
 	                "<li class='comment1'>"
@@ -666,7 +666,7 @@ else if(sessionStorage.getItem("mem_num")){
 	                +  "<dt>이름, 작성일</dt>"
 	                +    "<dd class='nameWrap'>"
 	                +      "<p class='img'>"
-	                +      "<img src='../member/img/" + c.member.photo + "'>"
+	                +      "<img src='../member/img/mc_" + c.member.photo + "'>"
 	                +      "</p>"
 	                +      "<div class='contents'>"
 	                +        "<p class='name'>"

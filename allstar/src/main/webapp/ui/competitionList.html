@@ -237,16 +237,28 @@ getParameter = function(name) {
        dataType:'json',
        success:function(resultObj) {
     var tbody = $("#boardtable tbody");
-    for (var c of resultObj.ajaxResult.data) {
-      $("<tr>")
-      .html(
-      "<td class='num'>" + c.event.name +"</td>"
-      + "<td class='subject'><a href='#' data-ajax-board='free_view' pageno='" + c.no + "'><strong>" + c.name + "<small>(3)</small></strong>"
-      + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
-      + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
-      + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>"
-      )
-      .appendTo(tbody);
+    var d = resultObj.ajaxResult.data;
+    for (var i = 0; i < d.comp.length; i ++) {
+    	var c = d.comp[i];
+    	var comm = d.countComm[i];
+    	var listHtml = '';
+    	if (comm > 0) {
+    		listHtml = "<td class='num'>" + c.event.name +"</td>"
+    	      + "<td class='subject'><a href='#' data-ajax-board='free_view' pageno='" + c.no + "'><strong>" + c.name 
+    	      + "<small>(" + comm + ")</small></strong>"
+    	      + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
+    	      + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
+    	      + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>";
+    	}
+    	else {
+    		listHtml = "<td class='num'>" + c.event.name +"</td>"
+    	      + "<td class='subject'><a href='#' data-ajax-board='free_view' pageno='" + c.no + "'><strong>" + c.name 
+    	      + "</strong>"
+    	      + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
+    	      + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
+    	      + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>"
+    	}
+      $("<tr>").html(listHtml).appendTo(tbody);
     }
        }
   });

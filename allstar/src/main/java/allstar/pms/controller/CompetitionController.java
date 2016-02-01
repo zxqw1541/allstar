@@ -2,8 +2,10 @@ package allstar.pms.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -70,8 +72,16 @@ public class CompetitionController {
     List<Competition> competitions = competitionService.getCompetitionList(
         pageNo, pageSize, event, addr, recruit, start, reply, search1, search2);
     log.info(competitions);
+    
+    List<Integer> numberOfComms = new ArrayList<>();
+    for(Competition c : competitions) {
+      numberOfComms.add(compCommService.countAllCommFromComp(c.getNo()));
+    }
+    Map<String, Object> resultMap = new HashMap<>();
+    resultMap.put("comp", competitions);
+    resultMap.put("countComm", numberOfComms);
   
-    return new AjaxResult("success", competitions);
+    return new AjaxResult("success", resultMap);
   }
   
   @RequestMapping(value = "add", method = RequestMethod.GET)
