@@ -23,10 +23,11 @@ $(function(){
   $("#meminfo").load("meminfo.html");
   $("#myteam").load("myteam.html");
   $("#joinedteam").load("joinedteam.html");
+  $("#mycomp").load("mycompetition.html");
 });
 </script> 
 </head>
-<body style="background-color:white;">
+<body style="background-color:white; overflow-x:none;">
 <div id="header"></div>
 
 <div style="height:150px;"></div>
@@ -34,17 +35,17 @@ $(function(){
    
 
     <div class="sidebar-links">
-      <a class="link-blue selected" href="javascript:;" id='my_info'><i class="fa fa-user"></i>내 정보</a>
-      <a class="link-pink" href="javascript:;" id='my_open_team'><i class="fa fa-users" ></i>나의 팀</a>
-      <a class="link-green" href="javascript:;" id='my_part_team'><i class="fa fa-users" ></i>참여한 팀</a>
-      <a class="link-yellow " href="javascript:;" id='my_open_comp'><i class="fa fa-trophy" ></i>나의 대회</a>
-      <a class="link-red " href="javascript:;" id='my_part_comp'><i class="fa fa-trophy" ></i>참여한 대회</a>
+      <a class="link-blue selected" href="javascript:;"onclick="scroll(0,0)" id='my_info'><i class="fa fa-user"></i>내 정보</a>
+      <a class="link-pink" href="javascript:;" onclick="scroll(0,0)"id='my_open_team'><i class="fa fa-users" ></i>나의 팀</a>
+      <a class="link-green" href="javascript:;"onclick="scroll(0,0)" id='my_part_team'><i class="fa fa-users" ></i>참여한 팀</a>
+      <a class="link-yellow " href="javascript:;"onclick="scroll(0,0)" id='my_open_comp'><i class="fa fa-trophy" ></i>나의 대회</a>
+      <a class="link-red " href="javascript:;"onclick="scroll(0,0)" id='my_part_comp'><i class="fa fa-trophy" ></i>참여한 대회</a>
     </div>
 
   </aside>
 
-  <div class="main-content">
-<section id='main-section'>
+  <div class="main-content" style="min-height:900px;">
+<section id='main-section' style="min-height:900px;">
 <div id='meminfo' style="text-align:none;"></div>
 
 </section>
@@ -99,6 +100,15 @@ $('#my_info').click(function(event) {
       .appendTo(section);
       $("#joinedteam").load("joinedteam.html");
   });
+ 
+ $('#my_open_comp').click(function(event) {
+	    $("#main-section").empty();
+	    var section = $("#main-section");
+	      $("<div id='mycomp'></div>")
+	      .appendTo(section);
+	      $("#mycomp").load("mycompetition.html");
+	  });
+ 
 
  $(function(){
 	 if (sessionStorage.getItem("loginSession") == undefined) {

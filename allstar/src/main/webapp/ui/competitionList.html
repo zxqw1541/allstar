@@ -6,9 +6,8 @@
 <link type="text/css" rel="stylesheet" href="css/header_footer.css" />
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/component.css" />
-<link rel="stylesheet" type="text/css" href="css/competition.css" />
+<link rel="stylesheet" type="text/css" href="css/competitionList.css" />
 
-<link rel="stylesheet" href="css/tos/tos.css" />
 <link rel="Shortcut Icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 <link rel="icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 
@@ -119,13 +118,14 @@ $(function() {
         
         <div class="boardList listType1">
           <table id="boardtable">
-            <caption>대회 리스트</caption>
+            <caption style="margin-bottom: 20px;">대회 리스트</caption>
             <thead>
               <tr>
                 <th class="th1" scope="col">종목</th>
-                <th class="th2" scope="col">제목</th>
-                <th class="th3" scope="col">작성자</th>
-                <th class="th4" scope="col">조회</th>
+                <th class="th2" scope="col">대회명</th>
+                <th class="th3" scope="col">대회시작일</th>
+                <th class="th4" scope="col">인원</th>
+                <th class="th5" scope="col">지역</th>
               </tr>
             </thead>
             <tbody>
@@ -151,7 +151,7 @@ $(function() {
             <option value="2">내용</option>
           </select>
           <input type="text" id="ccontent" class="inputTxt" />
-          <input type="submit" value="검색" onclick="return search();" id="csearchClick" class="btnSearch btn" />
+          <input type="submit" value="검색" onclick="return search();" id="csearchClick" class="btnSearch btnss" />
         </fieldset>
       </div>
     </div>
@@ -248,7 +248,8 @@ getParameter = function(name) {
     	      + "<small>(" + comm + ")</small></strong>"
     	      + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
     	      + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
-    	      + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>";
+    	      + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span></td>"
+    	      + "<td class='cnt'><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>";
     	}
     	else {
     		listHtml = "<td class='num'>" + c.event.name +"</td>"
@@ -256,7 +257,8 @@ getParameter = function(name) {
     	      + "</strong>"
     	      + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
     	      + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
-    	      + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>"
+    	      + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span></td>"
+    	      + "<td class='cnt'><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>"
     	}
       $("<tr>").html(listHtml).appendTo(tbody);
     }

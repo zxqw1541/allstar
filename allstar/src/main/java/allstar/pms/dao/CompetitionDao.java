@@ -28,4 +28,6 @@ public interface CompetitionDao {
   Competition selectJoinNTeamNum(int cno);
   
   int selectMaxCno();
+
+  List<Competition> selectCompListByMno(int mno);
 }

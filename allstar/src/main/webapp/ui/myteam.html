@@ -4,53 +4,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/tos/comp.css" />
-<style>
-#team_information span {
-font-size: 25px;
-margin:30px;
-}
-
-#member_photo {
-width:391px; 
-height:600px; 
- border: 1px black solid; 
-float:right;
-overflow-y: auto;
-}
-
-#member_photo img {
-width:150px;
-height:155px;
-}
-
-#member_photo p {
-width:162px; 
-height:190px; 
-float: left; 
-margin-left: 22px;
-}
-#member_photo label {
-text-align:center;
-    color: indigo;
-    font-size: 20px;
-}
-
-#team_btfld {
-/* border: 1px black solid; */
-width:394px;
-height:280px;
-float:right;
-margin-top: 0px;
-}
-#team_information {
-width:380px; 
-height:923px; 
-/* border: 1px black solid; */
-}
-</style>
+<link rel="stylesheet" type="text/css" href="css/tos/myteam.css" />
 <script src="js/test/modernizr.custom.js"></script>
 <script src="js/jquery-1.11.3.js"></script>
-
 </head>
 <body>
 
@@ -63,7 +19,7 @@ height:923px;
 
 			</ul>
 
-      <div id="myTeamInfo_detail" style="margin:auto;  width: 900px; height:100%;">
+      <div id="myTeamInfo_detail" style="display:none;margin:auto;  width: 900px; height:100%;">
 
 <!-- Emblem -->
 <div id="team_top">
@@ -76,8 +32,6 @@ height:923px;
 
 <!-- 회원 목록 -->
 <div id="mem_list" >
-<figure >
-</figure>
 
 </div>
 <!-- 회원 목록 끝 -->
@@ -85,17 +39,21 @@ height:923px;
 
 <!-- 팀정보 -->
 <div id="info" style="float:left; font-size:20px; padding: 50px;">
-<span style="display: inherit;"> 팀장 : ㄴㅇㄴㅇ </span><br>
-<span style="display: inherit;"> 정모일 : 월요일 </span><br>  <!-- 수정가능 -->
-<span style="display: inherit;"> 종목 : 축구 </span><br>
-<span style="display: inherit;"> 가입현황 : 10명 / 20명 </span><br> <!-- 수정가능 -->
-<span style="display: inherit;"> 전적 : 3승 1무 1패 </span><br>
+
 </div>
-
-
-<div id="place" style="float:left; width: 100%; font-size:20px;">
-<span >연고지 : 서울 양천구 목동동로 363 (목동, 파리공원)</span>
-<div id='map' style='width:500px;height:250px; float:right;'></div>
+<!-- 팀정보 끝 -->
+<div style="height:20px; width:100%; float:left;"></div>
+<!-- 가입신청현황 -->
+<div id="apply_state" style="float:left;">
+<h2 style="margin-left:50px;">신규가입 신청</h2>
+<ul id="new_apply" >
+</ul>
+<h2 style="margin-left:50px;">대기중인 신청</h2>
+<ul id="wait_apply" >
+</ul>
+<h2 style="margin-left:50px;">거절된 신청</h2>
+<ul id="reject_apply" >
+</ul>
 </div>
       </div>
       
@@ -104,7 +62,7 @@ height:923px;
 		
 
 	</div>
-	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
+	<div style="height:500px;"></div>
 	<script>
 $.getJSON('../member/ajax/memberJoin.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
     console.log(resultObj.data);
@@ -142,7 +100,7 @@ $.getJSON('../member/ajax/memberJoin.do?mno=' +sessionStorage.getItem("mem_num")
 	    			+"<span >종목 : "+event+" </span><br>"
 	    			+"<span>전적 : "+joinTeam.team.win+" 승  "+joinTeam.team.draw+" 무  "+joinTeam.team.lose+" 패</span><br>"
 	    			+"<span>내용 : "+joinTeam.team.introduce+"</span><br>"
-	    	          +"<a id='myteam_info"+joinTeam.tno+"' href='javascript:;' teamNo='"+joinTeam.tno+"'>팀 정보 보기</a>"
+	    	          +"<a id='myteam_info"+joinTeam.tno+"' href='javascript:;'onclick='scroll(0,0)' teamNo='"+joinTeam.tno+"'>팀 정보 보기</a>"
 	    			+"</figcaption></figure></li>"
 	    	).appendTo(ul);
     } else {
@@ -160,12 +118,13 @@ $.getJSON('../member/ajax/memberJoin.do?mno=' +sessionStorage.getItem("mem_num")
 
 function myTeamInfo(event){
 	var captain = null;
-	$("myteams").hide();
-	$("myTeamInfo_detail").show();
+	$("#myteams").hide();
+	$("#myTeamInfo_detail").show();
 $.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), function(resultObj) {
 	var ajaxResult = resultObj.ajaxResult;
+	console.log($(event.target).attr('teamNo'));
 	var team = ajaxResult.data;
-	var div =$("team_top");
+	var div =$("#team_top");
 	$("<span>")
 	.html("<img src='../team/img/"+team.emblem+"'  ></span> "
 	    +"<span style='float:left; margin-left: 55px; margin-top: 75px;'><h1>"+team.name+"</h1></span>")
@@ -178,18 +137,18 @@ $.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), functi
 	if(joinTeam.state == 0)
 	  waiting ++;
 	if(joinTeam.level == 1)
-		captain=joinTeam.member.name;
+		captain=joinTeam.member.name ;
 	}
-	var div = $("apply_alert");
+	var div = $("#apply_alert");
 	$("<a style='margin:auto;'>")
 	.html("대기중 가입 신청수 : " + waiting + "개  </a>").appendTo(div);
 
 	for(var joinTeam of resultObj.data){
 	  if(joinTeam.state == 1) {
-	var div = $("mem_list") ;
+	var div = $("#mem_list") ;
 	$("<figure >")
-	.html("<img src='../team/img/"+joinTeam.member.photo+"' >"
-	+"<figcaption >"+joinTeam.member.name+"</figcaption>"
+	.html("<img src='../member/img/"+joinTeam.member.photo+"' >"
+	+"<figcaption>"+joinTeam.member.name+"</figcaption>"
 	+"</figure>").appendTo(div);
 	}
 	}
@@ -198,70 +157,48 @@ $.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), functi
 	$.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), function(resultObj) {
 		var ajaxResult = resultObj.ajaxResult;
 		  var team = ajaxResult.data;
-		  var div = $("info");
+		  var div = $("#info");
 		  $("<span style='display: inherit;'>")
-		  .html("팀장 : "+captain+" </span><br>"
+		  .html("<span  style='display: inherit;'>팀장 : "+ captain +" </span><br>"
 				  + "<span style='display: inherit;'> 정모일 : "+team.meetDay+" </span><br>"
 				  +"  <span style='display: inherit;'> 종목 : "+team.event.name+" </span><br>"
 				  +"<span style='display: inherit;'> 가입현황 : "+team.joinNum+"명 / "+team.totalNum+"명 </span><br>"
 				  +"  <span style='display: inherit;'> 전적 : "+team.win+"승 "+team.draw+"무 "+team.lose+"패 </span><br>"
+				  +"<span >연고지 : "+team.baseAddr+"</span><br>"
 				  ).appendTo(div);
-		  var div=$("place");
-	$("<span >")
-	.html("연고지 : "+team.baseAddr+"</span>"
-	+"<div id='map' style='width:500px;height:250px; float:right;'></div>")
-	.appendTo(div);
-
-	daumMap(team.baseAddr);
-	
 	});
-	/* 다음 지도 */
-	function daumMap(site) {
-	  // 키워드로 장소를 검색합니다
-	  console.log('주소');
-	  console.log(site);
-	  if (site.indexOf('(') != -1){
-	      site = site.split('(')[0];
-	      console.log(site);
-	  }
-	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	    mapOption = {
-	        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        level: 3 // 지도의 확대 레벨
-	    };  
 
-	// 지도를 생성합니다    
-	var map = new daum.maps.Map(mapContainer, mapOption); 
-
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new daum.maps.services.Geocoder();
-
-	// 주소로 좌표를 검색합니다
-	geocoder.addr2coord(site, function(status, result) {
-
-	    // 정상적으로 검색이 완료됐으면 
-	     if (status === daum.maps.services.Status.OK) {
-	        console.log("-----------------")
-	        console.log(result.addr[0].lat);
-	        console.log(result.addr[0].lng);
-	        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
-
-	        // 결과값으로 받은 위치를 마커로 표시합니다
-	        var marker = new daum.maps.Marker({
-	            map: map,
-	            position: coords
-	        });
-	        // 지도 중심을 변경한다.
-	        map.setCenter(coords);
-	        // 인포윈도우로 장소에 대한 설명을 표시합니다
-	        var infowindow = new daum.maps.InfoWindow({
-	            content: '<div style="padding:5px;">' + site + '</div>'
-	        });
-	        infowindow.open(map, marker);
-	    } 
-	});    
-	}
+	/* 상태 표시 창 */
+	$.getJSON('../member/ajax/teamJoin.do?tno='+$(event.target).attr('teamNo'),function(resultObj){
+		for(var joinTeam of resultObj.data){
+			  if(joinTeam.state == 0){
+				  var ul = $("#new_apply");
+				  $("<li>")
+				  .html("<a><span>신청일 : "+joinTeam.createdDate+"</span>"
+						  +"<span>아이디 : "+joinTeam.member.id+"</span>"
+						  +"<span>나이 : "+joinTeam.member.age+"</span> "
+						  +"<span>성 : "+joinTeam.member.gender+"</span></a> ").appendTo(ul);
+			  }	
+			  if(joinTeam.state == 0){
+		          var ul = $("#wait_apply");
+		          $("<li>")
+		          .html("<a><span>신청일 : "+joinTeam.createdDate+"</span>"
+		              +"<span>아이디 : "+joinTeam.member.id+"</span>"
+		              +"<span>나이 : "+joinTeam.member.age+"</span> "
+		              +"<span>성 : "+joinTeam.member.gender+"</span></a> ").appendTo(ul);
+		        }
+			  if(joinTeam.state == -1){
+		          var ul = $("#reject_apply");
+		          $("<li>")
+		          .html("<a><span>신청일 : "+joinTeam.createdDate+"</span>"
+		              +"<span>아이디 : "+joinTeam.member.id+"</span>"
+		              +"<span>나이 : "+joinTeam.member.age+"</span> "
+		              +"<span>성 : "+joinTeam.member.gender+"</span></a> ").appendTo(ul);
+		        } 
+		}
+	});
 }
+
 </script>
 
 
