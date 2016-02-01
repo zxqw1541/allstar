@@ -5,8 +5,14 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/tos/comp.css" />
 <link rel="stylesheet" type="text/css" href="css/tos/myteam.css" />
-<script src="js/test/modernizr.custom.js"></script>
 <script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
+<script src="js/test/modernizr.custom.js"></script>
+<script>
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+});
+</script>
 </head>
 <body>
 
@@ -51,7 +57,7 @@
 <h2 style="margin-left:50px;">대기중인 신청</h2>
 <ul id="wait_apply" >
 </ul>
-<h2 style="margin-left:50px;">거절된 신청</h2>
+<h2 style="margin-left:50px;">거절한 신청</h2>
 <ul id="reject_apply" >
 </ul>
 </div>
@@ -59,10 +65,13 @@
       
       
 		</div>
-		
+		  <div id="stateChange" style="display:none">
 
 	</div>
 	<div style="height:500px;"></div>
+
+</div>
+	
 	<script>
 $.getJSON('../member/ajax/memberJoin.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
     console.log(resultObj.data);
@@ -174,7 +183,7 @@ $.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), functi
 			  if(joinTeam.state == 0){
 				  var ul = $("#new_apply");
 				  $("<li>")
-				  .html("<a><span>신청일 : "+joinTeam.createdDate+"</span>"
+				  .html("<a href='#stateChange'  rel='leanModal' memberNo='"+joinTeam.mno+"' class='stateChan'><span>신청일 : "+joinTeam.createdDate+"</span>"
 						  +"<span>아이디 : "+joinTeam.member.id+"</span>"
 						  +"<span>나이 : "+joinTeam.member.age+"</span> "
 						  +"<span>성 : "+joinTeam.member.gender+"</span></a> ").appendTo(ul);
@@ -182,7 +191,7 @@ $.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), functi
 			  if(joinTeam.state == 0){
 		          var ul = $("#wait_apply");
 		          $("<li>")
-		          .html("<a><span>신청일 : "+joinTeam.createdDate+"</span>"
+		          .html("<a href='' rel='leanModal'  memberNo='"+joinTeam.mno+"' class='stateChan'><span>신청일 : "+joinTeam.createdDate+"</span>"
 		              +"<span>아이디 : "+joinTeam.member.id+"</span>"
 		              +"<span>나이 : "+joinTeam.member.age+"</span> "
 		              +"<span>성 : "+joinTeam.member.gender+"</span></a> ").appendTo(ul);
@@ -190,15 +199,33 @@ $.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), functi
 			  if(joinTeam.state == -1){
 		          var ul = $("#reject_apply");
 		          $("<li>")
-		          .html("<a><span>신청일 : "+joinTeam.createdDate+"</span>"
+		          .html("<a href='' rel='leanModal' memberNo='"+joinTeam.mno+"' class='stateChan'><span>신청일 : "+joinTeam.createdDate+"</span>"
 		              +"<span>아이디 : "+joinTeam.member.id+"</span>"
 		              +"<span>나이 : "+joinTeam.member.age+"</span> "
 		              +"<span>성 : "+joinTeam.member.gender+"</span></a> ").appendTo(ul);
 		        } 
+			  $('a.stateChan').click(stateChangeDetail);
 		}
 	});
 }
 
+function stateChangeDetail(event){
+	console.log("memberNo: "+$(event.target).attr('memberNo'));
+$.getJSON('../member/ajax/detail.do?mno='+$(event.target).attr('memberNo'), function(resultObj){
+	  var ajaxResult=resultObj.ajaxResult;
+	  var member = ajaxResult.data;
+	  var div = $('#stateChange');
+	  $("<ul>")
+	  .html("<li><img src='../member/img/"+member.photo+"'></li>"
+	      +"<li><span>아이디 : "+member.id+"</span></li>"
+	      +"<li><span>이름 : "+member.name+"</span></li>"
+	      +"<li><span>성별 : "+member.gender+"</span></li>"
+	      +"<li><span>나이 : "+member.age+"</span></li>"
+	      +"<li><span>주소 : "+member.baseAddr+"</span></li>"
+	      +"<li><span>자기소개 : "+member.introduce+"</span></li>")
+	      .appendTo(div);
+	});
+}
 </script>
 
 
