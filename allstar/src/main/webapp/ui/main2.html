@@ -309,7 +309,7 @@ function close_modal(modal_id){
      $.getJSON('/allstar/competition/list.do?pageSize=10', function(resultObj){
 var div = $('#photo_div');
 
-         for (var competition of resultObj.ajaxResult.data) {
+         for (var competition of resultObj.ajaxResult.data.comp) {
         	 var poster = competition.poster;
         	 if(poster == null)
         		 poster=allstarcomp.png;
