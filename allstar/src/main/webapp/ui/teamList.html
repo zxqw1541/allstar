@@ -382,7 +382,7 @@ $(document).ready(function() {
 });
 
 </script>  
-  
+    
 <!-- 리스트 첫 부분 -->
   <script>
   var showFirst = (function ($){
@@ -465,9 +465,6 @@ $(document).ready(function() {
            * When scrolled all the way to the bottom, add more tiles
            */
           function onScroll() {
-             $.getJSON('../team/ajax/count.do' + $saveparam.val(), function(resultObj) {
-               sListSize = resultObj.count;
-             });
                  
              if ($(window).data('ajaxready') === false)
                   return;
@@ -569,6 +566,10 @@ var load_detail_func = function(){
 	    	      } else {
 	    	    	  $('.captainForm').css('display', 'none');
 	              $('.applyForm').css('display', '');
+		            if (ajaxResult.data.totalNum == ajaxResult.data.joinNum) {
+		            	$('.captainForm').css('display', 'none');
+		              $('.applyForm').css('display', 'none');
+		            }
 	            }
             }
     	
@@ -712,6 +713,11 @@ var load_detail_func = function(){
         $(".teamList").on("click", load_detail_func);
       }
     });
+    
+    $.getJSON('../team/ajax/count.do' + $("#saveparam").val(), function(resultObj) {
+        sListSize = resultObj.count;
+    });
+    
   }
   </script>
 

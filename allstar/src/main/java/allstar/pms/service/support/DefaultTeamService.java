@@ -55,6 +55,10 @@ public class DefaultTeamService implements TeamService {
     return teamDao.update(team);
   }
   
+  public int changeJoinCount(int tno) {
+    return teamDao.joinCount(tno);
+  }
+  
   public int remove(int no) {
     return teamDao.delete(no);
   }

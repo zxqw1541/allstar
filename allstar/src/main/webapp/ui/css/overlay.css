@@ -39,6 +39,18 @@
 #add_team .txtarea-fld textarea { width: 494px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
 #add_team_img { float:right; }
 
+/* 대회 대진표 버튼 */
+#tour_btn .btn-fld1 { width: 0px; overflow: hidden; padding: 12px 0px 12px 0px;}
+
+#randomTour {
+  margin-right:700px;
+  align: left;
+}
+#enrollTour {
+	margin-right:-150px;
+  align: left;
+}
+
 /* detail form */
 #detail_preview_img { width:280px; padding-top:10px; padding-right:5px; }
 #detail_team {
@@ -175,3 +187,4 @@
 #apply_comp .txtarea-fld div {width:700px; }
 #apply_comp .txtarea-fld label { display: block; float: left; width: 120px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
 #apply_comp .txtarea-fld textarea { width: 494px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
+

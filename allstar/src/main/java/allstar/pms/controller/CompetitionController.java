@@ -145,23 +145,6 @@ public class CompetitionController {
   @RequestMapping(value = "detail", method = RequestMethod.GET)
   public AjaxResult detail(int no) {
     Competition competition = competitionService.retrieve(no);
-    
-    List<Integer> tnoList = joinCompService.getTnoList(competition.getNo());
-    List<Team> teamList = new ArrayList<>();
-    
-    for (int i = 0; i < tnoList.size(); i++) {
-      teamList.add(teamService.retrieve(tnoList.get(i)));
-    }
-    
-    /* 대진표 테스트 */
-    String oper = TournamentHelper.makeTournament(teamList);
-    competition.setOperation(oper);
-    log.debug("-------------------------------------------------------");
-    log.debug("oper = " + oper);
-    log.debug("-------------------------------------------------------");
-    /*--------- */
-    
-    
     return new AjaxResult("success", competition);
   }
   
@@ -193,8 +176,16 @@ public class CompetitionController {
       }
     }
     
-    competition.setOperation("");
+    //competition.setOperation("");
     if (competitionService.change(competition) <= 0)
+      return new AjaxResult("failure", null);
+    return new AjaxResult("success", null);
+  }
+  
+  @RequestMapping(value = "updateTour", method = RequestMethod.POST)
+  public AjaxResult updateTour(int no, String operation) throws Exception {
+    System.out.println(operation);
+    if (competitionService.changeTournament(no, operation) <= 0)
       return new AjaxResult("failure", null);
     return new AjaxResult("success", null);
   }
@@ -225,6 +216,24 @@ public class CompetitionController {
     } catch (Exception e) {
         return new AjaxResult("failure", null);
     }
+    
+    List<Integer> tnoList = joinCompService.getTnoList(joinComp.getCno());
+    List<Team> teamList = new ArrayList<>();
+        
+    for (int i = 0; i < tnoList.size(); i++) {
+      teamList.add(teamService.retrieve(tnoList.get(i)));
+    }
+    
+    Competition competition = competitionService.retrieve(joinComp.getCno());
+    
+    String oper = TournamentHelper.makeTournament(teamList);
+    competition.setOperation(oper);
+    log.debug("-------------------------------------------------------");
+    log.debug("oper = " + oper);
+    log.debug("-------------------------------------------------------");
+    /*--------- */
+    competitionService.change(competition);
+
     return new AjaxResult("success", null);
   }
   

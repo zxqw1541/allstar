@@ -23,9 +23,11 @@ import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.JoinTeam;
 import allstar.pms.domain.LikeEvent;
 import allstar.pms.domain.Member;
+import allstar.pms.domain.Team;
 import allstar.pms.service.JoinTeamService;
 import allstar.pms.service.LikeEventService;
 import allstar.pms.service.MemberService;
+import allstar.pms.service.TeamService;
 import allstar.pms.util.MultipartHelper;
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -36,6 +38,8 @@ public class MemberController {
   public static Logger log = Logger.getLogger(MemberController.class);
   @Autowired
   MemberService memberService;
+  @Autowired
+  TeamService teamService;
   @Autowired
   JoinTeamService joinTeamService;
   @Autowired
@@ -144,16 +148,23 @@ public class MemberController {
   
   @RequestMapping(value = "joint", method = RequestMethod.POST)
   public AjaxResult joinTeamList(JoinTeam joinTeam){
-    log.debug(joinTeam);
+    Team team = teamService.retrieve(joinTeam.getTno());
     
-    if(joinTeamService.retrieve(joinTeam) != null) {
+    if (joinTeamService.retrieve(joinTeam) != null) {
       return new AjaxResult("already", null);
     }
+    
+    if (team.getJoinNum() == team.getTotalNum()) {
+      return new AjaxResult("full", null); 
+    }
+    
     try {
       joinTeamService.register(joinTeam);
+      teamService.changeJoinCount(joinTeam.getTno());
     } catch (Exception e) {
         return new AjaxResult("failure", null);
     }
+    
     return new AjaxResult("success", null);
   }
   
@@ -165,6 +176,13 @@ public class MemberController {
     resultMap.put("status", "success");
     resultMap.put("data", joinTeams);
     return resultMap;
+  }
+  
+  @RequestMapping("changeState")
+  public AjaxResult changeState(int mno){
+    joinTeamService.changeState(mno);
+    
+    return new AjaxResult("success", null) ;
   }
   
   @RequestMapping("memberJoin")

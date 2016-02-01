@@ -118,6 +118,12 @@
     where cno=#{no} 
   </update>
   
+  <update id="updateTournament" parameterType="map">
+    update competition set
+      oper = #{operation}
+    where cno=#{no} 
+  </update>
+  
   <select id="selectOne" resultMap="CompetitionMap" parameterType="int">
     <include refid="select_inc"/>
     from competition c
