@@ -6,25 +6,9 @@
 </head>
 <body>
 
-<div id="stateChange">
-
-</div>
 
 <script>
-$getJSON('../member/ajax/detail.do?mno='+$(event.target).attr('MemberNo')), function(resultObj){
-	var ajaxResult=resultObj.ajaxResult;
-	var member = ajaxResult.data;
-	var div = $('#stateChange');
-	$("<ul>")
-	.html("<li><img src='../member/img/"+member.photo+"'></li>"
-			+"<span>아이디 : "+member.id+"</span>"
-			+"<span>이름 : "+member.name+"</span>"
-			+"<span>성별 : "+member.gender+"</span>"
-			+"<span>나이 : "+member.age+"</span>"
-			+"<span>주소 : "+member.baseAddr+"</span>"
-			+"<span>자기소개 : "+member.introduce+"</span>")
-			.appendTo(div);
-});
+
 </script>
 </body>
 </html>
