@@ -11,6 +11,7 @@ public interface TeamService {
       String addr, String possible, String play, String enroll);
   void register(Team team);
   Team retrieve(int no);
+  int changeJoinCount(int tno);
   int change(Team team);
   int remove(int no);
   Team getEmblemByTno(int tno);

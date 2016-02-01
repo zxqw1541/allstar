@@ -48,6 +48,14 @@ public class DefaultCompetitionService implements CompetitionService {
   }
 
   @Override
+  public int changeTournament(int no, String operation) {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("no", no);
+    paramMap.put("operation", operation);
+    return competitionDao.updateTournament(paramMap);
+  }
+  
+  @Override
   public Competition retrieve(int no) {
     return competitionDao.selectOne(no);
   }

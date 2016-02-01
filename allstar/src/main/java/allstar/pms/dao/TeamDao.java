@@ -13,6 +13,7 @@ public interface TeamDao {
   int insert(Team team);
   int delete(int no);
   int update(Team team);
+  int joinCount(int tno);
   Team selectEmblem(int tno);
   List<Team> selectTeamByMnoEno(Map<String,Integer> paramMap);
 }
