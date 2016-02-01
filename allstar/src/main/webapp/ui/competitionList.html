@@ -6,9 +6,8 @@
 <link type="text/css" rel="stylesheet" href="css/header_footer.css" />
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/component.css" />
-<link rel="stylesheet" type="text/css" href="css/competition.css" />
+<link rel="stylesheet" type="text/css" href="css/competitionList.css" />
 
-<link rel="stylesheet" href="css/tos/tos.css" />
 <link rel="Shortcut Icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 <link rel="icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 
@@ -110,8 +109,8 @@ $(function() {
           </select>
           <select id="creply" onchange="sorting()">
               <option value='-1'>댓글</option>
-              <option value='low'>많은순</option>
-              <option value='high'>적은순</option>
+              <option value='high'>많은순</option>
+              <option value='low'>적은순</option>
           </select>
         </form>
           </div>
@@ -119,13 +118,14 @@ $(function() {
         
         <div class="boardList listType1">
           <table id="boardtable">
-            <caption>대회 리스트</caption>
+            <caption style="margin-bottom: 20px;">대회 리스트</caption>
             <thead>
               <tr>
                 <th class="th1" scope="col">종목</th>
-                <th class="th2" scope="col">제목</th>
-                <th class="th3" scope="col">작성자</th>
-                <th class="th4" scope="col">조회</th>
+                <th class="th2" scope="col">대회명</th>
+                <th class="th3" scope="col">대회시작일</th>
+                <th class="th4" scope="col">인원</th>
+                <th class="th5" scope="col">지역</th>
               </tr>
             </thead>
             <tbody>
@@ -151,7 +151,7 @@ $(function() {
             <option value="2">내용</option>
           </select>
           <input type="text" id="ccontent" class="inputTxt" />
-          <input type="submit" value="검색" onclick="return search();" id="csearchClick" class="btnSearch btn" />
+          <input type="submit" value="검색" onclick="return search();" id="csearchClick" class="btnSearch btnss" />
         </fieldset>
       </div>
     </div>
@@ -212,7 +212,6 @@ getParameter = function(name) {
   var checkSerach2 = location.href.indexOf('search2');
   
   if (checkPageNo!= -1) pageNo = getParameter('pageNo');
-   
   url = '/allstar/competition/list.do?pageSize=' + pageSize + '&pageNo=' + pageNo;
   
   if (location.href.indexOf('&') != -1) {
@@ -238,16 +237,30 @@ getParameter = function(name) {
        dataType:'json',
        success:function(resultObj) {
     var tbody = $("#boardtable tbody");
-    for (var c of resultObj.ajaxResult.data) {
-      $("<tr>")
-      .html(
-      "<td class='num'>" + c.event.name +"</td>"
-      + "<td class='subject'><a href='#' data-ajax-board='free_view' pageno='" + c.no + "'><strong>" + c.name + "<small>(3)</small></strong>"
-      + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
-      + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
-      + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>"
-      )
-      .appendTo(tbody);
+    var d = resultObj.ajaxResult.data;
+    for (var i = 0; i < d.comp.length; i ++) {
+    	var c = d.comp[i];
+    	var comm = d.countComm[i];
+    	var listHtml = '';
+    	if (comm > 0) {
+    		listHtml = "<td class='num'>" + c.event.name +"</td>"
+    	      + "<td class='subject'><a href='#' data-ajax-board='free_view' pageno='" + c.no + "'><strong>" + c.name 
+    	      + "<small>(" + comm + ")</small></strong>"
+    	      + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
+    	      + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
+    	      + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span></td>"
+    	      + "<td class='cnt'><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>";
+    	}
+    	else {
+    		listHtml = "<td class='num'>" + c.event.name +"</td>"
+    	      + "<td class='subject'><a href='#' data-ajax-board='free_view' pageno='" + c.no + "'><strong>" + c.name 
+    	      + "</strong>"
+    	      + "<span class='info' id='time'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate + "</span></a></td>"
+    	      + "<td class='author'><div class='contents'><p class='name name2'>" + c.startDate + "</p></div></td>"
+    	      + "<td class='cnt'><span class='view'>" + c.joinNum + " / " + c.teamNum + "</span></td>"
+    	      + "<td class='cnt'><span class='like'>" + c.baseAddr.substring(0,2) +"</span></td>"
+    	}
+      $("<tr>").html(listHtml).appendTo(tbody);
     }
        }
   });
@@ -426,13 +439,6 @@ function search() {
       // 대회명
       if (select == '1') {
         var url = updateURLParameter(location.href, 'pageNo', 1);
-        /*
-        if (location.href.indexOf('event') != -1) url = removeParam("event", url);
-        if (location.href.indexOf('addr') != -1) url = removeParam("addr", url);
-        if (location.href.indexOf('recruit') != -1) url = removeParam("recruit", url);
-        if (location.href.indexOf('start') != -1) url = removeParam("start", url);
-        if (location.href.indexOf('reply') != -1) url = removeParam("reply", url);
-        */
       
         if (location.href.indexOf('search1') == -1) {
           if (location.href.indexOf('search2') == -1) {

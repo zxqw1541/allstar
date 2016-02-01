@@ -10,6 +10,8 @@ public interface JoinTeamService {
   
   List<JoinTeam> getJoinTeamByMember(int mno);
   
+  List<JoinTeam> getCaptainTeamByMember(int mno);
+  
   JoinTeam retrieve(JoinTeam joinTeam);
  
   void register(JoinTeam joinTeam);
@@ -19,6 +21,7 @@ public interface JoinTeamService {
   int changeState(int mno);
 
   int changeLevel(int mno);
+
 }
 
 

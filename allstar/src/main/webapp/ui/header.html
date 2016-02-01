@@ -171,9 +171,12 @@ function close_modal(modal_id){
             $("#login").hide();
             console.log(sessionStorage.getItem("loginSession"));
             var session_photo=sessionStorage.getItem("mem_photo");
+            console.log("login photo : "+session_photo);
+            if(session_photo == null)
+                session_photo = 'allstardefault.png';
               var session_id=sessionStorage.getItem("loginSession");
               var span = $("#logout");
-              $("<img src='../member/img/"+session_photo+"' style='width: 70px; height: 70px;'>"
+              $("<a href='Member_info.html'><img src='../member/img/"+session_photo+"' style='width: 70px; height: 70px;'></a>"
                     +"<a style='margin-left:10px;color:white;'  href='Member_info.html'>"+session_id+"</a>")
                       .appendTo(span);
               location.reload();
@@ -191,9 +194,12 @@ function close_modal(modal_id){
     $("#login").hide();
     console.log(sessionStorage.getItem("loginSession"));
     var session_photo=sessionStorage.getItem("mem_photo");
+    console.log("check photo : "+session_photo);
+    if(session_photo == null)
+        session_photo = 'allstardefault.png';
       var session_id=sessionStorage.getItem("loginSession");
       var span = $("#logout");
-      $("<img src='../member/img/"+session_photo+"' style='width: 70px; height: 70px;'>"
+      $("<a href='Member_info.html'><img src='../member/img/"+session_photo+"' style='width: 70px; height: 70px;'></a>"
             +"<a style='margin-left:10px;color:white;'  href='Member_info.html'>"+session_id+"</a>")
               .appendTo(span);
         

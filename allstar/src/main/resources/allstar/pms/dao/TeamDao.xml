@@ -7,7 +7,8 @@
 
 	<sql id="select_inc">
 		select t.tno, t.eno, t.name, t.total_num, t.join_num, t.win, t.draw, t.lose, t.fee, t.meet_day,
-		        t.introduce, t.emblem, t.aform, t.pst_no, t.bas_addr, e.eno as e_eno, e.name as e_name
+            t.introduce, t.emblem, t.aform, t.pst_no, t.bas_addr, e.eno as e_eno, e.name as e_name,
+            jt.tno as jt_tno, jt.mno as jt_mno, jt.level as jt_level, m.name as m_name
 	</sql>
 
 	<resultMap type="team" id="teamMap">
@@ -26,10 +27,16 @@
 		<result column="aform" property="aForm" />
 		<result column="pst_no" property="postNo" />
 		<result column="bas_addr" property="baseAddr" />
+		<result column="m_name" property="captain" />
 		<association property="event" javaType="Event">
 		   <id column="e_eno" property="eno" />
 		   <result column="e_name" property="name"/>
 		</association>
+		<association property="joinTeam" javaType="JoinTeam">
+       <id column="jt_tno" property="tno" />
+       <result column="jt_mno" property="mno"/>
+       <result column="jt_level" property="level"/>
+    </association>
 	</resultMap>
 
   <select id="selectAll" resultMap="teamMap">
@@ -39,7 +46,6 @@
   <select id="selectCount" resultMap="teamMap" parameterType="map">
     select *
         from team t left outer join event e on t.eno=e.eno
-    
     <if test="event != 'null' or addr != 'null' or possible != 'null'"> where </if>
     
     <if test="event != 'null'"> t.eno=#{event} </if>
@@ -72,9 +78,12 @@
   </select>
   
 	<select id="selectList" resultMap="teamMap" parameterType="map">
-		<include refid="select_inc" />
-		from team t left outer join event e on t.eno=e.eno
-		
+	  <include refid="select_inc" />
+		from team t
+		  left outer join event e on t.eno=e.eno
+		  left outer join join_team jt on t.tno=jt.tno and jt.level=1
+		  left outer join member m on m.mno=jt.mno
+
 		<if test="event != 'null' or addr != 'null' or possible != 'null'"> where </if>
 		
     <if test="event != 'null'"> t.eno=#{event} </if>
@@ -134,8 +143,11 @@
 
 	<select id="selectOne" resultMap="teamMap" parameterType="int">
 		<include refid="select_inc" />
-		from team t left outer join event e on t.eno=e.eno
-		where tno=#{tno}
+		from team t 
+		      left outer join event e on t.eno=e.eno
+		      left outer join join_team jt on t.tno=jt.tno and jt.level=1
+          left outer join member m on m.mno=jt.mno
+		where t.tno=#{tno}
 	</select>
 	
 	<select id="selectEmblem" resultType="team" parameterType="int">

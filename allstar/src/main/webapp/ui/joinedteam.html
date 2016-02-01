@@ -79,43 +79,43 @@ border: 1px black solid;
 	</div>
 
 	<script>
-$.getJSON('../member/ajax/memberJoin.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
+$.getJSON('../member/ajax/memberJoined.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
 	
 	if(resultObj.status == "success"){
-    for (var joinTeam of resultObj.data ){
-    	if(joinTeam.level == 0){
-    	var event =0;
-    	console.log("tno : "+joinTeam.tno+"  eno : "+joinTeam.team.eno);
-    	switch(joinTeam.team.eno){
-    	case 2:  event = "농구";
-    	   break;
-    	case 3:  event = "축구";
-        break;
-    	case 4:  event = "야구";
-        break;
-    	case 5:  event = "탁구";
-        break;
-    	case 6:  event = "볼링";
-        break;
-    	}
-    	var emblem = joinTeam.team.emblem;
-    	if(emblem == null){
-    		emblem = "allstardefault.png";
-    	}
-    	var ul = $('#myteams');
-    	$("<li style='margin-left: 120px;'>")
-    	.html("<figure><div>"
-    			+"<img src='../team/img/"+emblem+"' style='width:300px;' alt='"+ joinTeam.team.name+"'></div>"
-    			+"<figcaption>"
-    			+"<h3>"+joinTeam.team.name+"</h3>"
-    			+"<span>팀장 : 팀장 호출 </span><br>"
-    			+"<span >연고지 : "+joinTeam.team.postNo+" "+joinTeam.team.baseAddr+" </span><br>"
-    			+"<span >종목 : "+event+" </span><br>"
-    			+"<span>전적 : "+joinTeam.team.win+" 승  "+joinTeam.team.draw+" 무  "+joinTeam.team.lose+" 패</span><br>"
-    			+"<span>내용 : "+joinTeam.team.introduce+"</span><br>"
-    			+"<a id='goteam"+joinTeam.tno+"' href='javascript:;' teamNo='"+joinTeam.tno+"'>팀 정보 보기</a>"
-    			+"</figcaption></figure></li>"
-    	).appendTo(ul);
+    for (var joinTeam of resultObj.data) {
+    	if(joinTeam.level == 0) {
+	    	var event = 0;
+	    	console.log("tno : "+joinTeam.tno+"  eno : "+joinTeam.team.eno);
+	    	switch(joinTeam.team.eno){
+	    	case 2:  event = "농구";
+	    	   break;
+	    	case 3:  event = "축구";
+	        break;
+	    	case 4:  event = "야구";
+	        break;
+	    	case 5:  event = "탁구";
+	        break;
+	    	case 6:  event = "볼링";
+	        break;
+	    	}
+	    	var emblem = joinTeam.team.emblem;
+	    	if(emblem == null){
+	    		emblem = "allstardefault.png";
+	    	}
+	    	var ul = $('#myteams');
+	    	$("<li style='margin-left: 120px;'>")
+	    	.html("<figure><div>"
+	    			+"<img src='../team/img/"+emblem+"' style='width:300px;' alt='"+ joinTeam.team.name+"'></div>"
+	    			+"<figcaption>"
+	    			+"<h3>"+joinTeam.team.name+"</h3>"
+	    			+"<span>팀장 : " + joinTeam.member.name + " </span><br>"
+	    			+"<span >연고지 : "+joinTeam.team.postNo+" "+joinTeam.team.baseAddr+" </span><br>"
+	    			+"<span >종목 : "+event+" </span><br>"
+	    			+"<span>전적 : "+joinTeam.team.win+" 승  "+joinTeam.team.draw+" 무  "+joinTeam.team.lose+" 패</span><br>"
+	    			+"<span>내용 : "+joinTeam.team.introduce+"</span><br>"
+	    			+"<a id='goteam"+joinTeam.tno+"' href='javascript:;' teamNo='"+joinTeam.tno+"'>팀 정보 보기</a>"
+	    			+"</figcaption></figure></li>"
+	    	).appendTo(ul);
     } 
     	$("#goteam"+joinTeam.tno+"").click(goTeamInfo);
     }
@@ -162,8 +162,11 @@ $("<p>")
 $.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo') ,function(resultObj){
 	var team = resultObj.ajaxResult.data;
 	var li = $('#team_information');
+	var emblem = team.emblem;
+	if(emblem == null)
+		emblem = "allstardefault.png";
 $("<p>")
-.html("<img style='width:350px; height:350px;' src='../team/img/"+team.emblem+"'><br>"
+.html("<img style='width:350px; height:350px;' src='../team/img/"+emblem+"'><br>"
 		+"<span> 팀명 : "+team.name+"</span><br> <span></span><br>"
 		+"<span> 장소 : "+ team.baseAddr +" </span><br> <span></span><br>"
 		+"<span> 정모일 : "+ team.meetDay +" </span><br>"

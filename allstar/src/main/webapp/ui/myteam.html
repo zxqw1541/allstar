@@ -4,73 +4,296 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/tos/comp.css" />
-<script src="js/test/modernizr.custom.js"></script>
+<style>
 
+#apply_alert {
+border:1px black solid; 
+width:200px; 
+float:right; 
+height: 20px; 
+margin:10px; 
+padding:10px; 
+text-align:center;
+}
+#team_top img{
+width:300px;
+float:left;
+}
+#mem_list {
+border:1px black solid; 
+width:480px; 
+height: 400px; 
+float:right; 
+margin-top: 125px; 
+overflow-y:auto;
+}
+#mem_list figure{
+width:150px; 
+text-align:center; 
+float: left;
+}
+#mem_list img {
+width:150px; 
+height:140px;
+}
+
+
+#team_information span {
+font-size: 25px;
+margin:30px;
+}
+
+#member_photo {
+width:391px; 
+height:600px; 
+ border: 1px black solid; 
+float:right;
+overflow-y: auto;
+}
+
+#member_photo img {
+width:150px;
+height:155px;
+}
+
+#member_photo p {
+width:162px; 
+height:190px; 
+float: left; 
+margin-left: 22px;
+}
+#member_photo label {
+text-align:center;
+    color: indigo;
+    font-size: 20px;
+}
+
+#team_btfld {
+/* border: 1px black solid; */
+width:394px;
+height:280px;
+float:right;
+margin-top: 0px;
+}
+#team_information {
+width:380px; 
+height:923px; 
+/* border: 1px black solid; */
+}
+</style>
+<script src="js/test/modernizr.custom.js"></script>
+<script src="js/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
 </head>
 <body>
 
 	<div>
-		<h2 style="text-align: center;">내가 만든 팀</h2>
+	<h2 style="text-align: center;">내가 개설한 팀</h2>
 		<div class="container demo-3">
-			<!-- Top Navigation -->
 
 			<ul class="grid cs-style-4" id="myteams" >
 
 
 			</ul>
+
+      <div id="myTeamInfo_detail" style="display:none;margin:auto;  width: 900px; height:100%;">
+
+<!-- Emblem -->
+<div id="team_top">
+</div>
+
+<!-- 가입신청 알림 -->
+<div id="apply_alert" >
+</div>
+
+
+<!-- 회원 목록 -->
+<div id="mem_list" >
+<figure >
+</figure>
+
+</div>
+<!-- 회원 목록 끝 -->
+
+
+<!-- 팀정보 -->
+<div id="info" style="float:left; font-size:20px; padding: 50px;">
+
+</div>
+
+
+<div id="place" style="float:left; width: 100%; font-size:20px;">
+<div id='map' style='width:500px;height:250px; float:right;'></div>
+</div>
+      </div>
+      
+      
 		</div>
-		<!-- /container -->
 		
 
 	</div>
+	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
 	<script>
 $.getJSON('../member/ajax/memberJoin.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
     console.log(resultObj.data);
+    $("myTeamInfo_detail").hide();
     if(resultObj.status == "success"){
     for (var joinTeam of resultObj.data ){
-    	if(joinTeam.level == 1){
-    	var event =0;
-    	console.log("tno : "+joinTeam.tno+"  eno : "+joinTeam.team.eno);
-    	switch(joinTeam.team.eno){
-    	case 2:  event = "농구";
-    	   break;
-    	case 3:  event = "축구";
-        break;
-    	case 4:  event = "야구";
-        break;
-    	case 5:  event = "탁구";
-        break;
-    	case 6:  event = "볼링";
-        break;
-    	}
-    	var emblem = joinTeam.team.emblem;
-    	if(emblem == null){
-    		emblem = "allstardefault.png";
-    	}
-    	var ul = $('#myteams');
-    	$("<li style='margin-left: 120px;'>")
-    	.html("<figure><div>"
-    			+"<img src='../team/img/"+emblem+"' style='width:300px;' alt='"+ joinTeam.team.name+"'></div>"
-    			+"<figcaption>"
-    			+"<h3>"+joinTeam.team.name+"</h3>"
-    			+"<span>팀장 :  팀장 호출</span><br>"
-    			+"<span >연고지 : "+joinTeam.team.postNo+" "+joinTeam.team.baseAddr+" </span><br>"
-    			+"<span >종목 : "+event+" </span><br>"
-    			+"<span>전적 : "+joinTeam.team.win+" 승  "+joinTeam.team.draw+" 무  "+joinTeam.team.lose+" 패</span><br>"
-    			+"<span>내용 : "+joinTeam.team.introduce+"</span><br>"
-    			+"<a href='#'>팀 정보 보기</a>"
-    			+"</figcaption></figure></li>"
-    	).appendTo(ul);
+
+    	if(joinTeam.level == 1) {
+	    	var event = 0 ;
+	    	console.log("tno : "+joinTeam.tno+"  eno : "+joinTeam.team.eno);
+	    	switch(joinTeam.team.eno){
+	    	case 2:  event = "농구";
+	    	   break;
+	    	case 3:  event = "축구";
+	        break;
+	    	case 4:  event = "야구";
+	        break;
+	    	case 5:  event = "탁구";
+	        break;
+	    	case 6:  event = "볼링";
+	        break;
+	    	}
+	    	var emblem = joinTeam.team.emblem;
+	    	if(emblem == null){
+	    		emblem = "allstardefault.png";
+	    	}
+	    	var ul = $('#myteams');
+	    	$("<li style='margin-left: 120px;'>")
+	    	.html("<figure><div>"
+	    			+"<img src='../team/img/"+emblem+"' style='width:300px;' alt='"+ joinTeam.team.name+"'></div>"
+	    			+"<figcaption>"
+	    			+"<h3>"+joinTeam.team.name+"</h3>"
+	    			+"<span>팀장 : " + joinTeam.member.name + "</span><br>"
+	    			+"<span >연고지 : "+joinTeam.team.postNo+" "+joinTeam.team.baseAddr+" </span><br>"
+	    			+"<span >종목 : "+event+" </span><br>"
+	    			+"<span>전적 : "+joinTeam.team.win+" 승  "+joinTeam.team.draw+" 무  "+joinTeam.team.lose+" 패</span><br>"
+	    			+"<span>내용 : "+joinTeam.team.introduce+"</span><br>"
+	    	          +"<a id='myteam_info"+joinTeam.tno+"' href='javascript:;' teamNo='"+joinTeam.tno+"'>팀 정보 보기</a>"
+	    			+"</figcaption></figure></li>"
+	    	).appendTo(ul);
     } else {
     	 var ul = $('#myteams');
          $("<li>").html(+ "현재 개설한 팀이 없습니다. </li>").appendTo(ul);
     }
+    	$("#myteam_info"+joinTeam.tno+"").click(myTeamInfo);
     }
     } else {
     	var ul = $('#myteams');
     	$("<li>").html(+ "현재 개설한 팀이 없습니다. </li>").appendTo(ul);
     }
 });
+
+
+function myTeamInfo(event){
+	console.log("dsd 되되되");
+	var captain = null;
+	$("#myteams").hide();
+	$("#myTeamInfo_detail").show();
+$.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), function(resultObj) {
+	var ajaxResult = resultObj.ajaxResult;
+	console.log($(event.target).attr('teamNo'));
+	var team = ajaxResult.data;
+	var div =$("#team_top");
+	$("<span>")
+	.html("<img src='../team/img/"+team.emblem+"'  ></span> "
+	    +"<span style='float:left; margin-left: 55px; margin-top: 75px;'><h1>"+team.name+"</h1></span>")
+	    .appendTo(div);
+	});
+
+	$.getJSON('../member/ajax/teamJoin.do?tno=' + $(event.target).attr('teamNo'), function(resultObj) {
+	var waiting = 0;
+	for(var joinTeam of resultObj.data){
+	if(joinTeam.state == 0)
+	  waiting ++;
+	if(joinTeam.level == 1)
+		captain=joinTeam.member.name;
+	}
+	var div = $("#apply_alert");
+	$("<a style='margin:auto;'>")
+	.html("대기중 가입 신청수 : " + waiting + "개  </a>").appendTo(div);
+
+	for(var joinTeam of resultObj.data){
+	  if(joinTeam.state == 1) {
+	var div = $("#mem_list") ;
+	$("<figure >")
+	.html("<img src='../team/img/"+joinTeam.member.photo+"' >"
+	+"<figcaption >"+joinTeam.member.name+"</figcaption>"
+	+"</figure>").appendTo(div);
+	}
+	}
+	});
+	
+	$.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), function(resultObj) {
+		var ajaxResult = resultObj.ajaxResult;
+		  var team = ajaxResult.data;
+		  var div = $("#info");
+		  $("<span style='display: inherit;'>")
+		  .html("팀장 : "+captain+" </span><br>"
+				  + "<span style='display: inherit;'> 정모일 : "+team.meetDay+" </span><br>"
+				  +"  <span style='display: inherit;'> 종목 : "+team.event.name+" </span><br>"
+				  +"<span style='display: inherit;'> 가입현황 : "+team.joinNum+"명 / "+team.totalNum+"명 </span><br>"
+				  +"  <span style='display: inherit;'> 전적 : "+team.win+"승 "+team.draw+"무 "+team.lose+"패 </span><br>"
+				  ).appendTo(div);
+		  
+		  var div=$("#place");
+	$("<span >")
+	.html("연고지 : "+team.baseAddr+"</span>")
+	.appendTo(div);
+
+	 daumMap(team.baseAddr); 
+	
+	});
+	
+}
+
+/* 다음 지도 */
+function daumMap(site) {
+  // 키워드로 장소를 검색합니다
+  console.log('주소');
+  console.log(site);
+  if (site.indexOf('(') != -1){
+      site = site.split('(')[0];
+      console.log(site);
+  }
+  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new daum.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new daum.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addr2coord(site, function(status, result) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === daum.maps.services.Status.OK) {
+        console.log("-----------------")
+        console.log(result.addr[0].lat);
+        console.log(result.addr[0].lng);
+        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new daum.maps.Marker({
+            map: map,
+            position: coords
+        });
+        // 지도 중심을 변경한다.
+        map.setCenter(coords);
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new daum.maps.InfoWindow({
+            content: '<div style="padding:5px;">' + site + '</div>'
+        });
+        infowindow.open(map, marker);
+    } 
+});    
+}
 </script>
 
 

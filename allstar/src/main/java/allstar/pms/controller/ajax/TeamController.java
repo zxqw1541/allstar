@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import allstar.pms.domain.AjaxResult;
 import allstar.pms.domain.Event;
+import allstar.pms.domain.JoinTeam;
 import allstar.pms.domain.Team;
 import allstar.pms.service.EventService;
 import allstar.pms.service.JoinTeamService;
@@ -72,7 +73,7 @@ public class TeamController {
     List<Team> teams = teamService.getTeamList(
         pageNo, pageSize, event, addr, possible, play, enroll);
     List<Event> events = eventService.getEventList();
-
+    
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("teams", teams);
@@ -83,8 +84,9 @@ public class TeamController {
   }
   
   @RequestMapping(value="add", method=RequestMethod.POST)
-  public AjaxResult add(Team team, MultipartHttpServletRequest uploadedFile) throws Exception {
+  public AjaxResult add(Team team, String mno, MultipartHttpServletRequest uploadedFile) throws Exception {
     
+    System.out.println("mno ==== " + mno);
     log.info("team = " + team);
     Iterator<String> itr =  uploadedFile.getFileNames();
     if(itr.hasNext()) {
@@ -105,9 +107,18 @@ public class TeamController {
         e.printStackTrace();
         return new AjaxResult("failure", null);
       }
-    }     
+    }
     
     teamService.register(team);
+    
+    List<Team> teams = teamService.getList();
+    Team lastTeam = teams.get(teams.size() - 1);
+    
+    JoinTeam joinTeam = new JoinTeam();
+    joinTeam.setTno(lastTeam.getTno());
+    joinTeam.setMno(Integer.parseInt(mno));
+    joinTeam.setLevel(1);
+    joinTeamService.register(joinTeam);
     return new AjaxResult("success", null);
   }
   

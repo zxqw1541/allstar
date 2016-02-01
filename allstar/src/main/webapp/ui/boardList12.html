@@ -140,6 +140,7 @@ $(function() {
 </div>
 </div>
 
+
 <script>
 getParameter = function(name) {
     search = location.href;
@@ -320,7 +321,7 @@ $('body').on('click','#boardtitle',function(event){
                   + "</p><p class='lvs'><span class='lv'>"+ board.event.name + "</span></p></div></div>")
                   .appendTo(aside);
             $("<div class='btnArea'>")
-            .html("<p class='btnHome'><a href='#' id='mInfo' style='margin-left:0%; width:100%; height:40px; line-height:40px; background:#cf6418; font-size:15px; text-align:center; text-decoration:none; color:#fff; border:0 none; cursor:pointer; display:block;' rel='leanmodal' class='trigger'>회원정보보기</a></p>"
+            .html("<p class='btnHome'><a id='mInfo' boardMno='"+ board.member.mno + "'style='margin-left:0%;' class='btn btnType5'>회원정보보기</a></p>"
                   + "<div class='btm clearFix' style='margin-left:0%'>"
                   + "<a style='margin-left:0%' rel = 'leanModal' href='#newWrite' id='newB' class='btn btnType6 btnWrite'>글쓰기</a>"
                   + "<a href='../ui/boardList12.html' style='margin-left:0%' id='btnArticleList' class='btn btnType6 btnList'>목록</a>"
@@ -344,6 +345,7 @@ $('body').on('click','#boardtitle',function(event){
                   + "</div></a></li></ul></div>")
             .appendTo(aside);
             
+            $("#mInfo").click(clickMemInfo);
             $("#deleteBtn").click(clickDel);
             $("#updateb").click(clickUpdate);
             $("#mInfo").click(clickMemInfo);
@@ -442,7 +444,9 @@ $('body').on('click','#boardtitle',function(event){
 	/* 새 글 작성 끝 */
  	/* 회원정보보기 시작  */  
   function clickMemInfo(event) {
-	  $.getJSON('/allstar/member/ajax/detail.do?mno=' + $.session.get("mem_num"), function(resultObj) {
+		$('#mem_info').show();
+		$('#mem_info').empty();
+	  $.getJSON('/allstar/member/ajax/detail.do?mno=' + $(event.target).attr("boardMno"), function(resultObj) {
 		  console.log("edddd");
 		        var ajaxResult = resultObj.ajaxResult;
 		        if (ajaxResult.status == "success") {
@@ -462,7 +466,35 @@ $('body').on('click','#boardtitle',function(event){
 		              else
 		                $('#detail_preview_img').attr('src', '../member/img/allstardefault.png');
 		            }
-		       
+		        var form = ("#mem_info");
+		        $("<form id='detail_mem' method='post' enctype='multipart/form-data'>")
+		        .html("<div style='border-bottom:1px gray solid;'>"
+		        		 +"<h2>회원정보</h2></div>"
+		        		 +"<div style='margin-top:20px;'>"
+		             +"<input id='fdphoto' type='hidden'/>"
+		             +"<label for='fname' style='margin-top:5px;'>이름</label>"
+		             +"<input type='text' id='fname' placeholder='이름' style='margin-top:5px;'><img id='detail_preview_img' style='width:100px; float:right;' src='#'/><br>"
+		             +"<label for='femail' style='margin-top:10px;'>이메일</label>"
+		             +"<input type='email' id='femail' placeholder='email@email.com' style='margin-top:10px;'><br>"
+		             +"<label for='fbas_addr' style='margin-top:10px;'>주소</label><br>"
+		             +"<input type='text' id='fbas_addr' placeholder='한글주소'><br>"
+		             +"<input type='text' id='sample2_addressEnglish' placeholder='영문주소'><br>"
+		             +"</div>"
+		             +"<div id='genderfld'  style='margin-top:10px;'>"
+		             +"<label for='fgender'>성별</label>"
+		             +"<input type='text' id='fgender'><br>"
+		             +"</div>"
+		             +"<label for='fage' style='margin-top:10px;'>나이</label>"
+		             +"<input type='number' id='fage'  style='margin-top:10px;'>"
+		             +"<div  style='margin-top:10px;'>"
+		             +"<label for='like_event'>관심종목</label>"
+		             +"<input type='text' id='like_event'>"
+		             +"</div>"
+		             +"<div style='margin-top:10px;'>"
+		             +"<label for='fintroduce'>자기소개</label><br>"
+		             +"<textarea rows='10' cols='40' id='fintroduce' placeholder='자기소개..'></textarea>"
+		             +"</div>")
+		        .appendTo(form); 
 		      });
   }
 	</script>
@@ -506,6 +538,12 @@ $('body').on('click','#boardtitle',function(event){
 	  });
 	}
 
+	$(document).ready(function() {
+		$('#mInfo').attr({
+			rel : 'learnModal',
+			href : '#mem_info'
+		});
+	});
 	$(document).ready(function() {
 	  if (sessionStorage.getItem("mem_num") != undefined) {
 	      console.log("글쓰기 버튼 활성화.");
@@ -663,51 +701,42 @@ function clickEnd() {
 </script>
 
 <!-- detail -->
-            <div id="contents" style='display:none; background-color: white; width:1258px; margin:auto; overflow-y: auto; height: 770px;'>
-          <div class="viewWrap boardContents boardView" >
-              <article id="subject" class="mainArea">
-             
-                
-              </article>
-           
-              <aside id="rightSide" class="sideArea">
-                
-              </aside>
-              <div class='bbsReply' style='float: left; '>
- 
-                </div>
-   
-
-            </div>
-          </div>
+<div id="contents" style='display:none; background-color: white; width:1258px; margin:auto; overflow-y: auto; height: 770px;'>
+  <div class="viewWrap boardContents boardView" >
+    <article id="subject" class="mainArea">
+    </article>
+    <aside id="rightSide" class="sideArea">
+    </aside>
+    <div class='bbsReply' style='float: left; '>
+    </div>
+  </div>
+</div>
 <!-- 새 글 작성 시작 -->
 <div id="newWrite" style='display:none; border:1px black solid; background-color: white; min-width:1024px; margin:auto; overflow:auto;'>
   <div style="margin:5% 0px 20px 81px;">
     <p style="font-size: 25px;">종목별 게시판</p>
   </div>
   <div id="newBoard" style="width:100%; overflow-y:auto;">
-
   </div>
   <div>
     <div style="margin:2% 81px 4% 750px;">
-      <button id='addBtn' type='button' style="margin-bottom: 40px;"
-        class="newForm btn btn-primary btn-xs">등록</button>
+      <button id='addBtn' type='button' style="margin-bottom: 40px;" class="newForm btn btn-primary btn-xs">등록</button>
     </div>
   </div>
 </div>
  <div id="contents" style='display:none; background-color: white; min-width:1258px; margin:auto; overflow:auto;'>
-          <div class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
-              <article id="subject" class="mainArea">
-             
-              
-              </article>
-              <aside id="rightSide" class="sideArea">
-                
-              </aside>
-            </div>
-          </div>
+  <div class="viewWrap boardContents boardView" style="width:100%; overflow-y:auto;">
+    <article id="subject" class="mainArea">
+    </article>
+    <aside id="rightSide" class="sideArea">
+    </aside>
+  </div>
+</div>
 <!-- 새 글 작성 끝 -->
-
+<!-- 회원정보보기 시작 -->
+<section id="mem_info" style="display:none; width:400px; height:700px; background-color:white; border:2px black solid; font-weight:900; margin-left:auto; margin-right:auto; padding:30px;">
+</section>
+<!-- 회원정보보기 끝 -->
 <div id="footer"></div>
 
 
@@ -1036,8 +1065,6 @@ function clickUpdate(event) {
 	      
 
 }
-
-
 /* board update and delete 끝 */
 </script>
 <script>
