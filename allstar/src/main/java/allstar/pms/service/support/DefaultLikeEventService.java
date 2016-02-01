@@ -17,6 +17,11 @@ public class DefaultLikeEventService implements LikeEventService {
   public List<LikeEvent> getLikeEventList() {
     return likeEventDao.selectList();
   }
+  
+  @Override
+  public List<LikeEvent> getLikeEventListByMno(int mno) {
+    return likeEventDao.selectListByMno(mno);
+  }
 
   @Override
   public void register(LikeEvent likeEvent) {
