@@ -164,6 +164,13 @@ public class MemberController {
     return resultMap;
   }
   
+  @RequestMapping("changeState")
+  public AjaxResult changeState(int mno){
+    joinTeamService.changeState(mno);
+    
+    return new AjaxResult("success", null) ;
+  }
+  
   @RequestMapping("memberJoin")
   public Object getJoinTeam(int mno){
     System.out.println("memberjoin : "
