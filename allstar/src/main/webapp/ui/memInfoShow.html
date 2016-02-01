@@ -13,51 +13,71 @@ $(function(){
 $(function() {
     $('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });   
 });
-</script>
-function clickDetailLnk(event) {
-  $('#subject').empty();
-    $.getJSON('../board/ajax/detail.do?no=' + $(event.target).attr("boardBno"), function(resultObj) {
-        var ajaxResult = resultObj.ajaxResult;
-        var board = ajaxResult.data;
-        console.log(sessionStorage.getItem("mem_num"));
-        var photo = board.member.photo;
-        if(photo == null){
-          photo = 'allstardefault.png';
-        }
-          var article = $("#subject");
-            $("<header id='test1'class='header'>")
-            .html("<p class='cat1 clearFix'><span class='dep1'>회원정보보기</span></p>"
-                  + "<div class='inner clearFix'>"
-                  + "<div class='subject'>"
-                  + "<h2 class='tit'>" + board.title + "</h2>"
-                  + "<p class='etc'><span class='date'>" + board.createDate + "</span></p>"
-                  + "</div>"
-                  + "<p class='cnt'>"
-                  + "<span class='view'><strong>" + (board.views + 1*1)+ "</strong>조회</span>"
-                  + "</p></div></header>")
-            .appendTo(article);
-            $("<div id='test2' class='viewContents'>")
-            .html("<p>" + board.content + "</p>"
-                  + "<div id='loading' style='display:none'><img src='http://s.nx.com/s2/game/tos/common/img_loading.gif' alt='' /></div>" 
-                  + "</div>")
-            .appendTo(article);
-            if (sessionStorage.getItem("mem_num") == board.member.mno) {
-            $("<div class='viewContentsBtm clearFix'>")
-              .html("<p class='btnEtc'>"
-                   +"<a rel='leanModal'  boardBno='"+ board.no +"' href='#updateWrite' id='updateb' class='edit'>수정</a>"
-                   +"<a href='javascript:' id='deleteBtn' boardBno='"+ board.no +"' type='button' class='del'>삭제</a></p>"
-                   +"</div>")
-              .appendTo(article);
-            }
-    });
-  }    
+  </script>
+  
 </head>
+
+
+
 <body>
 <div id="header"></div>
 <div style="height:100px;"></div>
 
-<div id="container" style="min-height:700px;">
 
+<div id="container" style="min-height:800px;">
+<div style="margin:auto; border:1px black solid; width: 900px; height:100%;">
+
+<!-- Emblem -->
+<span><img src="../team/img/allstardefault.png"  style="width:300px;float:left;"></span> 
+<span style="float:left; margin-left: 55px; margin-top: 75px;"><h1>팀명</h1></span>
+<!-- 가입신청 알림 -->
+<div style="border:1px black solid; width:200px; float:right; height: 20px; margin:10px; padding:10px; text-align:center;">
+<a style="margin:auto;">대기중 가입 신청수 :  0 개  </a>
+</div>
+
+<!-- 회원 목록 -->
+<div style="border:1px black solid; width:480px; height: 400px; float:right; margin-top: 125px; overflow-y:auto;">
+<figure style=" width:150px; text-align:center; float: left;">
+<img id="img1" src="../team/img/allstardefault.png" style="width:150px; height:140px;">
+<figcaption >이름</figcaption>
+</figure>
+<figure style=" width:150px; text-align:center; float: left;">
+<img id="img1" src="../team/img/allstardefault.png" style="width:150px; height:140px;">
+<figcaption >이름</figcaption>
+</figure>
+<figure style=" width:150px; text-align:center; float: left;">
+<img id="img1" src="../team/img/allstardefault.png" style="width:150px; height:140px;">
+<figcaption >이름</figcaption>
+</figure>
+<figure style=" width:150px; text-align:center; float: left;">
+<img id="img1" src="../team/img/allstardefault.png" style="width:150px; height:140px;">
+<figcaption >이름</figcaption>
+</figure>
+<figure style=" width:150px; text-align:center; float: left;">
+<img id="img1" src="../team/img/allstardefault.png" style="width:150px; height:140px;">
+<figcaption >이름</figcaption>
+</figure>
+<figure style=" width:150px; text-align:center; float: left;">
+<img id="img1" src="../team/img/allstardefault.png" style="width:150px; height:140px;">
+<figcaption >이름</figcaption>
+</figure>
+</div>
+<!-- 회원 목록 끝 -->
+<div style="float:left; font-size:20px; padding: 50px;">
+<span style="display: inherit;"> 팀장 : ㄴㅇㄴㅇ </span><br>
+<span style="display: inherit;"> 정모일 : 월요일 </span><br>  <!-- 수정가능 -->
+<span style="display: inherit;"> 종목 : 축구 </span><br>
+<span style="display: inherit;"> 가입현황 : 10명 / 20명 </span><br> <!-- 수정가능 -->
+<span style="display: inherit;"> 전적 : 3승 1무 1패 </span><br>
+</div>
+
+
+<div style="float:left; width: 100%;">
+<span>연고지 : 주소주소주소</span>
+<img src="../team/img/allstardefault.png" style="width:420px; height:300px; float:right;"> 
+</div>
+
+</div>
 </div>
 
 <div id="footer"></div>    

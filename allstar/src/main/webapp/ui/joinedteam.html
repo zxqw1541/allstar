@@ -162,8 +162,11 @@ $("<p>")
 $.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo') ,function(resultObj){
 	var team = resultObj.ajaxResult.data;
 	var li = $('#team_information');
+	var emblem = team.emblem;
+	if(emblem == null)
+		emblem = "allstardefault.png";
 $("<p>")
-.html("<img style='width:350px; height:350px;' src='../team/img/"+team.emblem+"'><br>"
+.html("<img style='width:350px; height:350px;' src='../team/img/"+emblem+"'><br>"
 		+"<span> 팀명 : "+team.name+"</span><br> <span></span><br>"
 		+"<span> 장소 : "+ team.baseAddr +" </span><br> <span></span><br>"
 		+"<span> 정모일 : "+ team.meetDay +" </span><br>"

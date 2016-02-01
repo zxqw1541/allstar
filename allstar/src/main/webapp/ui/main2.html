@@ -43,8 +43,9 @@ function close_modal(modal_id){
        <a style='margin-right:10px;color:white;' href='#signin' rel='leanModal'>Sign In</a> 
 		     </span>
 		     <span id="logout" style="display:none;">
-		        <a style='color:white;' id='out' href=''>Log out</a>
+		       
         </span>
+        <span> <a style='color:white; margin-left:5px;' id='out' href=''>Log out</a></span>
           </div>
             <div id="cssmenu" >
               <nav >
@@ -197,7 +198,7 @@ function close_modal(modal_id){
 <div class="newest_team" id="newest_team">
 <div style="height:172px;"></div>
 <div>
-<h3 class="stit">신생 팀<p class="more" style="margin-top:20px;"><a href="teamList.html" class="sprBtn"style="float:left; margin-top: -7px;"></a><a href="boardList12.html" >더 보기</a></p></h3>
+<h3 class="stit">신생 팀<p class="more" style="margin-top:20px;"><a href="teamList.html" class="sprBtn"style="float:left; margin-top: -7px;"></a><a href="teamList.html" >더 보기</a></p></h3>
 </div>
 <div class="m_content" >
       <!-- container -->
@@ -365,6 +366,9 @@ var div = $('#photo_div');
             $("#login").hide();
             console.log(sessionStorage.getItem("loginSession"));
               var session_photo=sessionStorage.getItem("mem_photo");
+              console.log("main login photo : "+session_photo);
+              if(session_photo == null)
+                  session_photo = 'allstardefault.png';
               var session_id=sessionStorage.getItem("loginSession");
               var span = $("#logout");
               $("<img src='../member/img/"+session_photo+"' style='width: 70px; height: 70px;'>"
@@ -385,10 +389,11 @@ var div = $('#photo_div');
 	  console.log(sessionStorage.getItem("loginSession"));
 	    var session_id=sessionStorage.getItem("loginSession");
 	    var session_photo=sessionStorage.getItem("mem_photo");
+	    console.log("main check photo : "+session_photo);
 	    if(session_photo == null)
 	    	session_photo = 'allstardefault.png';
 	    var span = $("#logout");
-	    $("<img src='../member/img/"+session_photo+"' style='width: 70px; height: 70px;'>"
+	    $("<a href='Member_info.html'><img src='../member/img/"+session_photo+"' style='width: 70px; height: 70px;'></a>"
 	    +"<a style='margin-left:10px;color:white;'  href='Member_info.html'>"+session_id+"</a>")
         .appendTo(span);
         
