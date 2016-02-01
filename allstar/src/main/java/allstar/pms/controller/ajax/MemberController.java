@@ -134,7 +134,10 @@ public class MemberController {
     System.out.println("mno = "+ mno);
     System.out.println("eno = "+ eno);
 
-    likeEventService.register(new LikeEvent(mno, eno));
+    LikeEvent lk = new LikeEvent();
+    lk.setEno(eno);
+    lk.setMno(mno);
+    likeEventService.register(lk);
     
     return new AjaxResult("success", null);
   }
@@ -195,6 +198,17 @@ public class MemberController {
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("data", joinTeams);
+    return resultMap;
+  }
+  
+  @RequestMapping("likeEvent")
+  public Object getLikeEventListByMno(int mno) {
+    log.debug(mno);
+    List<LikeEvent> likeEvents = likeEventService.getLikeEventListByMno(mno);
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("data", likeEvents);
     return resultMap;
   }
   

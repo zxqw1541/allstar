@@ -7,10 +7,21 @@
     <resultMap type="likeEvent" id="likeEventMap">
       <id column="eno" property="eno" />
       <result column="mno" property="mno"/>
+      <association property="event" javaType="Event">
+      <id column="e_eno"        property="eno"/>
+      <result column="e_name"   property="name"/>
+    </association>
     </resultMap>
     
     <select id="selectList" resultMap="likeEventMap" parameterType="int">
       select eno from like_event where mno=#{mno} 
+    </select>
+    
+    <select id="selectListByMno" resultMap="likeEventMap" parameterType="int">
+      select e.name as e_name
+      from like_event le 
+        left outer join event e on le.eno = e.eno
+      where le.mno=#{mno}
     </select>
     
     <insert id="insert" parameterType="likeEvent">

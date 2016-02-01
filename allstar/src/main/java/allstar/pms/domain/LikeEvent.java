@@ -7,16 +7,8 @@ public class LikeEvent implements Serializable {
   
   protected int mno;
   protected int eno;
+  protected Event event;
   
-  public LikeEvent(int mno, int eno) {
-    this.mno = mno;
-    this.eno = eno;
-  }
-  
-  @Override
-  public String toString() {
-    return "Like_Event [mno=" + mno + ", eno=" + eno + "]";
-  }
   public int getMno() {
     return mno;
   }
@@ -29,6 +21,15 @@ public class LikeEvent implements Serializable {
   public void setEno(int eno) {
     this.eno = eno;
   }
-
-
+  public Event getEvent() {
+    return event;
+  }
+  public void setEvent(Event event) {
+    this.event = event;
+  }
+  @Override
+  public String toString() {
+    return "LikeEvent [mno=" + mno + ", eno=" + eno + ", event=" + event + "]";
+  }
+ 
 }

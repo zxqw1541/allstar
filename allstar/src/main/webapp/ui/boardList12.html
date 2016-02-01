@@ -36,7 +36,7 @@
 }
 .btn {
 width:170px;
-float:none; 
+float:right; 
 margin-left:4%;
 text-align:center;
 }
@@ -497,6 +497,17 @@ $('body').on('click','#boardtitle',function(event){
 		            }
 		         
 		      });
+	  $.getJSON('/allstar/member/ajax/likeEvent.do?mno=' + $(event.target).attr("boardMno"), function(resultObj) {
+		  var ajaxResult = resultObj;
+          if (ajaxResult.status == "success") {
+        	  console.log(ajaxResult.data);
+        	  var events = '';
+        	  for (var str of ajaxResult.data) {
+        		  events += str.event.name + ' ';
+        	  }
+        	  $("#likeevent").val(events);
+          }
+	  });
   }
 	</script>
 
