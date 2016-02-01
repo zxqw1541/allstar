@@ -26,4 +26,6 @@ public interface CompetitionService {
   Competition getJoinNTeamNum(int cno);
  
   int getLastAddCno();
+  
+  List<Competition> getCompListByMno(int mno);
 }
