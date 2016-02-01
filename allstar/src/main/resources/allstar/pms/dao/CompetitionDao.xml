@@ -175,6 +175,16 @@
     from competition;
   </select>
   
+  <select id="selectCompListByMno" resultMap="CompetitionMap" parameterType="int">
+    select c.cno, c.tno, c.bas_addr, c.eno, c.content, c.poster, c.name,
+           t.name as t_name, e.name as e_name
+    from competition c
+         left outer join event e on c.eno = e.eno
+         left outer join team t on c.tno = t.tno
+    where c.tno in 
+         (select tno from join_team where mno=#{mno} and level=1);
+  </select>
+  
   
   
 </mapper>

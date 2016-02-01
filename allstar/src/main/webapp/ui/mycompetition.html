@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/tos/comp.css" />
+<style>
+
+#apply_alert {
+border:1px black solid; 
+width:200px; 
+float:right; 
+height: 20px; 
+margin:10px; 
+padding:10px; 
+text-align:center;
+}
+#team_top img{
+width:300px;
+float:left;
+}
+#mem_list {
+border:1px black solid; 
+width:480px; 
+height: 400px; 
+float:right; 
+margin-top: 125px; 
+overflow-y:auto;
+}
+#mem_list figure{
+width:150px; 
+text-align:center; 
+float: left;
+}
+#mem_list img {
+width:150px; 
+height:140px;
+}
+
+
+#team_information span {
+font-size: 25px;
+margin:30px;
+}
+
+#member_photo {
+width:391px; 
+height:600px; 
+ border: 1px black solid; 
+float:right;
+overflow-y: auto;
+}
+
+#member_photo img {
+width:150px;
+height:155px;
+}
+
+#member_photo p {
+width:162px; 
+height:190px; 
+float: left; 
+margin-left: 22px;
+}
+#member_photo label {
+text-align:center;
+    color: indigo;
+    font-size: 20px;
+}
+
+#team_btfld {
+/* border: 1px black solid; */
+width:394px;
+height:280px;
+float:right;
+margin-top: 0px;
+}
+#team_information {
+width:380px; 
+height:923px; 
+/* border: 1px black solid; */
+}
+</style>
+<script src="js/test/modernizr.custom.js"></script>
+<script src="js/jquery-1.11.3.js"></script>
+</head>
+<body>
+<div>
+	<h2 style="text-align: center;">내가 개설한 대회</h2>
+	<div class="container demo-3">
+	  <ul class="grid cs-style-4" id="myteams" >
+	  <!-- 대회 리스트 들어갈 곳 -->
+		</ul>
+	
+		<!-- 디테일 화면 -->
+	  <div id="myTeamInfo_detail" style="display:none;margin:auto;  width: 900px; height:100%;">
+	
+		  <!-- Emblem -->
+		  <div id="team_top">
+		  </div>
+		
+			<!-- 가입신청 알림 -->
+			<div id="apply_alert" >
+			</div>
+		
+		
+			<!-- 회원 목록 -->
+			<div id="mem_list" >
+				<figure >
+				</figure>
+			</div>
+		  <!-- 회원 목록 끝 -->
+		
+		
+			<!-- 팀정보 -->
+			<div id="info" style="float:left; font-size:20px; padding: 50px;">
+			
+			</div>
+		
+		
+			<div id="place" style="float:left; width: 100%; font-size:20px;">
+			  <div id='map' style='width:500px;height:250px; float:right;'></div>
+		  </div>
+	  </div>
+	  <!-- 디테일 화면 끝 -->
+  </div>
+</div>
+	
+	
+<script>
+$.getJSON('../competition/complistm.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
+    $("myTeamInfo_detail").hide();
+    console.log(resultObj);
+	  var ul = $('#myteams');
+	  
+    if(resultObj.ajaxResult.status == "success"){
+	    console.log(resultObj.ajaxResult.data);
+	    for (var c of resultObj.ajaxResult.data){
+		    $("<li style='margin-left: 120px;'>")
+	        .html("<figure><div>"
+	            +"<img src='../competition/img/"+ c.poster + "' style='width:300px;' alt='"+ c.name+"'></div>"
+	            +"<figcaption>"
+	            +"<h3>" + c.name + "</h3>"
+	            +"<span>개최팀 : " + c.team.name + "</span><br>"
+	            +"<span >개최지 : " + c.baseAddr + " </span><br>"
+	            +"<span >종목 : "+ c.event.name + " </span><br>"
+	            +"<span>내용 : "+ c.content + "</span><br>"
+	                  +"<a id='myteam_info" + c.cno + "' href='javascript:;' teamNo='" + c.no + "'>대회 정보 보기</a>"
+	            +"</figcaption></figure></li>"
+	        ).appendTo(ul);
+	    }
+    }
+});
+</script>
+
+
+</body>
+</html>

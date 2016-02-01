@@ -274,7 +274,7 @@ public class CompetitionController {
   
   @RequestMapping(value="commlist", method=RequestMethod.GET)
   public AjaxResult getCompCommList(int cno){
-    log.debug(compCommService.getCompCommListByComp(cno));
+    log.debug(cno);
     
     return new AjaxResult("success", compCommService.getCompCommListByComp(cno));
   }
@@ -284,6 +284,14 @@ public class CompetitionController {
     log.debug(comm);
     compCommService.register(comm);
     return new AjaxResult("success", compCommService.getLastCommByComp(comm.getCno()));
+  }
+  
+  @RequestMapping(value="complistm", method=RequestMethod.GET)
+  public AjaxResult getCompCommListByMno(int mno){
+    log.debug(mno);
+    log.debug(competitionService.getCompListByMno(mno));
+    
+    return new AjaxResult("success", competitionService.getCompListByMno(mno));
   }
   
 }

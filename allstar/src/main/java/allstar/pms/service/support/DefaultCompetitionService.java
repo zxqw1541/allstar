@@ -83,4 +83,9 @@ public class DefaultCompetitionService implements CompetitionService {
     return competitionDao.selectMaxCno();
   }
 
+  @Override
+  public List<Competition> getCompListByMno(int mno) {
+    return competitionDao.selectCompListByMno(mno);
+  }
+
 }
