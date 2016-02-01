@@ -569,6 +569,10 @@ var load_detail_func = function(){
 	    	      } else {
 	    	    	  $('.captainForm').css('display', 'none');
 	              $('.applyForm').css('display', '');
+		            if (ajaxResult.data.totalNum == ajaxResult.data.joinNum) {
+		            	$('.captainForm').css('display', 'none');
+		              $('.applyForm').css('display', 'none');
+		            }
 	            }
             }
     	

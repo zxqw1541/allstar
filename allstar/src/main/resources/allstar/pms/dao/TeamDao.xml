@@ -140,6 +140,13 @@
 		  bas_addr=#{baseAddr}
 		where tno=#{tno}
 	</update>
+	
+	 <update id="joinCount" parameterType="int">
+    update team set
+      join_num=join_num+1
+    where tno=#{tno}
+  </update>
+	
 
 	<select id="selectOne" resultMap="teamMap" parameterType="int">
 		<include refid="select_inc" />
@@ -161,5 +168,5 @@
 	       left outer join join_team jt on t.tno = jt.tno
 	  where t.eno = #{eno} and jt.mno = #{mno} and jt.level = 1 
 	</select>
-	
+
 </mapper>
