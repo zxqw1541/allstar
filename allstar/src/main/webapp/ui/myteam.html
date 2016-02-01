@@ -5,6 +5,39 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/tos/comp.css" />
 <style>
+
+#apply_alert {
+border:1px black solid; 
+width:200px; 
+float:right; 
+height: 20px; 
+margin:10px; 
+padding:10px; 
+text-align:center;
+}
+#team_top img{
+width:300px;
+float:left;
+}
+#mem_list {
+border:1px black solid; 
+width:480px; 
+height: 400px; 
+float:right; 
+margin-top: 125px; 
+overflow-y:auto;
+}
+#mem_list figure{
+width:150px; 
+text-align:center; 
+float: left;
+}
+#mem_list img {
+width:150px; 
+height:140px;
+}
+
+
 #team_information span {
 font-size: 25px;
 margin:30px;
@@ -50,7 +83,7 @@ height:923px;
 </style>
 <script src="js/test/modernizr.custom.js"></script>
 <script src="js/jquery-1.11.3.js"></script>
-
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
 </head>
 <body>
 
@@ -63,7 +96,7 @@ height:923px;
 
 			</ul>
 
-      <div id="myTeamInfo_detail" style="margin:auto;  width: 900px; height:100%;">
+      <div id="myTeamInfo_detail" style="display:none;margin:auto;  width: 900px; height:100%;">
 
 <!-- Emblem -->
 <div id="team_top">
@@ -85,16 +118,11 @@ height:923px;
 
 <!-- 팀정보 -->
 <div id="info" style="float:left; font-size:20px; padding: 50px;">
-<span style="display: inherit;"> 팀장 : ㄴㅇㄴㅇ </span><br>
-<span style="display: inherit;"> 정모일 : 월요일 </span><br>  <!-- 수정가능 -->
-<span style="display: inherit;"> 종목 : 축구 </span><br>
-<span style="display: inherit;"> 가입현황 : 10명 / 20명 </span><br> <!-- 수정가능 -->
-<span style="display: inherit;"> 전적 : 3승 1무 1패 </span><br>
+
 </div>
 
 
 <div id="place" style="float:left; width: 100%; font-size:20px;">
-<span >연고지 : 서울 양천구 목동동로 363 (목동, 파리공원)</span>
 <div id='map' style='width:500px;height:250px; float:right;'></div>
 </div>
       </div>
@@ -159,13 +187,15 @@ $.getJSON('../member/ajax/memberJoin.do?mno=' +sessionStorage.getItem("mem_num")
 
 
 function myTeamInfo(event){
+	console.log("dsd 되되되");
 	var captain = null;
-	$("myteams").hide();
-	$("myTeamInfo_detail").show();
+	$("#myteams").hide();
+	$("#myTeamInfo_detail").show();
 $.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), function(resultObj) {
 	var ajaxResult = resultObj.ajaxResult;
+	console.log($(event.target).attr('teamNo'));
 	var team = ajaxResult.data;
-	var div =$("team_top");
+	var div =$("#team_top");
 	$("<span>")
 	.html("<img src='../team/img/"+team.emblem+"'  ></span> "
 	    +"<span style='float:left; margin-left: 55px; margin-top: 75px;'><h1>"+team.name+"</h1></span>")
@@ -180,13 +210,13 @@ $.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), functi
 	if(joinTeam.level == 1)
 		captain=joinTeam.member.name;
 	}
-	var div = $("apply_alert");
+	var div = $("#apply_alert");
 	$("<a style='margin:auto;'>")
 	.html("대기중 가입 신청수 : " + waiting + "개  </a>").appendTo(div);
 
 	for(var joinTeam of resultObj.data){
 	  if(joinTeam.state == 1) {
-	var div = $("mem_list") ;
+	var div = $("#mem_list") ;
 	$("<figure >")
 	.html("<img src='../team/img/"+joinTeam.member.photo+"' >"
 	+"<figcaption >"+joinTeam.member.name+"</figcaption>"
@@ -198,7 +228,7 @@ $.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), functi
 	$.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), function(resultObj) {
 		var ajaxResult = resultObj.ajaxResult;
 		  var team = ajaxResult.data;
-		  var div = $("info");
+		  var div = $("#info");
 		  $("<span style='display: inherit;'>")
 		  .html("팀장 : "+captain+" </span><br>"
 				  + "<span style='display: inherit;'> 정모일 : "+team.meetDay+" </span><br>"
@@ -206,61 +236,63 @@ $.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), functi
 				  +"<span style='display: inherit;'> 가입현황 : "+team.joinNum+"명 / "+team.totalNum+"명 </span><br>"
 				  +"  <span style='display: inherit;'> 전적 : "+team.win+"승 "+team.draw+"무 "+team.lose+"패 </span><br>"
 				  ).appendTo(div);
-		  var div=$("place");
+		  
+		  var div=$("#place");
 	$("<span >")
-	.html("연고지 : "+team.baseAddr+"</span>"
-	+"<div id='map' style='width:500px;height:250px; float:right;'></div>")
+	.html("연고지 : "+team.baseAddr+"</span>")
 	.appendTo(div);
 
-	daumMap(team.baseAddr);
+	 daumMap(team.baseAddr); 
 	
 	});
-	/* 다음 지도 */
-	function daumMap(site) {
-	  // 키워드로 장소를 검색합니다
-	  console.log('주소');
-	  console.log(site);
-	  if (site.indexOf('(') != -1){
-	      site = site.split('(')[0];
-	      console.log(site);
-	  }
-	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	    mapOption = {
-	        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        level: 3 // 지도의 확대 레벨
-	    };  
+	
+}
 
-	// 지도를 생성합니다    
-	var map = new daum.maps.Map(mapContainer, mapOption); 
+/* 다음 지도 */
+function daumMap(site) {
+  // 키워드로 장소를 검색합니다
+  console.log('주소');
+  console.log(site);
+  if (site.indexOf('(') != -1){
+      site = site.split('(')[0];
+      console.log(site);
+  }
+  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
 
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new daum.maps.services.Geocoder();
+// 지도를 생성합니다    
+var map = new daum.maps.Map(mapContainer, mapOption); 
 
-	// 주소로 좌표를 검색합니다
-	geocoder.addr2coord(site, function(status, result) {
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new daum.maps.services.Geocoder();
 
-	    // 정상적으로 검색이 완료됐으면 
-	     if (status === daum.maps.services.Status.OK) {
-	        console.log("-----------------")
-	        console.log(result.addr[0].lat);
-	        console.log(result.addr[0].lng);
-	        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+// 주소로 좌표를 검색합니다
+geocoder.addr2coord(site, function(status, result) {
 
-	        // 결과값으로 받은 위치를 마커로 표시합니다
-	        var marker = new daum.maps.Marker({
-	            map: map,
-	            position: coords
-	        });
-	        // 지도 중심을 변경한다.
-	        map.setCenter(coords);
-	        // 인포윈도우로 장소에 대한 설명을 표시합니다
-	        var infowindow = new daum.maps.InfoWindow({
-	            content: '<div style="padding:5px;">' + site + '</div>'
-	        });
-	        infowindow.open(map, marker);
-	    } 
-	});    
-	}
+    // 정상적으로 검색이 완료됐으면 
+     if (status === daum.maps.services.Status.OK) {
+        console.log("-----------------")
+        console.log(result.addr[0].lat);
+        console.log(result.addr[0].lng);
+        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new daum.maps.Marker({
+            map: map,
+            position: coords
+        });
+        // 지도 중심을 변경한다.
+        map.setCenter(coords);
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new daum.maps.InfoWindow({
+            content: '<div style="padding:5px;">' + site + '</div>'
+        });
+        infowindow.open(map, marker);
+    } 
+});    
 }
 </script>
 
