@@ -10,8 +10,6 @@
 
 
 <link rel="stylesheet" href="css/tos/tos.css" />
-<link rel="Shortcut Icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
-<link rel="icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 
 <style>
 #lean_overlay {
@@ -56,7 +54,7 @@ $(function(){
 });
 
 $(function() {
-    $('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });   
+    $('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });
 });
 
 </script> 
@@ -142,6 +140,9 @@ $(function() {
 
 
 <script>
+$('body').on('click', '#mInfo', function(){
+	$('#contents').css('display', 'none');
+});
 getParameter = function(name) {
     search = location.href;
     if (!search || search.indexOf("?") == -1) {
@@ -321,7 +322,7 @@ $('body').on('click','#boardtitle',function(event){
                   + "</p><p class='lvs'><span class='lv'>"+ board.event.name + "</span></p></div></div>")
                   .appendTo(aside);
             $("<div class='btnArea'>")
-            .html("<p class='btnHome'><a id='mInfo' boardMno='"+ board.member.mno + "'style='margin-left:0%;' class='btn btnType5'>회원정보보기</a></p>"
+            .html("<p class='btnHome'><a id='mInfo' boardMno='"+ board.member.mno + "'style='margin-left:0%;' rel='leanModal1' href='#mem_info' class='btn btnType5'>회원정보보기</a></p>"
                   + "<div class='btm clearFix' style='margin-left:0%'>"
                   + "<a style='margin-left:0%' rel = 'leanModal' href='#newWrite' id='newB' class='btn btnType6 btnWrite'>글쓰기</a>"
                   + "<a href='../ui/boardList12.html' style='margin-left:0%' id='btnArticleList' class='btn btnType6 btnList'>목록</a>"
@@ -348,9 +349,8 @@ $('body').on('click','#boardtitle',function(event){
             $("#mInfo").click(clickMemInfo);
             $("#deleteBtn").click(clickDel);
             $("#updateb").click(clickUpdate);
-            $("#mInfo").click(clickMemInfo);
             $('#newB').click(clickNewWrite);
-            
+            $('a[rel*=leanModal1]').leanModal({ top : 200, closeButton: ".modal_close" });
                       
        var div = $(".bbsReply");
       $("<fieldset class='commentWrite' style='width:800px; margin-left: 50px;'>")
@@ -448,6 +448,35 @@ $('body').on('click','#boardtitle',function(event){
 		$('#mem_info').empty();
 	  $.getJSON('/allstar/member/ajax/detail.do?mno=' + $(event.target).attr("boardMno"), function(resultObj) {
 		  console.log("edddd");
+		  var form = ("#mem_info");
+          $("<form id='detail_mem' method='post' style='margin:10%;' enctype='multipart/form-data'>")
+          .html("<div style='border-bottom:1px gray solid;'>"
+               +"<h2>회원정보</h2></div>"
+               +"<div style='margin-top:20px;'>"
+               +"<input id='fdphoto' type='hidden'/>"
+               +"<label for='fname' style='margin-top:5px;'>이름  </label>"
+               +"<input type='text' id='fname' placeholder='이름' style='margin-top:5px;'><img id='detail_preview_img' style='width:100px; float:right; /* margin-right:10%; */' src='#'/><br>"
+               +"<label for='femail' style='margin-top:10px;'>이메일  </label>"
+               +"<input type='email' id='femail' placeholder='email@email.com' style='margin-top:10px;'><br>"
+               +"<label for='fbas_addr' style='margin-top:10px;'>주소</label><br>"
+               +"<input type='text' id='fbas_addr' style='width:400px;' placeholder='한글주소'><br>"
+               +"<input type='text' id='sample2_addressEnglish' style='width:400px;' placeholder='영문주소'><br>"
+               +"</div>"
+               +"<div id='genderfld'  style='margin-top:10px;'>"
+               +"<label for='fgender'>성별  </label>"
+               +"<input type='text' id='fgender'><br>"
+               +"</div>"
+               +"<label for='fage' style='margin-top:10px;'>나이  </label>"
+               +"<input type='number' id='fage'  style='margin-top:10px;'>"
+               +"<div  style='margin-top:10px;'>"
+               +"<label for='likeevent'>관심종목  </label>"
+               +"<input type='text' id='likeevent'>"
+               +"</div>"
+               +"<div style='margin-top:10px;'>"
+               +"<label for='fintroduce'>자기소개</label><br>"
+               +"<textarea rows='10' cols='50' id='fintroduce' placeholder='자기소개..'></textarea>"
+               +"</div>")
+          .appendTo(form);
 		        var ajaxResult = resultObj.ajaxResult;
 		        if (ajaxResult.status == "success") {
 		          var member = ajaxResult.data;
@@ -466,35 +495,7 @@ $('body').on('click','#boardtitle',function(event){
 		              else
 		                $('#detail_preview_img').attr('src', '../member/img/allstardefault.png');
 		            }
-		        var form = ("#mem_info");
-		        $("<form id='detail_mem' method='post' enctype='multipart/form-data'>")
-		        .html("<div style='border-bottom:1px gray solid;'>"
-		        		 +"<h2>회원정보</h2></div>"
-		        		 +"<div style='margin-top:20px;'>"
-		             +"<input id='fdphoto' type='hidden'/>"
-		             +"<label for='fname' style='margin-top:5px;'>이름</label>"
-		             +"<input type='text' id='fname' placeholder='이름' style='margin-top:5px;'><img id='detail_preview_img' style='width:100px; float:right;' src='#'/><br>"
-		             +"<label for='femail' style='margin-top:10px;'>이메일</label>"
-		             +"<input type='email' id='femail' placeholder='email@email.com' style='margin-top:10px;'><br>"
-		             +"<label for='fbas_addr' style='margin-top:10px;'>주소</label><br>"
-		             +"<input type='text' id='fbas_addr' placeholder='한글주소'><br>"
-		             +"<input type='text' id='sample2_addressEnglish' placeholder='영문주소'><br>"
-		             +"</div>"
-		             +"<div id='genderfld'  style='margin-top:10px;'>"
-		             +"<label for='fgender'>성별</label>"
-		             +"<input type='text' id='fgender'><br>"
-		             +"</div>"
-		             +"<label for='fage' style='margin-top:10px;'>나이</label>"
-		             +"<input type='number' id='fage'  style='margin-top:10px;'>"
-		             +"<div  style='margin-top:10px;'>"
-		             +"<label for='like_event'>관심종목</label>"
-		             +"<input type='text' id='like_event'>"
-		             +"</div>"
-		             +"<div style='margin-top:10px;'>"
-		             +"<label for='fintroduce'>자기소개</label><br>"
-		             +"<textarea rows='10' cols='40' id='fintroduce' placeholder='자기소개..'></textarea>"
-		             +"</div>")
-		        .appendTo(form); 
+		         
 		      });
   }
 	</script>
@@ -734,8 +735,8 @@ function clickEnd() {
 </div>
 <!-- 새 글 작성 끝 -->
 <!-- 회원정보보기 시작 -->
-<section id="mem_info" style="display:none; width:400px; height:700px; background-color:white; border:2px black solid; font-weight:900; margin-left:auto; margin-right:auto; padding:30px;">
-</section>
+<section id="mem_info" style='display:none; background-color: white; width:650px; margin:auto; overflow-y: auto;'>
+</section>   <!-- style="display:none; width:400px; height:700px; background-color:white; border:2px black solid; font-weight:900; margin-left:auto; margin-right:auto; padding:30px;" -->          
 <!-- 회원정보보기 끝 -->
 <div id="footer"></div>
 

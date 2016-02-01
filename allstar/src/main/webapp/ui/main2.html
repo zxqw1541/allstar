@@ -45,7 +45,7 @@ function close_modal(modal_id){
 		     <span id="logout" style="display:none;">
 		       
         </span>
-        <span> <a style='color:white; margin-left:5px;' id='out' href=''>Log out</a></span>
+        <span> <a id="logout2" style='display:none; color:white; margin-left:5px;' id='out' href=''>Log out</a></span>
           </div>
             <div id="cssmenu" >
               <nav >
@@ -223,11 +223,7 @@ function close_modal(modal_id){
 
 
 
-<!-- footer start -->
-<footer>
-<img src="images/allstar.png" >
-</footer>
-<!-- footer end -->
+
 </div>
 
 
@@ -363,6 +359,7 @@ var div = $('#photo_div');
             sessionStorage.setItem('mem_photo',photoSession);
             close_modal("#signup");
             $("#logout").show();
+            $("#logout2").show();
             $("#login").hide();
             console.log(sessionStorage.getItem("loginSession"));
               var session_photo=sessionStorage.getItem("mem_photo");
@@ -385,6 +382,7 @@ var div = $('#photo_div');
   $(document).ready( function() {
   if (sessionStorage.getItem("loginSession") != undefined) {
 	  $("#logout").show();
+	  $("#logout2").show();
 	  $("#login").hide();
 	  console.log(sessionStorage.getItem("loginSession"));
 	    var session_id=sessionStorage.getItem("loginSession");
@@ -400,6 +398,7 @@ var div = $('#photo_div');
   }else {
 	  $("#login").show();
 	  $("#logout").hide();
+	  $("#logout2").hide();
 
   }
 }); 
@@ -408,6 +407,7 @@ var div = $('#photo_div');
 	    $.session.clear();
 	  $("#login").show();
 	  $("#logout").hide();
+	  $("#logout2").hide();
 	  location.reload();
 	  
   });
@@ -551,5 +551,10 @@ var div = $('#photo_div');
     
 
     </script>
+    <!-- footer start -->
+<footer>
+<img src="images/allstar.png" >
+</footer>
+<!-- footer end -->
 </body>
 </html>

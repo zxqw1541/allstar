@@ -171,16 +171,8 @@
 <script type='text/javascript' src='../lib/jquery-bracket/jquery.bracket.min.js'></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
 <script>
-function saveFn(data, userData) {
-    var json = jQuery.toJSON(data)
-    $('#saveOutput').text('POST '+userData+' '+json)
-    /* You probably want to do something like this
-    jQuery.ajax("rest/"+userData, {contentType: 'application/json',
-                                  dataType: 'json',
-                                  type: 'post',
-                                  data: json})
-    */
-  }
+
+ 
 
 var no = -1;
 var eno = -1;
@@ -232,7 +224,11 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
           + "  <h2> 대진표</h2>"
           + "  <div id='minimal'>"
           + "    <div class='demo'></div>"
-          + "  </div>"      
+          + "  </div><br>"      
+          + "  <div id='tour_btn' class='btn-fld1' style='margin-bottom: 250px; margin-top: 250px;'>"
+          + "    <button id='randomTour' type='button'>랜덤</button>"
+          + "    <button id='enrollTour' type='button'>등록</button></div><br><br>"
+          + "  <div id='minimal'>"
           + "  <h2> 장소</h2>"
           + "  <p>"+ c.baseAddr + "</p>"
           + "  <div class='div_left_map'>"
@@ -240,11 +236,13 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
           + "  </div>"
           + "</div>";
       sub_article.append(detail);
+      window.operation = c.operation;
       $('#sideInfoJoinTeam').text('(' + c.joinNum + '/' + c.teamNum + ')');
 
       getFormData(); // 대회신청 폼
           
-      $('#minimal .demo').bracket({init: JSON.parse(c.operation) });
+      $('#minimal .demo').bracket({init: JSON.parse(c.operation)});
+
       daumMap(c.baseAddr);
     }
 
@@ -478,8 +476,6 @@ $.getJSON('../competition/commlist.do?cno='+ no , function(resultObj) {
 });
 </script>
 
-
-
 <!-- 참가하기 (서버 요청) -->
 <script>
 $('body').on('click','#applyTeamBtn', function() {
@@ -696,6 +692,97 @@ else if(sessionStorage.getItem("mem_num")){
 <!-- 대회 참여 모달 등록 -->
 <script>
 $('a[rel*=leanModal]').leanModal({ closeButton: ".close_btn" });
+</script>
+
+<!-- 대진표 랜덤 -->
+<script>
+$('body').on('click','#randomTour', function() {
+  var container = $('div#save .demo');
+	var teams = JSON.parse(window.operation).teams;
+	
+	var originArray = [];
+	var count = 0;
+	
+	for (var i = 0; i < teams.length; i++) {
+		for (var j = 0; j < teams[i].length; j++) {
+			originArray[count] = teams[i][j];
+			count++;
+		}
+	}
+	
+	originArray = shuffleArray(originArray);
+	
+	var newArray = [];
+	var count = 0;
+
+	if (originArray.length == 2) {
+		newArray[0] = originArray.slice(0,2);
+	} else {
+		for (var k = 0; k < originArray.length - 1; k+=2) {
+			newArray[count] = originArray.slice(k, k+2);
+			count++;
+		}
+	}	
+	
+	var originResults = JSON.parse(window.operation).results;
+	
+	window.newTour = {
+		      teams : newArray,
+		      results : originResults
+		    }
+	
+	$('#minimal .demo').bracket({init: window.newTour});
+	
+});
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
+</script>
+
+<!-- 대진표 등록 -->
+<script>
+var no = location.href.split('?')[1].split('=')[1];
+
+$('body').on('click','#enrollTour', function() {
+  var data = new FormData();
+
+  data.append('no', no);
+  
+  if (window.newTour == undefined) {
+	  data.append('operation', JSON.stringify(window.operation));
+  } else {
+    data.append('operation', JSON.stringify(window.newTour));
+  }
+  
+  $.ajax({
+      url : "../competition/updateTour.do",
+      data : data,
+      type : "POST",
+      dataType: "json",
+      processData: false, 
+      contentType:false,
+      success : function(result) {
+      if (result.ajaxResult.status == "success") {
+        alert("대진표 변경 완료!");
+        location.href = "/allstar/ui/competitionDetail.html?no=" + no;
+      } else {
+          alert("대진표 변경 실패!");
+     }
+   },
+   error : function(result){
+      alert('error');
+   }
+ });
+  
+});
 </script>
 
 </body>

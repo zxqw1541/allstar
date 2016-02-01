@@ -1,0 +1,93 @@
+
+#apply_state{
+float:left;
+}
+#apply_state span {
+margin-right:20px;
+}
+#apply_state ul {
+margin-left:50px;
+min-height:50px; 
+border:1px black solid;
+padding:10px;
+width: 500px;
+}
+#apply_state li {
+border:1px black solid;
+}
+
+#apply_alert {
+border:1px black solid; 
+width:200px; 
+float:right; 
+height: 20px; 
+margin:10px; 
+padding:10px; 
+text-align:center;
+}
+#team_top img{
+width:300px;
+float:left;
+}
+#mem_list {
+border:1px black solid; 
+width:480px; 
+height: 400px; 
+float:right; 
+margin-top: 125px; 
+overflow-y:auto;
+}
+#mem_list figure{
+width:150px; 
+text-align:center; 
+float: left;
+}
+#mem_list img {
+width:150px; 
+height:140px;
+}
+
+
+
+#team_information span {
+font-size: 25px;
+margin:30px;
+}
+
+#member_photo {
+width:391px; 
+height:600px; 
+ border: 1px black solid; 
+float:right;
+overflow-y: auto;
+}
+
+#member_photo img {
+width:150px;
+height:155px;
+}
+
+#member_photo p {
+width:162px; 
+height:190px; 
+float: left; 
+margin-left: 22px;
+}
+#member_photo label {
+text-align:center;
+    color: indigo;
+    font-size: 20px;
+}
+
+#team_btfld {
+/* border: 1px black solid; */
+width:394px;
+height:280px;
+float:right;
+margin-top: 0px;
+}
+#team_information {
+width:380px; 
+height:923px; 
+/* border: 1px black solid; */
+}

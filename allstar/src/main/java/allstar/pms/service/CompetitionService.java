@@ -15,6 +15,8 @@ public interface CompetitionService {
   
   int change(Competition competition);
   
+  int changeTournament(int no, String operation);
+  
   Competition retrieve(int no);
   
   int countAllCompetition(String event, String addr, String search1, String search2);

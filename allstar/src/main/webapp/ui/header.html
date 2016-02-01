@@ -35,8 +35,9 @@ function close_modal(modal_id){
        <a style='margin-right:10px;color:white;' href='#signin' rel='leanModal'>Sign In</a>
          </span>
          <span id="logout" style="display:none;">
-            <a style='color:white;' id='out' href=''>Log out</a>
+           
         </span>
+            <span> <a id="logout2" style='display:none; color:white; margin-left:5px;' id='out' href=''>Log out</a></span>
             </div>
             <div id="cssmenu" >
               <nav >
@@ -168,6 +169,7 @@ function close_modal(modal_id){
             console.log("success");
             close_modal("#signup");
             $("#logout").show();
+            $("#logout2").show();
             $("#login").hide();
             console.log(sessionStorage.getItem("loginSession"));
             var session_photo=sessionStorage.getItem("mem_photo");
@@ -191,6 +193,7 @@ function close_modal(modal_id){
   $(document).ready( function() {
   if (sessionStorage.getItem("loginSession") != undefined) {
     $("#logout").show();
+    $("#logout2").show();
     $("#login").hide();
     console.log(sessionStorage.getItem("loginSession"));
     var session_photo=sessionStorage.getItem("mem_photo");
@@ -206,6 +209,7 @@ function close_modal(modal_id){
   }else {
     $("#login").show();
     $("#logout").hide();
+    $("#logout2").hide();
 
   }
 }); 
@@ -216,6 +220,7 @@ function close_modal(modal_id){
     
     $("#login").show();
     $("#logout").hide();
+    $("#logout2").hide();
     location.reload();
   });
   
