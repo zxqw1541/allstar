@@ -242,12 +242,10 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
       sub_article.append(detail);
       $('#sideInfoJoinTeam').text('(' + c.joinNum + '/' + c.teamNum + ')');
 
-          console.log($('#minimal .demo'));
+      getFormData(); // 대회신청 폼
           
-          getFormData(); // 대회신청 폼
-          
-         $('#minimal .demo').bracket({init: JSON.parse(c.operation) });
-          daumMap(c.baseAddr);
+      $('#minimal .demo').bracket({init: JSON.parse(c.operation) });
+      daumMap(c.baseAddr);
     }
 
   });

@@ -110,8 +110,8 @@ $(function() {
           </select>
           <select id="creply" onchange="sorting()">
               <option value='-1'>댓글</option>
-              <option value='low'>많은순</option>
-              <option value='high'>적은순</option>
+              <option value='high'>많은순</option>
+              <option value='low'>적은순</option>
           </select>
         </form>
           </div>
@@ -212,7 +212,6 @@ getParameter = function(name) {
   var checkSerach2 = location.href.indexOf('search2');
   
   if (checkPageNo!= -1) pageNo = getParameter('pageNo');
-   
   url = '/allstar/competition/list.do?pageSize=' + pageSize + '&pageNo=' + pageNo;
   
   if (location.href.indexOf('&') != -1) {
@@ -426,13 +425,6 @@ function search() {
       // 대회명
       if (select == '1') {
         var url = updateURLParameter(location.href, 'pageNo', 1);
-        /*
-        if (location.href.indexOf('event') != -1) url = removeParam("event", url);
-        if (location.href.indexOf('addr') != -1) url = removeParam("addr", url);
-        if (location.href.indexOf('recruit') != -1) url = removeParam("recruit", url);
-        if (location.href.indexOf('start') != -1) url = removeParam("start", url);
-        if (location.href.indexOf('reply') != -1) url = removeParam("reply", url);
-        */
       
         if (location.href.indexOf('search1') == -1) {
           if (location.href.indexOf('search2') == -1) {

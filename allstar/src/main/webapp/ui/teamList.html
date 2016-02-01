@@ -494,7 +494,7 @@ $(document).ready(function() {
                                   "<div class='post-info'>" + 
                                   "<div class='post-basic-info'>" + 
                                   "<h3>" + team.name + "</h3><span>" +
-                                  "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
+                                  "<a href='#'><label></label>" + "by " + team.captain + "</a></span>" +
                                   "<p><br>" + team.event.name + "</p>" +
                                   "<p>" + team.baseAddr + "</p>" + 
                                    "<p>" + team.joinNum + " / " + team.totalNum +
@@ -535,18 +535,23 @@ var load_detail_func = function(){
     var fdemblem = '<input type="file" class="form-control" id="fdemblem" onchange="fileSelected()">';
     $('#deatil_emblem_div').append(fdemblem);
     
-    if (sessionStorage.getItem("mem_num") != undefined) {
-      $('.captainForm').css('display', 'none');
-      $('.applyForm').css('display', '');
-    } else {
-      $('.captainForm').css('display', '');
-      $('.applyForm').css('display', 'none');
-    }
-    
     //삭제 추가 코드 넣기
     var tno = $(this).attr('teamList');
     $.getJSON('../team/ajax/detail.do?tno=' + tno, function(resultObj) {
             var ajaxResult = resultObj.ajaxResult;
+            if (sessionStorage.getItem("mem_num") == undefined) {
+                $('.captainForm').css('display', 'none');
+                $('.applyForm').css('display', 'none');
+            } else {
+            	if (sessionStorage.getItem("mem_num") == ajaxResult.data.joinTeam.mno) {
+	    	    	  $('.captainForm').css('display', '');
+	    	        $('.applyForm').css('display', 'none');    	    	  
+	    	      } else {
+	    	    	  $('.captainForm').css('display', 'none');
+	              $('.applyForm').css('display', '');
+	            }
+            }
+    	
             if (ajaxResult.status == "success") {
               var team = ajaxResult.data;
               
@@ -670,7 +675,7 @@ var load_detail_func = function(){
                   "<div class='post-info'>" + 
                   "<div class='post-basic-info'>" + 
                   "<h3>" + team.name + "</h3><span>" +
-                  "<a href='#'><label></label>" + "by 팀장" + "</a></span>" +
+                  "<a href='#'><label></label>" + "by " + team.captain + "</a></span>" +
                   "<p><br>" + team.event.name + "</p>" +
                   "<p>" + team.baseAddr + "</p>" +
                   "<p>" + team.joinNum + " / " + team.totalNum + 
@@ -857,7 +862,7 @@ $(document).on('click', '#newBtn', function (event) {
           if($('#faform').val() != "")
               data.append('aForm', $('#faform').val());
           
-          data.append('mno', $('#fmno').val());
+          data.append('mno', window.mem_num);
           data.append('eno', $('#fevent').val());
           data.append('name', $('#fname').val());
           data.append('totalNum', $('#ftotalnum').val());

@@ -163,14 +163,33 @@ public class MemberController {
   }
   
   @RequestMapping("memberJoin")
-  public Object getJoinTeamM(int mno){
+  public Object getJoinTeam(int mno){
     System.out.println("memberjoin : "
         + mno);
     List<JoinTeam> joinTeams = joinTeamService.getJoinTeamByMember(mno);
+    
     System.out.println("-----------------------------------------------------------------");
     for(JoinTeam jt: joinTeams)
       System.out.println(jt);
     System.out.println("-----------------------------------------------------------------");
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("data", joinTeams);
+    return resultMap;
+  }
+  
+  @RequestMapping("memberJoined")
+  public Object getJoinedTeam(int mno){
+    List<JoinTeam> joinTeams = joinTeamService.getJoinTeamByMember(mno);
+    
+    System.out.println("-----------------------------------------------------------------");
+    for(JoinTeam jt: joinTeams) {
+      List<JoinTeam> captain = joinTeamService.getCaptainTeamByMember(jt.getTno());
+      for(JoinTeam ct: captain)
+        jt.setMember(ct.getMember());
+    }
+    System.out.println("-----------------------------------------------------------------");
+    
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("data", joinTeams);
