@@ -165,7 +165,11 @@ $(function() {
 <script>
 $('#newBtn').on('click', function(event){
     event.preventDefault();
-    location.href = 'competitionForm.html?no=-1';  
+    if (sessionStorage.getItem("mem_num") == undefined) {
+    	alert("로그인 후 이용 가능합니다!");
+    } else {
+	    location.href = 'competitionForm.html?no=-1';  
+    }
   });
 </script>
 
