@@ -21,6 +21,11 @@
 $(function() {
     $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
 });
+
+function close_modal(modal_id){
+    $("#lean_overlay").fadeOut(200);
+  $(modal_id).css({"display":"none"})
+                        }
 </script>
 <script> 
 $(function(){
