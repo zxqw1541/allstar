@@ -185,8 +185,8 @@ public class MemberController {
   }
   
   @RequestMapping("changeState")
-  public AjaxResult changeState(int mno){
-    joinTeamService.changeState(mno);
+  public AjaxResult changeState(JoinTeam joinTeam){
+    joinTeamService.changeState(joinTeam);
     
     return new AjaxResult("success", null) ;
   }

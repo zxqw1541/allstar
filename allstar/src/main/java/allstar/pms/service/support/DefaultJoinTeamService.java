@@ -43,8 +43,8 @@ public class DefaultJoinTeamService implements JoinTeamService {
   }
   
   @Override
-  public int changeState(int mno) {
-    return joinTeamDao.updateState(mno);
+  public int changeState(JoinTeam joinTeam) {
+    return joinTeamDao.updateState(joinTeam);
   }
  
   @Override
