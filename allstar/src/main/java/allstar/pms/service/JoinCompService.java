@@ -17,4 +17,6 @@ public interface JoinCompService {
   int retrive(JoinComp joinComp);
   
   List<Integer> getTnoList(int cno);
+  
+  String getContent(int tno, int cno);
 }

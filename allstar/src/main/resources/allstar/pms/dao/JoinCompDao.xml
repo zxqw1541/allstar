@@ -45,6 +45,12 @@
       where tno = #{tno} 
     </select>
     
+    <select id="selectContentByCTno" resultType="String" parameterType="Map">
+      select content
+      from join_comp
+      where tno = #{tno} and cno = #{cno} 
+    </select>
+    
     <insert id="insert" parameterType="joinComp">
       insert into join_comp(cno, tno, cre_dt, content, state)
       values (#{cno},#{tno},now(),#{content},#{state})

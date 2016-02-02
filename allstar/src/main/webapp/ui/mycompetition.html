@@ -108,8 +108,7 @@ padding: 45px;
 margin: 10px;
 }
 </style>
-<!-- <script src="js/test/modernizr.custom.js"></script>
-<script src="js/jquery-1.11.3.js"></script> -->
+
 </head>
 <body>
 <div>
@@ -281,22 +280,29 @@ function getCompetition(cno){
 		  $('.stateChan').click(function (event){
 			     $('#stateChange').empty();
 			     console.log("tNo: "+$(event.currentTarget).attr("teamNo"));
-			     var tno=$(event.target).attr("teamNo");
-			   $.getJSON('../team/ajax/detail.do?mno='+tno, function(resultObj){
+			     var tno=$(event.currentTarget).attr("teamNo");
+			     
+			     /* 팀 상세 */
+			     $.getJSON('../team/ajax/detailncont.do?tno='+tno+'&cno='+cno, function(resultObj){
+			    	 
 			       var ajaxResult=resultObj.ajaxResult;
-			       var member = ajaxResult.data;
+			       console.log(ajaxResult);
+			       var team = ajaxResult.data.team;
 			       var div = $('#stateChange');
+			       console.log(team);
 			       $("<ul>")
-			       .html("<li><img src='../member/img/"+team.emblem+"'></li>"
-			           +"<li><span>아이디 : "+team.id+"</span></li>"
+			       .html("<li><img src='../team/img/"+team.emblem+"'></li>"
 			           +"<li><span>이름 : "+team.name+"</span></li>"
-			           +"<li><span>성별 : "+member.gender+"</span></li>"
-			           +"<li><span>나이 : "+member.age+"</span></li>"
-			           +"<li><span>주소 : "+member.baseAddr+"</span></li>"
-			           +"<li><span>자기소개 : "+member.introduce+"</span></li>"
-			           +"<button type='button' id='accept' memberNo='"+ joinTeam.mno +"'>승인</button>"
-			           +"<button type='button' id='wait' memberNo='"+ joinTeam.mno +"'>보류</button>"
-			           +"<button type='button' id='denial' memberNo='"+ joinTeam.mno +"'>거절</button>")
+			           +"<li><span>인원수 : "+team.joinNum+"</span></li>"
+			           +"<li><span>전적 : "+team.win+"승 "+team.lose+"패</span></li>"
+			           +"<li><span>연고지 : "+team.baseAddr+"</span></li>"
+			           +"<li><span>팀소개 : "+team.introduce+"</span></li>"
+			           +"<li><span>참가내용 : "+ajaxResult.data.content+"</span></li>"
+			           
+
+			           +"<button type='button' id='accept' teamNo='"+ tno +"'>승인</button>"
+			           +"<button type='button' id='wait'   teamNo='"+ tno +"'>보류</button>"
+			           +"<button type='button' id='denial' teamNo='"+ tno +"'>거절</button>")
 			           .appendTo(div);
 			     });
 			});
