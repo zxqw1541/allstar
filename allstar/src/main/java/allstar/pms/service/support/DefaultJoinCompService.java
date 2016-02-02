@@ -51,4 +51,13 @@ public class DefaultJoinCompService implements JoinCompService {
     paramMap.put("cno", cno);
     return joinCompDao.selectContentByCTno(paramMap);
   }
+
+  @Override
+  public int changeState(int tno, int cno, int state) {
+    HashMap<String, Integer> paramMap = new HashMap<>();
+    paramMap.put("tno", tno);
+    paramMap.put("cno", cno);
+    paramMap.put("state", state);
+    return joinCompDao.updateState(paramMap);
+  }
 }

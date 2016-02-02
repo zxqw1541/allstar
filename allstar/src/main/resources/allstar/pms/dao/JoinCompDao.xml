@@ -73,4 +73,10 @@
       where cno = #{cno}
     </select>
     
+    <update id="updateState" parameterType="map">
+      update join_comp
+      set state = #{state}
+      where cno = #{cno} and tno = #{tno}        
+    </update>
+    
 </mapper>

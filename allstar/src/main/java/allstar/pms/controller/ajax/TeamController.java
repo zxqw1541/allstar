@@ -182,8 +182,10 @@ public class TeamController {
     return new AjaxResult("success", resultMap);
   }
   
-  
-   
-  
+  @RequestMapping(value="changeState", method=RequestMethod.POST)
+  public AjaxResult changeStateJoinComp(int cno, int tno, int state) {
+    joinCompService.changeState(tno, cno, state);
+    return new AjaxResult("success", null);
+  }
 }
 
