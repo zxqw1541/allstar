@@ -81,9 +81,35 @@ width:380px;
 height:923px; 
 /* border: 1px black solid; */
 }
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 100px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+#stateChange {
+background-color:white;
+display: none;
+}
+#stateChange img {
+width:200px;
+height:250px;
+}
+
+#stateChange ul {
+padding: 45px;
+}
+#stateChange button {
+margin: 10px;
+}
 </style>
-<script src="js/test/modernizr.custom.js"></script>
-<script src="js/jquery-1.11.3.js"></script>
+<!-- <script src="js/test/modernizr.custom.js"></script>
+<script src="js/jquery-1.11.3.js"></script> -->
 </head>
 <body>
 <div>
@@ -127,6 +153,10 @@ height:923px;
 			</div>
 	  </div>
 	  <!-- 디테일 화면 끝 -->
+	  <!-- state 변경 모달 -->
+	  <div id="stateChange" ></div>
+	  <!-- 풋터크기 -->
+	  <div style="height:500px;"></div>
   </div>
 </div>
 	
@@ -240,10 +270,36 @@ function getCompetition(cno){
         }
 			}
 			
+			//a 태그 모달 등록
+		   $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });
+			
 			// 참가신청중인 팀 현황 보여주기
 			div = $("#apply_alert");
 		  $("<a style='margin:auto;'>")
 		  .html("대기중 참여 신청수 : " + waiting + "개  </a>").appendTo(div);
+		  
+		  $('.stateChan').click(function (event){
+			     $('#stateChange').empty();
+			     console.log("tNo: "+$(event.currentTarget).attr("teamNo"));
+			     var tno=$(event.target).attr("teamNo");
+			   $.getJSON('../team/ajax/detail.do?mno='+tno, function(resultObj){
+			       var ajaxResult=resultObj.ajaxResult;
+			       var member = ajaxResult.data;
+			       var div = $('#stateChange');
+			       $("<ul>")
+			       .html("<li><img src='../member/img/"+team.emblem+"'></li>"
+			           +"<li><span>아이디 : "+team.id+"</span></li>"
+			           +"<li><span>이름 : "+team.name+"</span></li>"
+			           +"<li><span>성별 : "+member.gender+"</span></li>"
+			           +"<li><span>나이 : "+member.age+"</span></li>"
+			           +"<li><span>주소 : "+member.baseAddr+"</span></li>"
+			           +"<li><span>자기소개 : "+member.introduce+"</span></li>"
+			           +"<button type='button' id='accept' memberNo='"+ joinTeam.mno +"'>승인</button>"
+			           +"<button type='button' id='wait' memberNo='"+ joinTeam.mno +"'>보류</button>"
+			           +"<button type='button' id='denial' memberNo='"+ joinTeam.mno +"'>거절</button>")
+			           .appendTo(div);
+			     });
+			});
 		}
 	});
 }
