@@ -19,6 +19,7 @@ import allstar.pms.domain.Event;
 import allstar.pms.domain.JoinTeam;
 import allstar.pms.domain.Team;
 import allstar.pms.service.EventService;
+import allstar.pms.service.JoinCompService;
 import allstar.pms.service.JoinTeamService;
 import allstar.pms.service.TeamService;
 import allstar.pms.util.MultipartHelper;
@@ -31,6 +32,7 @@ public class TeamController {
   @Autowired TeamService teamService;
   @Autowired EventService eventService;
   @Autowired JoinTeamService joinTeamService;
+  @Autowired JoinCompService joinCompService;
   
   @RequestMapping("all")
   public Object listAll() throws Exception {
@@ -171,32 +173,17 @@ public class TeamController {
   }
   
   
- /* @RequestMapping(value="uploadFile", method=RequestMethod.POST)
-  public AjaxResult handleFileUpload(MultipartHttpServletRequest request) throws Exception{
-    Iterator<String> itr =  request.getFileNames();
-    if(itr.hasNext()) {
-        MultipartFile mpf = request.getFile(itr.next());
-        System.out.println(mpf.getOriginalFilename() +" uploaded!");
-        try {
-            String path=request.getServletContext().getRealPath("/");
-            byte[] bytes = mpf.getBytes();
-            String sep = System.getProperty("file.separator");
-            String fileName = MultipartHelper.generateFilename(mpf.getOriginalFilename());
-            String filePath = path+ sep + "team" + sep + "img" + sep;
-            File file=new File(filePath + fileName);
-            BufferedOutputStream stream = new BufferedOutputStream(
-                new FileOutputStream(file));
-            stream.write(bytes);
-            stream.close();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-        return new AjaxResult("success", null);
-    } else {
-      return new AjaxResult("fail", null);
-    }
-  }*/
+  @RequestMapping("detailncont")
+  public Object getDetailNContent(int tno, int cno) throws Exception {
+    HashMap<String, Object> resultMap = new HashMap<>();
+    
+    resultMap.put("team", teamService.retrieve(tno));
+    resultMap.put("content", joinCompService.getContent(tno, cno));
+    return new AjaxResult("success", resultMap);
+  }
   
+  
+   
   
 }
 
