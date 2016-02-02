@@ -8,7 +8,7 @@ public interface MemberService {
 
   List<Member> getMemberList(int pageNo, int pageSize, String keyword, String align);
 
-  void register(Member member);
+  int register(Member member);
 
   int remove(String id, String pwd);
 
