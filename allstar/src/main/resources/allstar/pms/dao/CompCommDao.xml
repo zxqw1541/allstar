@@ -42,6 +42,14 @@
     select count(*) from COMP_COMM where cno=#{cno}
   </select>
   
+  <select id="selectMCListByComp" resultMap="CompCommMap" parameterType="int">
+    <include refid="select_comp"/>
+    from COMP_COMM cc
+         left outer join member m on cc.mno = m.mno
+    where cc.cno = #{cno}
+    order by cc.ccno desc
+  </select>
+  
   
   <insert id="insert" parameterType="compComm">
     insert into COMP_COMM(cno,mno,comm,cre_dt) 
