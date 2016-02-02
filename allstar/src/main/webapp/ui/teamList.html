@@ -101,6 +101,7 @@ var teamForm;
     </div>
   </div>
 </div>
+<div style="height:50px;"></div>
 
 <div id="footer"></div>
 
@@ -621,20 +622,29 @@ var load_detail_func = function(){
 
 <!-- 처음 리스트 출력 -->
   <script>
+  var paramFromURL = '';
   var url = '../team/ajax/list.do';
+  
+  if (location.href.indexOf('?') != -1) {
+	  eventFromURL = location.href.split('?')[1];
+	  $('#tevent').val(eventFromURL.split('=')[1]);
+	  loadPage();
+  }
+  
   var param = '';
   firstList(url);
   
   function loadPage() {
     $("#tiles").empty();
-      
+    
     url = '../team/ajax/list.do';
-
+    
     var eVal = $('#tevent option:selected').val();
     var pVal = $('#tplaynum option:selected').val();
     var aVal = $('#taddr option:selected').val();
     var jVal = $('#tjoin option:selected').val();
     var dVal = $('#tdate option:selected').val();
+    
     
     if (eVal != -1) {
         url = url + '?event=' + eVal;
