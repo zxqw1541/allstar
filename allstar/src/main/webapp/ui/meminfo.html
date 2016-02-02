@@ -133,10 +133,7 @@
   
   
   $.getJSON('/allstar/member/ajax/detail.do?mno=' + $.session.get("mem_num"), function(resultObj) {
-console.log("edddd");
-	    var ajaxResult = resultObj.ajaxResult;
-	    if (ajaxResult.status == "success") {
-	      var member = ajaxResult.data;
+	      var member = resultObj.members;
 	      $("#fname").val(member.name);
 	      $("#femail").val(member.email);
 	      $("#ftel").val(member.tel);
@@ -151,7 +148,6 @@ console.log("edddd");
               $('#detail_preview_img').attr('src', '../member/img/'+member.photo);
             else
               $('#detail_preview_img').attr('src', '../member/img/allstardefault.png');
-          }
 	   
 	  });
 	  

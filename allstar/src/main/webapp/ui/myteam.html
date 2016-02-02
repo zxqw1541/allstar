@@ -233,8 +233,7 @@ $.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo'), functi
 	   console.log("memberNo: "+$(event.currentTarget).attr("memberNo"));
 	   var mno=$(event.target).attr("memberNo");
 	 $.getJSON('../member/ajax/detail.do?mno='+$(event.currentTarget).attr("memberNo"), function(resultObj){
-	     var ajaxResult=resultObj.ajaxResult;
-	     var member = ajaxResult.data;
+	     var member = resultObj.members;
 	     var div = $('#stateChange');
 	     $("<ul>")
 	     .html("<li><img src='../member/img/"+member.photo+"'></li>"
