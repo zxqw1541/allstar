@@ -247,7 +247,7 @@ $('body').on('click','#boardtitle',function(event){
               +"</p>"
               +"<div class='contents' style='float:none'>"
               +"<p class='name' >"
-              +"<a id='namesp' href='#' style='width:100%;height:70px; padding-top:26px;display:block;'>" + board.member.id +"</a>"
+              +"<a class='namesp' href='#mem_info' rel='leanModal' boardMno='"+board.member.mno+"' style='width:100%;height:70px; padding-top:26px;display:block;'>" + board.member.id +"</a>"
               +"</div>"
               +"</a>"
               +"</td>"
@@ -260,6 +260,7 @@ $('body').on('click','#boardtitle',function(event){
         .appendTo(tbody);
     
        }
+    $('.namesp').click(clickMemInfo);
       $("a.trigger").click(clickDetailLnk);
       $('#newBtn').click(clickNewWrite);
        }
@@ -444,42 +445,52 @@ $('body').on('click','#boardtitle',function(event){
 	/* 새 글 작성 끝 */
  	/* 회원정보보기 시작  */  
   function clickMemInfo(event) {
-		$('#mem_info').show();
+		console.log("mno : "+$(event.target).attr("boardMno"));
 		$('#mem_info').empty();
-	  $.getJSON('/allstar/member/ajax/detail.do?mno=' + $(event.target).attr("boardMno"), function(resultObj) {
+		
+		$('#mem_info').show();
+		
+	  $.getJSON('/allstar/member/ajax/detail.do?mno=' + $(event.currentTarget).attr("boardMno"), function(resultObj) {
 		  console.log("edddd");
+		  var member = resultObj.members;
+		  var likeEvent = resultObj.likeEvents;
+		  console.log(likeEvent);
+		  var likeStr = '';
+		  for (var le of likeEvent) {
+			  likeStr += le.event.name + ' ';
+		  }
+		  
 		  var form = ("#mem_info");
           $("<form id='detail_mem' method='post' style='margin:10%;' enctype='multipart/form-data'>")
           .html("<div style='border-bottom:1px gray solid;'>"
                +"<h2>회원정보</h2></div>"
                +"<div style='margin-top:20px;'>"
-               +"<input id='fdphoto' type='hidden'/>"
-               +"<label for='fname' style='margin-top:5px;'>이름  </label>"
-               +"<input type='text' id='fname' placeholder='이름' style='margin-top:5px;'><img id='detail_preview_img' style='width:100px; float:right; /* margin-right:10%; */' src='#'/><br>"
-               +"<label for='femail' style='margin-top:10px;'>이메일  </label>"
-               +"<input type='email' id='femail' placeholder='email@email.com' style='margin-top:10px;'><br>"
-               +"<label for='fbas_addr' style='margin-top:10px;'>주소</label><br>"
-               +"<input type='text' id='fbas_addr' style='width:400px;' placeholder='한글주소'><br>"
-               +"<input type='text' id='sample2_addressEnglish' style='width:400px;' placeholder='영문주소'><br>"
+               +"<p id='fdphoto' type='hidden'/>"
+               +"<p for='fname' style='margin-top:5px;'>이름 : "
+               +"<span id='fname' style='margin-top:5px;'><img id='detail_preview_img' style='width:100px; float:right;' src='../member/img/"+member.photo+"'/>"+member.name+"</span></p><br>"
+               +"<p for='femail' style='margin-top:10px;'>이메일 : "
+               +"<span id='femail' style='margin-top:10px;'>" + member.email + "</span></p><br>"
+               +"<p for='fbas_addr' style='margin-top:10px;'>주소<br>"
+               +"<span id='fbas_addr' style='width:400px;'>" + member.bas_addr + "</span><br>"
+               +"</p><br>"
                +"</div>"
                +"<div id='genderfld'  style='margin-top:10px;'>"
-               +"<label for='fgender'>성별  </label>"
-               +"<input type='text' id='fgender'><br>"
+               +"<p for='fgender'>성별 : "
+               +"<span id='fgender'>" + member.gender + "</span></p><br>"
                +"</div>"
-               +"<label for='fage' style='margin-top:10px;'>나이  </label>"
-               +"<input type='number' id='fage'  style='margin-top:10px;'>"
+               +"<p for='fage' style='margin-top:10px;'>나이 : "
+               +"<span id='fage' style='margin-top:10px;'>" + member.age + "세</span></p>"
                +"<div  style='margin-top:10px;'>"
-               +"<label for='likeevent'>관심종목  </label>"
-               +"<input type='text' id='likeevent'>"
+               +"<p for='likeevent'>관심종목 : "
+               +"<span id='likeevent'>" + likeStr + "</span></p>"
                +"</div>"
                +"<div style='margin-top:10px;'>"
-               +"<label for='fintroduce'>자기소개</label><br>"
-               +"<textarea rows='10' cols='50' id='fintroduce' placeholder='자기소개..'></textarea>"
+               +"<p>자기소개<br>"
+               +"<span id='fintroduce'>" + member.introduce + "</span></p>"
                +"</div>")
           .appendTo(form);
-		        var ajaxResult = resultObj.ajaxResult;
-		        if (ajaxResult.status == "success") {
-		          var member = ajaxResult.data;
+		        /* if (ajaxResult.status == "success") {
+		        	var member = ajaxResult.data;
 		          $("#fname").val(member.name);
 		          $("#femail").val(member.email);
 		          $("#ftel").val(member.tel);
@@ -494,10 +505,10 @@ $('body').on('click','#boardtitle',function(event){
 		                $('#detail_preview_img').attr('src', '../member/img/'+member.photo);
 		              else
 		                $('#detail_preview_img').attr('src', '../member/img/allstardefault.png');
-		            }
+		            } */
 		         
 		      });
-	  $.getJSON('/allstar/member/ajax/likeEvent.do?mno=' + $(event.target).attr("boardMno"), function(resultObj) {
+/* 	  $.getJSON('/allstar/member/ajax/likeEvent.do?mno=' + $(event.target).attr("boardMno"), function(resultObj) {
 		  var ajaxResult = resultObj;
           if (ajaxResult.status == "success") {
         	  console.log(ajaxResult.data);
@@ -507,7 +518,7 @@ $('body').on('click','#boardtitle',function(event){
         	  }
         	  $("#likeevent").val(events);
           }
-	  });
+	  }); */
   }
 	</script>
 
@@ -575,9 +586,6 @@ $('body').on('click','#boardtitle',function(event){
 	    }
 	});
 
-	$("#namesp").click(function(event){
-	  alert("profile!");
-	});
 </script>
 
 <!-- 페이징 -->
