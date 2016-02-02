@@ -9,9 +9,11 @@ public interface JoinTeamDao {
   List<JoinTeam> selectListByTeam(int tno);
 
   List<JoinTeam> selectListByMember(int mno);
+
+  List<JoinTeam> selectOpenListByMember(int mno);
   
   List<JoinTeam> selectCaptain(int mno);
-  
+
   JoinTeam selectOneByTeamMember(JoinTeam joinTeam);
   
   int updateState(int mno);

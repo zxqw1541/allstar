@@ -145,6 +145,7 @@ public class CompetitionController {
   @RequestMapping(value = "detail", method = RequestMethod.GET)
   public AjaxResult detail(int no) {
     Competition competition = competitionService.retrieve(no);
+    System.out.println(competition);
     return new AjaxResult("success", competition);
   }
   
@@ -273,7 +274,8 @@ public class CompetitionController {
   @RequestMapping(value="jointeam", method=RequestMethod.GET)
   public AjaxResult getListJoinTeam(int mno) {
     log.debug("mno = " + mno);
-    return new AjaxResult("success", joinTeamService.getJoinTeamByMember(mno));
+    System.out.println(joinTeamService.getOpenTeamByMember(mno));
+    return new AjaxResult("success", joinTeamService.getOpenTeamByMember(mno));
   }
   
   @RequestMapping(value="event", method=RequestMethod.GET)

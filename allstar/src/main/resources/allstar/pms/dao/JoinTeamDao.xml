@@ -77,6 +77,15 @@
         where jt.mno = #{mno}
     </select>
     
+    <select id="selectOpenListByMember" resultMap="joinTeamMap" parameterType="int">
+        <include refid="select_inc"/>
+       from join_team jt
+         left outer join team t on jt.tno = t.tno
+         left outer join member m on jt.mno = m.mno
+        where jt.mno = #{mno} and jt.level = 1
+    </select>
+    
+    
     <select id="selectCaptain" resultMap="joinTeamMap" parameterType="int">
           select jt.mno,
            jt.tno,
