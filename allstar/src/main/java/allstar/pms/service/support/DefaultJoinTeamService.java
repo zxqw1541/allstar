@@ -28,6 +28,12 @@ public class DefaultJoinTeamService implements JoinTeamService {
   }
 
   @Override
+  public List<JoinTeam> getOpenTeamByMember(int mno) {
+
+    return joinTeamDao.selectOpenListByMember(mno);
+  }
+  
+  @Override
   public List<JoinTeam> getCaptainTeamByMember(int mno) {
     return joinTeamDao.selectCaptain(mno);
   }
