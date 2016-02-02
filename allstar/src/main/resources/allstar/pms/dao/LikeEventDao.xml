@@ -18,7 +18,7 @@
     </select>
     
     <select id="selectListByMno" resultMap="likeEventMap" parameterType="int">
-      select e.name as e_name
+      select le.eno, e.name as e_name
       from like_event le 
         left outer join event e on le.eno = e.eno
       where le.mno=#{mno}

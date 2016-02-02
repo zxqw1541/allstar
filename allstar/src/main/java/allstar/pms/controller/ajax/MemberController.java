@@ -75,8 +75,14 @@ public class MemberController {
 
   @RequestMapping("detail")
   public Object detail(int mno) throws Exception {
+    List<LikeEvent> likeEvent = likeEventService.getLikeEventListByMno(mno);
     Member member = memberService.retrieve(mno);
-    return new AjaxResult("success", member);
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("likeEvents", likeEvent);
+    resultMap.put("members", member);
+    log.debug(likeEvent);
+    log.debug(member);
+    return resultMap;
   }
   
   @RequestMapping(value = "update", method = RequestMethod.POST)

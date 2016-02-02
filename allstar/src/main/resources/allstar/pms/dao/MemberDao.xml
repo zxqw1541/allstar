@@ -4,10 +4,40 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="allstar.pms.dao.MemberDao">
 
-
+<resultMap type="member" id="memberMap">
+    <id     column="mno"      property="mno"/>
+    <result column="id"      property="id"/>
+    <result column="email"      property="email"/>
+    <result column="tel"    property="tel"/>
+    <result column="name"  property="name"/>
+    <result column="pwd"   property="pwd"/>
+    <result column="photo"    property="photo"/>
+    <result column="pst_no"    property="pst_no"/>
+    <result column="bas_addr"    property="bas_addr"/>
+    <result column="address"    property="address"/>
+    <result column="gender"    property="gender"/>
+    <result column="age"    property="age"/>
+    <result column="introduce"    property="introduce"/>
+    <association property="like_event" javaType="likeEvent">
+      <id column="le_eno"        property="eno"/>
+      <result column="le_mno"   property="mno"/>
+    </association>
+  </resultMap>
+    
 <sql id="select_inc">
-  select mno, id, pwd , name, email, tel , photo, pst_no, 
-  address ,bas_addr, gender, age, introduce 
+  select mno,
+         id, 
+         pwd, 
+         name, 
+         email, 
+         tel, 
+         photo, 
+         pst_no, 
+         address,
+         bas_addr, 
+         gender, 
+         age, 
+         introduce
 </sql>
 
 
@@ -41,7 +71,8 @@
   
 	<select id="selectOne" resultType="member" parameterType="member">
 		<include refid="select_inc"/>
-		 from member where mno=#{mno}
+		 from member 
+		 where mno=#{mno}
 	</select>
 	
 	<update id="update" parameterType="member">
