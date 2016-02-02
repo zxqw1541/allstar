@@ -1,6 +1,7 @@
 package allstar.pms.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import allstar.pms.domain.JoinComp;
 
@@ -16,4 +17,6 @@ public interface JoinCompDao {
   int selectOne(JoinComp joinComp);
   
   List<Integer> selectTnoList(int cno);
+  
+  String selectContentByCTno(Map<String, Integer> paramMap);
 }

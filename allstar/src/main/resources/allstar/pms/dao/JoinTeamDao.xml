@@ -116,13 +116,13 @@
     <update id="updateState" parameterType="joinTeam">
       update join_team set
       state = #{state} 
-      where mno = #{mno}
+      where mno = #{mno} and tno=#{tno}
     </update>
 
 <update id="updateLevel" parameterType="joinTeam">
       update join_team set
       level = #{level} 
-      where mno = #{mno}
+      where mno = #{mno} and tno=#{tno}
     </update>
 
     <insert id="insert" parameterType="joinTeam">

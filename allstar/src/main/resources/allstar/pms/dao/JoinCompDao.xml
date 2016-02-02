@@ -12,18 +12,43 @@
       <result column="content" property="content"/>
       <result column="state"   property="state"/>
       <result column="rank"    property="rank"/>
+      <association property="team" javaType="Team">
+	      <id     column="t_tno"     property="tno"/>
+	      <result column="t_name"    property="name"/>
+	      <result column="t_emblem"   property="emblem"/>
+	    </association>
     </resultMap>
     
+    <sql id="select_inc">
+        select 
+             jc.cno,
+             jc.tno, 
+             jc.cre_dt, 
+             jc.content, 
+             jc.state,
+             jc.rank,
+             t.tno as t_tno,
+             t.name as t_name,
+             t.emblem as t_emblem
+    </sql>
+    
     <select id="selectListByCno" resultMap="joinCompMap" parameterType="int">
-      select cno, tno, cre_dt, content, state, rank
-      from join_comp
-      where cno = #{cno} 
+      <include refid="select_inc"/>
+        from join_comp jc
+             left outer join team t on jc.tno = t.tno
+        where jc.cno = #{cno} 
     </select>
     
     <select id="selectListByTno" resultMap="joinCompMap" parameterType="int">
       select cno, tno, cre_dt, content, state, rank
       from join_comp
       where tno = #{tno} 
+    </select>
+    
+    <select id="selectContentByCTno" resultType="String" parameterType="Map">
+      select content
+      from join_comp
+      where tno = #{tno} and cno = #{cno} 
     </select>
     
     <insert id="insert" parameterType="joinComp">

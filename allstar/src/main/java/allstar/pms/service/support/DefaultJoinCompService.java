@@ -1,5 +1,6 @@
 package allstar.pms.service.support;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,13 @@ public class DefaultJoinCompService implements JoinCompService {
   @Override
   public List<Integer> getTnoList(int cno) {
     return joinCompDao.selectTnoList(cno);
+  }
+
+  @Override
+  public String getContent(int tno, int cno) {
+    HashMap<String, Integer> paramMap = new HashMap<>();
+    paramMap.put("tno", tno);
+    paramMap.put("cno", cno);
+    return joinCompDao.selectContentByCTno(paramMap);
   }
 }

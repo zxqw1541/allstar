@@ -20,7 +20,7 @@ public interface JoinTeamService {
   
   int remove(int mno);
   
-  int changeState(int mno);
+  int changeState(JoinTeam joinTeam);
 
   int changeLevel(int mno);
 
