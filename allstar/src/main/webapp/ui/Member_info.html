@@ -17,6 +17,11 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="js/test/toucheffects.js"></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
+<script>
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+});
+</script>
 <script> 
 $(function(){
   $("#header").load("header.html"); 
@@ -116,6 +121,7 @@ $('#my_info').click(function(event) {
 		 location.href="main2.html";
 	 }
  });
+
 
 
 </script>

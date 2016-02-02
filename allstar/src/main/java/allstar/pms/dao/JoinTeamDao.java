@@ -14,7 +14,7 @@ public interface JoinTeamDao {
   
   JoinTeam selectOneByTeamMember(JoinTeam joinTeam);
   
-  int updateState(int mno);
+  int updateState(JoinTeam joinTeam);
   
   int updateLevel(int mno);
 
