@@ -303,5 +303,11 @@ public class CompetitionController {
     return new AjaxResult("success", competitionService.getCompListByMno(mno));
   }
   
+  @RequestMapping(value="jclist", method=RequestMethod.GET)
+  public AjaxResult getJoinTeamListByCno(int cno) {
+    
+    return new AjaxResult("success",joinCompService.getJoinListByCno(cno));
+  }
+  
 }
  

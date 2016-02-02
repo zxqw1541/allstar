@@ -13,6 +13,7 @@ public class JoinComp implements Serializable {
   protected String content;
   protected int state;
   protected String rank;
+  protected Team team;
   public int getCno() {
     return cno;
   }
@@ -49,9 +50,16 @@ public class JoinComp implements Serializable {
   public void setRank(String rank) {
     this.rank = rank;
   }
+  public Team getTeam() {
+    return team;
+  }
+  public void setTeam(Team team) {
+    this.team = team;
+  }
   @Override
   public String toString() {
     return "JoinComp [cno=" + cno + ", tno=" + tno + ", createDate=" + createDate + ", content=" + content + ", state="
-        + state + ", rank=" + rank + "]";
+        + state + ", rank=" + rank + ", team=" + team + "]";
   }
+  
 }
