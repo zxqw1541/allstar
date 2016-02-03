@@ -68,9 +68,10 @@ public class MemberController {
   @RequestMapping(value = "add", method = RequestMethod.POST)
   public AjaxResult add(Member member) throws Exception {
 
-    memberService.register(member);
-
-    return new AjaxResult("success",null);
+    if(memberService.register(member) <= 0){
+      return new AjaxResult("error",null); 
+    } 
+   return new AjaxResult("success",null);
   }
 
   @RequestMapping("detail")
@@ -186,6 +187,7 @@ public class MemberController {
   
   @RequestMapping("changeState")
   public AjaxResult changeState(JoinTeam joinTeam){
+    log.debug(joinTeam);
     joinTeamService.changeState(joinTeam);
     
     return new AjaxResult("success", null) ;

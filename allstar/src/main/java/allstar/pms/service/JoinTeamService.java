@@ -9,6 +9,8 @@ public interface JoinTeamService {
   List<JoinTeam> getJoinTeamByTeam(int tno);
   
   List<JoinTeam> getJoinTeamByMember(int mno);
+
+  List<JoinTeam> getOpenTeamByMember(int mno);
   
   List<JoinTeam> getCaptainTeamByMember(int mno);
   

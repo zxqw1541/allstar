@@ -170,9 +170,14 @@
 <script type='text/javascript' src='../lib/jquery-bracket/jquery.bracket.min.js'></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
 <script>
-
- 
-
+function saveFn(data, userData) {
+    var json = JSON.stringify(data);
+    console.log(data);
+    console.log(json);
+    window.scoreOper = json;
+  }
+</script>
+<script>
 var no = -1;
 var eno = -1;
 var tno = -1;
@@ -193,7 +198,9 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
       var ed = new Date(c.endDate).getTime();
       var nowd = new Date().getTime();
 
-      if (rsd < nowd && nowd < red) {
+      if (nowd < rsd) {
+    	  status = '모집전';
+      } else if (rsd < nowd && nowd < red) {
         status = '모집중';
       } else if (red < nowd && nowd < sd){
         status = '대회준비중';
@@ -219,16 +226,16 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
           + "</header>"
           + "<div id='test2' class='viewContents'>"
           + "  <img src='../competition/img/" + c.poster + "'>"
-          + "  <pre>" + c.content + "</pre>"
-          + "  <h2> 대진표</h2>"
-          + "  <div id='minimal'>"
+          + "  <pre>" + c.content + "</pre><br>"
+          + "  <h2> 대진표</h2><br>"
+          + "  <div id='minimal' style='margin-bottom: 250px;'>"
           + "    <div class='demo'></div>"
           + "  </div><br>"      
-          + "  <div id='tour_btn' class='btn-fld1' style='margin-bottom: 250px; margin-top: 250px;'>"
+          + "  <div id='tour_btn' class='btn-fld1'>"
           + "    <button id='randomTour' type='button'>랜덤</button>"
-          + "    <button id='enrollTour' type='button'>등록</button></div><br><br>"
+          + "    <button id='enrollTour' type='button'>등록</button></div><br><br><br>"
           + "  <div id='minimal'>"
-          + "  <h2> 장소</h2>"
+          + "  <h2> 장소</h2><br>"
           + "  <p>"+ c.baseAddr + "</p>"
           + "  <div class='div_left_map'>"
           + "    <div id='map' style='width:750px;height:600px;'></div>"
@@ -239,9 +246,40 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
       $('#sideInfoJoinTeam').text('(' + c.joinNum + '/' + c.teamNum + ')');
 
       getFormData(); // 대회신청 폼
-          
-      $('#minimal .demo').bracket({init: JSON.parse(c.operation)});
 
+      $.getJSON('/allstar/competition/master.do?no=' + no, function(resultObj) {
+    	  var ajaxResult = resultObj.ajaxResult;
+    	    if (ajaxResult.status == "success") {
+    	      confirmMaster(ajaxResult.data);
+    	    }
+    	  });
+
+    	//mno, session값 비교(로그인확인)
+    	function confirmMaster(mno) {
+    	  if (mno == sessionStorage.getItem("mem_num")) {
+    		  window.master = true;
+    		  if (status == '대회중') {
+    			  $('#randomTour').css('display' , 'none');
+   				  $('#enrollTour').css('display' , '');
+		        $('#minimal .demo').bracket({init: JSON.parse(c.operation), save:saveFn});
+    		  } else {
+   				  $('#minimal .demo').bracket({init: JSON.parse(c.operation)});
+    			  if (status == '대회준비중') {
+    				  $('#randomTour').css('display' , '');
+    			  } else {
+	    			  $('#randomTour').css('display' , 'none');    				  
+    			  }
+    		  }
+    	  } else {
+    		  $('#enrollTour').css('display' , 'none');
+    		  $('#randomTour').css('display' , 'none');
+    		  window.master = false;
+    		  if (status == '대회준비중' || status == '대회중' || status == '대회종료') {
+	          $('#minimal .demo').bracket({init: JSON.parse(c.operation)});
+    		  }
+    	  } 
+    	}
+      
       daumMap(c.baseAddr);
     }
 
@@ -721,16 +759,19 @@ $('body').on('click','#randomTour', function() {
 			newArray[count] = originArray.slice(k, k+2);
 			count++;
 		}
-	}	
+	}
 	
+	console.log(window.operation);
 	var originResults = JSON.parse(window.operation).results;
+	console.log("origin ==> " + window.scoreOper);
 	
 	window.newTour = {
 		      teams : newArray,
 		      results : originResults
 		    }
-	
-	$('#minimal .demo').bracket({init: window.newTour});
+	if (window.master == true) {
+		$('#minimal .demo').bracket({init: window.newTour});
+	}
 	
 });
 
@@ -757,15 +798,20 @@ function shuffleArray(array) {
 var no = location.href.split('?')[1].split('=')[1];
 
 $('body').on('click','#enrollTour', function() {
+	
+	if (window.scoreOper != undefined) {
+		window.operation = window.scoreOper;
+	}
   var data = new FormData();
 
   data.append('no', no);
   
   if (window.newTour == undefined) {
-	  data.append('operation', JSON.stringify(window.operation));
+	  data.append('operation', window.operation);
   } else {
-    data.append('operation', JSON.stringify(window.newTour));
+	  data.append('operation', JSON.stringify(window.newTour));
   }
+  
   
   $.ajax({
       url : "../competition/updateTour.do",

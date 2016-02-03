@@ -40,15 +40,12 @@
 #add_team_img { float:right; }
 
 /* 대회 대진표 버튼 */
-#tour_btn .btn-fld1 { width: 0px; overflow: hidden; padding: 12px 0px 12px 0px;}
-
 #randomTour {
-  margin-right:700px;
-  align: left;
+	margin-right: 50px;
+  float: left;
 }
 #enrollTour {
-	margin-right:-150px;
-  align: left;
+  float: left;
 }
 
 /* detail form */

@@ -81,85 +81,111 @@ width:380px;
 height:923px; 
 /* border: 1px black solid; */
 }
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 100px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+#stateChange {
+background-color:white;
+display: none;
+}
+#stateChange img {
+width:200px;
+height:250px;
+}
+
+#stateChange ul {
+padding: 45px;
+}
+#stateChange button {
+margin: 10px;
+}
 </style>
-<script src="js/test/modernizr.custom.js"></script>
-<script src="js/jquery-1.11.3.js"></script>
+
 </head>
 <body>
 <div>
-	<h2 style="text-align: center;">내가 개설한 대회</h2>
-	<div class="container demo-3">
-	  <ul class="grid cs-style-4" id="myteams" >
-	  <!-- 대회 리스트 들어갈 곳 -->
-		</ul>
-	
-		<!-- 디테일 화면 -->
-	  <div id="myTeamInfo_detail" style="display:none;margin:auto;  width: 900px; height:100%;">
-	
-		  <!-- Emblem -->
-		  <div id="team_top">
-		  </div>
-		
-			<!-- 가입신청 알림 -->
-			<div id="apply_alert" >
-			</div>
-		
-		
-			<!-- 회원 목록 -->
-			<div id="mem_list" >
-				<figure >
-				</figure>
-			</div>
-		  <!-- 회원 목록 끝 -->
-		
-		
-			<!-- 팀정보 -->
-			<div id="info" style="float:left; font-size:20px; padding: 50px;"></div>
-			
-			<!-- 가입신청현황 -->
-			<div id="apply_state" style="float:left;">
-				<h2 style="margin-left:50px;">신규등록 신청</h2>
-				<ul id="new_apply" ></ul>
-				<h2 style="margin-left:50px;">대기중인 신청</h2>
-				<ul id="wait_apply" ></ul>
-				<h2 style="margin-left:50px;">거절한 신청</h2>
-				<ul id="reject_apply" ></ul>
-			</div>
-	  </div>
-	  <!-- 디테일 화면 끝 -->
+  <h2 style="text-align: center;">내가 개설한 대회</h2>
+  <div class="container demo-3">
+    <ul class="grid cs-style-4" id="myteams" >
+    <!-- 대회 리스트 들어갈 곳 -->
+    </ul>
+  
+    <!-- 디테일 화면 -->
+    <div id="myTeamInfo_detail" style="display:none;margin:auto;  width: 900px; height:100%;">
+  
+      <!-- Emblem -->
+      <div id="team_top">
+      </div>
+    
+      <!-- 가입신청 알림 -->
+      <div id="apply_alert" >
+      </div>
+    
+    
+      <!-- 회원 목록 -->
+      <div id="mem_list" >
+        <figure >
+        </figure>
+      </div>
+      <!-- 회원 목록 끝 -->
+    
+    
+      <!-- 팀정보 -->
+      <div id="info" style="float:left; font-size:20px; padding: 50px;"></div>
+      
+      <!-- 가입신청현황 -->
+      <div id="apply_state" style="float:left;">
+        <h2 style="margin-left:50px;">신규/대기중 참가 신청</h2>
+        <ul id="new_apply" ></ul>
+        <h2 style="margin-left:50px;">보류중인 신청</h2>
+        <ul id="wait_apply" ></ul>
+        <h2 style="margin-left:50px;">거절한 신청</h2>
+        <ul id="reject_apply" ></ul>
+      </div>
+    </div>
+    <!-- 디테일 화면 끝 -->
+    <!-- state 변경 모달 -->
+    <div id="stateChange" ></div>
+    <!-- 풋터크기 -->
+    <div style="height:500px;"></div>
   </div>
 </div>
-	
+  
 
 <!-- 해당 맴버가 개설한 대회 리스트 받기 -->
 <script>
 $.getJSON('../competition/complistm.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
     $("myTeamInfo_detail").hide();
-    console.log(resultObj);
-	  var ul = $('#myteams');
-	  
+    var ul = $('#myteams');
+    
     if(resultObj.ajaxResult.status == "success"){
-	    console.log(resultObj.ajaxResult.data);
-	    for (var c of resultObj.ajaxResult.data){
-		    $("<li style='margin-left: 120px;'>")
-	        .html("<figure><div>"
-	            +"<img src='../competition/img/"+ c.poster + "' style='width:300px;' alt='"+ c.name+"'></div>"
-	            +"<figcaption>"
-	            +"<h3>" + c.name + "</h3>"
-	            +"<span>개최팀 : " + c.team.name + "</span><br>"
-	            +"<span >개최지 : " + c.baseAddr + " </span><br>"
-	            +"<span >종목 : "+ c.event.name + " </span><br>"
-	            +"<span>내용 : "+ c.content + "</span><br>"
-	                  +"<a class='mycomp_info' href='javascript:;' data-comp-no='" + c.no + "'>대회 정보 보기</a>"
-	            +"</figcaption></figure></li>"
-	        ).appendTo(ul);
-	    }
-	    $('.mycomp_info').click(function(){
-	    	$("#myteams").hide();
-	        $("#myTeamInfo_detail").show();
-	        console.log('mycomp_info on');
-	        getCompetition($(this).attr('data-comp-no'));
-	    });
+      for (var c of resultObj.ajaxResult.data){
+        $("<li style='margin-left: 120px;'>")
+          .html("<figure><div>"
+              +"<img src='../competition/img/"+ c.poster + "' style='width:300px;' alt='"+ c.name+"'></div>"
+              +"<figcaption>"
+              +"<h3>" + c.name + "</h3>"
+              +"<span>개최팀 : " + c.team.name + "</span><br>"
+              +"<span >개최지 : " + c.baseAddr + " </span><br>"
+              +"<span >종목 : "+ c.event.name + " </span><br>"
+              +"<span>내용 : "+ c.content + "</span><br>"
+                    +"<a class='mycomp_info' href='javascript:;' data-comp-no='" + c.no + "'>대회 정보 보기</a>"
+              +"</figcaption></figure></li>"
+          ).appendTo(ul);
+      }
+      $('.mycomp_info').click(function(){
+        $("#myteams").hide();
+          $("#myTeamInfo_detail").show();
+          getCompetition($(this).attr('data-comp-no'));
+      });
     }
 });
 </script>
@@ -169,90 +195,165 @@ $.getJSON('../competition/complistm.do?mno=' +sessionStorage.getItem("mem_num"),
 <!-- 상세 get요청 -->
 <script>
 function getCompetition(cno){
-	console.log('getCompetition');
-	/* 대회 정보 출력 */
-	$.getJSON('../competition/detail.do?no=' + cno, function(resultObj) {
-		if (resultObj.ajaxResult.status == 'success') {
-			var c = resultObj.ajaxResult.data;
-			console.log(c);
-			var div =$("#team_top");
-			$("<span>")
-			  .html("<img src='../competition/img/" + c.poster + "'  ></span> "
-			      +"<span style='float:left; margin-left: 55px; margin-top: 75px;'><h1>" + c.name + "</h1></span>")
-			      .appendTo(div);
-			
-			div = $("#info").css('width','310px');
-			$("<span style='display: inherit;'>")
-	      .html("개최팀 : "+ c.team.name +" </span><br>"
-		        + "<span style='display: inherit;'> 종목 : " + c.event.name + " </span><br>"
-		        + "<span style='display: inherit;'> 참여현황 : " + c.joinNum + "/" + c.teamNum + " </span><br>"
-		        + "<span style='display: inherit;'> 모집일 : " + c.recruitStartDate + "~" + c.recruitEndDate + "</span><br>"
-		        + "<span style='display: inherit;'> 대회일 : " + c.startDate + "~" + c.endDate + " </span><br>"
-		        ).appendTo(div);
-			$("<span >")
-			  .html("개최지 :<br>" + c.baseAddr + "</span>")
-			  .appendTo(div);
-			
-	  }
-	});
-	
-	/* 이 대회에 참가 신청 및 참여한 정보 얻기 */
-	$.getJSON('../competition/jclist.do?cno=' + cno, function(resultObj) {
-		var ajaxResult = resultObj.ajaxResult;
-		console.log(ajaxResult);
-		if (ajaxResult.status == 'success') {
-			console.log('sdfsdfsdf');
-			var waiting = 0;
-			var div = $("#mem_list") ;
-			var ul = '';
-			for (var joinComp of ajaxResult.data) {
-				// 참가신청중인 팀
-				if (joinComp.state == 0) {
-					// 현황 카운트
-					waiting++;
-					
-					//리스트 출력
-					ul = $("#new_apply");
+  /* 대회 정보 출력 */
+  $.getJSON('../competition/detail.do?no=' + cno, function(resultObj) {
+    if (resultObj.ajaxResult.status == 'success') {
+      var c = resultObj.ajaxResult.data;
+      var div =$("#team_top");
+      $("<span>")
+        .html("<img src='../competition/img/" + c.poster + "'  ></span> "
+            +"<span style='float:left; margin-left: 55px; margin-top: 75px;'><h1>" + c.name + "</h1></span>")
+            .appendTo(div);
+      
+      div = $("#info").css('width','310px');
+      $("<span style='display: inherit;'>")
+        .html("개최팀 : "+ c.team.name +" </span><br>"
+            + "<span style='display: inherit;'> 종목 : " + c.event.name + " </span><br>"
+            + "<span style='display: inherit;'> 참여현황 : " + c.joinNum + "/" + c.teamNum + " </span><br>"
+            + "<span style='display: inherit;'> 모집일 : " + c.recruitStartDate + "~" + c.recruitEndDate + "</span><br>"
+            + "<span style='display: inherit;'> 대회일 : " + c.startDate + "~" + c.endDate + " </span><br>"
+            ).appendTo(div);
+      $("<span >")
+        .html("개최지 :<br>" + c.baseAddr + "</span>")
+        .appendTo(div);
+      
+    }
+  });
+  
+  /* 이 대회에 참가 신청 및 참여한 정보 얻기 */
+  $.getJSON('../competition/jclist.do?cno=' + cno, function(resultObj) {
+	  console.log("cno: ",cno);
+    var ajaxResult = resultObj.ajaxResult;
+    if (ajaxResult.status == 'success') {
+      var waiting = 0;
+      var div = $("#mem_list") ;
+      var ul = '';
+      for (var joinComp of ajaxResult.data) {
+        // 참가신청중인 팀
+        if (joinComp.state == 0) {
+          // 현황 카운트
+          waiting++;
+          
+          //리스트 출력
+          ul = $("#new_apply");
           $("<li>")
           .html("<a href='#stateChange'  rel='leanModal' teamNo='"+joinComp.team.tno+"' class='stateChan'><span>신청일 : "+joinComp.createDate+"</span>"
               +"<span>아이디 : "+joinComp.team.name+"</span></a> ").appendTo(ul);
-				}
-				// 참가중인 팀
-				else if (joinComp.state == 1) {
-					// 사진 
-				  $("<figure >")
-				  .html("<img src='../team/img/" + joinComp.team.emblem + "' >"
-				  +"<figcaption>"+joinComp.team.name+"</figcaption>"
-				  +"</figure>").appendTo(div);
-					
-				  //리스트 출력
-				  ul = $("#wait_apply");
-          $("<li>")
-          .html("<a href='#stateChange'  rel='leanModal' teamNo='"+joinComp.team.tno+"' class='stateChan'><span>신청일 : "+joinComp.createDate+"</span>"
-                  +"<span>아이디 : "+joinComp.team.name+"</span></a> ").appendTo(ul);
-				}
-				// 거절된 팀
-				else if (joinComp.state == -1) {
-					ul = $("#reject_apply");
+        }
+        // 참가중인 팀
+        else if (joinComp.state == 1) {
+          // 사진 
+          $("<figure >")
+          .html("<img src='../team/img/" + joinComp.team.emblem + "' >"
+          +"<figcaption>"+joinComp.team.name+"</figcaption>"
+          +"</figure>").appendTo(div);
+        }
+        // 거절된 팀
+        else if (joinComp.state == -1) {
+          ul = $("#reject_apply");
           $("<li>")
           .html("<a href='#stateChange'  rel='leanModal' teamNo='"+joinComp.team.tno+"' class='stateChan'><span>신청일 : "+joinComp.createDate+"</span>"
                   +"<span>아이디 : "+joinComp.team.name+"</span></a> ").appendTo(ul);
         }
-			}
-			
-			// 참가신청중인 팀 현황 보여주기
-			div = $("#apply_alert");
-		  $("<a style='margin:auto;'>")
-		  .html("대기중 참여 신청수 : " + waiting + "개  </a>").appendTo(div);
-		}
-	});
+        // 보류중 팀
+        else if (joinComp.state == 2) {
+          ul = $("#wait_apply");
+          $("<li>")
+          .html("<a href='#stateChange'  rel='leanModal' teamNo='"+joinComp.team.tno+"' class='stateChan'><span>신청일 : "+joinComp.createDate+"</span>"
+                  +"<span>아이디 : "+joinComp.team.name+"</span></a> ").appendTo(ul);
+        }
+      }
+      
+      //a 태그 모달 등록
+       $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });
+      
+      // 참가신청중인 팀 현황 보여주기
+      div = $("#apply_alert");
+      $("<a style='margin:auto;'>")
+      .html("대기중 참여 신청수 : " + waiting + "개  </a>").appendTo(div);
+      
+      $('.stateChan').click(function (event){
+           $('#stateChange').empty();
+           console.log("tNo: "+$(event.currentTarget).attr("teamNo"));
+           var tno=$(event.currentTarget).attr("teamNo");
+           
+           /* 팀 상세 */
+           $.getJSON('../team/ajax/detailncont.do?tno='+tno+'&cno='+cno, function(resultObj){
+             
+             var ajaxResult=resultObj.ajaxResult;
+             if(ajaxResult.status=='success'){
+               var team = ajaxResult.data.team;
+               var div = $('#stateChange');
+               console.log(team);
+               $("<ul>")
+               .html("<li><img src='../team/img/"+team.emblem+"'></li>"
+                   +"<li><span>이름 : "+team.name+"</span></li>"
+                   +"<li><span>인원수 : "+team.joinNum+"</span></li>"
+                   +"<li><span>전적 : "+team.win+"승 "+team.lose+"패</span></li>"
+                   +"<li><span>연고지 : "+team.baseAddr+"</span></li>"
+                   +"<li><span>팀소개 : "+team.introduce+"</span></li>"
+                   +"<li><span>참가내용 : "+ajaxResult.data.content+"</span></li>"
+                   +"<button type='button' id='accept' teamNo='"+ tno +"' compNo='"+ cno +"'>승인</button>"
+                   +"<button type='button' id='wait'   teamNo='"+ tno +"' compNo='"+ cno +"'>보류</button>"
+                   +"<button type='button' id='denial' teamNo='"+ tno +"' compNo='"+ cno +"'>거절</button>")
+                   .appendTo(div);
+               $('#accept').click(acceptM);
+               $('#wait').click(waitM);
+               $('#denial').click(denialM);
+             }
+           });
+      });
+    }
+  });
+  function acceptM(event){
+      $.post('../team/ajax/changeState.do', {
+              cno: $(event.target).attr("compNo"),
+              tno: $(event.target).attr("teamNo"),
+              state: 1
+          }, function(resultObj) {
+            var ajaxResult = resultObj.ajaxResult;
+            if (ajaxResult.status == "success") {
+              alert("상태 변경했습니다.");
+              close_modal('#stateChange');
+            } else {
+                alert("변경에 실패했습니다.");
+            }
+          }, 'json');
+      }
+    
+  function waitM(event){
+      $.post('../team/ajax/changeState.do', {
+          cno: $(event.target).attr("compNo"),
+          tno: $(event.target).attr("teamNo"),
+          state: 2
+      }, function(resultObj) {
+        var ajaxResult = resultObj.ajaxResult;
+        if (ajaxResult.status == "success") {
+          alert("상태 변경했습니다.");
+          close_modal('#stateChange');
+        } else {
+            alert("변경에 실패했습니다.");
+        }
+      }, 'json');
+  }
+     
+  function denialM(event){
+      $.post('../team/ajax/changeState.do', {
+              cno: $(event.target).attr("compNo"),
+              tno: $(event.target).attr("teamNo"),
+              state: -1
+          }, function(resultObj) {
+            var ajaxResult = resultObj.ajaxResult;
+            if (ajaxResult.status == "success") {
+              alert("상태 변경했습니다.");
+              close_modal('#stateChange');
+            } else {
+                alert("변경에 실패했습니다.");
+            }
+          }, 'json');
+      }
 }
 </script>
-
-
-
-
-
 
 </body>
 </html>
