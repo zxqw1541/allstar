@@ -66,4 +66,9 @@ public class DefaultJoinCompService implements JoinCompService {
     return joinCompDao.updateState(paramMap);
   }
 
+  @Override
+  public List<JoinComp> getJoinedCompList(int mno) {
+    return joinCompDao.selectJoinedComp(mno);
+  }
+
 }

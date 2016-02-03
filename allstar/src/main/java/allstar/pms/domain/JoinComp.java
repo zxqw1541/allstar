@@ -14,6 +14,15 @@ public class JoinComp implements Serializable {
   protected int state;
   protected String rank;
   protected Team team;
+  protected Competition competition;
+  
+  
+  public Competition getCompetition() {
+    return competition;
+  }
+  public void setCompetition(Competition competition) {
+    this.competition = competition;
+  }
   public int getCno() {
     return cno;
   }

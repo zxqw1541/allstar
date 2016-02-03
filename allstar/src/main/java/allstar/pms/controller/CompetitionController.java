@@ -274,8 +274,9 @@ public class CompetitionController {
     return new AjaxResult("success", compCommService.getLastCommByComp(comm.getCno()));
   }
   
+  /* 해당 맴버(개설한 팀들)가 주최한 대회 리스트 */
   @RequestMapping(value="complistm", method=RequestMethod.GET)
-  public AjaxResult getCompCommListByMno(int mno){
+  public AjaxResult getCompListByMno(int mno){
     log.debug(mno);
     log.debug(competitionService.getCompListByMno(mno));
     
@@ -324,6 +325,14 @@ public class CompetitionController {
     }
     
     return new AjaxResult("success", null);
+  }
+  
+  /* 해당 맴버(개설한 팀들)가 참여한 대회 리스트 */
+  @RequestMapping(value="compJoined", method=RequestMethod.GET)
+  public AjaxResult getJoinedCompListByMno(int mno){
+    log.debug(mno);
+
+    return new AjaxResult("success", joinCompService.getJoinedCompList(mno));
   }
   
 }

@@ -23,4 +23,6 @@ public interface JoinCompService {
   String getContent(int tno, int cno);
   
   int changeState(int tno, int cno, int state);
+  
+  List<JoinComp> getJoinedCompList(int mno);
 }
