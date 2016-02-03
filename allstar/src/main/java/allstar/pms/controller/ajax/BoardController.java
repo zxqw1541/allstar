@@ -49,6 +49,7 @@ public class BoardController {
 
   @RequestMapping("list")
   public Object list(
+      @RequestParam(defaultValue = "no") String keyword, 
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="10") int pageSize,
       @RequestParam(defaultValue = "null") String event,
@@ -64,9 +65,9 @@ public class BoardController {
     System.out.println("pageNo=" + pageNo);
     System.out.println("pageSize=" + pageSize);
     if (eno == -1)
-      boards = boardService.getBoardList(pageNo, pageSize, event, date, reply, search1, search2);
+      boards = boardService.getBoardList(keyword, pageNo, pageSize, event, date, reply, search1, search2);
     else 
-      boards = boardService.getBoardList(pageNo, pageSize, eno, event, date, reply, search1, search2);
+      boards = boardService.getBoardList(keyword, pageNo, pageSize, eno, event, date, reply, search1, search2);
     
     for(Board board: boards){
        boarComment.add(boarCommService.countAllCommFromBoard(board.getNo()));

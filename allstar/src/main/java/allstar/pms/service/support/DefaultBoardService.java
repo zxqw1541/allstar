@@ -26,7 +26,7 @@ public class DefaultBoardService implements BoardService {
   }
   
   @Override
-  public List<Board> getBoardList(int pageNo, int pageSize, 
+  public List<Board> getBoardList(String keyword, int pageNo, int pageSize, 
       String event, String date, String reply, String search1, String search2) {
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", (pageNo - 1) * pageSize);
@@ -36,12 +36,13 @@ public class DefaultBoardService implements BoardService {
     paramMap.put("reply", reply);
     paramMap.put("search1", search1);
     paramMap.put("search2", search2);
+    paramMap.put("keyword", keyword);
     
     return boardDao.selectList(paramMap);
   }
   
   @Override
-  public List<Board> getBoardList(int pageNo, int pageSize, int eno, 
+  public List<Board> getBoardList(String keyword, int pageNo, int pageSize, int eno, 
       String event, String date, String reply, String search1, String search2) {
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", (pageNo - 1) * pageSize);
@@ -52,6 +53,7 @@ public class DefaultBoardService implements BoardService {
     paramMap.put("reply", reply);
     paramMap.put("search1", search1);
     paramMap.put("search2", search2);
+    paramMap.put("keyword", keyword);
     
     return boardDao.selectList(paramMap);
   }
