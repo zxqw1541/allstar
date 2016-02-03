@@ -235,7 +235,7 @@ $('body').on('click','#boardtitle',function(event){
     	$("<tr>")
         .html("<td class='num'>"+ board.event.name +"</td>"
               +"<td class='subject'>"
-              +"<a href='boardDetail.html' data-list='"+i+"' id='boardtitle' boardBno='"+ board.no +"'>" + board.title  
+              +"<a href='#' data-ajax-board='free_view' data-list='"+i+"' id='boardtitle' boardBno='"+ board.no +"'>" + board.title  
               +"<small style='pointer-events: none; cursor: default;'>("+comment+")</small>" 
               +"<img src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_img.png' alt='이미지 있음' class='bulArticle bulImg' style='pointer-events: none; cursor: default;' />" 
               +"<img class='bul' src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_new.png' alt='새 글' class='bulArticle bulNew' style='pointer-events: none; cursor: default;' />"
@@ -275,8 +275,11 @@ $('body').on('click','#boardtitle',function(event){
     $("#breply").val(getParameter('reply'));
   }
 
-
- /*  /* board detail 시작 
+  $(document).on('click', 'a[data-ajax-board]', function (e) {
+	    e.preventDefault();
+	    location.href = "boardDetail.html?no=" + $(this).attr("boardBno");
+	  });
+   /* board detail 시작 
   function clickDetailLnk(event) {
   $('#subject').empty();
   $('#rightSide').empty();
