@@ -113,13 +113,13 @@ $('body').on('click','#boardtitle',function(event){
 </script>
 
 <!-- detail -->
-<div id="contents" style='background-color: white; width:1258px; margin:auto; height: 770px;'>
+<div id="contents" style='background-color: white; width:1258px; margin:auto; height: 100%;'>
   <div class="viewWrap boardContents boardView" >
     <article id="subject" class="mainArea">
     </article>
     <aside id="rightSide" class="sideArea">
     </aside>
-    <div class='bbsReply' style='float: left; '>
+    <div class='bbsReply' style='float: left;'>
     </div>
   </div>
 </div>
@@ -184,40 +184,7 @@ function clickUpdate(event) {
                   +"</div>")
             .appendTo(article);
            
-            var aside = $("#rightSide");
-            $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
-            .html("<p class='img'><img src='../member/img/" + photo + "' alt='프로필 사진'>"
-                  + "</p><div class='contents'><p class='name'>" + board.member.id 
-                  + "</p><p class='lvs'><span class='lv'>"+ board.event.name + "</span></p></div></div>")
-            .appendTo(aside);
-            $("<div class='btnArea'>")
-            .html("<p class='btnHome'><a id='mInfo' boardMno='"+ board.member.mno + "'style='margin-left:0%; display:block;' rel='leanModal1' href='#mem_info' class='btn btnType5'>회원정보보기</a></p>"
-            		  + "<div class='btm clearFix' style='margin-left:0%'>"
-            		  + "<a style='margin-left:0%' rel='leanModal' href='#newWrite' id='newB1' class='btn btnType6 btnWrite'>글쓰기</a>"
-            		  + "<a href='../ui/boardList12.html' style='margin-left:0%' id='btnArticleList' class='btn btnType6 btnList'>목록</a>"
-            		  + "</div></div>")
-            .appendTo(aside);
-            $("<div class='history' >")
-            .html("<ul class='list' style='margin-left: -39px;'>"
-                  + "<li class='prev'>"
-                  + "<a href='http://tos.nexon.com/community/free/view.aspx?n4ArticleSN=88184'>"
-                  + "<span class='nav'>이전<span class='bul sprBtn'></span></span>"
-                  + "<div class='contents'>"
-                  + "<strong class='tit'>test05</strong>"
-                  + "<span class='etc'><span class='date'>2016.01.14</span></span>"
-                  + "</div></a></li>"
-                  + "<li class='next'>"
-                  + "<a href='http://tos.nexon.com/community/free/view.aspx?n4ArticleSN=88182'>" 
-                  + "<span class='nav'>다음<span class='bul sprBtn'></span></span>" 
-                  + "<div class='contents'>" 
-                  + "<strong class='tit'>test07</strong>" 
-                  + "<span class='etc'><span class='date'>2016.01.14</span></span>" 
-                  + "</div></a></li></ul></div>")
-            .appendTo(aside);
             $("#updateBtn").click(updateBod);
-            $("#mInfo").click(clickMemInfo);
-            $('#newB1').click(clickNewWrite);
-            $('a[rel*=leanModal1]').leanModal({ top : 200, closeButton: ".modal_close" });
       });
 }
 /* board update and delete 끝 */
@@ -285,14 +252,14 @@ function clickUpdate(event) {
         $("<div class='history' >")
         .html("<ul class='list' style='margin-left: -39px;'>"
               + "<li class='prev'>"
-              + "<a href='http://tos.nexon.com/community/free/view.aspx?n4ArticleSN=88184'>"
+              + "<a href='../ui/boardDetail.html?no="+ (board.no-1) +"'>"
               + "<span class='nav'>이전<span class='bul sprBtn'></span></span>"
               + "<div class='contents'>"
               + "<strong class='tit'>test05</strong>"
               + "<span class='etc'><span class='date'>2016.01.14</span></span>"
               + "</div></a></li>"
               + "<li class='next'>"
-              + "<a href='http://tos.nexon.com/community/free/view.aspx?n4ArticleSN=88182'>" 
+              + "<a href='../ui/boardDetail.html?no="+ (board.no+1) +"'>" 
               + "<span class='nav'>다음<span class='bul sprBtn'></span></span>" 
               + "<div class='contents'>" 
               + "<strong class='tit'>test07</strong>" 
@@ -353,6 +320,7 @@ function clickUpdate(event) {
        
   });
 
+         
         //변경 버튼을 위한 이벤트 리스너 추가하기
           function updateBod(event) {
             console.log('수정눌림수정');
@@ -509,7 +477,24 @@ function clickUpdate(event) {
 	    });
 	    }
 	});
+	$(document).ready(function() {
+	    if (sessionStorage.getItem("mem_num") != undefined) {
+	        console.log("글쓰기 버튼 활성화.");
+	      $('#newB1').attr({
+	      rel : 'leanModal',
+	      href : '#newWrite'
+	    });
 
+	    }
+	    
+	   if (sessionStorage.getItem("mem_num") == undefined) {
+	          console.log("글쓰기 버튼 비활성화.");
+	        $('#newB1').attr({
+	        rel : '',
+	        href : ''
+	      });
+	      }
+	  });
 </script>
 
 
@@ -559,5 +544,6 @@ $('#addBtn').click(function(event) {
  
 });
 </script>
+<div style="height:150px;"></div>
 </body>
 </html>

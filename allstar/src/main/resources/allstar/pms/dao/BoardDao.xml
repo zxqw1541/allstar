@@ -40,6 +40,18 @@
            b.cre_dt, 
            b.views
   </sql>
+  
+  <select id="selectBpn" resultMap="boardMap" parameterType="int">
+    select b.bno,
+           b.title,
+           b.cre_dt,
+           e.name as e_ename
+    from board b
+           left outer join event e on b.eno = e.eno
+    where e.eno !=1 
+    order by b.bno desc;        
+  </select>
+  
   <select id="selectList" resultMap="boardMap" parameterType="map">
     <include refid="select_inc"/>
     from board b
@@ -161,6 +173,8 @@
     select views from board
     where bno=#{no}
   </select>
+  
+  
 </mapper>
 
 

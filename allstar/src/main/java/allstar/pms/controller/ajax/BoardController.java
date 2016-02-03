@@ -32,6 +32,7 @@ public class BoardController {
   @Autowired ServletContext servletContext;
   
   
+  
   @RequestMapping("all")
   public AjaxResult countAll(
       @RequestParam(defaultValue = "null") String event,
@@ -44,9 +45,6 @@ public class BoardController {
     return new AjaxResult("success",count);
     }
   
-
-
-
   @RequestMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
@@ -102,6 +100,7 @@ public class BoardController {
     log.info(no);
     return new AjaxResult("success", boardService.upView(no));
   }
+  
   @RequestMapping("detail")
   public AjaxResult detail(int no) throws Exception {
     Board board = boardService.retrieve(no);
