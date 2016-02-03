@@ -191,9 +191,9 @@ function clickUpdate(event) {
                   + "</p><p class='lvs'><span class='lv'>"+ board.event.name + "</span></p></div></div>")
             .appendTo(aside);
             $("<div class='btnArea'>")
-            .html("<p class='btnHome'><a id='mInfo' boardMno='"+ board.member.mno + "'style='margin-left:0%;' rel='leanModal1' href='#mem_info' class='btn btnType5'>회원정보보기</a></p>"
+            .html("<p class='btnHome'><a id='mInfo' boardMno='"+ board.member.mno + "'style='margin-left:0%; display:block;' rel='leanModal1' href='#mem_info' class='btn btnType5'>회원정보보기</a></p>"
             		  + "<div class='btm clearFix' style='margin-left:0%'>"
-            		  + "<a style='margin-left:0%' rel='leanModal' href='#newWrite' id='newB' class='btn btnType6 btnWrite'>글쓰기</a>"
+            		  + "<a style='margin-left:0%' rel='leanModal' href='#newWrite' id='newB1' class='btn btnType6 btnWrite'>글쓰기</a>"
             		  + "<a href='../ui/boardList12.html' style='margin-left:0%' id='btnArticleList' class='btn btnType6 btnList'>목록</a>"
             		  + "</div></div>")
             .appendTo(aside);
@@ -216,7 +216,7 @@ function clickUpdate(event) {
             .appendTo(aside);
             $("#updateBtn").click(updateBod);
             $("#mInfo").click(clickMemInfo);
-            $('#newB').click(clickNewWrite);
+            $('#newB1').click(clickNewWrite);
             $('a[rel*=leanModal1]').leanModal({ top : 200, closeButton: ".modal_close" });
       });
 }
@@ -395,6 +395,7 @@ function clickUpdate(event) {
 	   /*  $('.bbsReply').hide();
 	    $('#subject').empty();
 	    $('#rightSide').empty(); */
+	    $('#newBoard').empty();  
 	  $('#newBoard').show();
 	  $.getJSON('../board/ajax/add.do?no=' + -1, function(resultObj) {
 	      console.log("mem_num");
