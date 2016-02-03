@@ -138,6 +138,7 @@ public class CompetitionController {
     jc.setContent("대회 개최팀");
     jc.setState(1);
     joinCompetition(jc);
+    competitionService.plus1JoinNum(competitionService.getLastAddCno());
     
     return new AjaxResult("success", null);
   }
@@ -205,43 +206,19 @@ public class CompetitionController {
     if (joinCompService.retrive(joinComp) != 0)
       return new AjaxResult("already", null);
     
-    // 꽉찼을때
-    Competition c = competitionService.getJoinNTeamNum(joinComp.getCno());
-    if (c.getJoinNum() >= c.getTeamNum()) {
-      return new AjaxResult("full", null);
-    }
-    
     try {
       joinCompService.register(joinComp);
-      competitionService.plus1JoinNum(joinComp.getCno());
     } catch (Exception e) {
         return new AjaxResult("failure", null);
     }
     
-    List<Integer> tnoList = joinCompService.getTnoList(joinComp.getCno());
-    List<Team> teamList = new ArrayList<>();
-        
-    for (int i = 0; i < tnoList.size(); i++) {
-      teamList.add(teamService.retrieve(tnoList.get(i)));
-    }
-    
-    Competition competition = competitionService.retrieve(joinComp.getCno());
-    
-    String oper = TournamentHelper.makeTournament(teamList);
-    competition.setOperation(oper);
-    log.debug("-------------------------------------------------------");
-    log.debug("oper = " + oper);
-    log.debug("-------------------------------------------------------");
-    /*--------- */
-    competitionService.change(competition);
-
     return new AjaxResult("success", null);
   }
   
   @RequestMapping(value="imglist", method=RequestMethod.GET)
   public AjaxResult getImgPathByCno(int cno) {
     log.debug("*******cno = " + cno);
-    List<Integer> tnoList = joinCompService.getTnoList(cno);
+    List<Integer> tnoList = joinCompService.getApprovedTnoList(cno);
     
     if (tnoList.isEmpty())
       return new AjaxResult("empty",null);
@@ -297,8 +274,9 @@ public class CompetitionController {
     return new AjaxResult("success", compCommService.getLastCommByComp(comm.getCno()));
   }
   
+  /* 해당 맴버(개설한 팀들)가 주최한 대회 리스트 */
   @RequestMapping(value="complistm", method=RequestMethod.GET)
-  public AjaxResult getCompCommListByMno(int mno){
+  public AjaxResult getCompListByMno(int mno){
     log.debug(mno);
     log.debug(competitionService.getCompListByMno(mno));
     
@@ -309,6 +287,52 @@ public class CompetitionController {
   public AjaxResult getJoinTeamListByCno(int cno) {
     
     return new AjaxResult("success",joinCompService.getJoinListByCno(cno));
+  }
+  
+  @RequestMapping(value="changeState", method=RequestMethod.POST)
+  public AjaxResult changeStateJoinComp(int cno, int tno, int state) {
+    
+    if(state != 1) {
+      joinCompService.changeState(tno, cno, state);
+    }
+    else if (state == 1) {
+    // 꽉찼을때
+      Competition c = competitionService.getJoinNTeamNum(cno);
+      if (c.getJoinNum() >= c.getTeamNum()) {
+        return new AjaxResult("full", null);
+      }
+      // joinNum 증가
+      joinCompService.changeState(tno, cno, state);
+      competitionService.plus1JoinNum(cno);
+      
+      // 대진표 재작성
+      List<Integer> tnoList = joinCompService.getTnoList(cno);
+      List<Team> teamList = new ArrayList<>();
+          
+      for (int i = 0; i < tnoList.size(); i++) {
+        teamList.add(teamService.retrieve(tnoList.get(i)));
+      }
+      
+      Competition competition = competitionService.retrieve(cno);
+      
+      String oper = TournamentHelper.makeTournament(teamList);
+      competition.setOperation(oper);
+      log.debug("-------------------------------------------------------");
+      log.debug("oper = " + oper);
+      log.debug("-------------------------------------------------------");
+      /*--------- */
+      competitionService.change(competition);
+    }
+    
+    return new AjaxResult("success", null);
+  }
+  
+  /* 해당 맴버(개설한 팀들)가 참여한 대회 리스트 */
+  @RequestMapping(value="compJoined", method=RequestMethod.GET)
+  public AjaxResult getJoinedCompListByMno(int mno){
+    log.debug(mno);
+
+    return new AjaxResult("success", joinCompService.getJoinedCompList(mno));
   }
   
 }

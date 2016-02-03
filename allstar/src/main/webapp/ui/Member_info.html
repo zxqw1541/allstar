@@ -35,6 +35,7 @@ $(function(){
   $("#myteam").load("myteam.html");
   $("#joinedteam").load("joinedteam.html");
   $("#mycomp").load("mycompetition.html");
+  $("#joinedcomp").load("joinedcomp.html");
 });
 </script> 
 </head>
@@ -119,6 +120,14 @@ $('#my_info').click(function(event) {
 	      .appendTo(section);
 	      $("#mycomp").load("mycompetition.html");
 	  });
+ 
+ $('#my_part_comp').click(function(event) {
+     $("#main-section").empty();
+     var section = $("#main-section");
+       $("<div id='joinedcomp'></div>")
+       .appendTo(section);
+       $("#joinedcomp").load("joinedcomp.html");
+   });
  
 
  $(function(){

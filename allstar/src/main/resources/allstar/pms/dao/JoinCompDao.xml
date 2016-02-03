@@ -17,6 +17,14 @@
 	      <result column="t_name"    property="name"/>
 	      <result column="t_emblem"   property="emblem"/>
 	    </association>
+	    <association property="competition" javaType="Competition">
+        <id     column="c_cno"     property="no"/>
+        <result column="c_eno"     property="eno"/>
+        <result column="c_name"    property="name"/>
+        <result column="c_poster"  property="poster"/>
+        <result column="c_addr"    property="baseAddr"/>
+        <result column="c_content" property="content"/>
+      </association>
     </resultMap>
     
     <sql id="select_inc">
@@ -73,10 +81,30 @@
       where cno = #{cno}
     </select>
     
+    <select id="selectTnoListState1" resultType="int" parameterType="int">
+      select tno
+      from join_comp
+      where cno = #{cno} and state = 1
+    </select>
+    
     <update id="updateState" parameterType="map">
       update join_comp
       set state = #{state}
       where cno = #{cno} and tno = #{tno}        
     </update>
+    
+    <select id="selectJoinedComp" resultMap="joinCompMap" parameterType="int">
+        select jc.cno, jc.tno,
+               c.name as c_name, c.bas_addr as c_addr, 
+               c.poster as c_poster, c.content as c_content,
+               c.eno as c_eno,
+               t.name as t_name
+				from join_team jt
+				     left outer join join_comp jc on jt.tno = jc.tno
+				     left outer join competition c on c.cno = jc.cno
+				     left outer join team t on t.tno = jt.tno
+				where jc.tno != c.tno and jt.mno = #{mno}
+				order by jt.tno, jc.cno
+    </select>
     
 </mapper>

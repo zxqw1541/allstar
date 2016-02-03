@@ -52,7 +52,7 @@
 			  <div class='btnArea'>
 			    <p class='btnHome'>
 			   
-			      <a id='btnArticleJoin' style='margin-left:0%; margin-bottom:34px' class='btn btnType5' rel='leanModal' href='#apply_comp' >참여하기</a>
+			      <a id='btnArticleJoin' style='margin-left:0%; margin-bottom:34px' class='btn btnType5' rel='leanModal' href='#apply_comp' >참가 신청하기</a>
 			    </p>
 			    <div class="btm clearFix">
             <a href="#" id="btnArticleWrite" class="btn btnType6 btnWrite requireLogin" style='margin-left:0%'>새 대회 만들기</a>
@@ -172,10 +172,8 @@
 <script>
 function saveFn(data, userData) {
     var json = JSON.stringify(data);
-    console.log(data);
-    console.log(json);
     window.scoreOper = json;
-  }
+}
 </script>
 <script>
 var no = -1;
@@ -287,11 +285,8 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
 /* 다음 지도 */
 function daumMap(site) {
 	// 키워드로 장소를 검색합니다
-	console.log('주소');
-	console.log(site);
 	if (site.indexOf('(') != -1){
 		  site = site.split('(')[0];
-		  console.log(site);
 	}
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
@@ -310,9 +305,6 @@ geocoder.addr2coord(site, function(status, result) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === daum.maps.services.Status.OK) {
-    	  console.log("-----------------")
-    	  console.log(result.addr[0].lat);
-    	  console.log(result.addr[0].lng);
         var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
 
         // 결과값으로 받은 위치를 마커로 표시합니다
@@ -361,7 +353,6 @@ $.getJSON('/allstar/competition/imglist.do?cno=' + no, function(resultObj) {
 		changeThumb(teamList, 0);
  		nextThumb(teamList, Math.ceil(teamList.length/4));
 	} else if (ajaxResult.status == "empty") {
-		console.log("empty");
 		emptyThumb();
 	}
 });
@@ -453,9 +444,6 @@ function imgMouseEvent(teamList) {
     var i = $(this).attr('listno');
     var t = $(this).attr('teamno');
       if (teamList.length > i) {
-        console.log("click");
-        console.log(i);
-        console.log(t);
         getTeamDetail(t);
       }
   });
@@ -467,7 +455,6 @@ function imgMouseEvent(teamList) {
 <script>
 $(document).on('click', '#btnArticleJoin' , function(event){
   event.preventDefault();
-  console.log($('#apply_comp'));
   if (status != '모집중') {
 		  alert('현재 팀을 모집하지 않습니다.');
 		  $('#apply_comp').css('display' , 'none');
@@ -522,12 +509,10 @@ $('body').on('click','#applyTeamBtn', function() {
 		      + '&tno=' + ttno + '&content=' + content, function(resultObj) {
      var ajaxResult = resultObj.ajaxResult;
      if (ajaxResult.status == "success") {
-    	   alert('등록 완료 했어요');
+    	   alert('신청 완료 했어요');
     	   location.href = 'competitionDetail.html?no='+no;
      } else if (ajaxResult.status == "already") {
-    	 alert('이미 등록하셨어요');
-     } else if (ajaxResult.status == "full") {
-    	 alert('더이상 참여할 수 없어요')
+    	 alert('이미 신청 하셨어요');
      } else {
     	 alert('에러가 발생했어요')
      }
@@ -678,7 +663,6 @@ else if(sessionStorage.getItem("mem_num")){
 		data.append('cno', no);
 		data.append('mno', sessionStorage.getItem("mem_num"));
 		data.append('comm', $('#txtComment').val());
-	  console.log(data);
 		$.ajax({
 	    url : "../competition/addcomm.do",
 	    data : data,
@@ -689,7 +673,6 @@ else if(sessionStorage.getItem("mem_num")){
 	    success : function(result) {
 	    	if (result.ajaxResult.status == "success") {
 	    		var c = result.ajaxResult.data;
-	    		console.log(c);
 	    		var ul = $('.commList');
 	    		
 	    		var addedComm = $("<div>").addClass('commentWrap')
@@ -761,9 +744,7 @@ $('body').on('click','#randomTour', function() {
 		}
 	}
 	
-	console.log(window.operation);
 	var originResults = JSON.parse(window.operation).results;
-	console.log("origin ==> " + window.scoreOper);
 	
 	window.newTour = {
 		      teams : newArray,
