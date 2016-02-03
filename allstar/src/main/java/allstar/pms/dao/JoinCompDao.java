@@ -21,4 +21,6 @@ public interface JoinCompDao {
   String selectContentByCTno(Map<String, Integer> paramMap);
   
   int updateState(Map<String, Integer> paramMap);
+  
+  List<Integer> selectTnoListState1(int cno);
 }

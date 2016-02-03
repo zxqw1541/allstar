@@ -306,7 +306,7 @@ function getCompetition(cno){
     }
   });
   function acceptM(event){
-      $.post('../team/ajax/changeState.do', {
+      $.post('../competition/changeState.do', {
               cno: $(event.target).attr("compNo"),
               tno: $(event.target).attr("teamNo"),
               state: 1
@@ -315,6 +315,8 @@ function getCompetition(cno){
             if (ajaxResult.status == "success") {
               alert("상태 변경했습니다.");
               close_modal('#stateChange');
+            } else if (ajaxResult.status == "full") {
+            	alert("더이상 승인할 수 없습니다.");
             } else {
                 alert("변경에 실패했습니다.");
             }
@@ -322,7 +324,7 @@ function getCompetition(cno){
       }
     
   function waitM(event){
-      $.post('../team/ajax/changeState.do', {
+      $.post('../competition/changeState.do', {
           cno: $(event.target).attr("compNo"),
           tno: $(event.target).attr("teamNo"),
           state: 2
@@ -338,7 +340,7 @@ function getCompetition(cno){
   }
      
   function denialM(event){
-      $.post('../team/ajax/changeState.do', {
+      $.post('../competition/changeState.do', {
               cno: $(event.target).attr("compNo"),
               tno: $(event.target).attr("teamNo"),
               state: -1
