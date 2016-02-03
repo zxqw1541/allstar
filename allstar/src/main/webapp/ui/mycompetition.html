@@ -236,15 +236,15 @@ function getCompetition(cno){
           
           //리스트 출력
           ul = $("#new_apply");
-          $("<li>")
+          $("<li data-tno='"+joinComp.team.tno+"'>")
           .html("<a href='#stateChange'  rel='leanModal' teamNo='"+joinComp.team.tno+"' class='stateChan'><span>신청일 : "+joinComp.createDate+"</span>"
               +"<span>아이디 : "+joinComp.team.name+"</span></a> ").appendTo(ul);
         }
         // 참가중인 팀
         else if (joinComp.state == 1) {
           // 사진 
-          $("<figure >")
-          .html("<img src='../team/img/" + joinComp.team.emblem + "' >"
+          $("<a href='#stateChange' rel='leanModal' class='stateChan' teamNo='"+joinComp.team.tno+"'>")
+          .html("<figure><img src='../team/img/" + joinComp.team.emblem + "' >"
           +"<figcaption>"+joinComp.team.name+"</figcaption>"
           +"</figure>").appendTo(div);
         }
@@ -276,6 +276,14 @@ function getCompetition(cno){
            $('#stateChange').empty();
            console.log("tNo: "+$(event.currentTarget).attr("teamNo"));
            var tno=$(event.currentTarget).attr("teamNo");
+           
+           //옮기기
+           /* console.log("---------------");
+           console.log($("#new_apply li[data-tno="+tno+"]"));
+           var a =$("#new_apply li[data-tno="+tno+"]").clone();
+           $("#new_apply li[data-tno="+tno+"]").remove();
+           $("#reject_apply").append(a);
+           console.log("---------------"); */
            
            /* 팀 상세 */
            $.getJSON('../team/ajax/detailncont.do?tno='+tno+'&cno='+cno, function(resultObj){

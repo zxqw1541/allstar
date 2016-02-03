@@ -47,6 +47,32 @@ width:380px;
 height:923px; 
 border: 1px black solid;
 }
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 100px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+#stateChange {
+background-color:white;
+display: none;
+}
+#stateChange img {
+width:200px;
+height:250px;
+}
+
+#stateChange ul {
+padding: 45px;
+}
+#stateChange button {
+margin: 10px;
+}
 </style>
 
 <script src="js/test/modernizr.custom.js"></script>
@@ -77,6 +103,9 @@ border: 1px black solid;
 		<!-- <script src="js/test/toucheffects.js"></script> -->
 
 	</div>
+	
+	<!-- state 변경 모달 -->
+    <div id="stateChange" ></div>
 	<!-- 풋터크기 -->
     <div style="height:150px;"></div>
 <script>
@@ -113,18 +142,56 @@ function getCompetitionInfo(cno, tno){
 	     for(var j of resultObj.ajaxResult.data) {
 		     if(j.tno == tno){
 		    	 $("<p>")
-		         .html("<img id='"+j.team.name+"' "
+		         .html("<a href='#stateChange' rel='leanModal' teamNo='"+j.tno+"'  class='stateChan'>"
+		        		 +"<img id='"+j.team.name+"' "
 		             +"src='../team/img/"+j.team.emblem+"' >"
-		             +"<label for='#"+j.team.tno+" '>"+j.team.name+" 개최팀</label>").prependTo(li);
+		             +"<label for='#"+j.team.tno+" '>"+j.team.name+" 개최팀</label></a>").prependTo(li);
 		       }else {
 		    	   $("<p>")
-		           .html("<img id='"+j.team.name+"' "
+		           .html("<a href='#stateChange' rel='leanModal' teamNo='"+j.tno+"'  class='stateChan'>"
+		        		   +"<img id='"+j.team.name+"' "
 		               +"src='../team/img/"+j.team.emblem+"' >"
-		               +"<label for='#"+j.team.tno+" '>"+j.team.name+"</label>").appendTo(li);
+		               +"<label for='#"+j.team.tno+" '>"+j.team.name+"</label></a>").appendTo(li);
 		         
 		       } 
 	     }
 	   }
+	   $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });
+	   
+	   $('.stateChan').click(function (event){
+           $('#stateChange').empty();
+           console.log("tNo: "+$(event.currentTarget).attr("teamNo"));
+           var tno=$(event.currentTarget).attr("teamNo");
+           
+           //옮기기
+           /* console.log("---------------");
+           console.log($("#new_apply li[data-tno="+tno+"]"));
+           var a =$("#new_apply li[data-tno="+tno+"]").clone();
+           $("#new_apply li[data-tno="+tno+"]").remove();
+           $("#reject_apply").append(a);
+           console.log("---------------"); */
+           
+           /* 팀 상세 */
+           $.getJSON('../team/ajax/detailncont.do?tno='+tno+'&cno='+cno, function(resultObj){
+             
+             var ajaxResult=resultObj.ajaxResult;
+             if(ajaxResult.status=='success'){
+               var team = ajaxResult.data.team;
+               var div = $('#stateChange');
+               console.log(team);
+               $("<ul>")
+               .html("<li><img src='../team/img/"+team.emblem+"'></li>"
+                   +"<li><span>이름 : "+team.name+"</span></li>"
+                   +"<li><span>인원수 : "+team.joinNum+"</span></li>"
+                   +"<li><span>전적 : "+team.win+"승 "+team.lose+"패</span></li>"
+                   +"<li><span>연고지 : "+team.baseAddr+"</span></li>"
+                   +"<li><span>팀소개 : "+team.introduce+"</span></li>"
+                   +"<li><span>참가내용 : "+ajaxResult.data.content+"</span></li>")
+                   .appendTo(div);
+
+             }
+           });
+      });
    });
 }
 
