@@ -77,15 +77,63 @@ border: 1px black solid;
 		<!-- <script src="js/test/toucheffects.js"></script> -->
 
 	</div>
+	<!-- 풋터크기 -->
+    <div style="height:150px;"></div>
 <script>
+function getCompetitionInfo(cno, tno){
+	$.getJSON('../competition/detail.do?no=' + cno, function(resultObj){
+	    var ajaxResult = resultObj.ajaxResult;
+	    var c = ajaxResult.data;
+	    var li = $('#team_name');
+	    $("<div style='text-align:center; border: 1px black solid;'>")
+	    .html("<h1>"+c.name+"</h1></div>").appendTo(li);
+	    li= $('#team_btfld');
+	    $("<p>")
+	    .html("<button>버튼</button>"
+	        +"<button>버튼</button></p>").appendTo(li);
+	    
+	    
+	    li = $('#team_information');
+	    var poster = c.poster;
+	    if(poster == null)
+	      emblem = "allstardefault.png";
+	    $("<p>")
+	    .html("<img style='width:350px; height:350px;' src='../competition/img/"+poster+"'><br>"
+	        +"<span> 대회명 : "+c.name+"</span><br> <span></span><br>"
+	        + "<span style='display: inherit;'> 종목 : " + c.event.name + " </span><br>"
+	        + "<span style='display: inherit;'> 참여현황 : " + c.joinNum + "/" + c.teamNum + " </span><br>"
+	        + "<span style='display: inherit;'> 모집일 : " + c.recruitStartDate + "~" + c.recruitEndDate + "</span><br>"
+	        + "<span style='display: inherit;'> 대회일 : " + c.startDate + "~" + c.endDate + " </span><br>").appendTo(li);
+	    });      
+	    
+   $.getJSON('../competition/jclist.do?cno=' + cno ,function(resultObj){
+	   
+	   if (resultObj.ajaxResult.status =='success'){
+		   li = $('#member_photo');
+	     for(var j of resultObj.ajaxResult.data) {
+		     if(j.tno == tno){
+		    	 $("<p>")
+		         .html("<img id='"+j.team.name+"' "
+		             +"src='../team/img/"+j.team.emblem+"' >"
+		             +"<label for='#"+j.team.tno+" '>"+j.team.name+" 개최팀</label>").prependTo(li);
+		       }else {
+		    	   $("<p>")
+		           .html("<img id='"+j.team.name+"' "
+		               +"src='../team/img/"+j.team.emblem+"' >"
+		               +"<label for='#"+j.team.tno+" '>"+j.team.name+"</label>").appendTo(li);
+		         
+		       } 
+	     }
+	   }
+   });
+}
+
 $.getJSON('../competition/compJoined.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
     $("myTeamInfo_detail").hide();
     var ul = $('#myteams');
-    console.log(resultObj.ajaxResult.data);
     if(resultObj.ajaxResult.status == "success"){
     	var event = 0 ;
       for (var jc of resultObj.ajaxResult.data){
-    	  console.log(jc);
           switch(jc.competition.eno){
           case 2:  event = "농구";
              break;
@@ -98,6 +146,7 @@ $.getJSON('../competition/compJoined.do?mno=' +sessionStorage.getItem("mem_num")
           case 6:  event = "볼링";
             break;
           }
+        console.log(jc);
         $("<li style='margin-left: 120px;'>")
         .html("<figure><div>"
             +"<img src='../competition/img/"+ jc.competition.poster + "' style='width:300px;' alt='"+ jc.competition.name+"'></div>"
@@ -107,79 +156,20 @@ $.getJSON('../competition/compJoined.do?mno=' +sessionStorage.getItem("mem_num")
             +"<span >개최지 : " + jc.competition.baseAddr + " </span><br>"
             +"<span >종목 : "+ event + " </span><br>"
             +"<span>내용 : "+ jc.competition.content + "</span><br>"
-                  +"<a class='mycomp_info' href='javascript:;' data-comp-no='" + jc.cno + "'>대회 정보 보기</a>"
+                  +"<a class='mycomp_info' href='javascript:;' data-comp-no='" + jc.cno + "' data-tno='" + jc.tno + "'>대회 정보 보기</a>"
             +"</figcaption></figure></li>"
         ).appendTo(ul);
       }
-      /* $('.mycomp_info').click(function(){
-        $("#myteams").hide();
-          $("#myTeamInfo_detail").show();
-          getCompetition($(this).attr('data-comp-no'));
-      }); */
+	      $('.mycomp_info').click(function(){
+	      $("#myteams").hide();
+	      $("#myteams_info").show();
+	      getCompetitionInfo($(this).attr('data-comp-no'), $(this).attr('data-tno'));
+      });
     } else {
     	$("<li>").html("현재 참가한 대회가 없습니다. </li>").appendTo(ul);
     }
 });
 	
-
-/* 
-function goTeamInfo(event){
-console.log("teamNo : "+ $(event.target).attr('teamNo'));
-$('#myteams').hide();
-$('#myteams_info').show();
-$.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo') ,function(resultObj){
-		var ajaxResult = resultObj.ajaxResult;
-        var team = ajaxResult.data;
-var li = $('#team_name');
-$("<div style='text-align:center; border: 1px black solid;'>")
-.html("<h1>"+team.name+"</h1></div>").appendTo(li);
-});
-
-$.getJSON('../member/ajax/teamJoin.do?tno=' + $(event.target).attr('teamNo') ,function(resultObj){
-	for(var joinTeam of resultObj.data) {
-	var level = joinTeam.level;
-	console.log("jt.mno : " + joinTeam.mno);
-	if(level == 1){
-		level='팀장';
-		}else {
-			level='';
-		}
-var li = $('#member_photo');
-$("<p>")
-.html("<img id='"+joinTeam.member.id+"' "
-		+"src='../member/img/"+joinTeam.member.photo+"' >"
-		+"<label for='#"+joinTeam.member.id+" '>"+joinTeam.member.id+" "+level+"</label>").appendTo(li);
-	}
-});
-var li= $('#team_btfld');
-$("<p>")
-.html("<button>버튼</button>"
-		+"<button>버튼</button></p>").appendTo(li);
-
-$.getJSON('../team/ajax/detail.do?tno=' + $(event.target).attr('teamNo') ,function(resultObj){
-	var team = resultObj.ajaxResult.data;
-	var li = $('#team_information');
-	var emblem = team.emblem;
-	if(emblem == null)
-		emblem = "allstardefault.png";
-$("<p>")
-.html("<img style='width:350px; height:350px;' src='../team/img/"+emblem+"'><br>"
-		+"<span> 팀명 : "+team.name+"</span><br> <span></span><br>"
-		+"<span> 장소 : "+ team.baseAddr +" </span><br> <span></span><br>"
-		+"<span> 정모일 : "+ team.meetDay +" </span><br>"
-		+"<span> 회비 : "+ team.fee +" </span><br>"
-		+"<span> 전적 : "+ team.win +" 승 "+team.draw+" 무 "+team.lose+" 패</span><br>"
-		+"<span> 팀 소개 : "+ team.introduce +" </span><br>"
-		+"</p>").appendTo(li);
-});        
-
-
-
-	
-} */
-
-
-    
 </script>
 
 

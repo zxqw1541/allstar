@@ -115,7 +115,7 @@ function close_modal(modal_id){
    
         <div class="listFrame listNotice" style="background-color: white; width:500px;">
           <div class="header clearFix">
-            <h3 class="titNotice">TOP 게시물</h3>
+            <h3 class="titNotice">TOP 게시물<small> 조회수 TOP 5</small></h3>
             <p class="btnMore"><a href="boardList12.html" class="sprBtn" style="float:left; margin-top: -7px;"> </a><a href="boardList12.html" >더 보기</a></p>
           </div>
   <div class="contents tabArea">
@@ -132,10 +132,7 @@ function close_modal(modal_id){
   <div class="header clearFix">
     <h3 class="titGM">최근 게시물</h3>
      <p class="btnMore"><a href="boardList12.html" class="sprBtn" style="float:left; margin-top: -7px;"> </a><a href="boardList12.html" >더 보기</a></p>
-<!--     <ul class="nav">
-      <li><a href="#" class="on">공략</a></li>
-      <li><a href="#">UCC</a></li>
-    </ul> -->
+
   </div>
   <div class="contents tabArea">
   
@@ -265,27 +262,17 @@ function close_modal(modal_id){
         <script>
       function checkPass()
       {
-          //Store the password field objects into variables ...
           var pass1 = document.getElementById('pass_signin');
           var pass2 = document.getElementById('pass_signin2');
-          //Store the Confimation Message Object ...
           var message = document.getElementById('confirmMessage');
-          //Set the colors we will be using ...
           var goodColor = "#66cc66";
           var badColor = "#ff6666";
-          //Compare the values in the password field 
-          //and the confirmation field
+
           if(pass1.value == pass2.value){
-              //The passwords match. 
-              //Set the color to the good color and inform
-              //the user that they have entered the correct password 
               pass2.style.backgroundColor = goodColor;
               message.style.color = goodColor;
               message.innerHTML = "Passwords Match!"
           }else{
-              //The passwords do not match.
-              //Set the color to the bad color and
-              //notify the user.
               pass2.style.backgroundColor = badColor;
               message.style.color = badColor;
               message.innerHTML = "Passwords Do Not Match!"
@@ -334,12 +321,12 @@ function close_modal(modal_id){
 
 <script>
      $.getJSON('/allstar/competition/list.do?pageSize=10', function(resultObj){
-var div = $('#photo_div');
+    	  var div = $('#photo_div');
 
          for (var competition of resultObj.ajaxResult.data.comp) {
         	 var poster = competition.poster;
         	 if(poster == null)
-        		 poster=allstarcomp.png;
+        		 poster="allstarcomp.png";
            $("<figure>")
            .html("<a href='competitionDetail.html?no="+competition.no+"' class='photostack-img'><img src='../competition/img/"+poster+"' /></a>"
             +"<figcaption>"
@@ -464,21 +451,20 @@ var div = $('#photo_div');
     	        var comment = resultObj.comm[i];
     	      $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='margin-left:-25px;'>")
     	      .html(
-    	            "<a href='#' class='detailLink' boardBno='" + board.no + "'>" 
+    	            "<a href='' class='detailNew' boardBno='" + board.no + "'>" 
     	            + "<span class='txt'>" 
     	            + "<span class='cat'>" + board.event.name  +"</span>"
     	            + board.title +"<small>("+comment+")</small>" 
-    	            + "<img class='bulArticle bulLike' src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_gmlike.png' alt='최근글' />"
     	            + "</span>"
     	            + "<span class='date'>"+board.createDate+"</span></a></li>")
     	      .appendTo(ul);
     	  
    
-    	      $("a.detailLink").click(clickDetailLnk);
+    	      $("a.detailNew").click(clickDetailNew);
     	    }
-    	    function clickDetailLnk(event) {
+    	    function clickDetailNew(event) {
     	        event.preventDefault(); 
-    	        location.href = "form.html?no=" + $(event.target).attr("boardBno");
+    	        location.href = "boardDetail.html?no=" + $(event.currentTarget).attr("boardBno");
     	      } 
     });
     
@@ -492,21 +478,20 @@ var div = $('#photo_div');
     		      var comment = resultObj.comm[i];
            $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='margin-left:-25px;'>")
            .html(
-                 "<a href='#' class='detailLink' boardBno='" + board.no + "'>" 
+                 "<a href='#' class='detailTop' boardBno='" + board.no + "'>" 
                  + "<span class='txt'>" 
                  + "<span class='cat'>" + board.event.name  +"</span>"
-                 + board.title +"<small>("+comment+")</small>" 
-                 + "<img class='bulArticle bulLike' src='http://s.nx.com/s2/game/tos/obt/common/bullet/bul_gmlike.png' alt='인기글' />"
+                 + board.title +"<small>("+comment+") - 조회수 : "+board.views+"</small>" 
                  + "</span>"
                  + "<span class='date'>"+board.createDate+"</span></a></li>")
            .appendTo(ul);
        
   
-           $("a.detailLink").click(clickDetailLnk);
+           $("a.detailTop").click(clickDetailTop);
          }
-         function clickDetailLnk(event) {
+         function clickDetailTop(event) {
              event.preventDefault(); 
-             location.href = "form.html?no=" + $(event.target).attr("boardBno");
+             location.href = "boardDetail.html?no=" + $(event.target).attr("boardBno");
            } 
    });
     
@@ -522,7 +507,7 @@ var div = $('#photo_div');
                 } 
             $("<li id='team_"+ team.tno+"'>")
             .html(
-              "<a href='#' class='detailLink' teamTno='" + team.tno + "'>"
+              "<a href='#' class='detailTeam' teamTno='" + team.tno + "'>"
                 +"<img src='../team/img/"+ emblem +"' alt='"+ team.name +"' >"
                 +"<span>"+team.name+"</span>"
                 +"<span>"+team.event.name+"</span>"
@@ -531,9 +516,9 @@ var div = $('#photo_div');
               +"</a></li>" )
     .appendTo(ul);
    
-            $("a.detailLink").click(clickDetailLnk);
+            $("a.detailTeam").click(clickDetailTeam);
           }
-          function clickDetailLnk(event) {
+          function clickDetailTeam(event) {
               event.preventDefault(); 
               location.href = "form.html?no=" + $(event.target).attr("teamTno");
             } 

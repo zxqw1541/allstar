@@ -86,7 +86,18 @@
       <if test="date == 'null'"> b.cre_dt asc </if>
     </if>
     
-    <if test="date == 'null' and reply == 'null'"> order by b.bno desc</if>
+    <if test="date == 'null' and reply == 'null'"> order by </if>
+    
+    <choose>
+      <when test="keyword == 'views'">b.views </when>
+      <otherwise>
+        b.bno
+      </otherwise>
+    </choose>
+    <choose>
+      <when test="align == 'asc'">asc </when>
+      <otherwise>desc </otherwise>
+    </choose>
     
     limit #{startIndex}, #{length}
   </select>
