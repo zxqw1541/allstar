@@ -1,7 +1,6 @@
 package allstar.pms.service;
 
 import java.util.List;
-import java.util.Map;
 
 import allstar.pms.domain.JoinComp;
 
@@ -18,6 +17,8 @@ public interface JoinCompService {
   int retrive(JoinComp joinComp);
   
   List<Integer> getTnoList(int cno);
+  
+  List<Integer> getApprovedTnoList(int cno);
   
   String getContent(int tno, int cno);
   

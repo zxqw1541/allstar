@@ -73,6 +73,12 @@
       where cno = #{cno}
     </select>
     
+    <select id="selectTnoListState1" resultType="int" parameterType="int">
+      select tno
+      from join_comp
+      where cno = #{cno} and state = 1
+    </select>
+    
     <update id="updateState" parameterType="map">
       update join_comp
       set state = #{state}

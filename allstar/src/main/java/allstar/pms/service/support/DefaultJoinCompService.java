@@ -43,6 +43,11 @@ public class DefaultJoinCompService implements JoinCompService {
   public List<Integer> getTnoList(int cno) {
     return joinCompDao.selectTnoList(cno);
   }
+  
+  @Override
+  public List<Integer> getApprovedTnoList(int cno) {
+    return joinCompDao.selectTnoListState1(cno);
+  }
 
   @Override
   public String getContent(int tno, int cno) {
@@ -60,4 +65,5 @@ public class DefaultJoinCompService implements JoinCompService {
     paramMap.put("state", state);
     return joinCompDao.updateState(paramMap);
   }
+
 }

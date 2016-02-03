@@ -52,7 +52,7 @@
 			  <div class='btnArea'>
 			    <p class='btnHome'>
 			   
-			      <a id='btnArticleJoin' style='margin-left:0%; margin-bottom:34px' class='btn btnType5' rel='leanModal' href='#apply_comp' >참여하기</a>
+			      <a id='btnArticleJoin' style='margin-left:0%; margin-bottom:34px' class='btn btnType5' rel='leanModal' href='#apply_comp' >참가 신청하기</a>
 			    </p>
 			    <div class="btm clearFix">
             <a href="#" id="btnArticleWrite" class="btn btnType6 btnWrite requireLogin" style='margin-left:0%'>새 대회 만들기</a>
@@ -520,12 +520,10 @@ $('body').on('click','#applyTeamBtn', function() {
 		      + '&tno=' + ttno + '&content=' + content, function(resultObj) {
      var ajaxResult = resultObj.ajaxResult;
      if (ajaxResult.status == "success") {
-    	   alert('등록 완료 했어요');
+    	   alert('신청 완료 했어요');
     	   location.href = 'competitionDetail.html?no='+no;
      } else if (ajaxResult.status == "already") {
-    	 alert('이미 등록하셨어요');
-     } else if (ajaxResult.status == "full") {
-    	 alert('더이상 참여할 수 없어요')
+    	 alert('이미 신청 하셨어요');
      } else {
     	 alert('에러가 발생했어요')
      }
