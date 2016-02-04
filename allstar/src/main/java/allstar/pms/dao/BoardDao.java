@@ -18,9 +18,7 @@ public interface BoardDao {
 
   Board selectOne(int bno);
   
-  void  upView(int no);
-  
-  int selectViews(int no);
+  int upView(int no);
   
   List<Board> selectBpn();
 }

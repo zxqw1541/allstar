@@ -145,6 +145,7 @@ public class BoardController {
   
   @RequestMapping("detail")
   public AjaxResult detail(int no) throws Exception {
+    boardService.upView(no);
     Board board = boardService.retrieve(no);
     log.info("ajax/detail:" + board);
     return new AjaxResult("success", board);

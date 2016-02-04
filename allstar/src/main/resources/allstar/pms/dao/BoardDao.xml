@@ -180,12 +180,6 @@
     where bno=#{no}
   </update>
   
-  <select id="selectViews" resultType="int" parameterType="int">
-    select views from board
-    where bno=#{no}
-  </select>
-  
-  
 </mapper>
 
 

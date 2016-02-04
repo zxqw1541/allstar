@@ -79,8 +79,7 @@ public class DefaultBoardService implements BoardService {
   }
   
   @Override public int upView(int no) {
-    boardDao.upView(no);
-    return boardDao.selectViews(no);
+    return boardDao.upView(no);
   }
 
   @Override
