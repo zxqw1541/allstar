@@ -38,7 +38,6 @@ $(function(){
 <style>
 #team_information span {
 font-size: 25px;
-margin:30px;
 }
 
 #member_photo {
@@ -67,7 +66,6 @@ text-align:center;
 }
 
 #team_btfld {
-border: 1px black solid;
 width:394px;
 height:280px;
 float:right;
@@ -76,7 +74,6 @@ margin-top: 0px;
 #team_information {
 width:380px; 
 height:923px; 
-border: 1px black solid;
 }
 
 #lean_overlay {
@@ -182,12 +179,9 @@ $(function(){
 	    var ajaxResult = resultObj.ajaxResult;
 	    var c = ajaxResult.data;
 	    var li = $('#team_name');
-	    $("<div style='text-align:center; border: 1px black solid;'>")
+	    $("<div style='text-align:center; '>")
 	    .html("<h1>"+c.name+"</h1></div>").appendTo(li);
-	    li= $('#team_btfld');
-	    $("<p>")
-	    .html("<button>버튼</button>"
-	        +"<button>버튼</button></p>").appendTo(li);
+	    
 	    
 	    
 	    li = $('#team_information');
@@ -195,12 +189,12 @@ $(function(){
 	    if(poster == null)
 	      emblem = "allstardefault.png";
 	    $("<p>")
-	    .html("<img style='width:350px; height:350px;' src='../competition/img/"+poster+"'><br>"
+	    .html("<img style='width:350px; height:350px;' src='../competition/img/"+poster+"'><br> <span></span><br>"
 	        +"<span> 대회명 : "+c.name+"</span><br> <span></span><br>"
-	        + "<span style='display: inherit;'> 종목 : " + c.event.name + " </span><br>"
-	        + "<span style='display: inherit;'> 참여현황 : " + c.joinNum + "/" + c.teamNum + " </span><br>"
-	        + "<span style='display: inherit;'> 모집일 : " + c.recruitStartDate + "~" + c.recruitEndDate + "</span><br>"
-	        + "<span style='display: inherit;'> 대회일 : " + c.startDate + "~" + c.endDate + " </span><br>").appendTo(li);
+	        + "<span > 종목 : " + c.event.name + " </span><br> <span></span><br>"
+	        + "<span > 참여현황 : " + c.joinNum + "/" + c.teamNum + " </span><br> <span></span><br>"
+	        + "<span > 모집일 : " + c.recruitStartDate + "~" + c.recruitEndDate + "</span><br> <span></span><br>"
+	        + "<span > 대회일 : " + c.startDate + "~" + c.endDate + " </span><br> <span></span><br>").appendTo(li);
 	    });      
 	    
    $.getJSON('../competition/jclist.do?cno=' + cno ,function(resultObj){
