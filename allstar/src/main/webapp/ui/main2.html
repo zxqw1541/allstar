@@ -76,7 +76,7 @@ function close_modal(modal_id){
 				                <li><a href="teamList.html?event=5">볼링</a></li>
                         <li><a href="teamList.html?event=6">탁구</a></li>
 				           </ul></li>
-                       <li class='last'><a href="freeBoardList.html">자유게시판</a></li>
+                       <li class='last'><a href="freeBoardList.html"></a></li>
               </ul>
         </nav>
         </div>
@@ -491,7 +491,7 @@ function close_modal(modal_id){
          }
          function clickDetailTop(event) {
              event.preventDefault(); 
-             location.href = "boardDetail.html?no=" + $(event.target).attr("boardBno");
+             location.href = "boardDetail.html?no=" + $(event.currentTarget).attr("boardBno");
            } 
    });
     

@@ -32,8 +32,6 @@ $(function(){
   $("#header").load("header.html"); 
   $("#footer").load("footer.html"); 
   $("#meminfo").load("meminfo.html");
-  $("#myteam").load("myteam.html");
-  $("#joinedteam").load("joinedteam.html");
   $("#mycomp").load("mycompetition.html");
   $("#joinedcomp").load("joinedcomp.html");
 });
@@ -47,9 +45,9 @@ $(function(){
    
 
     <div class="sidebar-links">
-      <a class="link-blue selected" href="javascript:;"onclick="scroll(0,0)" id='my_info'><i class="fa fa-user"></i>내 정보</a>
-      <a class="link-pink" href="javascript:;" onclick="scroll(0,0)"id='my_open_team'><i class="fa fa-users" ></i>나의 팀</a>
-      <a class="link-green" href="javascript:;"onclick="scroll(0,0)" id='my_part_team'><i class="fa fa-users" ></i>참여한 팀</a>
+      <a class="link-blue selected" href="Member_info.html"onclick="scroll(0,0)" id='my_info'><i class="fa fa-user"></i>내 정보</a>
+      <a class="link-pink" href="myteam.html" onclick="scroll(0,0)"id='my_open_team'><i class="fa fa-users" ></i>나의 팀</a>
+      <a class="link-green" href="joinedteam.html"onclick="scroll(0,0)" id='my_part_team'><i class="fa fa-users" ></i>참여한 팀</a>
       <a class="link-yellow " href="javascript:;"onclick="scroll(0,0)" id='my_open_comp'><i class="fa fa-trophy" ></i>나의 대회</a>
       <a class="link-red " href="javascript:;"onclick="scroll(0,0)" id='my_part_comp'><i class="fa fa-trophy" ></i>참여한 대회</a>
     </div>
@@ -96,23 +94,7 @@ $('#my_info').click(function(event) {
     $("#meminfo").load("meminfo.html");
 });
 
- $('#my_open_team').click(function(event) {
-	  $("#main-section").empty();
-	  var section = $("#main-section");
-	    $("<div id='myteam'></div>")
-	    .appendTo(section);
-	    $("#myteam").load("myteam.html");
-	});
 
-
- $('#my_part_team').click(function(event) {
-    $("#main-section").empty();
-    var section = $("#main-section");
-      $("<div id='joinedteam'></div>")
-      .appendTo(section);
-      $("#joinedteam").load("joinedteam.html");
-  });
- 
  $('#my_open_comp').click(function(event) {
 	    $("#main-section").empty();
 	    var section = $("#main-section");
