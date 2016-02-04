@@ -193,6 +193,61 @@ function clickUpdate(event) {
   var no = -1;
   if (location.href.indexOf('?') != -1)
   no = location.href.split('?')[1].split('=')[1];
+  /* 이전글 다음글 */
+  $.ajax({
+	  url: '/allstar/board/ajax/pn.do?bno=' + no,
+	  type: 'GET',
+	  contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+	  dataType:'json',
+	  success:function(resultObj) {
+		  if(resultObj.status == 'success') {
+			  var prev = resultObj.prev;
+			  var next = resultObj.next;
+			  var prevE = '';
+			  var nextE = '';
+			  
+			  if(prev == null) {
+				  prevE = "<li class='prev'>"
+                  + "<span class='nav'>이전<span class='bul sprBtn'></span></span>"
+                  + "<div class='contents'>"
+                  + "<strong class='tit' style='display:inline;'>이전 글이 없습니다.</strong>" 
+                  + "</div></li>";
+			  } else {
+				  prevE = "<li class='prev'>"
+	                  + "<a href='../ui/boardDetail.html?no="+ prev.no +"'>"
+	                  + "<span class='nav'>이전<span class='bul sprBtn'></span></span>"
+	                  + "<div class='contents'>"
+	                  + "<strong class='tit' style='display:inline;'>" + prev.title + "</strong><small> - " + prev.event.name + "</small><br>" 
+	                  + "<span class='etc'><span class='date'>" + prev.createDate + "</span></span>"
+	                  + "</div></a></li>";
+			  }
+			  
+			  if(next == null) {
+				  nextE = "<li class='next'>"
+	                  + "<span class='nav'>다음<span class='bul sprBtn'></span></span>" 
+	                  + "<div class='contents'>" 
+	                  + "<strong class='tit' style='display:inline;'>다음 글이 없습니다.</strong>" 
+	                  + "</div></li>";
+		     } else {
+		    	 nextE = "<li class='next'>"
+	                  + "<a href='../ui/boardDetail.html?no="+ next.no +"'>" 
+	                  + "<span class='nav'>다음<span class='bul sprBtn'></span></span>" 
+	                  + "<div class='contents'>" 
+	                  + "<strong class='tit' style='display:inline;'>" + next.title + "</strong><small> - " + next.event.name + "</small><br>" 
+	                  + "<span class='etc'><span class='date'>" + next.createDate + "</span></span>" 
+	                  + "</div></a></li>";
+		     }
+			  
+			  var aside = $("#rightSide");
+			  $("<div class='history' >")
+		        .html("<ul class='list' style='margin-left: -39px;'>"
+		              + prevE + nextE
+		              + "</ul>")
+		        .appendTo(aside);
+		  }
+	  }
+  });
+  /* board detail */
   $.ajax({
        url: '/allstar/board/ajax/detail.do?no=' + no,
        type:'GET',
@@ -237,35 +292,19 @@ function clickUpdate(event) {
           .appendTo(article);
         }
         var aside = $("#rightSide");
-        $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
-        .html("<p class='img'><img src='../member/img/"+ photo + "' alt='프로필 사진'>"
-              + "</p><div class='contents'><p class='id'>" + board.member.id
-              + "</p><p class='lvs'><span class='lv'>"+ board.event.name + "</span></p></div></div>")
-              .appendTo(aside);
         $("<div class='btnArea'>")
         .html("<p class='btnHome'><a id='mInfo' boardMno='"+ board.member.mno + "'style='margin-left:0%; display:block;' rel='leanModal1' href='#mem_info' class='btn btnType5'>회원정보보기</a></p>"
               + "<div class='btm clearFix' style='margin-left:0%'>"
               + "<a style='margin-left:0%' rel='leanModal' href='#newWrite' id='newB' class='btn btnType6 btnWrite'>글쓰기</a>"
               + "<a href='../ui/boardList12.html' style='margin-left:0%' id='btnArticleList' class='btn btnType6 btnList'>목록</a>"
               + "</div></div>")
-              .appendTo(aside);
-        $("<div class='history' >")
-        .html("<ul class='list' style='margin-left: -39px;'>"
-              + "<li class='prev'>"
-              + "<a href='../ui/boardDetail.html?no="+ (board.no-1) +"'>"
-              + "<span class='nav'>이전<span class='bul sprBtn'></span></span>"
-              + "<div class='contents'>"
-              + "<strong class='tit'>test05</strong>"
-              + "<span class='etc'><span class='date'>2016.01.14</span></span>"
-              + "</div></a></li>"
-              + "<li class='next'>"
-              + "<a href='../ui/boardDetail.html?no="+ (board.no+1) +"'>" 
-              + "<span class='nav'>다음<span class='bul sprBtn'></span></span>" 
-              + "<div class='contents'>" 
-              + "<strong class='tit'>test07</strong>" 
-              + "<span class='etc'><span class='date'>2016.01.14</span></span>" 
-              + "</div></a></li></ul></div>")
-        .appendTo(aside);
+              .prependTo(aside);
+        $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
+        .html("<p class='img'><img src='../member/img/"+ photo + "' alt='프로필 사진'>"
+              + "</p><div class='contents'><p class='id'>" + board.member.id
+              + "</p><p class='lvs'><span class='lv'>"+ board.event.name + "</span></p></div></div>")
+              .prependTo(aside);
+        
           
         $("#mInfo").click(clickMemInfo);
         $("#deleteBtn").click(clickDel);

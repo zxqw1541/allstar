@@ -82,4 +82,10 @@ public class DefaultBoardService implements BoardService {
     boardDao.upView(no);
     return boardDao.selectViews(no);
   }
+
+  @Override
+  public List<Board> getBnoList() {
+    
+    return boardDao.selectBpn();
+  }
 }

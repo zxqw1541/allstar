@@ -41,11 +41,11 @@
            b.views
   </sql>
   
-  <select id="selectBpn" resultMap="boardMap" parameterType="int">
+  <select id="selectBpn" resultMap="boardMap">
     select b.bno,
            b.title,
            b.cre_dt,
-           e.name as e_ename
+           e.name as e_name
     from board b
            left outer join event e on b.eno = e.eno
     where e.eno !=1 

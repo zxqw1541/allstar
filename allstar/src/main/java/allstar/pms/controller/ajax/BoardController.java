@@ -31,7 +31,48 @@ public class BoardController {
   @Autowired BoarCommService boarCommService;
   @Autowired ServletContext servletContext;
   
-  
+  @RequestMapping("pn")
+  public Object pnList(int bno) {
+    List<Board> boards = boardService.getBnoList();
+    
+    int index = -1;
+    int boardSize = boards.size();
+    Board board = null;
+    // 해당 게시글 인덱스 찾기
+    for(int i = 0; i < boardSize; i++) {
+      board = boards.get(i);
+      if(bno == board.getNo()) {
+        index = i;
+        break;
+      }
+    }
+    HashMap<String,Object> resultMap = new HashMap<>();
+    // 게시글이 하나 일 때
+    if(boardSize == 1) {
+      resultMap.put("status", "success");
+      resultMap.put("next", null);
+      resultMap.put("prev", null);
+      return resultMap;
+    } 
+    
+    // 이전 게시글이 없을때
+    if(index == 0) {
+      resultMap.put("next", boards.get(index + 1));
+      resultMap.put("prev", null);
+    } 
+    // 다음 게시글이 없을때
+    else if(index == boardSize -1) {
+      resultMap.put("next", null);
+      resultMap.put("prev", boards.get(index - 1));
+    } 
+    // 이전 다음 게시글이 모두 있을 때
+    else {
+      resultMap.put("next", boards.get(index + 1));
+      resultMap.put("prev", boards.get(index - 1));
+    }
+    resultMap.put("status", "success");
+    return resultMap;
+  }
   
   @RequestMapping("all")
   public AjaxResult countAll(

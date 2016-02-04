@@ -24,7 +24,7 @@ public interface BoardService {
   
   int  upView(int no);
   
-  
+  List<Board> getBnoList();
 }
 
 
