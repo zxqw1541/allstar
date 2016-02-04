@@ -359,6 +359,7 @@ function clickUpdate(event) {
             });
           }
           
+          //댓글 삭제버튼을 위한 이벤트 리스너 추가하기
           function clickDelBC(event) {
               console.log($(event.target).attr("boardBcno"));
               if (sessionStorage.getItem("mem_num") == $(event.currentTarget).attr("boarCommMno")) {
