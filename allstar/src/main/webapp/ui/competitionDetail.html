@@ -272,10 +272,11 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
     			  $('#sendResult').css('display' , 'none');
     			  $('#enrollTour').css('display' , 'none');
     			  if (status == '대회준비중') {
+    				  $('#randomTour').css('display' , '');
     				  $('#sendResult').css('display' , 'none');
     				  $('#enrollTour').css('display' , '');
-    				  $('#randomTour').css('display' , '');
     			  } else if (status == '대회종료') {
+    				  $('#randomTour').css('display' , 'none');
     				  $('#enrollTour').css('display' , '');
     				  $('#sendResult').css('display' , '');
     			  }
@@ -874,7 +875,14 @@ $('body').on('click','#sendResult', function() {
   var matchLoseTeam = $('.teamContainer .team.lose .label');
   
   for (var i = 0; i < matchDiv.length; i++) {
-	  console.log($(matchLoseTeam[i]));
+	  if (matchLoseTeam[i] == undefined || matchWinTeam[i] == undefined) {
+		  alert("값을 모두 입력 후 전송해주세요");
+		  return;
+	  }
+	  
+	  var test = $(matchLoseTeam[i]).parent();
+	  console.log(test);
+	  
 	  if (matchLoseTeam[i].innerText.startsWith('undefined') == true) {
 		  var text = matchWinTeam[i];
 		  loseTeamDiv.push(text);
