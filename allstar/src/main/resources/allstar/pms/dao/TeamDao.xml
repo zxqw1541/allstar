@@ -146,7 +146,13 @@
       join_num=join_num+1
     where tno=#{tno}
   </update>
-	
+
+  <update id="updateTeamScore" parameterType="map">
+    update team set
+      win=win+#{win},
+      lose=lose+#{lose}
+    where name=#{name}
+  </update>
 
 	<select id="selectOne" resultMap="teamMap" parameterType="int">
 		<include refid="select_inc" />

@@ -14,6 +14,7 @@ public interface TeamDao {
   int delete(int no);
   int update(Team team);
   int joinCount(int tno);
+  int updateTeamScore(Map<String,Object> paramMap);
   Team selectEmblem(int tno);
   List<Team> selectTeamByMnoEno(Map<String,Integer> paramMap);
 }

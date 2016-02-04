@@ -59,6 +59,14 @@ public class DefaultTeamService implements TeamService {
     return teamDao.joinCount(tno);
   }
   
+  public int changeTeamScore(int win, int lose, String name) {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("win", win);
+    paramMap.put("lose", lose);
+    paramMap.put("name", name);
+    return teamDao.updateTeamScore(paramMap);
+  }
+  
   public int remove(int no) {
     return teamDao.delete(no);
   }

@@ -12,6 +12,7 @@ public interface TeamService {
   void register(Team team);
   Team retrieve(int no);
   int changeJoinCount(int tno);
+  int changeTeamScore(int win, int lose, String name);
   int change(Team team);
   int remove(int no);
   Team getEmblemByTno(int tno);

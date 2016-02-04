@@ -62,6 +62,7 @@
         </div>
 			  
 			</aside>
+			
 			<!-- 댓글 -->
 			<div class='cdReply'>
 			  <fieldset class='commentWrite'>
@@ -169,12 +170,15 @@
 <!-- 기본 정보 출력 (스크립트 시작)-->
 <script type='text/javascript' src='../lib/jquery-bracket/jquery.bracket.min.js'></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
+
+<!-- 대회 값 수정 -->
 <script>
 function saveFn(data, userData) {
     var json = JSON.stringify(data);
     window.scoreOper = json;
 }
 </script>
+
 <script>
 var no = -1;
 var eno = -1;
@@ -231,7 +235,8 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
           + "  </div><br>"      
           + "  <div id='tour_btn' class='btn-fld1'>"
           + "    <button id='randomTour' type='button'>랜덤</button>"
-          + "    <button id='enrollTour' type='button'>등록</button></div><br><br><br>"
+          + "    <button id='enrollTour' type='button'>등록</button></div>"
+          + "    <button id='sendResult' type='button'>결과전송</button></div><br><br><br>"
           + "  <div id='minimal'>"
           + "  <h2> 장소</h2><br>"
           + "  <p>"+ c.baseAddr + "</p>"
@@ -259,16 +264,24 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
     		  if (status == '대회중') {
     			  $('#randomTour').css('display' , 'none');
    				  $('#enrollTour').css('display' , '');
+   				  $('#sendResult').css('display' , '');
 		        $('#minimal .demo').bracket({init: JSON.parse(c.operation), save:saveFn});
     		  } else {
    				  $('#minimal .demo').bracket({init: JSON.parse(c.operation)});
+    			  $('#randomTour').css('display' , 'none');
+    			  $('#sendResult').css('display' , 'none');
+    			  $('#enrollTour').css('display' , 'none');
     			  if (status == '대회준비중') {
+    				  $('#sendResult').css('display' , 'none');
+    				  $('#enrollTour').css('display' , '');
     				  $('#randomTour').css('display' , '');
-    			  } else {
-	    			  $('#randomTour').css('display' , 'none');    				  
+    			  } else if (status == '대회종료') {
+    				  $('#enrollTour').css('display' , '');
+    				  $('#sendResult').css('display' , '');
     			  }
     		  }
     	  } else {
+    		  $('#sendResult').css('display' , 'none');
     		  $('#enrollTour').css('display' , 'none');
     		  $('#randomTour').css('display' , 'none');
     		  window.master = false;
@@ -277,7 +290,7 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
     		  }
     	  } 
     	}
-      
+
       daumMap(c.baseAddr);
     }
 
@@ -294,14 +307,14 @@ function daumMap(site) {
         level: 3 // 지도의 확대 레벨
     };  
 
-// 지도를 생성합니다    
-var map = new daum.maps.Map(mapContainer, mapOption); 
-
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new daum.maps.services.Geocoder();
-
-// 주소로 좌표를 검색합니다
-geocoder.addr2coord(site, function(status, result) {
+	// 지도를 생성합니다    
+	var map = new daum.maps.Map(mapContainer, mapOption); 
+	
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new daum.maps.services.Geocoder();
+	
+	// 주소로 좌표를 검색합니다
+	geocoder.addr2coord(site, function(status, result) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === daum.maps.services.Status.OK) {
@@ -754,11 +767,17 @@ $('body').on('click','#randomTour', function() {
 		$('#minimal .demo').bracket({init: window.newTour});
 	}
 	
+	/*
+	console.log("1 scoreOper ==> " + window.scoreOper);
+  console.log("1 lastOper ==> " + window.lastOperation);
+  console.log("1 windowOper ==> " + window.operation);
+  console.log("1 newTour ==> " + JSON.stringify(window.newTour));
+  */
 });
 
 function shuffleArray(array) {
-   	if (array.indexOf('undefined')) {
-	   	var arrayLength = array.indexOf('undefined') - 1;
+   	if (array.indexOf('undefined1') > 0) {
+	   	var arrayLength = array.indexOf('undefined1') - 1;
    	} else {
    		var arrayLength = array.length - 1;
    	}
@@ -779,20 +798,28 @@ function shuffleArray(array) {
 var no = location.href.split('?')[1].split('=')[1];
 
 $('body').on('click','#enrollTour', function() {
-	
+	window.lastOperation = window.operation;
+	  
 	if (window.scoreOper != undefined) {
-		window.operation = window.scoreOper;
+		window.lastOperation = window.scoreOper;
 	}
   var data = new FormData();
 
   data.append('no', no);
   
   if (window.newTour == undefined) {
-	  data.append('operation', window.operation);
+	  data.append('operation', window.lastOperation);
   } else {
 	  data.append('operation', JSON.stringify(window.newTour));
+	  window.lastOperation = JSON.stringify(window.newTour);
   }
   
+  /*
+	console.log("2 scoreOper ==> " + window.scoreOper);
+  console.log("2 lastOper ==> " + window.lastOperation);
+  console.log("2 windowOper ==> " + window.operation);
+  console.log("2 newTour ==> " + JSON.stringify(window.newTour));
+  */
   
   $.ajax({
       url : "../competition/updateTour.do",
@@ -813,6 +840,82 @@ $('body').on('click','#enrollTour', function() {
       alert('error');
    }
  });
+});
+</script>
+
+<!-- 대회 결과 전송 -->
+<script>
+var no = location.href.split('?')[1].split('=')[1];
+
+$('body').on('click','#sendResult', function() {
+
+	/*
+  console.log("3 scoreOper ==> " + window.scoreOper);
+  console.log("3 lastOper ==> " + window.lastOperation);
+  console.log("3 windowOper ==> " + window.operation);
+  console.log("3 newTour ==> " + JSON.stringify(window.newTour));
+  */
+  
+  if (window.lastOper == undefined) {
+	  if (window.scoreOper != undefined && window.operation != window.scoreOper) {
+		  alert("등록 후 전송버튼을 눌러주세요!");
+		  return;
+	  }
+  }
+
+  var data = new FormData();
+  var winTeamDiv = $('.team.win .label');
+  var loseTeamDiv = $('.team.lose .label');
+  var winTeamName = [];
+  var loseTeamName = [];
+  
+  var matchDiv = $('.match');
+  var matchWinTeam = $('.teamContainer .team.win .label');
+  var matchLoseTeam = $('.teamContainer .team.lose .label');
+  
+  for (var i = 0; i < matchDiv.length; i++) {
+	  console.log($(matchLoseTeam[i]));
+	  if (matchLoseTeam[i].innerText.startsWith('undefined') == true) {
+		  var text = matchWinTeam[i];
+		  loseTeamDiv.push(text);
+	  }
+  }
+  
+  for (var i = 0; i < winTeamDiv.length; i++) {
+	  winTeamName[i] = winTeamDiv[i].innerText;
+  }
+  
+  for (var i = 0; i < loseTeamDiv.length; i++) {
+	  loseTeamName[i] = loseTeamDiv[i].innerText;
+  }
+  
+	if (winTeamDiv != undefined) {
+		data.append('winTeam', winTeamName);
+	}
+	
+	if (loseTeamDiv != undefined) {
+    data.append('loseTeam', loseTeamName);
+  }
+	  
+  $.ajax({
+		   url : "../competition/sendResult.do",
+		   data : data,
+		   type : "POST",
+		   dataType: "json",
+		   processData: false, 
+		   contentType:false,
+		   success : function(result) {
+		   if (result.ajaxResult.status == "success") {
+		     alert("결과 전송 완료!");
+		     location.href = "/allstar/ui/competitionDetail.html?no=" + no;
+		   } else {
+		       alert("결과 전송 실패!");
+		  }
+		},
+		error : function(result){
+		   alert('error');
+		}
+  });
   
 });
 </script>

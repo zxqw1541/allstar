@@ -1,6 +1,5 @@
 @CHARSET "UTF-8";
 
-
 /* add form */
 #add_preview_img { width:280px; padding-top:10px; padding-right:5px; }
 
@@ -45,6 +44,10 @@
   float: left;
 }
 #enrollTour {
+	margin-right: 50px;
+  float: left;
+}
+#sendResult {
   float: left;
 }
 
