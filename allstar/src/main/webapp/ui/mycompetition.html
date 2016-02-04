@@ -5,6 +5,36 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/tos/comp.css" />
 <link rel="stylesheet" type="text/css" href="css/mycompetition.css" />
+<link type="text/css" rel="stylesheet" href="css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<link rel="stylesheet" type="text/css" href="css/tos/sidebar-left.css" />
+<link rel="stylesheet" type="text/css" href="css/tos/demo.css" />
+
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="js/test/toucheffects.js"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
+<script>
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+});
+
+function close_modal(modal_id){
+    $("#lean_overlay").fadeOut(200);
+  $(modal_id).css({"display":"none"})
+                        }
+$(function(){
+	  $("#header").load("header.html"); 
+	  $("#footer").load("footer.html"); 
+});
+</script>
 <style>
 
 #apply_alert {
@@ -110,7 +140,25 @@ margin: 10px;
 </style>
 
 </head>
-<body>
+<body style="background-color:white; overflow-x:none;">
+<div id="header"></div>
+
+<div style="height:150px;"></div>
+<aside class="sidebar-left">
+   
+
+    <div class="sidebar-links">
+      <a class="link-blue " href="Member_info.html"onclick="scroll(0,0)" id='my_info'><i class="fa fa-user"></i>내 정보</a>
+      <a class="link-pink" href="myteam.html" onclick="scroll(0,0)"id='my_open_team'><i class="fa fa-users" ></i>나의 팀</a>
+      <a class="link-green" href="joinedteam.html"onclick="scroll(0,0)" id='my_part_team'><i class="fa fa-users" ></i>참여한 팀</a>
+      <a class="link-yellow selected " href="mycompetition.html"onclick="scroll(0,0)" id='my_open_comp'><i class="fa fa-trophy" ></i>나의 대회</a>
+      <a class="link-red " href="joinedcomp.html"onclick="scroll(0,0)" id='my_part_comp'><i class="fa fa-trophy" ></i>참여한 대회</a>
+    </div>
+
+  </aside>
+
+  <div class="main-content" style="min-height:900px;">
+<section id='main-section' style="min-height:900px;">
 <div>
   <h2 style="text-align: center;">내가 개설한 대회</h2>
   <div class="container demo-3">
@@ -118,50 +166,28 @@ margin: 10px;
     <!-- 대회 리스트 들어갈 곳 -->
     </ul>
   
-    <!-- 디테일 화면 -->
-    <div id="myTeamInfo_detail" style="display:none;margin:auto;  width: 900px; height:100%;">
-  
-      <!-- Emblem -->
-      <div id="team_top">
-      </div>
-    
-      <!-- 가입신청 알림 -->
-      <div id="apply_alert" >
-      </div>
-    
-    
-      <!-- 회원 목록 -->
-      <div id="mem_list" >
-        <figure >
-        </figure>
-      </div>
-      <!-- 회원 목록 끝 -->
-    
-    
-      <!-- 팀정보 -->
-      <div id="info" style="float:left; font-size:20px; padding: 50px;"></div>
-      
-      <!-- 가입신청현황 -->
-      <div id="apply_state" style="float:left;">
-        <h2 style="margin-left:50px;">신규/대기중 참가 신청</h2>
-        <ul id="new_apply" ></ul>
-        <h2 style="margin-left:50px;">보류중인 신청</h2>
-        <ul id="wait_apply" ></ul>
-        <h2 style="margin-left:50px;">거절한 신청</h2>
-        <ul id="reject_apply" ></ul>
-      </div>
-    </div>
-    <!-- 디테일 화면 끝 -->
-    <!-- state 변경 모달 -->
-    <div id="stateChange" ></div>
-    <!-- 풋터크기 -->
     <div style="height:500px;"></div>
   </div>
 </div>
   
+</section>
+  </div>
 
 <!-- 해당 맴버가 개설한 대회 리스트 받기 -->
 <script>
+$(function () {
+
+    var links = $('.sidebar-links > a');
+
+    links.on('click', function () {
+
+      links.removeClass('selected');
+      $(this).addClass('selected');
+
+    })
+  });
+
+
 $.getJSON('../competition/complistm.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
     $("myTeamInfo_detail").hide();
     var ul = $('#myteams');
@@ -177,193 +203,33 @@ $.getJSON('../competition/complistm.do?mno=' +sessionStorage.getItem("mem_num"),
               +"<span >개최지 : " + c.baseAddr + " </span><br>"
               +"<span >종목 : "+ c.event.name + " </span><br>"
               +"<span>내용 : "+ c.content + "</span><br>"
-                    +"<a class='mycomp_info' href='javascript:;' data-comp-no='" + c.no + "'>대회 정보 보기</a>"
+                    +"<a class='mycomp_info' href='mycompetitiondetail.html?cno="+c.no+"' >대회 정보 보기</a>"
               +"</figcaption></figure></li>"
           ).appendTo(ul);
       }
-      $('.mycomp_info').click(function(){
-        $("#myteams").hide();
-          $("#myTeamInfo_detail").show();
-          getCompetition($(this).attr('data-comp-no'));
-      });
+
     }
 });
 </script>
 
 
 
-<!-- 상세 get요청 -->
 <script>
-function getCompetition(cno){
-  /* 대회 정보 출력 */
-  $.getJSON('../competition/detail.do?no=' + cno, function(resultObj) {
-    if (resultObj.ajaxResult.status == 'success') {
-      var c = resultObj.ajaxResult.data;
-      var div =$("#team_top");
-      $("<span>")
-        .html("<img src='../competition/img/" + c.poster + "'  ></span> "
-            +"<span style='float:left; margin-left: 55px; margin-top: 75px;'><h1>" + c.name + "</h1></span>")
-            .appendTo(div);
-      
-      div = $("#info").css('width','310px');
-      $("<span style='display: inherit;'>")
-        .html("개최팀 : "+ c.team.name +" </span><br>"
-            + "<span style='display: inherit;'> 종목 : " + c.event.name + " </span><br>"
-            + "<span style='display: inherit;'> 참여현황 : " + c.joinNum + "/" + c.teamNum + " </span><br>"
-            + "<span style='display: inherit;'> 모집일 : " + c.recruitStartDate + "~" + c.recruitEndDate + "</span><br>"
-            + "<span style='display: inherit;'> 대회일 : " + c.startDate + "~" + c.endDate + " </span><br>"
-            ).appendTo(div);
-      $("<span >")
-        .html("개최지 :<br>" + c.baseAddr + "</span>")
-        .appendTo(div);
-      
-    }
-  });
-  
-  /* 이 대회에 참가 신청 및 참여한 정보 얻기 */
-  $.getJSON('../competition/jclist.do?cno=' + cno, function(resultObj) {
-	  console.log("cno: ",cno);
-    var ajaxResult = resultObj.ajaxResult;
-    if (ajaxResult.status == 'success') {
-      var waiting = 0;
-      var div = $("#mem_list") ;
-      var ul = '';
-      for (var joinComp of ajaxResult.data) {
-        // 참가신청중인 팀
-        if (joinComp.state == 0) {
-          // 현황 카운트
-          waiting++;
-          
-          //리스트 출력
-          ul = $("#new_apply");
-          $("<li data-tno='"+joinComp.team.tno+"'>")
-          .html("<a href='#stateChange'  rel='leanModal' teamNo='"+joinComp.team.tno+"' class='stateChan'><span>신청일 : "+joinComp.createDate+"</span>"
-              +"<span>아이디 : "+joinComp.team.name+"</span></a> ").appendTo(ul);
-        }
-        // 참가중인 팀
-        else if (joinComp.state == 1) {
-          // 사진 
-          $("<a href='#stateChange' rel='leanModal' class='stateChan' teamNo='"+joinComp.team.tno+"'>")
-          .html("<figure><img src='../team/img/" + joinComp.team.emblem + "' >"
-          +"<figcaption>"+joinComp.team.name+"</figcaption>"
-          +"</figure>").appendTo(div);
-        }
-        // 거절된 팀
-        else if (joinComp.state == -1) {
-          ul = $("#reject_apply");
-          $("<li>")
-          .html("<a href='#stateChange'  rel='leanModal' teamNo='"+joinComp.team.tno+"' class='stateChan'><span>신청일 : "+joinComp.createDate+"</span>"
-                  +"<span>아이디 : "+joinComp.team.name+"</span></a> ").appendTo(ul);
-        }
-        // 보류중 팀
-        else if (joinComp.state == 2) {
-          ul = $("#wait_apply");
-          $("<li>")
-          .html("<a href='#stateChange'  rel='leanModal' teamNo='"+joinComp.team.tno+"' class='stateChan'><span>신청일 : "+joinComp.createDate+"</span>"
-                  +"<span>아이디 : "+joinComp.team.name+"</span></a> ").appendTo(ul);
-        }
-      }
-      
-      //a 태그 모달 등록
-       $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });
-      
-      // 참가신청중인 팀 현황 보여주기
-      div = $("#apply_alert");
-      $("<a style='margin:auto;'>")
-      .html("대기중 참여 신청수 : " + waiting + "개  </a>").appendTo(div);
-      
-      $('.stateChan').click(function (event){
-           $('#stateChange').empty();
-           console.log("tNo: "+$(event.currentTarget).attr("teamNo"));
-           var tno=$(event.currentTarget).attr("teamNo");
-           
-           //옮기기
-           /* console.log("---------------");
-           console.log($("#new_apply li[data-tno="+tno+"]"));
-           var a =$("#new_apply li[data-tno="+tno+"]").clone();
-           $("#new_apply li[data-tno="+tno+"]").remove();
-           $("#reject_apply").append(a);
-           console.log("---------------"); */
-           
-           /* 팀 상세 */
-           $.getJSON('../team/ajax/detailncont.do?tno='+tno+'&cno='+cno, function(resultObj){
-             
-             var ajaxResult=resultObj.ajaxResult;
-             if(ajaxResult.status=='success'){
-               var team = ajaxResult.data.team;
-               var div = $('#stateChange');
-               console.log(team);
-               $("<ul>")
-               .html("<li><img src='../team/img/"+team.emblem+"'></li>"
-                   +"<li><span>이름 : "+team.name+"</span></li>"
-                   +"<li><span>인원수 : "+team.joinNum+"</span></li>"
-                   +"<li><span>전적 : "+team.win+"승 "+team.lose+"패</span></li>"
-                   +"<li><span>연고지 : "+team.baseAddr+"</span></li>"
-                   +"<li><span>팀소개 : "+team.introduce+"</span></li>"
-                   +"<li><span>참가내용 : "+ajaxResult.data.content+"</span></li>"
-                   +"<button type='button' id='accept' teamNo='"+ tno +"' compNo='"+ cno +"'>승인</button>"
-                   +"<button type='button' id='wait'   teamNo='"+ tno +"' compNo='"+ cno +"'>보류</button>"
-                   +"<button type='button' id='denial' teamNo='"+ tno +"' compNo='"+ cno +"'>거절</button>")
-                   .appendTo(div);
-               $('#accept').click(acceptM);
-               $('#wait').click(waitM);
-               $('#denial').click(denialM);
-             }
-           });
-      });
-    }
-  });
-  function acceptM(event){
-      $.post('../competition/changeState.do', {
-              cno: $(event.target).attr("compNo"),
-              tno: $(event.target).attr("teamNo"),
-              state: 1
-          }, function(resultObj) {
-            var ajaxResult = resultObj.ajaxResult;
-            if (ajaxResult.status == "success") {
-              alert("상태 변경했습니다.");
-              close_modal('#stateChange');
-            } else if (ajaxResult.status == "full") {
-            	alert("더이상 승인할 수 없습니다.");
-            } else {
-                alert("변경에 실패했습니다.");
-            }
-          }, 'json');
-      }
-    
-  function waitM(event){
-      $.post('../competition/changeState.do', {
-          cno: $(event.target).attr("compNo"),
-          tno: $(event.target).attr("teamNo"),
-          state: 2
-      }, function(resultObj) {
-        var ajaxResult = resultObj.ajaxResult;
-        if (ajaxResult.status == "success") {
-          alert("상태 변경했습니다.");
-          close_modal('#stateChange');
-        } else {
-            alert("변경에 실패했습니다.");
-        }
-      }, 'json');
-  }
-     
-  function denialM(event){
-      $.post('../competition/changeState.do', {
-              cno: $(event.target).attr("compNo"),
-              tno: $(event.target).attr("teamNo"),
-              state: -1
-          }, function(resultObj) {
-            var ajaxResult = resultObj.ajaxResult;
-            if (ajaxResult.status == "success") {
-              alert("상태 변경했습니다.");
-              close_modal('#stateChange');
-            } else {
-                alert("변경에 실패했습니다.");
-            }
-          }, 'json');
-      }
-}
+
+$(function(){
+	   if (sessionStorage.getItem("loginSession") == undefined) {
+	     location.href="main2.html";
+	   }
+	 });
 </script>
+
+<div style="height:100px;"></div>
+
+<!-- insert your code -->
+<div id="footer"></div>
+
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquery.session.js"></script>
 
 </body>
 </html>

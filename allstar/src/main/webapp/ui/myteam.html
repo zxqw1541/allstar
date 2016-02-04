@@ -76,8 +76,8 @@ margin: 10px;
       <a class="link-blue " href="Member_info.html"onclick="scroll(0,0)" id='my_info'><i class="fa fa-user"></i>내 정보</a>
       <a class="link-pink selected" href="myteam.html" onclick="scroll(0,0)"id='my_open_team'><i class="fa fa-users" ></i>나의 팀</a>
       <a class="link-green" href="joinedteam.html"onclick="scroll(0,0)" id='my_part_team'><i class="fa fa-users" ></i>참여한 팀</a>
-      <a class="link-yellow " href="javascript:;"onclick="scroll(0,0)" id='my_open_comp'><i class="fa fa-trophy" ></i>나의 대회</a>
-      <a class="link-red " href="javascript:;"onclick="scroll(0,0)" id='my_part_comp'><i class="fa fa-trophy" ></i>참여한 대회</a>
+      <a class="link-yellow " href="mycompetition.html"onclick="scroll(0,0)" id='my_open_comp'><i class="fa fa-trophy" ></i>나의 대회</a>
+      <a class="link-red " href="joinedcomp.html"onclick="scroll(0,0)" id='my_part_comp'><i class="fa fa-trophy" ></i>참여한 대회</a>
     </div>
 
   </aside>
@@ -166,7 +166,11 @@ $.getJSON('../member/ajax/memberJoin.do?mno=' +sessionStorage.getItem("mem_num")
     }
 });
 
-
+$(function(){
+	   if (sessionStorage.getItem("loginSession") == undefined) {
+	     location.href="main2.html";
+	   }
+	 });
 </script>
 <div style="height:100px;"></div>
 

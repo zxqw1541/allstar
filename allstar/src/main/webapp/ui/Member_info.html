@@ -48,8 +48,8 @@ $(function(){
       <a class="link-blue selected" href="Member_info.html"onclick="scroll(0,0)" id='my_info'><i class="fa fa-user"></i>내 정보</a>
       <a class="link-pink" href="myteam.html" onclick="scroll(0,0)"id='my_open_team'><i class="fa fa-users" ></i>나의 팀</a>
       <a class="link-green" href="joinedteam.html"onclick="scroll(0,0)" id='my_part_team'><i class="fa fa-users" ></i>참여한 팀</a>
-      <a class="link-yellow " href="javascript:;"onclick="scroll(0,0)" id='my_open_comp'><i class="fa fa-trophy" ></i>나의 대회</a>
-      <a class="link-red " href="javascript:;"onclick="scroll(0,0)" id='my_part_comp'><i class="fa fa-trophy" ></i>참여한 대회</a>
+      <a class="link-yellow " href="mycompetition.html"onclick="scroll(0,0)" id='my_open_comp'><i class="fa fa-trophy" ></i>나의 대회</a>
+      <a class="link-red " href="joinedcomp.html"onclick="scroll(0,0)" id='my_part_comp'><i class="fa fa-trophy" ></i>참여한 대회</a>
     </div>
 
   </aside>
@@ -95,22 +95,6 @@ $('#my_info').click(function(event) {
 });
 
 
- $('#my_open_comp').click(function(event) {
-	    $("#main-section").empty();
-	    var section = $("#main-section");
-	      $("<div id='mycomp'></div>")
-	      .appendTo(section);
-	      $("#mycomp").load("mycompetition.html");
-	  });
- 
- $('#my_part_comp').click(function(event) {
-     $("#main-section").empty();
-     var section = $("#main-section");
-       $("<div id='joinedcomp'></div>")
-       .appendTo(section);
-       $("#joinedcomp").load("joinedcomp.html");
-   });
- 
 
  $(function(){
 	 if (sessionStorage.getItem("loginSession") == undefined) {
