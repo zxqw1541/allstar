@@ -301,7 +301,7 @@ function clickUpdate(event) {
                  +"<dd class='nameWrap'>"
                  +"<p class='img'>"
                  +"<img src='../member/img/"+ photo + "'>"
-                 +"</p>"
+                 +"</p><button type='button' class='delBC' boarCommMno='" + boarComm.mno + "' boardBno='" + boarComm.bno + "' boardBcno='"+ boarComm.bcno +"'>삭제</button> "
                  +"<div class='contents'>"
                  +"<p class='name'>"
                  +"<span class='id'>" + boarComm.member.id + "</span>"
@@ -317,6 +317,7 @@ function clickUpdate(event) {
             .appendTo(div);
             
              }
+             $(".delBC").click(clickDelBC);
        
   });
 
@@ -356,6 +357,23 @@ function clickUpdate(event) {
                     alert("게시물 삭제에 실패했습니다.");
                 }
             });
+          }
+          
+          function clickDelBC(event) {
+              console.log($(event.target).attr("boardBcno"));
+              if (sessionStorage.getItem("mem_num") == $(event.currentTarget).attr("boarCommMno")) {
+              $.getJSON('../boarComm/ajax/delete.do?bcno=' + $(event.currentTarget).attr("boardBcno"),
+                function(resultObj) {
+                  var ajaxResult = resultObj.ajaxResult;
+                  if (ajaxResult.status == "success") {
+                    location.href = '../ui/boardDetail.html?no=' + $(event.currentTarget).attr("boardBno");
+                  } else {
+                      alert("댓글 삭제에 실패했습니다.");
+                  }
+              });
+          }  else {
+        	  alert('본인이 작성한 댓글만 삭제할 수 있습니다.');
+          }
           }
   function clickNewWrite(event) {
 	  console.log(sessionStorage.getItem("mem_num"));
