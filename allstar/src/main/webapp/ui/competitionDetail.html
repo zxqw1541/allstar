@@ -766,6 +766,13 @@ $('body').on('click','#randomTour', function() {
 	if (window.master == true) {
 		$('#minimal .demo').bracket({init: window.newTour});
 	}
+	
+	/*
+	console.log("1 scoreOper ==> " + window.scoreOper);
+  console.log("1 lastOper ==> " + window.lastOperation);
+  console.log("1 windowOper ==> " + window.operation);
+  console.log("1 newTour ==> " + JSON.stringify(window.newTour));
+  */
 });
 
 function shuffleArray(array) {
@@ -791,7 +798,8 @@ function shuffleArray(array) {
 var no = location.href.split('?')[1].split('=')[1];
 
 $('body').on('click','#enrollTour', function() {
-	
+	window.lastOperation = window.operation;
+	  
 	if (window.scoreOper != undefined) {
 		window.lastOperation = window.scoreOper;
 	}
@@ -805,6 +813,13 @@ $('body').on('click','#enrollTour', function() {
 	  data.append('operation', JSON.stringify(window.newTour));
 	  window.lastOperation = JSON.stringify(window.newTour);
   }
+  
+  /*
+	console.log("2 scoreOper ==> " + window.scoreOper);
+  console.log("2 lastOper ==> " + window.lastOperation);
+  console.log("2 windowOper ==> " + window.operation);
+  console.log("2 newTour ==> " + JSON.stringify(window.newTour));
+  */
   
   $.ajax({
       url : "../competition/updateTour.do",
@@ -825,7 +840,6 @@ $('body').on('click','#enrollTour', function() {
       alert('error');
    }
  });
-  
 });
 </script>
 
@@ -835,12 +849,13 @@ var no = location.href.split('?')[1].split('=')[1];
 
 $('body').on('click','#sendResult', function() {
 
-/*
-  console.log("scoreOper ==> " + window.scoreOper);
-  console.log("lastOper ==> " + window.lastOperation);
-  console.log("windowOper ==> " + window.operation);
-  console.log("newTour ==> " + JSON.stringify(window.newTour));
-*/  
+	/*
+  console.log("3 scoreOper ==> " + window.scoreOper);
+  console.log("3 lastOper ==> " + window.lastOperation);
+  console.log("3 windowOper ==> " + window.operation);
+  console.log("3 newTour ==> " + JSON.stringify(window.newTour));
+  */
+  
   if (window.lastOper == undefined) {
 	  if (window.scoreOper != undefined && window.operation != window.scoreOper) {
 		  alert("등록 후 전송버튼을 눌러주세요!");
@@ -859,9 +874,9 @@ $('body').on('click','#sendResult', function() {
   var matchLoseTeam = $('.teamContainer .team.lose .label');
   
   for (var i = 0; i < matchDiv.length; i++) {
+	  console.log($(matchLoseTeam[i]));
 	  if (matchLoseTeam[i].innerText.startsWith('undefined') == true) {
 		  var text = matchWinTeam[i];
-		  console.log(text);
 		  loseTeamDiv.push(text);
 	  }
   }
