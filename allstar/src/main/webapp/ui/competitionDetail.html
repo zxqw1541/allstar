@@ -19,7 +19,6 @@
 
 <script src="js/jquery-1.11.3.js"></script>
 <script src="js/modernizr.min.js"></script>
-<script src="js/jquery.leanModal.min.js"></script>
 
 </head>
 <body>
@@ -186,7 +185,7 @@ var tno = -1;
 var ename = "";
 if (location.href.indexOf('?') != -1)
   no = location.href.split('?')[1].split('=')[1];
-var status = '모집예정'
+var status = '모집전'
 $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
   var ajaxResult = resultObj.ajaxResult;
     if (ajaxResult.status == "success") {
@@ -567,7 +566,7 @@ function confirmMaster(mno) {
 function modAndDelBtnOn() {
 $('#btnArticleUpdate').on('click', function(event){
     event.preventDefault();
-    if (status != '모집예정') {
+    if (status != '모집전') {
     	alert('모집 전에만 수정할 수 있습니다!');
     	return;
     }

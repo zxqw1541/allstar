@@ -38,7 +38,21 @@ $(function(){
 #team_information span {
 font-size: 25px;
 }
+#stateChange {
+background-color:white;
+display: none;
+}
+#stateChange img {
+width:200px;
+height:250px;
+}
 
+#stateChange ul {
+padding: 45px;
+}
+#stateChange button {
+margin: 10px;
+}
 #member_photo {
 width:391px; 
 height:600px; 
@@ -112,11 +126,12 @@ height:923px;
 		</div>
 		<!-- /container -->
 		
-		<script src="js/test/toucheffects.js"></script>
-
+		
+   <div id="stateChange" ></div>
 	</div>
 </section>
   </div>
+  <script src="js/test/toucheffects.js"></script>
 	<script>
 
 
@@ -136,7 +151,9 @@ $("<div style='text-align:center; '>")
 $.getJSON('../member/ajax/teamJoin.do?tno=' + tno ,function(resultObj){
 	for(var joinTeam of resultObj.data) {
 	var level = joinTeam.level;
-	console.log("jt.mno : " + joinTeam.mno);
+	var photo = joinTeam.member.photo;
+	if( photo == null)
+		photo = "allstardefault.png";
 	if(level == 1){
 		level='팀장';
 		}else {
@@ -144,10 +161,12 @@ $.getJSON('../member/ajax/teamJoin.do?tno=' + tno ,function(resultObj){
 		}
 var li = $('#member_photo');
 $("<p>")
-.html("<img id='"+joinTeam.member.id+"' "
-		+"src='../member/img/"+joinTeam.member.photo+"' >"
-		+"<label for='#"+joinTeam.member.id+" '>"+joinTeam.member.id+" "+level+"</label>").appendTo(li);
+.html("<a href='#stateChange' rel='leanModal' memberNo='"+joinTeam.mno+"'  class='stateChan'>"
+		+"<img id='"+joinTeam.member.id+"' "
+		+"src='../member/img/"+photo+"' >"
+		+"<label for='#"+joinTeam.member.id+" '>"+joinTeam.member.id+" "+level+"</label></a>").appendTo(li);
 	}
+	$('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
 });
 
 $.getJSON('../team/ajax/detail.do?tno=' + tno ,function(resultObj){
@@ -168,10 +187,31 @@ $("<p>")
 });        
 
 
-
 	
 });
 
+	$('.stateChan').click(function (event){
+	    $('#stateChange').empty();
+	    console.log("memberNo: "+$(event.currentTarget).attr("memberNo"));
+	    var mno=$(event.target).attr("memberNo");
+	  $.getJSON('../member/ajax/detail.do?mno='+$(event.currentTarget).attr("memberNo"), function(resultObj){
+	      var member = resultObj.members;
+	      var photo = member.photo;
+	       if(photo == null)
+	         photo = "allstardefault.png";
+	      var div = $('#stateChange');
+	      $("<ul>")
+	      .html("<li><img src='../member/img/"+photo+"'></li>"
+	          +"<li><span>아이디 : "+member.id+"</span></li>"
+	          +"<li><span>이름 : "+member.name+"</span></li>"
+	          +"<li><span>성별 : "+member.gender+"</span></li>"
+	          +"<li><span>나이 : "+member.age+"</span></li>"
+	          +"<li><span>주소 : "+member.baseAddr+"</span></li>"
+	          +"<li><span>자기소개 : "+member.introduce+"</span></li>")
+	          .appendTo(div);
+
+	    });
+	});
 
 	 $(function(){
 		   if (sessionStorage.getItem("loginSession") == undefined) {

@@ -104,7 +104,7 @@ function close_modal(modal_id){
 <span id="confirmMessage" class="confirmMessage"></span>
           </div>
           <div class="btn-fld">
-          <button id="addBtn" type="submit">가입하기 &raquo;</button>
+          <button id="addBtn" type="button">가입하기 &raquo;</button>
 
 </div>
          </form>
@@ -204,7 +204,7 @@ function close_modal(modal_id){
             console.log(sessionStorage.getItem("loginSession"));
             var session_photo=sessionStorage.getItem("mem_photo");
             console.log("login photo : "+session_photo);
-            if(session_photo == null)
+            if(session_photo == 'null')
                 session_photo = 'allstardefault.png';
               var session_id=sessionStorage.getItem("loginSession");
               var span = $("#logout");
@@ -227,7 +227,7 @@ function close_modal(modal_id){
     $("#login").hide();
     console.log(sessionStorage.getItem("loginSession"));
     var session_photo=sessionStorage.getItem("mem_photo");
-    if(session_photo == null)
+    if(session_photo == 'null')
         session_photo = 'allstardefault.png';
       var session_id=sessionStorage.getItem("loginSession");
       var span = $("#logout");
