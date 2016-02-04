@@ -370,7 +370,7 @@ ALTER TABLE BOAR_COMM
 		)
 		REFERENCES BOARD ( -- 종목게시판
 			bno -- 종목게시물번호
-		);
+		) ON DELETE CASCADE;
 
 -- 팀참여
 ALTER TABLE JOIN_TEAM

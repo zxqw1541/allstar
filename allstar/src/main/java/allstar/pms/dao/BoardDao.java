@@ -21,6 +21,8 @@ public interface BoardDao {
   void  upView(int no);
   
   int selectViews(int no);
+  
+  List<Board> selectBpn();
 }
 
 

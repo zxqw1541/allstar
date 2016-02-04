@@ -30,14 +30,13 @@ function close_modal(modal_id){
   $(modal_id).css({"display":"none"})
                         }
 $(function(){
-	  $("#header").load("header.html"); 
-	  $("#footer").load("footer.html"); 
+    $("#header").load("header.html"); 
+    $("#footer").load("footer.html"); 
 });
 </script>
 <style>
 #team_information span {
 font-size: 25px;
-margin:30px;
 }
 
 #member_photo {
@@ -66,7 +65,6 @@ text-align:center;
 }
 
 #team_btfld {
-border: 1px black solid;
 width:394px;
 height:280px;
 float:right;
@@ -75,7 +73,6 @@ margin-top: 0px;
 #team_information {
 width:380px; 
 height:923px; 
-border: 1px black solid;
 }
 </style>
 
@@ -97,22 +94,21 @@ border: 1px black solid;
       <a class="link-red " href="joinedcomp.html"onclick="scroll(0,0)" id='my_part_comp'><i class="fa fa-trophy" ></i>참여한 대회</a>
     </div>
 
-
   </aside>
 
   <div class="main-content" style="min-height:900px;">
 <section id='main-section' style="min-height:900px;">
-
 	<div>
 		
 		<div class="container demo-3">
-			<!-- Top Navigation -->
 
-			<ul class="grid cs-style-4" id="myteams" style="">
-        
-
-			</ul>
-			
+	
+			<ul class="grid cs-style-4" id="myteams_info" >
+			 <h2 style="text-align: center;">내가 참가한 팀</h2>
+        <li id='team_name'></li>
+        <li id='member_photo'></li>
+        <li id='team_information' style="width:380px;"></li>
+      </ul>
 		</div>
 		<!-- /container -->
 		
@@ -123,77 +119,66 @@ border: 1px black solid;
   </div>
 	<script>
 
-    $(function () {
 
-      var links = $('.sidebar-links > a');
-
-      links.on('click', function () {
-
-        links.removeClass('selected');
-        $(this).addClass('selected');
-
-      })
-    });
-
-$.getJSON('../member/ajax/memberJoined.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
-	
-	if(resultObj.status == "success"){
-    for (var joinTeam of resultObj.data) {
-    	if(joinTeam.level == 0) {
-	    	var event = 0;
-	    	console.log("tno : "+joinTeam.tno+"  eno : "+joinTeam.team.eno);
-	    	switch(joinTeam.team.eno){
-	    	case 2:  event = "농구";
-	    	   break;
-	    	case 3:  event = "축구";
-	        break;
-	    	case 4:  event = "야구";
-	        break;
-	    	case 5:  event = "탁구";
-	        break;
-	    	case 6:  event = "볼링";
-	        break;
-	    	}
-	    	var emblem = joinTeam.team.emblem;
-	    	if(emblem == null){
-	    		emblem = "allstardefault.png";
-	    	}
-	    	var ul = $('#myteams');
-	    	$("<li style='margin-left: 120px;'>")
-	    	.html("<figure><div>"
-	    			+"<img src='../team/img/"+emblem+"' style='width:300px;' alt='"+ joinTeam.team.name+"'></div>"
-	    			+"<figcaption>"
-	    			+"<h3>"+joinTeam.team.name+"</h3>"
-	    			+"<span>팀장 : " + joinTeam.member.name + " </span><br>"
-	    			+"<span >연고지 : "+joinTeam.team.postNo+" "+joinTeam.team.baseAddr+" </span><br>"
-	    			+"<span >종목 : "+event+" </span><br>"
-	    			+"<span>전적 : "+joinTeam.team.win+" 승  "+joinTeam.team.draw+" 무  "+joinTeam.team.lose+" 패</span><br>"
-	    			+"<span>내용 : "+joinTeam.team.introduce+"</span><br>"
-	    			+"<a id='goteam"+joinTeam.tno+"' href='joinedteamdetail.html?tno="+joinTeam.tno+"'>팀 정보 보기</a>"
-	    			+"</figcaption></figure></li>"
-	    	).appendTo(ul);
-    } 
-    }
-    } else {
-    	var ul = $('#myteams');
-    	$("<li>").html("현재 참가한 팀이 없습니다. </li>").appendTo(ul);
-    }
-    
+	$(function(){
+		  var url = document.URL;
+		  var tno = url.split('?')[1].split('=')[1];
+		  console.log("tno"+tno);
+		  
+$.getJSON('../team/ajax/detail.do?tno=' + tno ,function(resultObj){
+		var ajaxResult = resultObj.ajaxResult;
+        var team = ajaxResult.data;
+var li = $('#team_name');
+$("<div style='text-align:center; '>")
+.html("<h1>"+team.name+"</h1></div>").appendTo(li);
 });
 
-$(function(){
-	   if (sessionStorage.getItem("loginSession") == undefined) {
-	     location.href="main2.html";
-	   }
-	 });
-    
+$.getJSON('../member/ajax/teamJoin.do?tno=' + tno ,function(resultObj){
+	for(var joinTeam of resultObj.data) {
+	var level = joinTeam.level;
+	console.log("jt.mno : " + joinTeam.mno);
+	if(level == 1){
+		level='팀장';
+		}else {
+			level='';
+		}
+var li = $('#member_photo');
+$("<p>")
+.html("<img id='"+joinTeam.member.id+"' "
+		+"src='../member/img/"+joinTeam.member.photo+"' >"
+		+"<label for='#"+joinTeam.member.id+" '>"+joinTeam.member.id+" "+level+"</label>").appendTo(li);
+	}
+});
+
+$.getJSON('../team/ajax/detail.do?tno=' + tno ,function(resultObj){
+	var team = resultObj.ajaxResult.data;
+	var li = $('#team_information');
+	var emblem = team.emblem;
+	if(emblem == null)
+		emblem = "allstardefault.png";
+$("<p>")
+.html("<img style='width:350px; height:350px;' src='../team/img/"+emblem+"'><br> <span></span><br>"
+		+"<span> 팀명 : "+team.name+"</span><br> <span></span><br>"
+		+"<span> 장소 : "+ team.baseAddr +" </span><br> <span></span><br>"
+		+"<span> 정모일 : "+ team.meetDay +" </span><br> <span></span><br>"
+		+"<span> 회비 : "+ team.fee +" </span><br> <span></span><br>"
+		+"<span> 전적 : "+ team.win +" 승 "+team.draw+" 무 "+team.lose+" 패</span><br> <span></span><br>"
+		+"<span> 팀 소개 : "+ team.introduce +" </span><br>"
+		+"</p>").appendTo(li);
+});        
+
+
+
+	
+});
+
+
+	 $(function(){
+		   if (sessionStorage.getItem("loginSession") == undefined) {
+		     location.href="main2.html";
+		   }
+		 });
 </script>
-<div style="height:100px;"></div>
-
-<div id="footer"></div>
-
-<script type="text/javascript" src="js/jquery.cookie.js"></script>
-<script type="text/javascript" src="js/jquery.session.js"></script>
 
 
 </body>

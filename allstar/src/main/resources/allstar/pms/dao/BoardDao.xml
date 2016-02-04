@@ -40,6 +40,18 @@
            b.cre_dt, 
            b.views
   </sql>
+  
+  <select id="selectBpn" resultMap="boardMap">
+    select b.bno,
+           b.title,
+           b.cre_dt,
+           e.name as e_name
+    from board b
+           left outer join event e on b.eno = e.eno
+    where e.eno !=1 
+    order by b.bno desc;        
+  </select>
+  
   <select id="selectList" resultMap="boardMap" parameterType="map">
     <include refid="select_inc"/>
     from board b
@@ -74,7 +86,18 @@
       <if test="date == 'null'"> b.cre_dt asc </if>
     </if>
     
-    <if test="date == 'null' and reply == 'null'"> order by b.bno desc</if>
+    <if test="date == 'null' and reply == 'null'"> order by </if>
+    
+    <choose>
+      <when test="keyword == 'views'">b.views </when>
+      <otherwise>
+        b.bno
+      </otherwise>
+    </choose>
+    <choose>
+      <when test="align == 'asc'">asc </when>
+      <otherwise>desc </otherwise>
+    </choose>
     
     limit #{startIndex}, #{length}
   </select>
@@ -161,6 +184,8 @@
     select views from board
     where bno=#{no}
   </select>
+  
+  
 </mapper>
 
 

@@ -120,6 +120,7 @@ public class TeamController {
     joinTeam.setTno(lastTeam.getTno());
     joinTeam.setMno(Integer.parseInt(mno));
     joinTeam.setLevel(1);
+    joinTeam.setState(1);
     joinTeamService.register(joinTeam);
     return new AjaxResult("success", null);
   }
