@@ -18,6 +18,7 @@ public class TournamentHelper {
     
     int realCount = joinTeamList.size();
     int teamCount = makePowerOfTwo(realCount);
+    int undefinedCount = 0;
 
     JSONObject jsonroot = new JSONObject();
     
@@ -27,8 +28,8 @@ public class TournamentHelper {
       
       if (realCount % 2 == 0) {
         if (i >= realCount) {
-          vsTeam.add("undefined");
-          vsTeam.add("undefined");
+          vsTeam.add("undefined" + ++undefinedCount);
+          vsTeam.add("undefined" + ++undefinedCount);
         } else {
           vsTeam.add(joinTeamList.get(i).getName());
           vsTeam.add(joinTeamList.get(i + 1).getName());
@@ -36,10 +37,10 @@ public class TournamentHelper {
       } else {
         if (i == (realCount-1)) {
           vsTeam.add(joinTeamList.get(i).getName());
-          vsTeam.add("undefined");
+          vsTeam.add("undefined" + ++undefinedCount);
         } else if (i > (realCount-1)) {
-          vsTeam.add("undefined");
-          vsTeam.add("undefined");
+          vsTeam.add("undefined" + ++undefinedCount);
+          vsTeam.add("undefined" + ++undefinedCount);
         } else {
           vsTeam.add(joinTeamList.get(i).getName());
           vsTeam.add(joinTeamList.get(i + 1).getName());

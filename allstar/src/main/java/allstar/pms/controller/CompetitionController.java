@@ -335,5 +335,39 @@ public class CompetitionController {
     return new AjaxResult("success", joinCompService.getJoinedCompList(mno));
   }
   
+  @RequestMapping(value="sendResult", method=RequestMethod.POST)
+  public AjaxResult updateTeamScoreByMno(
+      @RequestParam(defaultValue = "null") String winTeam,
+      @RequestParam(defaultValue = "null") String loseTeam,
+      @RequestParam(defaultValue = "null") String name) {
+    
+    String[] winTeamList;
+    String[] loseTeamList;
+    winTeamList = winTeam.split(",");
+    loseTeamList = loseTeam.split(",");
+    
+    System.out.println("win =====================> " + winTeam);
+    for (int i = 0; i < winTeamList.length; i++) {
+      int win = 1, lose = 0;
+      if (winTeamList[i].startsWith("undefined")) {
+        continue;
+      }
+      if (teamService.changeTeamScore(win, lose, winTeamList[i]) <= 0) {
+        return new AjaxResult("fail", null);
+      }
+    }
+    System.out.println("lose =====================> " + loseTeam);
+    for (int i = 0; i < loseTeamList.length; i++) {
+      int win = 0, lose = 1;
+      if (loseTeamList[i].startsWith("undefined")) {
+        continue;
+      }
+      if (teamService.changeTeamScore(win, lose, loseTeamList[i]) <= 0) {
+        return new AjaxResult("fail", null);
+      }
+    }
+    
+    return new AjaxResult("success", null);
+  }
 }
  

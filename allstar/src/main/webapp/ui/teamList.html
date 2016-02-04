@@ -557,6 +557,7 @@ var load_detail_func = function(){
     var tno = $(this).attr('teamList');
     $.getJSON('../team/ajax/detail.do?tno=' + tno, function(resultObj) {
             var ajaxResult = resultObj.ajaxResult;
+            
             if (sessionStorage.getItem("mem_num") == undefined) {
                 $('.captainForm').css('display', 'none');
                 $('.applyForm').css('display', 'none');
@@ -596,7 +597,7 @@ var load_detail_func = function(){
               $("#fdevent").val(team.event.name);
               $("#fdname").val(team.name);
               $("#fdtotalnum").val(team.totalNum);
-              $("#fdscore").val(team.win+"승 "+team.draw+"무 "+team.lose+"패");
+              $("#fdscore").val(team.win+"승 "+team.lose+"패");
               $("#fdfee").val(team.fee);
               $("#fdmeetday").val(team.meetDay);
               $("#fdintroduce").val(team.introduce);
