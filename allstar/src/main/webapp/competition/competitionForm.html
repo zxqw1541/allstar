@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link type="text/css" rel="stylesheet" href="css/header_footer.css" />
-<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="css/component.css" />
-<link rel="stylesheet" type="text/css" href="css/competition.css" />
+<link type="text/css" rel="stylesheet" href="../css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="../css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="../css/component.css" />
+<link rel="stylesheet" type="text/css" href="../css/competition.css" />
 <link rel="stylesheet" type="text/css" href="css/competitionAdd.css" />
 
 
@@ -120,26 +120,6 @@ $(function(){
 	      </div>
 	      
       </article>
-      <!--  
-			<aside id="rightSide" class="sideArea">
-			  <h3 class='blind'>참여 정보</h3>
-			  <div class='info clearFix'>
-				  <h2>참여 정보</h2>
-				  <div class='contents'>
-				    <p class='img'><img src='http://s.nx.com/s2/game/tos/obt/common/1006.png' alt='프로필 사진'>
-			    </div>
-			  </div>
-			  <div class='btnArea'>
-			    <p class='btnHome'><a href='#' id='btnArticleJoin' style='margin-left:0%; margin-bottom:34px' class='btn btnType5'>참여하기</a></p>
-			    <div class="btm clearFix">
-            <a href="#" id="btnArticleWrite" class="btn btnType6 btnWrite" style='margin-left:0%'>글쓰기</a>
-            <a href="#" id="btnArticleList" class="btn btnType6 btnList" style='margin-left:0%'>목록</a>
-          </div>
-			    
-        </div>
-			  
-			</aside>
-			-->
 		</div>
 	</div>
 </div>
@@ -209,7 +189,7 @@ $(function(){
 var no = location.href.split('?')[1].split('=')[1];
 
 //종목 가져오기
-$.getJSON('../competition/event.do', function(resultObj) {
+$.getJSON('/allstar/competition/event.do', function(resultObj) {
 	var ajaxResult = resultObj.ajaxResult;
     if (ajaxResult.status == "success") {
     	window.eventList = ajaxResult.data;
@@ -221,7 +201,7 @@ if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
 	  $('.modForm').css('display', 'none');// 상세정보 출력을 위한 폼 항목은 감춘다.
 	  $('.newForm').css('display', '');// 새 글 등록을 위한 폼 항목은 보인다.
 	  
-	  $.getJSON('../competition/jointeam.do?mno=' + sessionStorage.getItem("mem_num"), function(resultObj){
+	  $.getJSON('/allstar/competition/jointeam.do?mno=' + sessionStorage.getItem("mem_num"), function(resultObj){
 		  var ajaxResult = resultObj.ajaxResult;
 		  if (ajaxResult.status == "success") {
 			  var fteam = $("#fteam");
@@ -237,7 +217,7 @@ if (no < 0) { // 새 글 입력을 위한 폼으로 전환한다.
 	  $('.modForm').css('display', '');
 	  $('.newForm').css('display', 'none');
 	  
-	  $.getJSON('../competition/detail.do?no=' + no, function(resultObj) {
+	  $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
 	    var ajaxResult = resultObj.ajaxResult;
 	    if (ajaxResult.status == "success") {
 	      var c = ajaxResult.data;
@@ -334,7 +314,7 @@ $(function() {
         data.append('poster', $('#fposterName').val());
 
         $.ajax({
-          url : "../competition/update.do",
+          url : "/allstar/competition/update.do",
           data : data,
           type : "POST",
           dataType: "json",
@@ -344,7 +324,7 @@ $(function() {
           success : function(result) {
           if (result.ajaxResult.status == "success") {
             alert("수정 완료!");
-            location.href = "/allstar/ui/competitionDetail.html?no=" + no;
+            location.href = "competitionDetail.html?no=" + no;
           } else {
               alert("수정 실패!");
          }
@@ -421,7 +401,7 @@ $(function() {
         data.append('content', $('#fcontent').val());
 
         $.ajax({
-          url : "../competition/add.do",
+          url : "/allstar/competition/add.do",
           data : data,
           type : "POST",
           dataType: "json",
@@ -431,7 +411,7 @@ $(function() {
           success : function(result) {
           if (result.ajaxResult.status == "success") {
             alert("대회를 등록하였습니다.");
-            location.href = "/allstar/ui/competitionList.html";
+            location.href = "competitionList.html";
           } else {
               alert("대회등록에 실패했습니다.");
          }
