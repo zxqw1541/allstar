@@ -17,6 +17,8 @@
 <link rel="Shortcut Icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 <link rel="icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 
+<script src="../lib/alertify.js/alertify.js"></script>
+
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../js/modernizr.min.js"></script>
 <script src="../js/jquery.leanModal.min.js"></script>
@@ -470,7 +472,7 @@ function imgMouseEvent(teamList) {
 $(document).on('click', '#btnArticleJoin' , function(event){
   event.preventDefault();
   if (status != '모집중') {
-		  alert('현재 팀을 모집하지 않습니다.');
+	    alertify.alert('현재 팀을 모집하지 않습니다.');
 		  $('#apply_comp').css('display' , 'none');
 		  $('#lean_overlay').css('display' , 'none');
 	}
@@ -523,12 +525,12 @@ $('body').on('click','#applyTeamBtn', function() {
 		      + '&tno=' + ttno + '&content=' + content, function(resultObj) {
      var ajaxResult = resultObj.ajaxResult;
      if (ajaxResult.status == "success") {
-    	   alert('신청 완료 했어요');
+    	   alertify.alert('신청 완료 했어요');
     	   location.href = 'competitionDetail.html?no='+no;
      } else if (ajaxResult.status == "already") {
-    	 alert('이미 신청 하셨어요');
+    	 alertify.alert('이미 신청 하셨어요');
      } else {
-    	 alert('에러가 발생했어요')
+    	 alertify.alert('에러가 발생했어요')
      }
     		 
    });
@@ -560,7 +562,7 @@ function modAndDelBtnOn() {
 $('#btnArticleUpdate').on('click', function(event){
     event.preventDefault();
     if (status != '모집전') {
-    	alert('모집 전에만 수정할 수 있습니다!');
+    	alertify.alert('모집 전에만 수정할 수 있습니다!');
     	return;
     }
     location.href = "competitionForm.html?no=" + no;
@@ -574,14 +576,14 @@ $('#btnArticleRemove').on('click', function(event){
 		  $.getJSON('/allstar/competition/delete.do?no=' + no, function(resultObj) {
 			  var ajaxResult = resultObj.ajaxResult;
 			    if (ajaxResult.status == "success") {
-			    	alert('삭제 성공!');
+			    	alertify.alert('삭제 성공!');
 			    	location.href = 'competitionList.html';
 			    } else {
-			    	alert('삭제 실패!');	
+			    	alertify.alert('삭제 실패!');	
 			    }
 			  });
 	  } else {
-		  alert("취소되었습니다.");
+		  alertify.alert("취소되었습니다.");
 	  }
 	});
 }
@@ -603,7 +605,7 @@ $('#btnArticleWrite').on('click', function(event){
 	if(sessionStorage.getItem("mem_num"))
      location.href = 'competitionForm.html?no=-1';
 	else
-		alert("로그인이 필요한 서비스 입니다.");
+		alertify.alert("로그인이 필요한 서비스 입니다.");
 });
 </script>
 
@@ -659,7 +661,7 @@ $(function(){
 if (!sessionStorage.getItem("mem_num")) {
 	$('#txtComment').attr({'placeholder' : '로그인 후 이용해 주세요.'});
 	$('body').on('click','#replyadd', function() {
-		alert('로그인이 필요한 서비스 입니다.');
+		alertify.alert('로그인이 필요한 서비스 입니다.');
 	});
 } 
 /* 로그인 되있을 때 */
@@ -708,7 +710,7 @@ else if(sessionStorage.getItem("mem_num")){
 	      }
 	    },
 	    error : function(result){
-	      alert('error');
+	    	alertify.alert('error');
 	    }
 	  });
 	});
@@ -823,14 +825,14 @@ $('body').on('click','#enrollTour', function() {
       contentType:false,
       success : function(result) {
       if (result.ajaxResult.status == "success") {
-        alert("대진표 변경 완료!");
+    	  alertify.alert("대진표 변경 완료!");
         location.href = "/allstar/competition/competitionDetail.html?no=" + no;
       } else {
-          alert("대진표 변경 실패!");
+    	  alertify.alert("대진표 변경 실패!");
      }
    },
    error : function(result){
-      alert('error');
+	   alertify.alert('error');
    }
  });
 });
@@ -851,7 +853,7 @@ $('body').on('click','#sendResult', function() {
   
   if (window.lastOper == undefined) {
 	  if (window.scoreOper != undefined && window.operation != window.scoreOper) {
-		  alert("등록 후 전송버튼을 눌러주세요!");
+		  alertify.alert("등록 후 전송버튼을 눌러주세요!");
 		  return;
 	  }
   }
@@ -868,7 +870,7 @@ $('body').on('click','#sendResult', function() {
   
   for (var i = 0; i < matchDiv.length; i++) {
 	  if (matchLoseTeam[i] == undefined || matchWinTeam[i] == undefined) {
-		  alert("값을 모두 입력 후 전송해주세요");
+		  alertify.alert("값을 모두 입력 후 전송해주세요");
 		  return;
 	  }
 	  
@@ -905,14 +907,14 @@ $('body').on('click','#sendResult', function() {
 		   contentType:false,
 		   success : function(result) {
 		   if (result.ajaxResult.status == "success") {
-		     alert("결과 전송 완료!");
+			   alertify.alert("결과 전송 완료!");
 		     location.href = "/allstar/competition/competitionDetail.html?no=" + no;
 		   } else {
-		       alert("결과 전송 실패!");
+			   alertify.alert("결과 전송 실패!");
 		  }
 		},
 		error : function(result){
-		   alert('error');
+			alertify.alert('error');
 		}
   });
   
