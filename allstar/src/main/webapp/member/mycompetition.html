@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="../css/tos/comp.css" />
+<link rel="stylesheet" type="text/css" href="../css/mycompetition.css" />
+<link type="text/css" rel="stylesheet" href="../css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="../css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="../css/component.css" />
+<link rel="stylesheet" type="text/css" href="../css/tos/sidebar-left.css" />
+<link rel="stylesheet" type="text/css" href="../css/tos/demo.css" />
+
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+
+<script src="../js/jquery-1.11.3.js"></script>
+<script src="../js/jquery.leanModal.min.js"></script>
+<script src="../js/modernizr.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="../js/test/toucheffects.js"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
+<script>
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+});
+
+function close_modal(modal_id){
+    $("#lean_overlay").fadeOut(200);
+  $(modal_id).css({"display":"none"})
+                        }
+$(function(){
+	  $("#header").load("header.html"); 
+	  $("#footer").load("footer.html"); 
+});
+</script>
+<style>
+
+#apply_alert {
+border:1px black solid; 
+width:200px; 
+float:right; 
+height: 20px; 
+margin:10px; 
+padding:10px; 
+text-align:center;
+}
+#team_top img{
+width:300px;
+float:left;
+}
+#mem_list {
+border:1px black solid; 
+width:480px; 
+height: 400px; 
+float:right; 
+margin-top: 125px; 
+overflow-y:auto;
+}
+#mem_list figure{
+width:150px; 
+text-align:center; 
+float: left;
+}
+#mem_list img {
+width:150px; 
+height:140px;
+}
+
+
+#team_information span {
+font-size: 25px;
+margin:30px;
+}
+
+#member_photo {
+width:391px; 
+height:600px; 
+ border: 1px black solid; 
+float:right;
+overflow-y: auto;
+}
+
+#member_photo img {
+width:150px;
+height:155px;
+}
+
+#member_photo p {
+width:162px; 
+height:190px; 
+float: left; 
+margin-left: 22px;
+}
+#member_photo label {
+text-align:center;
+    color: indigo;
+    font-size: 20px;
+}
+
+#team_btfld {
+/* border: 1px black solid; */
+width:394px;
+height:280px;
+float:right;
+margin-top: 0px;
+}
+#team_information {
+width:380px; 
+height:923px; 
+/* border: 1px black solid; */
+}
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 100px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+#stateChange {
+background-color:white;
+display: none;
+}
+#stateChange img {
+width:200px;
+height:250px;
+}
+
+#stateChange ul {
+padding: 45px;
+}
+#stateChange button {
+margin: 10px;
+}
+</style>
+
+</head>
+<body style="background-color:white; overflow-x:none;">
+<div id="header"></div>
+
+<div style="height:150px;"></div>
+<aside class="sidebar-left">
+   
+
+    <div class="sidebar-links">
+      <a class="link-blue " href="Member_info.html"onclick="scroll(0,0)" id='my_info'><i class="fa fa-user"></i>내 정보</a>
+      <a class="link-pink" href="myteam.html" onclick="scroll(0,0)"id='my_open_team'><i class="fa fa-users" ></i>나의 팀</a>
+      <a class="link-green" href="joinedteam.html"onclick="scroll(0,0)" id='my_part_team'><i class="fa fa-users" ></i>참여한 팀</a>
+      <a class="link-yellow selected " href="mycompetition.html"onclick="scroll(0,0)" id='my_open_comp'><i class="fa fa-trophy" ></i>나의 대회</a>
+      <a class="link-red " href="joinedcomp.html"onclick="scroll(0,0)" id='my_part_comp'><i class="fa fa-trophy" ></i>참여한 대회</a>
+    </div>
+
+  </aside>
+
+  <div class="main-content" style="min-height:900px;">
+<section id='main-section' style="min-height:900px;">
+<div>
+  <h2 style="text-align: center;">내가 개설한 대회</h2>
+  <div class="container demo-3">
+    <ul class="grid cs-style-4" id="myteams" >
+    <!-- 대회 리스트 들어갈 곳 -->
+    </ul>
+  
+    <div style="height:500px;"></div>
+  </div>
+</div>
+  
+</section>
+  </div>
+
+<!-- 해당 맴버가 개설한 대회 리스트 받기 -->
+<script>
+$(function () {
+
+    var links = $('.sidebar-links > a');
+
+    links.on('click', function () {
+
+      links.removeClass('selected');
+      $(this).addClass('selected');
+
+    })
+  });
+
+
+$.getJSON('../competition/complistm.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
+    $("myTeamInfo_detail").hide();
+    var ul = $('#myteams');
+    
+    if(resultObj.ajaxResult.status == "success"){
+      for (var c of resultObj.ajaxResult.data){
+        $("<li style='margin-left: 120px;'>")
+          .html("<figure><div>"
+              +"<img src='../competition/img/"+ c.poster + "' style='width:300px;' alt='"+ c.name+"'></div>"
+              +"<figcaption>"
+              +"<h3>" + c.name + "</h3>"
+              +"<span>개최팀 : " + c.team.name + "</span><br>"
+              +"<span >개최지 : " + c.baseAddr + " </span><br>"
+              +"<span >종목 : "+ c.event.name + " </span><br>"
+              +"<span>내용 : "+ c.content + "</span><br>"
+                    +"<a class='mycomp_info' href='mycompetitiondetail.html?cno="+c.no+"' >대회 정보 보기</a>"
+              +"</figcaption></figure></li>"
+          ).appendTo(ul);
+      }
+
+    }
+});
+</script>
+
+
+
+<script>
+
+$(function(){
+	   if (sessionStorage.getItem("loginSession") == undefined) {
+	     location.href="main2.html";
+	   }
+	 });
+</script>
+
+<div style="height:100px;"></div>
+
+<!-- insert your code -->
+<div id="footer"></div>
+
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jquery.session.js"></script>
+
+</body>
+</html>

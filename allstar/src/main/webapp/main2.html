@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>All Star</title>
+<meta charset="utf-8">
+
+<link type="text/css" rel="stylesheet" href="css/main2.css" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<link rel="stylesheet" type="text/css" href="css/tos/styles.css" />
+<link rel="stylesheet" type="text/css" href="css/tos/tos.css" />
+<link rel="stylesheet" type="text/css" href="css/tos/teamlist.css" />
+
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<script>
+
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+});
+function close_modal(modal_id){
+    $("#lean_overlay").fadeOut(200);
+  $(modal_id).css({"display":"none"})
+                        }
+
+</script>
+
+</head>
+<body>
+
+<!-- header start -->
+<div class="tournament_slider" id="tournament_slider">
+<div id='top_header'>
+<header >
+<a href="#tournament_slider"><img src="images/allstar.png" style="float:left;"></a>
+          <div class="auth">
+          <span id="login" style="display:none;">
+		          <a style='margin-right:10px;color:white;' id='go' rel='leanModal' href='#signup'>Login</a>
+       <a style='margin-right:10px;color:white;' href='#signin' rel='leanModal'>Sign In</a> 
+		     </span>
+		     <span id="logout" style="display:none;">
+		       
+        </span>
+        <span> <a  style='display:none; color:white; margin-left:5px;' id='out' href=''>Log out</a></span>
+          </div>
+            <div id="cssmenu" >
+              <nav >
+                <ul >
+                  <li  class='active has-sub' ><a href="#top_event_list"><span>종목별 게시판</span></a>
+                    <ul id="eventmenu">
+                        <li><a href="/allstar/board/boardList12.html?event=2">농구</a></li>
+                        <li><a href="/allstar/board/boardList12.html?event=3">축구</a></li>
+                        <li><a href="/allstar/board/boardList12.html?event=4">야구</a></li>
+                        <li><a href="/allstar/board/boardList12.html?event=6">볼링</a></li>
+                        <li><a href="/allstar/board/boardList12.html?event=5">탁구</a></li>
+                    </ul>
+                 </li>
+                  <li class='has-sub'><a href="#tournament_cat">대회</a>
+                    <ul>
+                      <li><a href="/allstar/competition/competitionList.html?event=2">농구</a></li>
+				                <li><a href="/allstar/competition/competitionList.html?event=3">축구</a></li>
+				                <li><a href="/allstar/competition/competitionList.html?event=4">야구</a></li>
+				                <li><a href="/allstar/competition/competitionList.html?event=5">볼링</a></li>
+                        <li><a href="/allstar/competition/competitionList.html?event=6">탁구</a></li>
+                   </ul>
+                </li>
+                  <li class='has-sub'><a href="#newest_team">팀</a>
+				            <ul>
+				                <li><a href="/allstar/team/teamList.html?event=2">농구</a></li>
+				                <li><a href="/allstar/team/teamList.html?event=3">축구</a></li>
+				                <li><a href="/allstar/team/teamList.html?event=4">야구</a></li>
+				                <li><a href="/allstar/team/teamList.html?event=5">볼링</a></li>
+                        <li><a href="/allstar/team/teamList.html?event=6">탁구</a></li>
+				           </ul></li>
+              </ul>
+        </nav>
+        </div>
+</header>
+<!-- header end -->
+
+
+</div>
+
+
+
+<div style="height:100px;"></div>
+<!-- tournament slider start -->
+<section id="photostack-3" class="photostack" >
+  <div id="photo_div">
+
+  </div>
+</section>
+      
+
+</div>
+<!-- tournament slider end -->
+
+<div class="container"  >
+<!-- top 게시판 list starts-->
+<div class="top_event_list" id="top_event_list">
+  
+  <div id="content" >
+  <div class="boardContents boardList">
+    <div class="innerWrap" style="opacity:0.9;">
+
+   
+
+   <section class="topInfoArea clearFix">
+   
+   
+        <div class="listFrame listNotice" style="background-color: white; width:500px;">
+          <div class="header clearFix">
+            <h3 class="titNotice">TOP 게시물<small> 조회수 TOP 5</small></h3>
+            <p class="btnMore"><a href="/allstar/board/boardList12.html" class="sprBtn" style="float:left; margin-top: -7px;"> </a><a href="/allstar/board/boardList12.html" >더 보기</a></p>
+          </div>
+  <div class="contents tabArea">
+<!-- left tab -->  
+    <ul class="list tabFrame" id="top_con">
+
+      
+    </ul>
+          </div>
+        </div>
+        
+
+<div class="listFrame listGM commonTab" style="background-color: white; width:500px;">
+  <div class="header clearFix">
+    <h3 class="titGM">최근 게시물</h3>
+     <p class="btnMore"><a href="/allstar/board/boardList12.html" class="sprBtn" style="float:left; margin-top: -7px;"> </a><a href="/allstar/board/boardList12.html" >더 보기</a></p>
+
+  </div>
+  <div class="contents tabArea">
+  
+    <!-- right tab -->
+    <ul class="list tabFrame" id="newest_tab">
+
+  
+    </ul>   
+  </div>
+</div>
+
+      </section>
+</div>
+</div>
+</div>
+
+</div>
+<!-- top 게시판 list ends-->
+
+
+<!-- tournament category starts-->
+<div class="tournament_cat" id="tournament_cat">
+
+<div style="height:140px;"></div>
+
+      <!--Mainimg-->
+      <div id="Mainimg" style="width:100%;">
+        <a href="/allstar/competition/competitionList.html?event=4"><img src="images/tour/baseball.jpg"></a>
+        <a href="/allstar/competition/competitionList.html?event=3"><img src="images/tour/football.png"></a>
+        <a href="/allstar/competition/competitionList.html?event=2"><img src="images/tour/basketball.png"></a>
+        <a href="/allstar/competition/competitionList.html?event=6"><img src="images/tour/tishtennis.JPG"></a>
+        <a href="/allstar/competition/competitionList.html?event=5"><img src="images/tour/bowling.jpeg"></a>
+      </div>
+      <!--Mainimginfo-->
+      <div id="Mainimginfo" style="width:100%;">
+        <div id="Mimginfo1">
+          <p ><B>야구</B><BR><B></B>팀 신청 /  팀 가능</p>
+        </div>
+        <div id="Mimginfo2">
+          <p ><B>축구</B><BR><B></B>팀 신청 /  팀 가능</p>
+        </div>
+        <div id="Mimginfo3">
+          <p ><B>농구</B><BR><B>0</B>팀 신청 / 256 팀 가능</p>
+        </div>
+        <div id="Mimginfo4">
+          <p><B>탁구</B><BR><B></B>팀 신청 /  팀 가능</p>
+        </div>
+        <div id="Mimginfo5">
+          <p ><B>볼링</B><BR><B></B>팀 신청 /  팀 가능</p>
+        </div>
+        <p class="clear"></p>
+      </div>
+
+
+</div>
+<!-- tournament category ends-->
+
+
+<!-- newest team starts-->
+<div class="newest_team" id="newest_team">
+<div style="height:172px;"></div>
+<div>
+<h3 class="stit">신생 팀<p class="more" style="margin-top:20px;"></a><a href="/allstar/team/teamList.html" >더 보기</a></p></h3>
+</div>
+<div class="m_content" >
+      <!-- container -->
+      <div id="container_sports" >    
+        <!-- team list -->
+        <ul class="list_team">
+         
+</ul>
+        <!-- //team list -->
+        
+      </div>
+      <!-- //container -->
+    </div>
+    <!--//content-->
+
+
+
+
+</div>
+
+<!-- newest team ends-->
+
+
+
+
+</div>
+
+
+
+<!-- 가입 폼 -->
+<div id="signin">
+      <div id="signup-ct">
+        <div id="signup-header">
+          <h2>회원가입</h2>
+          <p>회원가입을 하세요</p>
+        </div>
+        
+        <form action="" method="POST">
+          <div class="txt-fld">
+            <label for="username">Username</label>
+            <input id="id_signin" class="good_input" name="username" type="text" />
+<!--             <button id="check" >체크</button>
+            <iframe id="check_id" ></iframe> -->
+          </div>
+        
+          <div class="txt-fld">
+            <label for="password">Password</label>
+            <input id="pass_signin" name="password" type="password" >
+
+          </div>
+                    <div class="txt-fld">
+            <label for="password2">Password 확인</label>
+<input  id="pass_signin2" name="password2" type="password" onkeyup="checkPass(); return false;"><br>
+<span id="confirmMessage" class="confirmMessage"></span>
+
+          </div>
+          <div class="btn-fld">
+          <button id="addBtn" type="button">가입하기 &raquo;</button>
+ 
+</div>
+         </form>
+      </div>
+    </div>
+        <script>
+      function checkPass()
+      {
+          var pass1 = document.getElementById('pass_signin');
+          var pass2 = document.getElementById('pass_signin2');
+          var message = document.getElementById('confirmMessage');
+          var goodColor = "#66cc66";
+          var badColor = "#ff6666";
+
+          if(pass1.value == pass2.value){
+              pass2.style.backgroundColor = goodColor;
+              message.style.color = goodColor;
+              message.innerHTML = "Passwords Match!"
+          }else{
+              pass2.style.backgroundColor = badColor;
+              message.style.color = badColor;
+              message.innerHTML = "Passwords Do Not Match!"
+          }
+    }
+    </script>
+<!-- 가입폼 끝 -->
+
+
+
+<!-- 로그인 폼 -->
+<div id="signup">
+      <div id="signup-ct">
+        <div id="signup-header">
+          <h2>로그인</h2>
+          <p>ID 와 비밀번호를 입력하세요.</p>
+        </div>
+        
+        <form action="" method="POST">
+            <div id="loading"></div>
+          <div class="txt-fld">
+            <label for="username">Username</label>
+            <input id="id_input" class="good_input" name="username" type="text" />
+
+          </div>
+        
+          <div class="txt-fld">
+            <label for="password">Password</label>
+            <input id="pass_input" name="password" type="password" />
+
+          </div>
+          <div class="btn-fld">
+          <button id="loginBtn" type="button">로그인 &raquo;</button>
+  
+</div>
+         </form>
+      </div>
+    </div>
+<!-- 로그인폼 끝 -->
+
+
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquery.session.js"></script>
+
+
+
+<script>
+     $.getJSON('/allstar/competition/list.do?pageSize=10', function(resultObj){
+    	  var div = $('#photo_div');
+
+         for (var competition of resultObj.ajaxResult.data.comp) {
+        	 var poster = competition.poster;
+        	 if(poster == null)
+        		 poster="allstarcomp.png";
+           $("<figure>")
+           .html("<a href='/allstar/competition/competitionDetail.html?no="+competition.no+"' class='photostack-img'><img src='/allstar/competition/img/"+poster+"' /></a>"
+            +"<figcaption>"
+            +"<h2 class='photostack-title'>"+ competition.name +"</h2>"
+            +"<div class='photostack-back'><img src='/allstar/competition/img/"+poster+"' style='width:150px; text-align:center;'/>"
+            +"<p style='overflow-y:auto; height: 237px;'>Tournament Title :" + competition.name + "<br>"+ competition.joinNum +" out of "+ competition.teamNum + " are in!!<br>"
+            + competition.content + "</p>"
+            + "</div>"
+            +"</figcaption></figure>"
+          ).appendTo('#photo_div'); 
+           $("<figure data-dummy>"
+           +"<a href='/allstar/competition/competitionDetail.html?no="+competition.no+"' class='photostack-img'><img src='/allstar/competition/img/"+poster+"' alt='img16'/></a>"
+           +"<figcaption>"
+            +"<h2 class='photostack-title'>"+competition.name+"</h2>"
+           +"</figcaption>"
+         +"</figure>").appendTo('#photo_div'); 
+         }
+         
+         new Photostack( document.getElementById('photostack-3'), {
+             callback : function( item ) {
+             console.log(item);
+             }
+           });
+
+     });
+
+     </script>
+  
+
+
+<script>
+//로그인 시작
+
+
+  $('#loginBtn').click( function(event) {
+
+        $.post('/allstar/auth/ajax/login.do', {
+          id : $('#id_input').val(),
+          password : $('#pass_input').val()
+        }, function(resultObj) {
+          var ajaxResult = resultObj.ajaxResult;
+          if (ajaxResult.status == "success") {
+            emailSession = ajaxResult.data.id;
+            numSession = ajaxResult.data.mno;
+            photoSession= ajaxResult.data.photo;
+            sessionStorage.setItem('loginSession',emailSession);
+            sessionStorage.setItem('mem_num',numSession);
+            sessionStorage.setItem('mem_photo',photoSession);
+            close_modal("#signup");
+            $("#logout").show();
+            $("#out").show();
+            $("#login").hide();
+            console.log(sessionStorage.getItem("loginSession"));
+              var session_photo=sessionStorage.getItem("mem_photo");
+              console.log("main login photo : "+session_photo);
+              if(session_photo == null)
+                  session_photo = 'allstardefault.png';
+              var session_id=sessionStorage.getItem("loginSession");
+              var span = $("#logout");
+              $("<img src='/allstar/member/img/"+session_photo+"' style='width: 70px; height: 70px;'>"
+            	      +"<a style='margin-left:10px;color:white;'  href='/allstar/member/Member_info.html'>"+session_id+"</a>")
+            	        .appendTo(span);
+            console.log("success");
+            location.reload();
+          } else {
+            alert("아이디와 패스워드가 일치하지 않습니다.");
+          }
+        }, 'json');
+      });
+  
+  $(document).ready( function() {
+  if (sessionStorage.getItem("loginSession") != undefined) {
+	  $("#logout").show();
+	  $("#out").show();
+	  $("#login").hide();
+	  console.log(sessionStorage.getItem("loginSession"));
+	    var session_id=sessionStorage.getItem("loginSession");
+	    var session_photo=sessionStorage.getItem("mem_photo");
+	    console.log("main check photo : "+session_photo);
+	    if(session_photo == null)
+	    	session_photo = 'allstardefault.png';
+	    var span = $("#logout");
+	    $("<a href='/allstar/member/Member_info.html'><img src='/allstar/member/img/"+session_photo+"' style='width: 70px; height: 70px;'></a>"
+	    +"<a style='margin-left:10px;color:white;'  href='/allstar/member/Member_info.html'>"+session_id+"</a>")
+        .appendTo(span);
+        
+  }else {
+	  $("#login").show();
+	  $("#logout").hide();
+	  $("#out").hide();
+
+  }
+}); 
+  
+  $('#out').click( function(event) {
+	    $.session.clear();
+	  $("#login").show();
+	  $("#logout").hide();
+	  $("#out").hide();
+	  location.reload();
+	  
+  });
+  
+  // 로그인 끝
+
+</script>
+
+
+
+
+    <script src="js/custom.js"></script>
+    
+    <script>
+    
+    $.getJSON('/allstar/board/ajax/list.do?pageSize=5', function(resultObj){
+    	   
+
+    	    /* 최신 글 */
+    	    var ul = $("#newest_tab");
+    	    for (i=0; i<resultObj.boards.length; i++) {
+    	        var board = resultObj.boards[i];
+    	        var comment = resultObj.comm[i];
+    	      $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='margin-left:-25px;'>")
+    	      .html(
+    	            "<a href='' class='detailNew' boardBno='" + board.no + "'>" 
+    	            + "<span class='txt'>" 
+    	            + "<span class='cat'>" + board.event.name  +"</span>"
+    	            + board.title +"<small>("+comment+")</small>" 
+    	            + "</span>"
+    	            + "<span class='date'>"+board.createDate+"</span></a></li>")
+    	      .appendTo(ul);
+    	  
+   
+    	      $("a.detailNew").click(clickDetailNew);
+    	    }
+    	    function clickDetailNew(event) {
+    	        event.preventDefault(); 
+    	        location.href = "/allstar/board/boardDetail.html?no=" + $(event.currentTarget).attr("boardBno");
+    	      } 
+    });
+    
+    
+    /* 뷰 순위 */
+    $.getJSON('/allstar/board/ajax/list.do?pageSize=5&keyword=views', function(resultObj){
+
+    	 var ul = $("#top_con");
+    	   for (i=0; i<resultObj.boards.length; i++) {
+    		      var board = resultObj.boards[i];
+    		      var comment = resultObj.comm[i];
+           $("<li data-id='id-" + board.no + "' class='" + board.event.eno + "' style='margin-left:-25px;'>")
+           .html(
+                 "<a href='#' class='detailTop' boardBno='" + board.no + "'>" 
+                 + "<span class='txt'>" 
+                 + "<span class='cat'>" + board.event.name  +"</span>"
+                 + board.title +"<small>("+comment+") - 조회수 : "+board.views+"</small>" 
+                 + "</span>"
+                 + "<span class='date'>"+board.createDate+"</span></a></li>")
+           .appendTo(ul);
+       
+  
+           $("a.detailTop").click(clickDetailTop);
+         }
+         function clickDetailTop(event) {
+             event.preventDefault(); 
+             location.href = "/allstar/board/boardDetail.html?no=" + $(event.currentTarget).attr("boardBno");
+           } 
+   });
+    
+    /* 팀 오버뷰 */
+    
+    $.getJSON('/allstar/team/ajax/list.do?pageSize=5', function(resultObj){
+    	
+        var ul = $(".list_team");
+          for (var team of resultObj.teams) {
+        	  var emblem = team.emblem; 
+              if(emblem == null){
+                  emblem = "allstardefault.png";
+                } 
+            $("<li id='team_"+ team.tno+"'>")
+            .html(
+              "<a href='#' class='detailTeam' teamTno='" + team.tno + "'>"
+                +"<img src='../team/img/"+ emblem +"' alt='"+ team.name +"' >"
+                +"<span>"+team.name+"</span>"
+                +"<span>"+team.event.name+"</span>"
+                +"<span>"+team.baseAddr+"</span>"
+                +"<span>소개 : "+team.introduce+"</span>"
+              +"</a></li>" )
+    .appendTo(ul);
+   
+          }
+   });
+    
+    
+    
+    $(function() {
+        $("#addBtn").click(function() {
+          var form = $('form')[0];
+          var data = new FormData();
+          var pass1 = document.getElementById('pass_signin');
+          var pass2 = document.getElementById('pass_signin2');
+          if(pass1.value != pass2.value){
+        	  alert("비밀번호가 다릅니다. "); 
+        	  return;
+          }
+          data.append('id', $('#id_signin').val());
+          data.append('pwd', $('#pass_signin').val());
+          
+           $.ajax({
+             url : "/allstar/member/ajax/add.do",
+             data : data,
+             type : "POST",
+             dataType: "json",
+             enctype: 'multipart/form-data',
+             processData: false, 
+             contentType:false,
+             success : function(result) {
+            	 console.log(result.ajaxResult.status);
+            	  if(result.ajaxResult.status =="success"){
+            	 console.log(result);
+               alert("가입에 성공했습니다.");
+                location.href = "javascript:;";
+            	  }else if(result.ajaxResult.status == "error"){
+            		  alert("이미 존재하는 아이디이거나 잘못된 가입 정보입니다. "); 
+            	  }
+               } 
+           });
+        });
+      });
+    
+    
+           </script>
+
+    <script src="js/classie.js"></script>
+    <script src="js/photostack.js"></script> 
+    <script>
+    
+
+    </script>
+    <!-- footer start -->
+<footer>
+<img src="images/allstar.png" >
+</footer>
+<!-- footer end -->
+</body>
+</html>
