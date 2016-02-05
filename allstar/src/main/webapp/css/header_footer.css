@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 @font-face {
     font-family: 'nexonFont';
-    src: url("../fonts/NEXON Football Gothic L.otf") format("opentype");
+    src: url("fonts/NEXON Football Gothic L.otf") format("opentype");
 }
 
 li {
