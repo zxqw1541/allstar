@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link type="text/css" rel="stylesheet" href="css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<link rel="stylesheet" type="text/css" href="css/competition.css" />
+
+
+<link rel="stylesheet" href="css/tos/tos.css" />
+
+<style>
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 100px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+#detail {
+  background-color: #000;
+  bottom: 0;
+  left: 0;
+  opacity: 0.5;
+  filter: alpha(opacity = 50);
+  /* IE7 & 8 */ position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 99;
+  display:none;
+}
+.btn {
+width:170px;
+float:right; 
+margin-left:4%;
+text-align:center;
+}
+</style>
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+
+
+<script> 
+$(function(){
+  $("#header").load("header.html"); 
+  $("#footer").load("footer.html"); 
+});
+
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });
+});
+
+</script> 
+</head>
+<body>
+<div id="header"></div>
+<div style="height:100px;"></div>
+
+<div id="container" style="min-height:700px;">
+
+<script>
+
+getParameter = function(name) {
+    search = location.href;
+    if (!search || search.indexOf("?") == -1) {
+      return false;
+    }
+    search = search.split("?");
+    data = search[1].split("=");
+    
+    /* if(search[1].indexOf(name) == -1 || data[0] != name) {
+      return "";
+    } */
+    if (search[1].indexOf("&") == (-1)) {
+      data = search[1].split("=");
+      return data[1];
+    } else {
+      
+      data = search[1].split("&");
+      for(i = 0; i <= data.length-1; i++) {
+        l_data = data[i].split("=");
+        if (l_data[0] == name) {
+          return l_data[1];
+          break;
+        } else continue;
+        }
+      }
+    }
+</script>
+
+<!-- detail -->
+<div id="contents" style='background-color: white; width:1258px; margin:auto; height: 100%;'>
+  <div class="viewWrap boardContents boardView" >
+    <article id="subject" class="mainArea">
+    </article>
+    <aside id="rightSide" class="sideArea">
+    </aside>
+    <div class='bbsReply' style='float: left;'>
+    </div>
+  </div>
+</div>
+
+<script>
+function addComment(event){
+	  console.log("boardBno: " + $(event.target).attr("boardBno"));
+	  
+	  console.log('mno'+ sessionStorage.getItem("mem_num"));
+	  console.log('bno'+ $(event.target).attr("boardBno"));
+	  console.log('comm'+ $('#txtComment').val());
+
+	  $.post('/allstar/boarComm/ajax/add.do', {
+	  mno : sessionStorage.getItem("mem_num"),
+	  bno : $(event.target).attr("boardBno"),
+	  comm : $('#txtComment').val()
+	  },
+	  function(result) {
+		  if(result.ajaxResult.status == "success") {
+			 alert("댓글을 등록하였습니다.");
+		   location.reload();
+		  } else {
+			  alert("댓글 등록에 실패했습니다.");
+		  }
+	  }, 'json');
+}
+/* board update & delete 시작 */
+function clickUpdate(event) {
+  $('.bbsReply').hide();
+  $('#subject').empty();
+  $('#rightSide').empty();
+    $.getJSON('../board/ajax/detail.do?no=' + no, function(resultObj) {
+        var ajaxResult = resultObj.ajaxResult;
+        var board = ajaxResult.data;
+        console.log(sessionStorage.getItem("mem_num"));
+        var photo = board.member.photo;
+        if(photo == null){
+          photo = 'allstardefault.png';
+        }
+          var article = $("#subject");
+            $("<form method='post'>")
+                .html("<header id='test1'class='header'>"
+                  +"<p class='cat1 clearFix'><span class='dep1'>종목별 게시판</span></p>"
+                  +"<div class='inner clearFix'>"
+                  +"<div class='subject'>"
+                  +"<input type='hidden' id='bEno' value='"+ board.eno + "'></input>"
+                  +"<input type='hidden' id='bMno' value='"+ board.mno + "'></input>"
+                  +"<input class='tit' id='bTitle' value='"+board.title+"'  style='border:0px; padding:0px 0px 0px 0px;'>" 
+                  +"<p class='etc'><span class='date'>" + board.createDate + "</span></p>"
+                  +"</div>"
+                  +"<p class='cnt'>"
+                  +"<span class='view'><strong>" + board.views + "</strong>조회</span>"
+                  +"</p></div></header>"
+                  +"<div id='test2' class='viewContents'>"
+                  +"<textarea id='bContent' cols='60' rows='10' style='width:798px; overflow-y: auto;'>" + board.content + "</textarea>"
+                  +"<div id='loading' style='display:none'><img src='http://s.nx.com/s2/game/tos/common/img_loading.gif' alt='' /></div>" 
+                  +"<div>" 
+                  +"<div style='margin:2% 81px 4% 805px;'>" 
+                  +"<button id='updateBtn'  type='button' boardBno='"+ board.no +"' style='margin-bottom: 40px;"
+                  +"font-size:25px; width:170px; height:44px;'>수정</button>" 
+                  +"</div>"
+                  +"</div>")
+            .appendTo(article);
+           
+            $("#updateBtn").click(updateBod);
+      });
+}
+/* board update and delete 끝 */
+  
+  /* board detail 시작 */
+  var no = -1;
+  if (location.href.indexOf('?') != -1)
+  no = location.href.split('?')[1].split('=')[1];
+  /* 이전글 다음글 */
+  $.ajax({
+	  url: '/allstar/board/ajax/pn.do?bno=' + no,
+	  type: 'GET',
+	  contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+	  dataType:'json',
+	  success:function(resultObj) {
+		  if(resultObj.status == 'success') {
+			  var prev = resultObj.prev;
+			  var next = resultObj.next;
+			  var prevE = '';
+			  var nextE = '';
+			  
+			  if(prev == null) {
+				  prevE = "<li class='prev'>"
+                  + "<span class='nav'>이전<span class='bul sprBtn'></span></span>"
+                  + "<div class='contents'>"
+                  + "<strong class='tit' style='display:inline;'>이전 글이 없습니다.</strong>" 
+                  + "</div></li>";
+			  } else {
+				  prevE = "<li class='prev'>"
+	                  + "<a href='../ui/boardDetail.html?no="+ prev.no +"'>"
+	                  + "<span class='nav'>이전<span class='bul sprBtn'></span></span>"
+	                  + "<div class='contents'>"
+	                  + "<strong class='tit' style='display:inline;'>" + prev.title + "</strong><small> - " + prev.event.name + "</small><br>" 
+	                  + "<span class='etc'><span class='date'>" + prev.createDate + "</span></span>"
+	                  + "</div></a></li>";
+			  }
+			  
+			  if(next == null) {
+				  nextE = "<li class='next'>"
+	                  + "<span class='nav'>다음<span class='bul sprBtn'></span></span>" 
+	                  + "<div class='contents'>" 
+	                  + "<strong class='tit' style='display:inline;'>다음 글이 없습니다.</strong>" 
+	                  + "</div></li>";
+		     } else {
+		    	 nextE = "<li class='next'>"
+	                  + "<a href='../ui/boardDetail.html?no="+ next.no +"'>" 
+	                  + "<span class='nav'>다음<span class='bul sprBtn'></span></span>" 
+	                  + "<div class='contents'>" 
+	                  + "<strong class='tit' style='display:inline;'>" + next.title + "</strong><small> - " + next.event.name + "</small><br>" 
+	                  + "<span class='etc'><span class='date'>" + next.createDate + "</span></span>" 
+	                  + "</div></a></li>";
+		     }
+			  
+			  var aside = $("#rightSide");
+			  $("<div class='history' >")
+		        .html("<ul class='list' style='margin-left: -39px;'>"
+		              + prevE + nextE
+		              + "</ul>")
+		        .appendTo(aside);
+		  }
+	  }
+  });
+  /* board detail */
+  $.ajax({
+       url: '/allstar/board/ajax/detail.do?no=' + no,
+       type:'GET',
+       async:false,
+       contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+       dataType:'json',
+       success:function(resultObj) {
+			 /*  $('#subject').empty();
+			  $('#rightSide').empty();
+			  $('.bbsReply').show();
+			  $('.bbsReply').empty(); */
+        var ajaxResult = resultObj.ajaxResult;
+        var board = ajaxResult.data;
+        console.log(sessionStorage.getItem("mem_num"));
+        var photo = board.member.photo;
+        if(photo == null){
+          photo = 'allstardefault.png';
+        }
+        var article = $("#subject");
+        $("<header id='test1'class='header'>")
+        .html("<p class='cat1 clearFix'><span class='dep1'>종목별 게시판</span></p>"
+              + "<div class='inner clearFix'>"
+              + "<div class='subject'>"
+              + "<h2 class='tit'>" + board.title + "</h2>"
+              + "<p class='etc'><span class='date'>" + board.createDate + "</span></p>"
+              + "</div>"
+              + "<p class='cnt'>"
+              + "<span class='view'><strong>" + board.views + "</strong>조회</span>"
+              + "</p></div></header>")
+        .appendTo(article);
+        $("<div id='test2' class='viewContents'>")
+        .html("<p>" + board.content + "</p>"
+              + "<div id='loading' style='display:none'><img src='http://s.nx.com/s2/game/tos/common/img_loading.gif' alt='' /></div>" 
+              + "</div>")
+        .appendTo(article);
+        if (sessionStorage.getItem("mem_num") == board.member.mno) {
+        $("<div class='viewContentsBtm clearFix'>")
+          .html("<p class='btnEtc'>"
+               +"<a boardBno='"+ board.no +"' href='#updateWrite' id='updateb' class='edit'>수정</a>"
+               +"<a href='javascript:' id='deleteBtn' boardBno='"+ board.no +"' type='button' class='del'>삭제</a></p>"
+               +"</div>")
+          .appendTo(article);
+        }
+        var aside = $("#rightSide");
+        $("<div class='btnArea'>")
+        .html("<p class='btnHome'><a id='mInfo' boardMno='"+ board.member.mno + "'style='margin-left:0%; display:block;' rel='leanModal1' href='#mem_info' class='btn btnType5'>회원정보보기</a></p>"
+              + "<div class='btm clearFix' style='margin-left:0%'>"
+              + "<a style='margin-left:0%' rel='leanModal' href='#newWrite' id='newB' class='btn btnType6 btnWrite'>글쓰기</a>"
+              + "<a href='../ui/boardList12.html' style='margin-left:0%' id='btnArticleList' class='btn btnType6 btnList'>목록</a>"
+              + "</div></div>")
+              .prependTo(aside);
+        $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
+        .html("<p class='img'><img src='../member/img/"+ photo + "' alt='프로필 사진'>"
+              + "</p><div class='contents'><p class='id'>" + board.member.id
+              + "</p><p class='lvs'><span class='lv'>"+ board.event.name + "</span></p></div></div>")
+              .prependTo(aside);
+        
+          
+        $("#mInfo").click(clickMemInfo);
+        $("#deleteBtn").click(clickDel);
+        $("#updateb").click(clickUpdate);
+        $('#newB').click(clickNewWrite);
+        $('a[rel*=leanModal1]').leanModal({ top : 200, closeButton: ".modal_close" });
+                      
+       var div = $(".bbsReply");
+       $("<fieldset class='commentWrite' style='width:800px; margin-left: 50px;'>")
+        .html("<legend>댓글 쓰기</legend>"
+        +"<textarea cols='50' id='txtComment' placeholder='댓글을 작성하세요.'  rows='4' style='float:left; width:660px;'></textarea>"
+        +"<button type='button' boardBno='"+board.no+"' id='replyadd' class='btn btnType4 btnWrite'>등록</button>"
+        +"</fieldset>").appendTo(div);
+      
+      $("#replyadd").click(addComment);
+     }
+    });
+    
+        console.log('boardBno = '+ no);
+          $.getJSON('../boarComm/ajax/list.do?bno=' +no, function(resultObj) {
+             for (var boarComm of resultObj.boarComms) {
+              var photo = boarComm.member.photo;
+              if(photo == null){
+                photo = 'allstardefault.png';
+              }
+            var div = $(".bbsReply");
+            $("<section class='listComments' style='margin-left: 50px;'>")
+            .html("<ul class='list'>"
+                 +"<div class='commentWrap'>"
+                 +"<li class='comment1'>"
+                 +"<dl>"
+                 +"<dt>이름, 작성일</dt>"
+                 +"<dd class='nameWrap'>"
+                 +"<p class='img'>"
+                 +"<img src='../member/img/"+ photo + "'>"
+                 +"</p><button type='button' class='delBC' boarCommMno='" + boarComm.mno + "' boardBno='" + boarComm.bno + "' boardBcno='"+ boarComm.bcno +"'>삭제</button> "
+                 +"<div class='contents'>"
+                 +"<p class='name'>"
+                 +"<span class='id'>" + boarComm.member.id + "</span>"
+                 +"</p>"
+                 +"<p class='lvs'>"
+                 +"<span class='creDt'>" + boarComm.createdDate + "</span>"
+                 +"</p></div></dd>"
+                 +"<dt>댓글</dt>"
+                 +"<span>"+boarComm.comm+"</span>"
+                 +"</dl>"
+                +"</li>"
+                 +"</ul></section>")
+            .appendTo(div);
+            
+             }
+             $(".delBC").click(clickDelBC);
+       
+  });
+
+         
+        //변경 버튼을 위한 이벤트 리스너 추가하기
+          function updateBod(event) {
+            console.log('수정눌림수정');
+             console.log( $('#bEno').val());
+             console.log( $('#bMno').val());
+            console.log( no);
+              $.post('../board/ajax/update.do', {
+                  no:  no,
+                  eno: $('#bEno').val(),
+                  mno: $('#bMno').val(),
+                  title: $('#bTitle').val(),
+                  content: $('#bContent').val()
+
+              }, function(resultObj) {
+                var ajaxResult = resultObj.ajaxResult;
+                if (ajaxResult.status == "success") {
+                  location.href = "../ui/boardList12.html";
+                } else {
+                    alert("게시물 변경에 실패했습니다.");
+                }
+              }, 'json');
+            }
+
+          //삭제 버튼을 위한 이벤트 리스너 추가하기
+          function clickDel(event) {
+            console.log($(event.target).attr("boardBno"));
+            $.getJSON('../board/ajax/delete.do?no=' + no,
+              function(resultObj) {
+                var ajaxResult = resultObj.ajaxResult;
+                if (ajaxResult.status == "success") {
+                  location.href = "../ui/boardList12.html";
+                } else {
+                    alert("게시물 삭제에 실패했습니다.");
+                }
+            });
+          }
+          
+          //댓글 삭제버튼을 위한 이벤트 리스너 추가하기
+          function clickDelBC(event) {
+              console.log($(event.target).attr("boardBcno"));
+              if (sessionStorage.getItem("mem_num") == $(event.currentTarget).attr("boarCommMno")) {
+              $.getJSON('../boarComm/ajax/delete.do?bcno=' + $(event.currentTarget).attr("boardBcno"),
+                function(resultObj) {
+                  var ajaxResult = resultObj.ajaxResult;
+                  if (ajaxResult.status == "success") {
+                    location.href = '../ui/boardDetail.html?no=' + $(event.currentTarget).attr("boardBno");
+                  } else {
+                      alert("댓글 삭제에 실패했습니다.");
+                  }
+              });
+          }  else {
+        	  alert('본인이 작성한 댓글만 삭제할 수 있습니다.');
+          }
+          }
+  function clickNewWrite(event) {
+	  console.log(sessionStorage.getItem("mem_num"));
+	  if (sessionStorage.getItem("mem_num") != undefined) {
+	   /*  $('.bbsReply').hide();
+	    $('#subject').empty();
+	    $('#rightSide').empty(); */
+	    $('#newBoard').empty();  
+	  $('#newBoard').show();
+	  $.getJSON('../board/ajax/add.do?no=' + -1, function(resultObj) {
+	      console.log("mem_num");
+	    var fbevent = resultObj.eno;
+	    var div = $("#newBoard");
+	    $("<div style='margin-top:20px; margin-bottom:5%; height:35px;'>")
+	    .html("<div>"
+	         +"<select id='feno' style='margin-left:81px; margin-right:0px; height:35px;'>"
+	         +"<option value='2'>농구</option>"
+	         +"<option value='3'>축구</option>"
+	         +"<option value='4'>야구</option>"
+	         +"<option value='5'>탁구</option>"
+	         +"<option value='6'>볼링</option>"
+	         +"</select>"
+	         +"<input type='text' id='ftitle' placeholder='제목을 입력하세요.' style='width: 780px; height:35px; border-top:0px; border-left:0px; border-right:0px; border-bottom:1px solid black; padding:0px 0px 0px 0px;'>"
+	         +"</div></div>")
+	    .appendTo(div);
+	    $("<div style='display:none;'>")
+	    .html("<label for='fmno' class='col-sm-2 control-label'>멤버번호</label>"
+	          +"<div class='col-sm-10'>"
+	          +"<input type='text' class='form-control' id='fmno' value='"+sessionStorage.getItem("mem_num")+"' readonly>"
+	          +"</div></div>")
+	    .appendTo(div);
+	    
+	    $("<div>")
+	    .html("<div style='margin-left:81px; maring-right:81px;'>"
+	          +"<textarea id='fcontent' class='form-control' rows='20' cols='60'"
+	          +"placeholder='내용을 입력하세요.' style='width:840px; overflow-y: auto;'></textarea>"
+	          +"</div></div>")
+	    .appendTo(div);          
+	  });
+	  } else {
+	          alert("로그인 후 게시글 작성이 가능합니다.");
+	  }
+	}
+	/* 새 글 작성 끝 */
+ 	/* 회원정보보기 시작  */  
+  function clickMemInfo(event) {
+		console.log("mno : "+$(event.target).attr("boardMno"));
+		$('#mem_info').empty();
+		$('#mem_info').show();
+		
+	  $.getJSON('/allstar/member/ajax/detail.do?mno=' + $(event.currentTarget).attr("boardMno"), function(resultObj) {
+		  console.log("edddd");
+		  var member = resultObj.members;
+		  var likeEvent = resultObj.likeEvents;
+		  console.log(likeEvent);
+		  var likeStr = '';
+		  for (var le of likeEvent) {
+			  likeStr += le.event.name + ' ';
+		  }
+		  
+		  var form = ("#mem_info");
+          $("<form id='detail_mem' method='post' style='margin:10%;' enctype='multipart/form-data'>")
+          .html("<div style='border-bottom:1px gray solid;'>"
+               +"<h2>회원정보</h2></div>"
+               +"<div style='margin-top:20px;'>"
+               +"<p id='fdphoto' type='hidden'/>"
+               +"<p for='fname' style='margin-top:5px;'>이름 : "
+               +"<span id='fname' style='margin-top:5px;'><img id='detail_preview_img' style='width:100px; float:right;' src='../member/img/"+member.photo+"'/>"+member.name+"</span></p><br>"
+               +"<p for='femail' style='margin-top:10px;'>이메일 : "
+               +"<span id='femail' style='margin-top:10px;'>" + member.email + "</span></p><br>"
+               +"<p for='fbas_addr' style='margin-top:10px;'>주소<br>"
+               +"<span id='fbas_addr' style='width:400px;'>" + member.bas_addr + "</span><br>"
+               +"</p><br>"
+               +"</div>"
+               +"<div id='genderfld'  style='margin-top:10px;'>"
+               +"<p for='fgender'>성별 : "
+               +"<span id='fgender'>" + member.gender + "</span></p><br>"
+               +"</div>"
+               +"<p for='fage' style='margin-top:10px;'>나이 : "
+               +"<span id='fage' style='margin-top:10px;'>" + member.age + "세</span></p>"
+               +"<div  style='margin-top:10px;'>"
+               +"<p for='likeevent'>관심종목 : "
+               +"<span id='likeevent'>" + likeStr + "</span></p>"
+               +"</div>"
+               +"<div style='margin-top:10px;'>"
+               +"<p>자기소개<br>"
+               +"<span id='fintroduce'>" + member.introduce + "</span></p>"
+               +"</div>")
+          .appendTo(form);
+		      });
+  }
+	</script>
+
+	<script>
+	
+	
+
+	$(document).ready(function() {
+		$('#mInfo').attr({
+			rel : 'learnModal1',
+			href : '#mem_info'
+		});
+	});
+	$(document).ready(function() {
+	  if (sessionStorage.getItem("mem_num") != undefined) {
+	      console.log("글쓰기 버튼 활성화.");
+	    $('#newB').attr({
+	    rel : 'leanModal',
+	    href : '#newWrite'
+	  });
+
+	  }
+	  
+	 if (sessionStorage.getItem("mem_num") == undefined) {
+	        console.log("글쓰기 버튼 비활성화.");
+	      $('#newB').attr({
+	      rel : '',
+	      href : ''
+	    });
+	    }
+	});
+	$(document).ready(function() {
+	    if (sessionStorage.getItem("mem_num") != undefined) {
+	        console.log("글쓰기 버튼 활성화.");
+	      $('#newB1').attr({
+	      rel : 'leanModal',
+	      href : '#newWrite'
+	    });
+
+	    }
+	    
+	   if (sessionStorage.getItem("mem_num") == undefined) {
+	          console.log("글쓰기 버튼 비활성화.");
+	        $('#newB1').attr({
+	        rel : '',
+	        href : ''
+	      });
+	      }
+	  });
+</script>
+
+
+<!-- 새 글 작성 시작 -->
+<div id="newWrite" style='display:none; border:1px black solid; background-color: white; min-width:1024px; margin:auto; overflow:auto;'>
+  <div style="margin:5% 0px 20px 81px;">
+    <p style="font-size: 25px;">종목별 게시판</p>
+  </div>
+  <div id="newBoard" style="width:100%; overflow-y:auto;">
+  </div>
+  <div>
+    <div style="margin:2% 81px 4% 750px;">
+      <button id='addBtn' type='button' style="margin-bottom: 40px;" class="newForm btn btn-primary btn-xs">등록</button>
+    </div>
+  </div>
+</div>
+<!-- 새 글 작성 끝 -->
+<!-- 회원정보보기 시작 -->
+<section id="mem_info" style='display:none; background-color: white; width:650px; margin:auto; overflow-y: auto;'>
+</section>
+<!-- 회원정보보기 끝 -->
+</div>
+<div id="footer"></div>
+
+<!-- 검색 -->
+<script>
+//등록 버튼을 위한 이벤트 리스너 추가하기
+$('#addBtn').click(function(event) {
+  console.log("eno = " + $('#feno').val());
+  console.log("mno = " + $('#fmno').val());
+  console.log("title = " + $('#ftitle').val());
+  console.log("content = " +$('#fcontent').val());
+  $.post('../board/ajax/add.do', {
+    eno: $('#feno').val(),
+    mno: $('#fmno').val(),
+    title: $('#ftitle').val(),
+    content: $('#fcontent').val(),
+    
+  }, function(resultObj) {
+    var ajaxResult = resultObj.ajaxResult;
+    if (ajaxResult.status == "success") {
+      location.href = "../ui/boardList12.html";
+    } else {
+        alert("게시물 등록에 실패했습니다.");
+    }
+  }, 'json');
+ 
+});
+</script>
+<div style="height:150px;"></div>
+</body>
+</html>

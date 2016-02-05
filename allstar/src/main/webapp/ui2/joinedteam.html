@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/tos/comp.css" />
+<link type="text/css" rel="stylesheet" href="css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<link rel="stylesheet" type="text/css" href="css/tos/sidebar-left.css" />
+<link rel="stylesheet" type="text/css" href="css/tos/demo.css" />
+
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="js/test/toucheffects.js"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
+<script>
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+});
+
+function close_modal(modal_id){
+    $("#lean_overlay").fadeOut(200);
+  $(modal_id).css({"display":"none"})
+                        }
+$(function(){
+	  $("#header").load("header.html"); 
+	  $("#footer").load("footer.html"); 
+});
+</script>
+<style>
+#team_information span {
+font-size: 25px;
+margin:30px;
+}
+
+#member_photo {
+width:391px; 
+height:600px; 
+border: 1px black solid;
+float:right;
+overflow-y: auto;
+}
+
+#member_photo img {
+width:150px;
+height:155px;
+}
+
+#member_photo p {
+width:162px; 
+height:190px; 
+float: left; 
+margin-left: 22px;
+}
+#member_photo label {
+text-align:center;
+    color: indigo;
+    font-size: 20px;
+}
+
+#team_btfld {
+border: 1px black solid;
+width:394px;
+height:280px;
+float:right;
+margin-top: 0px;
+}
+#team_information {
+width:380px; 
+height:923px; 
+border: 1px black solid;
+}
+</style>
+
+<script src="js/test/modernizr.custom.js"></script>
+
+
+</head>
+<body style="background-color:white; overflow-x:none;">
+<div id="header"></div>
+<div style="height:150px;"></div>
+<aside class="sidebar-left">
+   
+
+    <div class="sidebar-links">
+      <a class="link-blue " href="Member_info.html"onclick="scroll(0,0)" id='my_info'><i class="fa fa-user"></i>내 정보</a>
+      <a class="link-pink " href="myteam.html" onclick="scroll(0,0)"id='my_open_team'><i class="fa fa-users" ></i>나의 팀</a>
+      <a class="link-green selected" href="joinedteam.html"onclick="scroll(0,0)" id='my_part_team'><i class="fa fa-users" ></i>참여한 팀</a>
+      <a class="link-yellow " href="mycompetition.html"onclick="scroll(0,0)" id='my_open_comp'><i class="fa fa-trophy" ></i>나의 대회</a>
+      <a class="link-red " href="joinedcomp.html"onclick="scroll(0,0)" id='my_part_comp'><i class="fa fa-trophy" ></i>참여한 대회</a>
+    </div>
+
+
+  </aside>
+
+  <div class="main-content" style="min-height:900px;">
+<section id='main-section' style="min-height:900px;">
+
+	<div>
+		
+		<div class="container demo-3">
+			<!-- Top Navigation -->
+
+			<ul class="grid cs-style-4" id="myteams" style="">
+        
+
+			</ul>
+			
+		</div>
+		<!-- /container -->
+		
+		<script src="js/test/toucheffects.js"></script>
+
+	</div>
+</section>
+  </div>
+	<script>
+
+    $(function () {
+
+      var links = $('.sidebar-links > a');
+
+      links.on('click', function () {
+
+        links.removeClass('selected');
+        $(this).addClass('selected');
+
+      })
+    });
+
+$.getJSON('../member/ajax/memberJoined.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
+	
+	if(resultObj.status == "success"){
+    for (var joinTeam of resultObj.data) {
+    	if(joinTeam.level == 0) {
+	    	var event = 0;
+	    	console.log("tno : "+joinTeam.tno+"  eno : "+joinTeam.team.eno);
+	    	switch(joinTeam.team.eno){
+	    	case 2:  event = "농구";
+	    	   break;
+	    	case 3:  event = "축구";
+	        break;
+	    	case 4:  event = "야구";
+	        break;
+	    	case 5:  event = "탁구";
+	        break;
+	    	case 6:  event = "볼링";
+	        break;
+	    	}
+	    	var emblem = joinTeam.team.emblem;
+	    	if(emblem == null){
+	    		emblem = "allstardefault.png";
+	    	}
+	    	var ul = $('#myteams');
+	    	$("<li style='margin-left: 120px;'>")
+	    	.html("<figure><div>"
+	    			+"<img src='../team/img/"+emblem+"' style='width:300px;' alt='"+ joinTeam.team.name+"'></div>"
+	    			+"<figcaption>"
+	    			+"<h3>"+joinTeam.team.name+"</h3>"
+	    			+"<span>팀장 : " + joinTeam.member.name + " </span><br>"
+	    			+"<span >연고지 : "+joinTeam.team.postNo+" "+joinTeam.team.baseAddr+" </span><br>"
+	    			+"<span >종목 : "+event+" </span><br>"
+	    			+"<span>전적 : "+joinTeam.team.win+" 승  "+joinTeam.team.draw+" 무  "+joinTeam.team.lose+" 패</span><br>"
+	    			+"<span>내용 : "+joinTeam.team.introduce+"</span><br>"
+	    			+"<a id='goteam"+joinTeam.tno+"' href='joinedteamdetail.html?tno="+joinTeam.tno+"'>팀 정보 보기</a>"
+	    			+"</figcaption></figure></li>"
+	    	).appendTo(ul);
+    } 
+    }
+    } else {
+    	var ul = $('#myteams');
+    	$("<li>").html("현재 참가한 팀이 없습니다. </li>").appendTo(ul);
+    }
+    
+});
+
+$(function(){
+	   if (sessionStorage.getItem("loginSession") == undefined) {
+	     location.href="main2.html";
+	   }
+	 });
+    
+</script>
+<div style="height:100px;"></div>
+
+<div id="footer"></div>
+
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquery.session.js"></script>
+
+
+</body>
+</html>

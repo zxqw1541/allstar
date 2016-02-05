@@ -1,0 +1,440 @@
+@CHARSET "UTF-8";
+@font-face {
+    font-family: 'nexonFont';
+    src: url("../fonts/NEXON Football Gothic L.otf") format("opentype");
+}
+
+li {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
+
+/*--------------------*/
+/* header & footer */
+/*--------------------*/
+
+
+
+#top_header {
+  background-color:black;
+  opacity:0.8; 
+   z-index:10; 
+   position:fixed; 
+   min-width:1024px;  
+   width:100%;
+   height:100px; 
+}
+
+
+header {
+	font-family: 'nexonFont';
+width: 1024px; 
+height:100px; 
+margin-left:auto;
+margin-right:auto; 
+margin-bottom:15px;
+position:relative;
+
+}
+
+header img {
+  height:80%;
+  margin-left:15px; 
+  margin-top:10px;
+}
+
+.auth {
+  padding:10px; 
+  float:right;
+}
+
+.auth a {
+  text-decoration: none;
+}
+.auth a:hover{
+  color:#333;
+  text-decoration: none;
+}
+
+
+
+
+footer {
+  min-width:1024px; 
+	width: 100%; 
+	height:50px;
+	position:fixed; 
+	bottom:0px;
+  background-color:black;
+  z-index: 1;
+}
+
+footer img {
+  height:80%;
+  margin-left:15px; 
+  margin-top:10px;
+}
+
+
+
+/* ------------ */
+/* login form */
+/* ------------ */
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+       #signup {
+
+     width: 500px;
+     padding-bottom: 2px;
+
+    display:none;
+
+
+    background: #FFF;
+        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+       
+}
+       #signin {
+
+     width: 500px;
+     padding-bottom: 2px;
+
+    display:none;
+
+
+    background: #FFF;
+        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+       
+}
+
+        #test {
+     width: 600px;
+padding: 30px; 
+    display:none;
+
+
+    background: #FFF;
+        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+       
+}
+
+#test p { color: #666; text-shadow: none; }
+
+#signup-header {  padding: 18px 18px 14px 18px; border-bottom: 1px solid #CCC; border-top-left-radius: 5px; -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; border-top-right-radius: 5px; -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px; }
+
+#signup-header  h2 { color: #444; font-size: 2em; font-weight: 700; margin-bottom: 3px; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); }
+#signup-header  p { color: #444; font-size: 1.3em; margin: 0; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); text-shadow: none; }
+
+#signup .txt-fld { position: relative; width: 450px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
+#signup .btn-fld { width: 430px; overflow: hidden; padding: 12px 0px 12px 150px; margin-left:-110px;}
+
+#signup .txt-fld label { display: block; float: left; width: 90px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
+#signup .txt-fld input { width: 244px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: 'nexonFont'; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
+#signup .txt-fld input.good_input { background: #DEF5E1 ; }
+#signup .txt-fld input.error_input { background: #FDE0E0; }
+
+#signin .txt-fld { position: relative; width: 450px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
+#signin .btn-fld { width: 430px; overflow: hidden; padding: 12px 0px 12px 150px; margin-left:-110px;}
+
+#signin .txt-fld label { display: block; float: left; width: 90px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
+#signin .txt-fld input { width: 244px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: 'nexonFont'; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
+#signin .txt-fld input.good_input { background: #DEF5E1 ; }
+#signin .txt-fld input.error_input { background: #FDE0E0; }
+
+
+p.error { position: absolute; bottom: 48px; right: 20px; width: 262px; color: #FFF; font-size: 1.1em; padding-bottom: 5px; background: url(../img/error-arw.png) 20px bottom no-repeat; text-align: left; margin: 0; text-shadow: none; }
+p.error span { display: inline-block; background: #D43636; padding: 6px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;  }
+.txt-fld input:focus, .txt-fld textarea:focus { background-color: #FAF9DC; }
+        
+button {
+  float: right;
+  font-family: 'nexonFont';
+  background: black; 
+  border: none;
+  width: auto;
+  overflow: visible;
+  font-size: 1.4em;
+  color: #FFF;
+ padding: 7px 10px;  border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; font-weight: bold; text-shadow: 0 1px 0 rgba(0,0,0,0.4);}
+        
+.modal_close { position: absolute; top: 12px; right: 12px; display: block; width: 14px; height: 14px; background: url(../img/modal_close.png); z-index: 2; }
+
+
+
+/* ---------------- */
+/* main contents */
+/* ---------------- */
+
+.tournament_slider {
+  
+height: 790px;
+}
+
+.top_event_list {
+padding-top:200px;
+height: 600px;
+z-index:1;
+}
+.eventlist {
+  margin-left:10px;
+  width:960px;
+  height: 40px;
+  background-color: white;
+  opacity: 0.9;
+  padding-bottom:15px;
+}
+.eventlist li{
+  list-style-type: none;
+  
+}
+.eventlist a{
+  float:left;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 20px;
+  color:black;
+}
+
+#eventboard {
+  margin:auto;
+  width:760px;
+  background-color:white; 
+  opacity:0.9;
+}
+
+.newest_team {
+height: 800px;
+}
+
+.tournament_cat {
+height: 800px;
+}
+
+.tournament_cat .button_fld {
+}
+
+.btn {
+width:170px; 
+float:left;
+margin-left:4%;
+text-align:center;
+}
+
+.btn button {
+display:block;
+margin-left: auto;
+margin-right: auto;
+width:80px;
+}
+
+/* ----------------------------------- */
+/* cssmenu navigation menu bar */
+/* ----------------------------------- */
+
+#cssmenu ul,
+#cssmenu li,
+#cssmenu span,
+#cssmenu a {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+#cssmenu {
+  float:left;
+  margin-left: 80px;
+  line-height: 1;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+ background: black; 
+ /*  background: -moz-linear-gradient(top, #333333 0%, #141414 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333333), color-stop(100%, #141414));
+  background: -webkit-linear-gradient(top, #333333 0%, #141414 100%);
+  background: -o-linear-gradient(top, #333333 0%, #141414 100%);
+  background: -ms-linear-gradient(top, #333333 0%, #141414 100%);
+  background: linear-gradient(to bottom, #333333 0%, #141414 100%); */
+  width: 420px;
+  height:100px;
+}
+#cssmenu:after,
+#cssmenu ul:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#cssmenu a {
+/*   background: #141414; */
+ /*  background: -moz-linear-gradient(top, #333333 0%, #141414 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333333), color-stop(100%, #141414));
+  background: -webkit-linear-gradient(top, #333333 0%, #141414 100%);
+  background: -o-linear-gradient(top, #333333 0%, #141414 100%);
+  background: -ms-linear-gradient(top, #333333 0%, #141414 100%);
+  background: linear-gradient(to bottom, #333333 0%, #141414 100%); */
+  color: #ffffff;
+  display: block;
+  font-family: 'nexonFont';
+  padding: 45px 20px;
+  text-decoration: none;
+  height:15px;
+  
+}
+#cssmenu ul {
+  height:100px;
+  list-style: none;
+}
+#cssmenu > ul > li {
+  display: inline-block;
+  float: left;
+  margin: 0;
+}
+#cssmenu.align-center {
+  text-align: center;
+}
+#cssmenu.align-center > ul > li {
+  float: none;
+}
+#cssmenu.align-center ul ul {
+  text-align: left;
+}
+#cssmenu.align-right > ul {
+  float: right;
+}
+#cssmenu.align-right ul ul {
+  text-align: right;
+}
+#cssmenu > ul > li > a {
+  color: #ffffff;
+  font-size: 12px;
+}
+#cssmenu > ul > li:hover:after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #0fa1e0;
+  margin-left: -10px;
+}
+#cssmenu > ul > li:first-child > a {
+  border-radius: 5px 0 0 0;
+  -moz-border-radius: 5px 0 0 0;
+  -webkit-border-radius: 5px 0 0 0;
+}
+#cssmenu.align-right > ul > li:first-child > a,
+#cssmenu.align-center > ul > li:first-child > a {
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+}
+#cssmenu.align-right > ul > li:last-child > a {
+  border-radius: 0 5px 0 0;
+  -moz-border-radius: 0 5px 0 0;
+  -webkit-border-radius: 0 5px 0 0;
+}
+#cssmenu > ul > li.active > a,
+#cssmenu > ul > li:hover > a {
+  color: #ffffff;
+  box-shadow: inset 0 0 3px #000000;
+  -moz-box-shadow: inset 0 0 3px #000000;
+  -webkit-box-shadow: inset 0 0 3px #000000;
+  background: #070707;
+  background: -moz-linear-gradient(top, #262626 0%, #070707 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #262626), color-stop(100%, #070707));
+  background: -webkit-linear-gradient(top, #262626 0%, #070707 100%);
+  background: -o-linear-gradient(top, #262626 0%, #070707 100%);
+  background: -ms-linear-gradient(top, #262626 0%, #070707 100%);
+  background: linear-gradient(to bottom, #262626 0%, #070707 100%);
+}
+#cssmenu .has-sub {
+	font-size:20px;
+  float:left;
+  z-index: 1;
+}
+#cssmenu .has-sub:hover > ul {
+  display: block;
+}
+#cssmenu .has-sub ul {
+  display: none;
+  position: absolute;
+  width: 200px;
+  top: 100%;
+  left: 0;
+}
+#cssmenu.align-right .has-sub ul {
+  left: auto;
+  right: 0;
+}
+#cssmenu .has-sub ul li {
+  *margin-bottom: -1px;
+}
+#cssmenu .has-sub ul li a {
+  background: #0fa1e0;
+  border-bottom: 1px dotted #31b7f1;
+  font-size: 15px;
+  filter: none;
+  display: block;
+  line-height: 120%;
+  padding: 10px;
+  color: #ffffff;
+}
+#cssmenu .has-sub ul li:hover a {
+  background: #0c7fb0;
+  opacity:1;
+}
+#cssmenu ul ul li:hover > a {
+  color: #ffffff;
+}
+#cssmenu .has-sub .has-sub:hover > ul {
+  display: block;
+}
+#cssmenu .has-sub .has-sub ul {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
+#cssmenu.align-right .has-sub .has-sub ul,
+#cssmenu.align-right ul ul ul {
+  left: auto;
+  right: 100%;
+}
+#cssmenu .has-sub .has-sub ul li a {
+  background: #0c7fb0;
+  border-bottom: 1px dotted #31b7f1;
+}
+#cssmenu .has-sub .has-sub ul li a:hover {
+  background: #0a6d98;
+}
+
+#cssmenu ul ul li:last-child > a,
+#cssmenu ul ul ul li.last > a,
+#cssmenu ul ul ul li:last-child > a,
+#cssmenu .has-sub ul li:last-child > a,
+#cssmenu .has-sub ul li.last > a {
+  border-bottom: 0;
+  
+}
+#cssmenu ul ul li.last > a,
+#cssmenu .last {
+	font-size:20px; 
+}
+

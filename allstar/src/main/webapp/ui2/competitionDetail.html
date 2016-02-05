@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link type="text/css" rel="stylesheet" href="css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<link rel="stylesheet" type="text/css" href="css/competition.css" />
+<link rel="stylesheet" type="text/css" href="css/overlay.css" />
+<link rel='stylesheet' type='text/css' href='../lib/jquery-bracket/jquery.bracket.min.css'/>
+
+
+<!-- <link rel="stylesheet" href="css/tos/tos.css" /> -->
+<link rel="stylesheet" type="text/css" href="css/competitionDetail.css" />
+<link rel="Shortcut Icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
+<link rel="icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
+
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/modernizr.min.js"></script>
+
+</head>
+<body>
+<div id="header"></div>
+<div style="height:100px;"></div>
+
+<div id="container">
+	<div id="contents" style='background-color: white; width: 1258px; margin: auto; overflow: auto;'>
+		<div class="viewWrap boardContents boardView"
+			style="width: 100%; overflow-y: auto;">
+			<article id="subject" class="mainArea">
+
+        
+      </article>
+			<aside id="rightSide" class="sideArea">
+			  <h3 class='blind'>참여 정보</h3>
+			  <div class='info clearFix'>
+				  <h2 class='sideInfoTitle'>참여 정보 </h2><h3 id='sideInfoJoinTeam' class='sideInfoTitle'></h3>
+				  <div class='contents'>
+				    <span id='thumLeftBtn'></span>
+				    <span id='thumRightBtn'></span>
+				    <p class='img'>
+				    <p class='img'>
+				    <p class='img'>
+				    <p class='img'>
+			    </div>
+			    <!-- 팀명 보여줌 -->
+			    <div class='teamName'><h2></h2></div>
+			  </div>
+			  <div class='btnArea'>
+			    <p class='btnHome'>
+			   
+			      <a id='btnArticleJoin' style='margin-left:0%; margin-bottom:34px' class='btn btnType5' rel='leanModal' href='#apply_comp' >참가 신청하기</a>
+			    </p>
+			    <div class="btm clearFix">
+            <a href="#" id="btnArticleWrite" class="btn btnType6 btnWrite requireLogin" style='margin-left:0%'>새 대회 만들기</a>
+            <a href="#" id="btnArticleList" class="btn btnType6 btnList" style='margin-left:0%'>목록</a>
+          </div>
+			    
+        </div>
+			  
+			</aside>
+			
+			<!-- 댓글 -->
+			<div class='cdReply'>
+			  <fieldset class='commentWrite'>
+          <legend>댓글 쓰기</legend>
+          <textarea cols='50' id='txtComment' placeholder='댓글을 작성하세요.'  rows='4' style='float:left; width:660px;'></textarea>
+          <button type='button' id='replyadd' class='btn btnType4 btnWrite'>등록</button>
+					</fieldset>
+					<section class='listComments' style='margin-left: 50px;'>
+            <ul class='commList'>
+             <!-- 댓글 div들 -->
+            </ul>
+          </section>
+      </div>
+		</div>
+	</div>
+</div>
+
+<div style="height:100px;"></div>
+
+<div id="footer"></div>
+
+<!-- 팀 상세 정보 모달 -->
+<div id="detail_team">
+  <div id="detail_team-header">
+    <h2>상세 정보</h2>
+    <button class="modal_close close_btn"></button>
+  </div>
+  <div id="detail_team_img">
+    <img id="detail_preview_img" src="img/allstardefault.png"/>
+  </div>
+  <div class="txt-fld">
+    <label for="fdname">팀명</label>
+    <p id="fdname" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txt-fld">
+    <label for="fdevent">종목</label>
+    <p id="fdevent" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txt-fld">
+    <label for="fdtotalnum">인원수</label>
+    <p id="fdtotalnum" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txt-fld">
+    <label for="fdfee">회비</label>
+    <p id="fdfee" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txt-fld">
+    <label for="fdmeetday">정모요일</label>
+    <p id="fdmeetday" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txt-fld">
+    <label for="fdpostno">우편번호</label>
+    <p id="fdpostno" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txt-fld">
+    <label for="fdaddr">연고지</label>
+    <p id="fdaddr" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txtarea-fld">
+    <label for="fdintroduce">팀 소개</label>
+    <div>
+      <textarea id="fdintroduce" class="form-control comp_team_detail" rows='10' cols='60'
+          readonly></textarea>
+    </div>
+  </div>    
+  <div class="btn-fld">
+    <button class="close_btn" type="button">닫기 &raquo;</button>
+  </div>
+</div>
+
+<!-- 팀 참가 폼 -->
+<div id="apply_comp">
+  <div id="apply_comp-header">
+    <h2>대회 참가</h2>
+    <button class="modal_close close_btn"></button>
+  </div>
+  <form id='applyCompForm' class="form-horizontal">
+  <div id="apply_comp_img">
+    <img id="apply_preview_img" src="img/allstardefault.png"/>
+  </div>
+  <div class="txt-fld">
+    <label for="acname">팀명</label>
+    <div>
+        <select id="acname" class="good_input">
+        </select>
+      </div>
+  </div>
+  <div class="txt-fld">
+    <label for="acevent">종목</label>
+    <p id="acevent" class="good_input">&nbsp;</p>
+  </div>
+  <div class="txtarea-fld">
+    <label for="accontent">내용</label>
+    <div>
+      <textarea id="accontent" class="form-control comp_team_detail" rows='10' cols='60'></textarea>
+    </div>
+  </div>    
+  <div class="btn-fld">
+    <button class="close_btn" type="button">닫기 &raquo;</button>
+    <button class="submit_btn" id="applyTeamBtn" type="button" style='margin-right:50px'>신청 &raquo;</button>
+  </div>
+  </form>
+</div>
+
+<!-- 기본 정보 출력 (스크립트 시작)-->
+<script type='text/javascript' src='../lib/jquery-bracket/jquery.bracket.min.js'></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
+
+<!-- 대회 값 수정 -->
+<script>
+function saveFn(data, userData) {
+    var json = JSON.stringify(data);
+    window.scoreOper = json;
+}
+</script>
+
+<script>
+var no = -1;
+var eno = -1;
+var tno = -1;
+var ename = "";
+if (location.href.indexOf('?') != -1)
+  no = location.href.split('?')[1].split('=')[1];
+var status = '모집전'
+$.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
+  var ajaxResult = resultObj.ajaxResult;
+    if (ajaxResult.status == "success") {
+      var c = ajaxResult.data;
+      eno = c.eno;
+      ename = c.event.name;
+      tno = c.tno;
+      var rsd = new Date(c.recruitStartDate).getTime();
+      var red = new Date(c.recruitEndDate).getTime();
+      var sd = new Date(c.startDate).getTime();
+      var ed = new Date(c.endDate).getTime();
+      var nowd = new Date().getTime();
+
+      if (nowd < rsd) {
+    	  status = '모집전';
+      } else if (rsd < nowd && nowd < red) {
+        status = '모집중';
+      } else if (red < nowd && nowd < sd){
+        status = '대회준비중';
+      } else if (sd < nowd && nowd < ed) {
+        status = '대회중';
+      } else if (ed < nowd) {
+        status = '대회종료';
+      }
+      
+      var sub_article = $("#subject")
+      var detail =
+          "<header id='test1'class='header'  style='height:90px'>"
+          + "<div class='inner clearFix'>"
+          + "  <div class='subject'>"
+          + "    <h2 class='tit'>" + c.name  + "</h2>"
+          + "    <p class='etc'><span class='date'>모집기간 : " + c.recruitStartDate + " ~ " + c.recruitEndDate 
+          +        "<br>대회시작 : " + c.startDate 
+          + "       <br>참가비 : " + c.cost + "원</span></p>"
+          + "  </div>"
+          + "  <p class='cnt'>"
+          + "  <span class='view'><strong>" + status + "</strong></span></p>"
+          + "</div>"
+          + "</header>"
+          + "<div id='test2' class='viewContents'>"
+          + "  <img src='../competition/img/" + c.poster + "'>"
+          + "  <pre>" + c.content + "</pre><br>"
+          + "  <h2> 대진표</h2><br>"
+          + "  <div id='minimal' style='margin-bottom: 250px;'>"
+          + "    <div class='demo'></div>"
+          + "  </div><br>"      
+          + "  <div id='tour_btn' class='btn-fld1'>"
+          + "    <button id='randomTour' type='button'>랜덤</button>"
+          + "    <button id='enrollTour' type='button'>등록</button></div>"
+          + "    <button id='sendResult' type='button'>결과전송</button></div><br><br><br>"
+          + "  <div id='minimal'>"
+          + "  <h2> 장소</h2><br>"
+          + "  <p>"+ c.baseAddr + "</p>"
+          + "  <div class='div_left_map'>"
+          + "    <div id='map' style='width:750px;height:600px;'></div>"
+          + "  </div>"
+          + "</div>";
+      sub_article.append(detail);
+      window.operation = c.operation;
+      $('#sideInfoJoinTeam').text('(' + c.joinNum + '/' + c.teamNum + ')');
+
+      getFormData(); // 대회신청 폼
+
+      $.getJSON('/allstar/competition/master.do?no=' + no, function(resultObj) {
+    	  var ajaxResult = resultObj.ajaxResult;
+    	    if (ajaxResult.status == "success") {
+    	      confirmMaster(ajaxResult.data);
+    	    }
+    	  });
+
+    	//mno, session값 비교(로그인확인)
+    	function confirmMaster(mno) {
+    	  if (mno == sessionStorage.getItem("mem_num")) {
+    		  window.master = true;
+    		  if (status == '대회중') {
+    			  $('#randomTour').css('display' , 'none');
+   				  $('#enrollTour').css('display' , '');
+   				  $('#sendResult').css('display' , '');
+		        $('#minimal .demo').bracket({init: JSON.parse(c.operation), save:saveFn});
+    		  } else {
+   				  $('#minimal .demo').bracket({init: JSON.parse(c.operation)});
+    			  $('#randomTour').css('display' , 'none');
+    			  $('#sendResult').css('display' , 'none');
+    			  $('#enrollTour').css('display' , 'none');
+    			  if (status == '대회준비중') {
+    				  $('#randomTour').css('display' , '');
+    				  $('#sendResult').css('display' , 'none');
+    				  $('#enrollTour').css('display' , '');
+    			  } else if (status == '대회종료') {
+    				  $('#randomTour').css('display' , 'none');
+    				  $('#enrollTour').css('display' , '');
+    				  $('#sendResult').css('display' , '');
+    			  }
+    		  }
+    	  } else {
+    		  $('#sendResult').css('display' , 'none');
+    		  $('#enrollTour').css('display' , 'none');
+    		  $('#randomTour').css('display' , 'none');
+    		  window.master = false;
+    		  if (status == '대회준비중' || status == '대회중' || status == '대회종료') {
+	          $('#minimal .demo').bracket({init: JSON.parse(c.operation)});
+    		  }
+    	  } 
+    	}
+
+      daumMap(c.baseAddr);
+    }
+
+  });
+/* 다음 지도 */
+function daumMap(site) {
+	// 키워드로 장소를 검색합니다
+	if (site.indexOf('(') != -1){
+		  site = site.split('(')[0];
+	}
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+	// 지도를 생성합니다    
+	var map = new daum.maps.Map(mapContainer, mapOption); 
+	
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new daum.maps.services.Geocoder();
+	
+	// 주소로 좌표를 검색합니다
+	geocoder.addr2coord(site, function(status, result) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === daum.maps.services.Status.OK) {
+        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new daum.maps.Marker({
+            map: map,
+            position: coords
+        });
+        // 지도 중심을 변경한다.
+        map.setCenter(coords);
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new daum.maps.InfoWindow({
+            content: '<div style="padding:5px;">' + site + '</div>'
+        });
+        infowindow.open(map, marker);
+    } 
+});    
+}
+
+/* 대회 신청 폼 데이터 받기 */
+function getFormData() {
+	$.getJSON('../competition/availteam.do?mno=' + sessionStorage.getItem("mem_num") 
+		      + '&eno=' + eno, function(resultObj) {
+	   var ajaxResult = resultObj.ajaxResult;
+	   if (ajaxResult.status == "success") {
+	     var team = ajaxResult.data;
+	     var acname = $("#acname");
+	     for(var t of team) {
+	       if (t.tno == tno)
+	         continue;
+	       var h = "<option value='" + t.tno + "'>" + t.name + "</option>";
+	       acname.append(h);
+	     }
+	     $("#acevent").text(ename);
+	   }
+	 });
+}
+</script>
+
+<!-- 참여한 팀 섬네일 출력 -->
+<script>
+$.getJSON('/allstar/competition/imglist.do?cno=' + no, function(resultObj) {
+	var ajaxResult = resultObj.ajaxResult;
+	if (ajaxResult.status == "success") {
+		var teamList = ajaxResult.data;
+
+		changeThumb(teamList, 0);
+ 		nextThumb(teamList, Math.ceil(teamList.length/4));
+	} else if (ajaxResult.status == "empty") {
+		emptyThumb();
+	}
+});
+
+/* 참여한 팀 없을 때 공백 */
+function emptyThumb() {
+	$(".img").each(function(index, item) {
+	    $(this).children().remove();
+	    var path = '../team/img/invisible_team.png';
+      $("<img>").attr({ 
+        src : path
+      }).appendTo($(this));
+	  });
+	$('.teamName h2').text('참가한 팀이 없습니다.');
+}
+
+/* 그림 넣기 */
+function changeThumb(teamList, page) {
+	  $(".img").each(function(index, item) {
+			$(this).children().remove();
+		  var teamNo = -1;
+			var path='../team/img/tcd_allstardefault.png';
+			
+			// 범위 넘어가는것 방지
+			if (page*4 + index*1 >= teamList.length) {
+				path = '../team/img/invisible_team.png';
+			}
+			// 그림 있는 친구들 그림 주소 넣기
+			else if (teamList[page*4+index].emblem != null) {
+				path = '../team/img/tcd_' + teamList[page*4+index].emblem;
+				teamNo = teamList[page*4+index].tno;
+			}
+			// 그림 없는 친구들
+			else {
+				teamNo = teamList[page*4+index].tno;
+			}
+			
+			// img태그 에 속성 추가
+	    $("<img>").attr({
+	    	class : 'team_img',
+	    	listno : page*4 + index,
+	      teamno : teamNo,
+			  src : path,
+			  rel : 'leanModal',
+			  href: '#detail_team'
+		  }).appendTo($(this));
+	});
+	imgMouseEvent(teamList);
+	applyModal();
+}
+/* < , >  */
+function nextThumb(teamList, si){
+	var i = 0;
+	$("#thumLeftBtn").click(function(event) {
+		  i--;
+		  if(i < 0) {
+			  i = si-1;
+		  }
+		  changeThumb(teamList, i);
+	});
+	
+	$("#thumRightBtn").click(function(event) {
+    i++;
+    if(i == si) {
+      i = 0;
+    }
+    changeThumb(teamList, i);
+	});
+}
+
+function imgMouseEvent(teamList) {
+	
+	/* 그림에 마우스가 들어갈 때 */
+	$('.team_img').mouseenter(function(){
+		var i = $(this).attr('listno');0
+		if (teamList.length <= i)
+			$('.teamName h2').text('');
+		else
+			$('.teamName h2').text(teamList[i].name)
+  });
+	
+	/* 그림에서 마우스가 벗어날 때 */
+  $('.team_img').mouseout(function(){
+	  $('.teamName h2').text('')
+  });
+  
+  /* 그림 클릭시 */
+  $('.team_img').click(function(){
+    var i = $(this).attr('listno');
+    var t = $(this).attr('teamno');
+      if (teamList.length > i) {
+        getTeamDetail(t);
+      }
+  });
+}
+
+</script>
+
+<!-- 참가하기 버튼 리스너(모달 띄울떄 주소에 href 방지) -->
+<script>
+$(document).on('click', '#btnArticleJoin' , function(event){
+  event.preventDefault();
+  if (status != '모집중') {
+		  alert('현재 팀을 모집하지 않습니다.');
+		  $('#apply_comp').css('display' , 'none');
+		  $('#lean_overlay').css('display' , 'none');
+	}
+});
+</script>
+
+<!-- 댓글 가져오기 -->
+<script>
+$.getJSON('../competition/commlist.do?cno='+ no , function(resultObj) {
+	var ajaxResult = resultObj.ajaxResult;
+	if (ajaxResult.status == 'success') {
+		var ul = $('.commList');
+		var comms = ajaxResult.data;
+		for (var comm of comms) {
+			$("<div>").addClass('commentWrap')
+			  .html(
+            "<li class='comment1'>"
+            + "<dl>"
+            +  "<dt>이름, 작성일</dt>"
+            +    "<dd class='nameWrap'>"
+            +      "<p class='img'>"
+            +      "<img src='../member/img/mc_" + comm.member.photo + "'>"
+            +      "</p>"
+            +      "<div class='contents'>"
+            +        "<p class='name'>"
+            +          "<span class='id'>" + comm.member.id + "</span>"
+            +          "</p>"
+            +          "<p class='lvs'>"
+            +          "<span class='creDt'>" + comm.createdDate + "</span>"
+            +        "</p>"
+            +      "</div>"
+            +    "</dd>"
+            +    "<dt>댓글</dt>"
+            +    "<dd>" + comm.comm + "</dd>"
+            +  "</dl>"
+            +"</li>"
+          ).appendTo(ul);
+		}
+		
+	}
+});
+</script>
+
+<!-- 참가하기 (서버 요청) -->
+<script>
+$('body').on('click','#applyTeamBtn', function() {
+	var ttno = $('#acname option:selected').val();
+	var content = $('#accontent').val();
+	$.getJSON('../competition/joincomp.do?cno=' + no 
+		      + '&tno=' + ttno + '&content=' + content, function(resultObj) {
+     var ajaxResult = resultObj.ajaxResult;
+     if (ajaxResult.status == "success") {
+    	   alert('신청 완료 했어요');
+    	   location.href = 'competitionDetail.html?no='+no;
+     } else if (ajaxResult.status == "already") {
+    	 alert('이미 신청 하셨어요');
+     } else {
+    	 alert('에러가 발생했어요')
+     }
+    		 
+   });
+	
+});
+</script>
+
+<!-- 수정 삭제 버튼 추가(해당 글쓴이만!) -->
+<script>
+//mno 요청
+$.getJSON('/allstar/competition/master.do?no=' + no, function(resultObj) {
+	var ajaxResult = resultObj.ajaxResult;
+	  if (ajaxResult.status == "success") {
+		  confirmMaster(ajaxResult.data)
+	  }
+	});
+
+//mno, session값 비교(로그인확인)
+function confirmMaster(mno) {
+	if (mno == sessionStorage.getItem("mem_num"))
+	  {
+	    var div = $('.btnArea');
+	    $('<div>').addClass('btm clearFix')
+	      .html(
+	          "<a href='#' id='btnArticleUpdate' class='btn btnType6 btnWrite' style='margin-left:0%'>대회 수정</a>"
+	        + "<a href='#' id='btnArticleRemove' class='btn btnType6 btnList' style='margin-left:0%'>대회 삭제</a>"
+	          ).appendTo(div);
+	    modAndDelBtnOn();
+	  }	
+}
+
+</script>
+
+<!-- 수정 버튼 리스너 --><!-- 삭제 버튼 리스너 -->
+<script>
+function modAndDelBtnOn() {
+$('#btnArticleUpdate').on('click', function(event){
+    event.preventDefault();
+    if (status != '모집전') {
+    	alert('모집 전에만 수정할 수 있습니다!');
+    	return;
+    }
+    location.href = "competitionForm.html?no=" + no;
+    
+  });
+  
+$('#btnArticleRemove').on('click', function(event){
+	  event.preventDefault();
+	  var result = confirm("정말 삭제하시겠습니까?")
+	  if (result == true){
+		  $.getJSON('/allstar/competition/delete.do?no=' + no, function(resultObj) {
+			  var ajaxResult = resultObj.ajaxResult;
+			    if (ajaxResult.status == "success") {
+			    	alert('삭제 성공!');
+			    	location.href = 'competitionList.html';
+			    } else {
+			    	alert('삭제 실패!');	
+			    }
+			  });
+	  } else {
+		  alert("취소되었습니다.");
+	  }
+	});
+}
+</script>
+
+<!-- 목록 버튼 리스너-->
+<script>
+$('#btnArticleList').on('click', function(event){
+  event.preventDefault();
+  location.href="competitionList.html";
+  /* history.go(-1); */
+});
+</script>
+
+<!-- 새글 버튼 리스너-->
+<script>
+$('#btnArticleWrite').on('click', function(event){
+	event.preventDefault();
+	if(sessionStorage.getItem("mem_num"))
+     location.href = 'competitionForm.html?no=-1';
+	else
+		alert("로그인이 필요한 서비스 입니다.");
+});
+</script>
+
+<!-- 팀 정보 모달(섬네일 생성시 불러오는 코드) -->
+<script>
+
+function applyModal() {
+  $('img[rel*=leanModal]').leanModal({ closeButton: ".close_btn" });
+};
+
+function getTeamDetail(ttno) {
+	$.getJSON('../team/ajax/detail.do?tno=' + ttno, function(resultObj) {
+    var ajaxResult = resultObj.ajaxResult;
+    if (ajaxResult.status == "success") {
+      var team = ajaxResult.data;
+      $("#fdtno").text(team.tno);
+      $("#fdevent").text(team.event.name);
+      $("#fdname").text(team.name);
+      $("#fdtotalnum").text(team.totalNum);
+      /* $("#fdscore").val(team.win+"승 "+team.draw+"무 "+team.lose+"패"); */
+      $("#fdintroduce").text(team.introduce);
+      $("#fdaform").text(team.aForm);
+      $("#fdpostno").text(team.postNo);
+      $("#fdaddr").text(team.baseAddr);
+      $("#fdfee").text(team.fee);
+      
+      /* 디비 null 허용인 속성들 null 처리 */
+      if (team.meetDay == null)
+        $("#fdmeetday").text('없음');
+      else
+        $("#fdmeetday").text(team.meetDay);
+      if (team.emblem != null)
+        $('#detail_preview_img').attr('src', '../team/img/'+team.emblem);
+      else
+        $('#detail_preview_img').attr('src', '../team/img/allstardefault.png');
+    }
+  });
+}
+</script>
+
+<!-- 헤더 풋터 로그인 정보 포함 -->
+<script>
+$(function(){
+  
+    $("#header").load("header.html"); 
+    $("#footer").load("footer.html"); 
+  });
+</script>
+
+<!-- 댓글 -->
+<script>
+/* 로그인 안되있을 때 */
+if (!sessionStorage.getItem("mem_num")) {
+	$('#txtComment').attr({'placeholder' : '로그인 후 이용해 주세요.'});
+	$('body').on('click','#replyadd', function() {
+		alert('로그인이 필요한 서비스 입니다.');
+	});
+} 
+/* 로그인 되있을 때 */
+else if(sessionStorage.getItem("mem_num")){
+	$('body').on('click','#replyadd', function() {
+		var data = new FormData();
+		data.append('cno', no);
+		data.append('mno', sessionStorage.getItem("mem_num"));
+		data.append('comm', $('#txtComment').val());
+		$.ajax({
+	    url : "../competition/addcomm.do",
+	    data : data,
+	    type : "POST",
+	    dataType: "json",
+	    processData: false, 
+	    contentType:false,
+	    success : function(result) {
+	    	if (result.ajaxResult.status == "success") {
+	    		var c = result.ajaxResult.data;
+	    		var ul = $('.commList');
+	    		
+	    		var addedComm = $("<div>").addClass('commentWrap')
+	            .html(
+	                "<li class='comment1'>"
+	                + "<dl>"
+	                +  "<dt>이름, 작성일</dt>"
+	                +    "<dd class='nameWrap'>"
+	                +      "<p class='img'>"
+	                +      "<img src='../member/img/mc_" + c.member.photo + "'>"
+	                +      "</p>"
+	                +      "<div class='contents'>"
+	                +        "<p class='name'>"
+	                +          "<span class='id'>" + c.member.id + "</span>"
+	                +          "</p>"
+	                +          "<p class='lvs'>"
+	                +          "<span class='creDt'>" + c.createdDate + "</span>"
+	                +        "</p>"
+	                +      "</div>"
+	                +    "</dd>"
+	                +    "<dt>댓글</dt>"
+	                +    "<dd>" + c.comm + "</dd>"
+	                +  "</dl>"
+	                +"</li>"
+	              );
+	    	  ul.prepend(addedComm);
+	      }
+	    },
+	    error : function(result){
+	      alert('error');
+	    }
+	  });
+	});
+}
+</script>
+
+<!-- 대회 참여 모달 등록 -->
+<script>
+$('a[rel*=leanModal]').leanModal({ closeButton: ".close_btn" });
+</script>
+
+<!-- 대진표 랜덤 -->
+<script>
+$('body').on('click','#randomTour', function() {
+  var container = $('div#save .demo');
+	var teams = JSON.parse(window.operation).teams;
+	
+	var originArray = [];
+	var count = 0;
+	
+	for (var i = 0; i < teams.length; i++) {
+		for (var j = 0; j < teams[i].length; j++) {
+			originArray[count] = teams[i][j];
+			count++;
+		}
+	}
+	
+	originArray = shuffleArray(originArray);
+	
+	var newArray = [];
+	var count = 0;
+
+	if (originArray.length == 2) {
+		newArray[0] = originArray.slice(0,2);
+	} else {
+		for (var k = 0; k < originArray.length - 1; k+=2) {
+			newArray[count] = originArray.slice(k, k+2);
+			count++;
+		}
+	}
+	
+	var originResults = JSON.parse(window.operation).results;
+	
+	window.newTour = {
+		      teams : newArray,
+		      results : originResults
+		    }
+	if (window.master == true) {
+		$('#minimal .demo').bracket({init: window.newTour});
+	}
+	
+	/*
+	console.log("1 scoreOper ==> " + window.scoreOper);
+  console.log("1 lastOper ==> " + window.lastOperation);
+  console.log("1 windowOper ==> " + window.operation);
+  console.log("1 newTour ==> " + JSON.stringify(window.newTour));
+  */
+});
+
+function shuffleArray(array) {
+   	if (array.indexOf('undefined1') > 0) {
+	   	var arrayLength = array.indexOf('undefined1') - 1;
+   	} else {
+   		var arrayLength = array.length - 1;
+   	}
+   	
+    for (var i = arrayLength; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
+</script>
+
+<!-- 대진표 등록 -->
+<script>
+var no = location.href.split('?')[1].split('=')[1];
+
+$('body').on('click','#enrollTour', function() {
+	window.lastOperation = window.operation;
+	  
+	if (window.scoreOper != undefined) {
+		window.lastOperation = window.scoreOper;
+	}
+  var data = new FormData();
+
+  data.append('no', no);
+  
+  if (window.newTour == undefined) {
+	  data.append('operation', window.lastOperation);
+  } else {
+	  data.append('operation', JSON.stringify(window.newTour));
+	  window.lastOperation = JSON.stringify(window.newTour);
+  }
+  
+  /*
+	console.log("2 scoreOper ==> " + window.scoreOper);
+  console.log("2 lastOper ==> " + window.lastOperation);
+  console.log("2 windowOper ==> " + window.operation);
+  console.log("2 newTour ==> " + JSON.stringify(window.newTour));
+  */
+  
+  $.ajax({
+      url : "../competition/updateTour.do",
+      data : data,
+      type : "POST",
+      dataType: "json",
+      processData: false, 
+      contentType:false,
+      success : function(result) {
+      if (result.ajaxResult.status == "success") {
+        alert("대진표 변경 완료!");
+        location.href = "/allstar/ui/competitionDetail.html?no=" + no;
+      } else {
+          alert("대진표 변경 실패!");
+     }
+   },
+   error : function(result){
+      alert('error');
+   }
+ });
+});
+</script>
+
+<!-- 대회 결과 전송 -->
+<script>
+var no = location.href.split('?')[1].split('=')[1];
+
+$('body').on('click','#sendResult', function() {
+
+	/*
+  console.log("3 scoreOper ==> " + window.scoreOper);
+  console.log("3 lastOper ==> " + window.lastOperation);
+  console.log("3 windowOper ==> " + window.operation);
+  console.log("3 newTour ==> " + JSON.stringify(window.newTour));
+  */
+  
+  if (window.lastOper == undefined) {
+	  if (window.scoreOper != undefined && window.operation != window.scoreOper) {
+		  alert("등록 후 전송버튼을 눌러주세요!");
+		  return;
+	  }
+  }
+
+  var data = new FormData();
+  var winTeamDiv = $('.team.win .label');
+  var loseTeamDiv = $('.team.lose .label');
+  var winTeamName = [];
+  var loseTeamName = [];
+  
+  var matchDiv = $('.match');
+  var matchWinTeam = $('.teamContainer .team.win .label');
+  var matchLoseTeam = $('.teamContainer .team.lose .label');
+  
+  for (var i = 0; i < matchDiv.length; i++) {
+	  if (matchLoseTeam[i] == undefined || matchWinTeam[i] == undefined) {
+		  alert("값을 모두 입력 후 전송해주세요");
+		  return;
+	  }
+	  
+	  var test = $(matchLoseTeam[i]).parent();
+	  console.log(test);
+	  
+	  if (matchLoseTeam[i].innerText.startsWith('undefined') == true) {
+		  var text = matchWinTeam[i];
+		  loseTeamDiv.push(text);
+	  }
+  }
+  
+  for (var i = 0; i < winTeamDiv.length; i++) {
+	  winTeamName[i] = winTeamDiv[i].innerText;
+  }
+  
+  for (var i = 0; i < loseTeamDiv.length; i++) {
+	  loseTeamName[i] = loseTeamDiv[i].innerText;
+  }
+  
+	if (winTeamDiv != undefined) {
+		data.append('winTeam', winTeamName);
+	}
+	
+	if (loseTeamDiv != undefined) {
+    data.append('loseTeam', loseTeamName);
+  }
+	  
+  $.ajax({
+		   url : "../competition/sendResult.do",
+		   data : data,
+		   type : "POST",
+		   dataType: "json",
+		   processData: false, 
+		   contentType:false,
+		   success : function(result) {
+		   if (result.ajaxResult.status == "success") {
+		     alert("결과 전송 완료!");
+		     location.href = "/allstar/ui/competitionDetail.html?no=" + no;
+		   } else {
+		       alert("결과 전송 실패!");
+		  }
+		},
+		error : function(result){
+		   alert('error');
+		}
+  });
+  
+});
+</script>
+
+</body>
+</html>

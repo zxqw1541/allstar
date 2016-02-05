@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/tos/comp.css" />
+<link rel="stylesheet" type="text/css" href="css/tos/myteam.css" />
+<link type="text/css" rel="stylesheet" href="css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<link rel="stylesheet" type="text/css" href="css/tos/sidebar-left.css" />
+<link rel="stylesheet" type="text/css" href="css/tos/demo.css" />
+
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery.leanModal.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="js/test/toucheffects.js"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
+<script>
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+});
+
+function close_modal(modal_id){
+    $("#lean_overlay").fadeOut(200);
+  $(modal_id).css({"display":"none"})
+                        }
+                        
+$(function(){
+	  $("#header").load("header.html"); 
+	  $("#footer").load("footer.html"); 
+});
+</script>
+<style>
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 100px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+#stateChange {
+background-color:white;
+display: none;
+}
+#stateChange img {
+width:200px;
+height:250px;
+}
+
+#stateChange ul {
+padding: 45px;
+}
+#stateChange button {
+margin: 10px;
+}
+</style>
+
+</head>
+<body style="background-color:white; overflow-x:none;">
+<div id="header"></div>
+<div style="height:150px;"></div>
+
+<aside class="sidebar-left">
+   
+
+      <div class="sidebar-links">
+      <a class="link-blue " href="Member_info.html"onclick="scroll(0,0)" id='my_info'><i class="fa fa-user"></i>내 정보</a>
+      <a class="link-pink selected" href="myteam.html" onclick="scroll(0,0)"id='my_open_team'><i class="fa fa-users" ></i>나의 팀</a>
+      <a class="link-green" href="joinedteam.html"onclick="scroll(0,0)" id='my_part_team'><i class="fa fa-users" ></i>참여한 팀</a>
+      <a class="link-yellow " href="mycompetition.html"onclick="scroll(0,0)" id='my_open_comp'><i class="fa fa-trophy" ></i>나의 대회</a>
+      <a class="link-red " href="joinedcomp.html"onclick="scroll(0,0)" id='my_part_comp'><i class="fa fa-trophy" ></i>참여한 대회</a>
+    </div>
+
+
+  </aside>
+   <div class="main-content" style="min-height:900px;">
+<section id='main-section' style="min-height:900px;">
+	<div>
+	<h2 style="text-align: center;">내가 개설한 팀</h2>
+		<div class="container demo-3">
+
+      <div id="myTeamInfo_detail" style="margin:auto;  width: 900px; height:100%;">
+
+<!-- Emblem -->
+<div id="team_top">
+</div>
+
+<!-- 가입신청 알림 -->
+<div id="apply_alert" >
+</div>
+
+
+<!-- 회원 목록 -->
+<div id="mem_list" >
+
+</div>
+<!-- 회원 목록 끝 -->
+
+
+<!-- 팀정보 -->
+<div id="info" style="float:left; font-size:20px; padding: 50px;">
+
+</div>
+<!-- 팀정보 끝 -->
+<div style="height:20px; width:100%; float:left;"></div>
+<!-- 가입신청현황 -->
+<div id="apply_state" style="float:left;">
+<h2 style="margin-left:50px;">신규/대기중 가입 신청</h2>
+<ul id="new_apply" >
+</ul>
+<h2 style="margin-left:50px;">보류중인 신청</h2>
+<ul id="wait_apply" >
+</ul>
+<h2 style="margin-left:50px;">거절한 신청</h2>
+<ul id="reject_apply" >
+</ul>
+</div>
+      </div>
+      
+      
+		</div>
+		  <div id="stateChange" >
+	</div>
+	<div style="height:500px;"></div>
+
+</div>
+	</section>
+  </div>
+	<script>
+	$(function () {
+
+	      var links = $('.sidebar-links > a');
+
+	      links.on('click', function () {
+
+	        links.removeClass('selected');
+	        $(this).addClass('selected');
+
+	      })
+	    });
+$(function(){
+	var url = document.URL;
+  var tno =	url.split('?')[1].split('=')[1];
+	console.log("tno"+tno);
+	
+	
+	  var captain = null;
+	$("#myTeamInfo_detail").show();
+$.getJSON('../team/ajax/detail.do?tno=' + tno, function(resultObj) {
+	var ajaxResult = resultObj.ajaxResult;
+	console.log($(event.target).attr('teamNo'));
+	var team = ajaxResult.data;
+	var div =$("#team_top");
+	$("<span>")
+	.html("<img src='../team/img/"+team.emblem+"'  ></span> "
+	    +"<span style='float:left; margin-left: 55px; margin-top: 75px;'><h1>"+team.name+"</h1></span>")
+	    .appendTo(div);
+	});
+
+	$.getJSON('../member/ajax/teamJoin.do?tno=' +tno, function(resultObj) {
+	var waiting = 0;
+	for(var joinTeam of resultObj.data){
+	if(joinTeam.state == 0)
+	  waiting ++;
+	if(joinTeam.level == 1)
+		captain=joinTeam.member.name ;
+	}
+	var div = $("#apply_alert");
+	$("<a style='margin:auto;'>")
+	.html("신규 가입 신청수 : " + waiting + "개  </a>").appendTo(div);
+
+	for(var joinTeam of resultObj.data){
+	  if(joinTeam.state == 1) {
+		  var photo = joinTeam.member.photo;
+		  if(photo == null)
+			  photo = "allstardefault.png";
+	var div = $("#mem_list") ;
+	$("<figure >")
+	.html("<a href='#stateChange' rel='leanModal' class='stateChan' memberNo='"+ joinTeam.mno +"' teamNo='"+joinTeam.tno+"' ><img src='../member/img/"+photo+"' >"
+	+"<figcaption>"+joinTeam.member.name+"</figcaption></a>"
+	+"</figure>").appendTo(div);
+	}
+	}
+	});
+	
+	$.getJSON('../team/ajax/detail.do?tno=' + tno, function(resultObj) {
+		var ajaxResult = resultObj.ajaxResult;
+		  var team = ajaxResult.data;
+		  var div = $("#info");
+		  $("<span style='display: inherit;'>")
+		  .html("<span  style='display: inherit;'>팀장 : "+ captain +" </span><br>"
+				  + "<span style='display: inherit;'> 정모일 : "+team.meetDay+" </span><br>"
+				  +"  <span style='display: inherit;'> 종목 : "+team.event.name+" </span><br>"
+				  +"<span style='display: inherit;'> 가입현황 : "+team.joinNum+"명 / "+team.totalNum+"명 </span><br>"
+				  +"  <span style='display: inherit;'> 전적 : "+team.win+"승 "+team.draw+"무 "+team.lose+"패 </span><br>"
+				  +"<span >연고지 : "+team.baseAddr+"</span><br>"
+				  ).appendTo(div);
+	});
+
+	/* 상태 표시 창 */
+	$.getJSON('../member/ajax/teamJoin.do?tno='+tno,function(resultObj){
+		for(var joinTeam of resultObj.data){
+			  if(joinTeam.state == 0){
+				  var ul = $("#new_apply");
+				  $("<li>")
+				  .html("<a href='#stateChange'  rel='leanModal' memberNo='"+ joinTeam.mno +"' teamNo='"+joinTeam.tno+"' class='stateChan'><span>신청일 : "+joinTeam.createdDate+"</span>"
+						  +"<span>아이디 : "+joinTeam.member.id+"</span>"
+						  +"<span>나이 : "+joinTeam.member.age+"</span> "
+						  +"<span>성 : "+joinTeam.member.gender+"</span></a> ").appendTo(ul);
+			  }	
+			  if(joinTeam.state == 2){
+		          var ul = $("#wait_apply");
+		          $("<li>")
+		          .html("<a href='#stateChange' rel='leanModal'  memberNo='"+ joinTeam.mno +"' teamNo='"+joinTeam.tno+"' class='stateChan'><span>신청일 : "+joinTeam.createdDate+"</span>"
+		              +"<span>아이디 : "+joinTeam.member.id+"</span>"
+		              +"<span>나이 : "+joinTeam.member.age+"</span> "
+		              +"<span>성 : "+joinTeam.member.gender+"</span></a> ").appendTo(ul);
+		        }
+			  if(joinTeam.state == -1){
+		          var ul = $("#reject_apply");
+		          $("<li>")
+		          .html("<a href='#stateChange' rel='leanModal'  memberNo='"+ joinTeam.mno +"'  teamNo='"+joinTeam.tno+"' class='stateChan'><span>신청일 : "+joinTeam.createdDate+"</span>"
+		              +"<span>아이디 : "+joinTeam.member.id+"</span>"
+		              +"<span>나이 : "+joinTeam.member.age+"</span> "
+		              +"<span>성 : "+joinTeam.member.gender+"</span></a> ").appendTo(ul);
+		        } 
+		}
+		$('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+	
+
+	$('.stateChan').click(function (event){
+		 $('#stateChange').empty();
+	   console.log("memberNo: "+$(event.currentTarget).attr("memberNo"));
+	   var mno=$(event.target).attr("memberNo");
+	 $.getJSON('../member/ajax/detail.do?mno='+$(event.currentTarget).attr("memberNo"), function(resultObj){
+	     var member = resultObj.members;
+	     var photo = member.photo;
+	      if(photo == null)
+	        photo = "allstardefault.png";
+	     var div = $('#stateChange');
+	     $("<ul>")
+	     .html("<li><img src='../member/img/"+photo+"'></li>"
+	         +"<li><span>아이디 : "+member.id+"</span></li>"
+	         +"<li><span>이름 : "+member.name+"</span></li>"
+	         +"<li><span>성별 : "+member.gender+"</span></li>"
+	         +"<li><span>나이 : "+member.age+"</span></li>"
+	         +"<li><span>주소 : "+member.baseAddr+"</span></li>"
+	         +"<li><span>자기소개 : "+member.introduce+"</span></li>"
+	         +"<button type='button' id='accept' memberNo='"+ member.mno +"' teamNo='"+ $(event.currentTarget).attr("teamNo") +"'>승인</button>"
+	         +"<button type='button' id='wait' memberNo='"+ member.mno +"' teamNo='"+ $(event.currentTarget).attr("teamNo")  +"'>보류</button>"
+	         +"<button type='button' id='denial' memberNo='"+ member.mno +"' teamNo='"+ $(event.currentTarget).attr("teamNo")  +"'>거절</button>")
+	         .appendTo(div);
+	     $('#accept').click(acceptM);
+	     $('#wait').click(waitM);
+	     $('#denial').click(denialM);
+	   });
+});
+	function acceptM(event){
+		$.post('../member/ajax/changeState.do', {
+	          mno:  $(event.target).attr("memberNo"),
+	          tno: $(event.target).attr("teamNo"),
+	          state: 1
+	      }, function(resultObj) {
+	        var ajaxResult = resultObj.ajaxResult;
+	        if (ajaxResult.status == "success") {
+	          alert("상태 변경했습니다.");
+	          close_modal('#stateChange');
+	          location.reload();
+	        } else {
+	            alert("변경에 실패했습니다.");
+	        }
+	      }, 'json');
+	  }
+	
+	 function waitM(event){
+		    $.post('../member/ajax/changeState.do', {
+		            mno:  $(event.target).attr("memberNo"),
+		            tno: $(event.target).attr("teamNo"),
+		            state: 2
+		        }, function(resultObj) {
+		          var ajaxResult = resultObj.ajaxResult;
+		          if (ajaxResult.status == "success") {
+		            alert("상태 변경했습니다.");
+		            close_modal('#stateChange');
+		            location.reload();
+		          } else {
+		              alert("변경에 실패했습니다.");
+		          }
+		        }, 'json');
+		    }
+	 
+	  function denialM(event){
+		    $.post('../member/ajax/changeState.do', {
+		            mno:  $(event.target).attr("memberNo"),
+		            tno: $(event.target).attr("teamNo"),
+		            state: -1
+		        }, function(resultObj) {
+		          var ajaxResult = resultObj.ajaxResult;
+		          if (ajaxResult.status == "success") {
+		            alert("상태 변경했습니다.");
+		            close_modal('#stateChange');
+		            location.reload();
+		          } else {
+		              alert("변경에 실패했습니다.");
+		          }
+		        }, 'json');
+		    }
+});
+	
+	
+});
+
+
+$(function(){
+	   if (sessionStorage.getItem("loginSession") == undefined) {
+	     location.href="main2.html";
+	   }
+	 });
+</script>
+
+<div style="height:500px; width:100%; posotion: absolute;"></div>
+
+<div id="footer"></div>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquery.session.js"></script>
+
+</body>
+</html>

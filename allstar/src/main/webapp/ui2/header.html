@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link type="text/css" rel="stylesheet" href="css/header_footer.css" />
+
+ <script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquery.session.js"></script>
+
+ <script src="js/jquery.leanModal.min.js"></script> 
+<script>
+
+$(function() {
+    $('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });   
+});
+
+function close_modal(modal_id){
+    $("#lean_overlay").fadeOut(200);
+  $(modal_id).css({"display":"none"})
+                        }
+</script>
+
+</head>
+<body>
+
+
+<div id='top_header'>
+<header >
+<a href="main2.html"><img src="images/allstar.png" style="float: left;"></a>
+ <div class="auth">
+          <span id="login" style="display:none;">
+              <a style='margin-right:10px;color:white;' id='go' rel='leanModal' href='#signup'>Login</a>
+       <a style='margin-right:10px;color:white;' href='#signin' rel='leanModal'>Sign In</a>
+         </span>
+         <span id="logout" style="display:none;">
+           
+        </span>
+            <span> <a  style='display:none; color:white; margin-left:5px;' id='out' href=''>Log out</a></span>
+            </div>
+            <div id="cssmenu" >
+              <nav >
+                <ul >
+                  <li  class='active has-sub' ><a href="boardList12.html"><span>종목별 게시판</span></a>
+                    <ul id="eventmenu">
+                        <li><a href="boardList12.html?event=2">농구</a></li>
+                        <li><a href="boardList12.html?event=3">축구</a></li>
+                        <li><a href="boardList12.html?event=4">야구</a></li>
+                        <li><a href="boardList12.html?event=5">볼링</a></li>
+                        <li><a href="boardList12.html?event=6">탁구</a></li>
+                    </ul>
+                 </li>
+                  <li class='has-sub'><a href="competitionList.html">대회</a>
+                    <ul>
+                      <li><a href="competitionList.html?event=2">농구</a></li>
+                        <li><a href="competitionList.html?event=3">축구</a></li>
+                        <li><a href="competitionList.html?event=4">야구</a></li>
+                        <li><a href="competitionList.html?event=5">볼링</a></li>
+                        <li><a href="competitionList.html?event=6">탁구</a></li>
+                   </ul>
+                </li>
+                  <li class='has-sub'><a href="teamList.html">팀</a>
+                    <ul>
+                        <li><a href="teamList.html?event=2">농구</a></li>
+                        <li><a href="teamList.html?event=3">축구</a></li>
+                        <li><a href="teamList.html?event=4">야구</a></li>
+                        <li><a href="teamList.html?event=5">볼링</a></li>
+                        <li><a href="teamList.html?event=6">탁구</a></li>
+                   </ul></li>
+                       <li class='last'><a href="freeBoardList.html"></a></li>
+              </ul>
+        </nav>
+        </div>
+</header>
+<!-- header end -->
+
+
+</div>
+
+<!-- 가입 폼 -->
+<div id="signin">
+      <div id="signup-ct">
+        <div id="signup-header">
+          <h2>회원가입</h2>
+          <p>회원가입을 하세요</p>
+        </div>
+        
+        <form action="" method="POST">
+          <div class="txt-fld">
+            <label for="username">Username</label>
+            <input id="id_signin" class="good_input" name="username" type="text" />
+
+          </div>
+        
+          <div class="txt-fld">
+            <label for="password">Password</label>
+            <input id="pass_signin" name="password" type="password" >
+
+          </div>
+                    <div class="txt-fld">
+            <label for="password2">Password 확인</label>
+            <input  id="pass_signin2" name="password2" type="password" onkeyup="checkPass(); return false;"><br>
+<span id="confirmMessage" class="confirmMessage"></span>
+          </div>
+          <div class="btn-fld">
+          <button id="addBtn" type="button">가입하기 &raquo;</button>
+
+</div>
+         </form>
+      </div>
+    </div>
+    <script>
+    	function checkPass()
+    	{
+    	    //Store the password field objects into variables ...
+    	    var pass1 = document.getElementById('pass_signin');
+    	    var pass2 = document.getElementById('pass_signin2');
+    	    //Store the Confimation Message Object ...
+    	    var message = document.getElementById('confirmMessage');
+    	    //Set the colors we will be using ...
+    	    var goodColor = "#66cc66";
+    	    var badColor = "#ff6666";
+    	    //Compare the values in the password field 
+    	    //and the confirmation field
+    	    if(pass1.value == pass2.value){
+    	        //The passwords match. 
+    	        //Set the color to the good color and inform
+    	        //the user that they have entered the correct password 
+    	        pass2.style.backgroundColor = goodColor;
+    	        message.style.color = goodColor;
+    	        message.innerHTML = "Passwords Match!"
+    	    }else{
+    	        //The passwords do not match.
+    	        //Set the color to the bad color and
+    	        //notify the user.
+    	        pass2.style.backgroundColor = badColor;
+    	        message.style.color = badColor;
+    	        message.innerHTML = "Passwords Do Not Match!"
+    	    }
+    }
+    </script>
+<!-- 가입폼 끝 -->
+
+
+
+<!-- 로그인 폼 -->
+
+<div id="signup">
+      <div id="signup-ct">
+        <div id="signup-header">
+          <h2>로그인</h2>
+          <p>ID 와 비밀번호를 입력하세요.</p>
+          <a class="modal_close" href="#"></a>
+        </div>
+        
+        <form action="" method="POST">
+            <div id="loading"></div>
+          <div class="txt-fld">
+            <label for="id_input">Username</label>
+            <input id="id_input" class="good_input" name="username" type="text" />
+
+          </div>
+        
+          <div class="txt-fld">
+            <label for="pass_input">Password</label>
+            <input id="pass_input" name="password" type="password" />
+
+          </div>
+          <div class="btn-fld">
+          <button id="loginBtn" type="button">로그인 &raquo;</button>
+
+</div>
+         </form>
+      </div>
+    </div>
+
+
+<script>
+//로그인 시작
+
+
+  $('#loginBtn').click( function(event) {
+
+         console.log("login?");
+        $.post('../auth/ajax/login.do', {
+          id : $('#id_input').val(),
+          password : $('#pass_input').val()
+        }, function(resultObj) {
+        	 console.log("login-ing");
+          var ajaxResult = resultObj.ajaxResult;
+          if (ajaxResult.status == "success") {
+              emailSession = ajaxResult.data.id;
+              numSession = ajaxResult.data.mno;
+              photoSession= ajaxResult.data.photo;
+              sessionStorage.setItem('loginSession',emailSession);
+              sessionStorage.setItem('mem_num',numSession);
+              sessionStorage.setItem('mem_photo',photoSession);
+            console.log("success");
+            close_modal("#signup");
+            $("#logout").show();
+            $("#out").show();
+            $("#login").hide();
+            console.log(sessionStorage.getItem("loginSession"));
+            var session_photo=sessionStorage.getItem("mem_photo");
+            console.log("login photo : "+session_photo);
+            if(session_photo == 'null')
+                session_photo = 'allstardefault.png';
+              var session_id=sessionStorage.getItem("loginSession");
+              var span = $("#logout");
+              $("<a href='Member_info.html'><img src='../member/img/"+session_photo+"' style='width: 70px; height: 70px;'></a>"
+                    +"<a style='margin-left:10px;color:white;'  href='Member_info.html'>"+session_id+"</a>")
+                      .appendTo(span);
+              location.reload();
+          } else {
+            alert("이메일과 패스워드가 일치하지 않습니다.");
+          }
+        }, 'json');
+        
+      });
+  
+  
+  $(document).ready( function() {
+  if (sessionStorage.getItem("loginSession") != undefined) {
+    $("#logout").show();
+    $("#out").show();
+    $("#login").hide();
+    console.log(sessionStorage.getItem("loginSession"));
+    var session_photo=sessionStorage.getItem("mem_photo");
+    if(session_photo == 'null')
+        session_photo = 'allstardefault.png';
+      var session_id=sessionStorage.getItem("loginSession");
+      var span = $("#logout");
+      $("<a href='Member_info.html'><img src='../member/img/"+session_photo+"' style='width: 70px; height: 70px;'></a>"
+            +"<a style='margin-left:10px;color:white;'  href='Member_info.html'>"+session_id+"</a>")
+              .appendTo(span);
+        
+  }else {
+    $("#login").show();
+    $("#logout").hide();
+    $("#out").hide();
+
+  }
+}); 
+  
+  $('#out').click( function(event) {
+    $.session.clear();
+    console.log("logout");
+    
+    $("#login").show();
+    $("#logout").hide();
+    $("#out").hide();
+    location.reload();
+  });
+  
+  // 로그인 끝
+  
+   
+    $(function() {
+        $("#addBtn").click(function() {
+          var form = $('form')[0];
+          var data = new FormData();
+          
+          data.append('id', $('#id_signin').val());
+          data.append('pwd', $('#pass_signin').val());
+          
+           $.ajax({
+             url : "../member/ajax/add.do",
+             data : data,
+             type : "POST",
+             dataType: "json",
+             enctype: 'multipart/form-data',
+             processData: false, 
+             contentType: false,
+             success : function(resultObj) {
+               console.log(resultObj);
+               alert("가입에 성공했습니다.");
+             if (result.ajaxResult.status == "success") {
+                location.href = "javascript:;'";
+               } else {
+                alert("가입에 실패했습니다.");
+               }
+             },
+             error : function(result){
+                alert('error');
+             }
+           });
+        });
+      });
+    
+
+</script>
+</body>
+</html>
