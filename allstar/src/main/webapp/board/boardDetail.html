@@ -45,7 +45,6 @@ text-align:center;
 <script src="js/jquery.leanModal.min.js"></script>
 <script src="js/modernizr.min.js"></script>
 
-
 <script> 
 $(function(){
   $("#header").load("header.html"); 
@@ -61,11 +60,8 @@ $(function() {
 <body>
 <div id="header"></div>
 <div style="height:100px;"></div>
-
 <div id="container" style="min-height:700px;">
-
 <script>
-
 getParameter = function(name) {
     search = location.href;
     if (!search || search.indexOf("?") == -1) {
@@ -73,15 +69,11 @@ getParameter = function(name) {
     }
     search = search.split("?");
     data = search[1].split("=");
-    
-    /* if(search[1].indexOf(name) == -1 || data[0] != name) {
-      return "";
-    } */
+
     if (search[1].indexOf("&") == (-1)) {
       data = search[1].split("=");
       return data[1];
     } else {
-      
       data = search[1].split("&");
       for(i = 0; i <= data.length-1; i++) {
         l_data = data[i].split("=");
@@ -93,7 +85,6 @@ getParameter = function(name) {
       }
     }
 </script>
-
 <!-- detail -->
 <div id="contents" style='background-color: white; width:1258px; margin:auto; height: 100%;'>
   <div class="viewWrap boardContents boardView" >
@@ -105,15 +96,8 @@ getParameter = function(name) {
     </div>
   </div>
 </div>
-
 <script>
 function addComment(event){
-	  console.log("boardBno: " + $(event.target).attr("boardBno"));
-	  
-	  console.log('mno'+ sessionStorage.getItem("mem_num"));
-	  console.log('bno'+ $(event.target).attr("boardBno"));
-	  console.log('comm'+ $('#txtComment').val());
-
 	  $.post('/allstar/boarComm/ajax/add.do', {
 	  mno : sessionStorage.getItem("mem_num"),
 	  bno : $(event.target).attr("boardBno"),
@@ -133,10 +117,9 @@ function clickUpdate(event) {
   $('.bbsReply').hide();
   $('#subject').empty();
   $('#rightSide').empty();
-    $.getJSON('../board/ajax/detail.do?no=' + no, function(resultObj) {
+    $.getJSON('/allstar/board/ajax/detail.do?no=' + no, function(resultObj) {
         var ajaxResult = resultObj.ajaxResult;
         var board = ajaxResult.data;
-        console.log(sessionStorage.getItem("mem_num"));
         var photo = board.member.photo;
         if(photo == null){
           photo = 'allstardefault.png';
@@ -170,7 +153,6 @@ function clickUpdate(event) {
       });
 }
 /* board update and delete 끝 */
-  
   /* board detail 시작 */
   var no = -1;
   if (location.href.indexOf('?') != -1)
@@ -237,13 +219,8 @@ function clickUpdate(event) {
        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
        dataType:'json',
        success:function(resultObj) {
-			 /*  $('#subject').empty();
-			  $('#rightSide').empty();
-			  $('.bbsReply').show();
-			  $('.bbsReply').empty(); */
         var ajaxResult = resultObj.ajaxResult;
         var board = ajaxResult.data;
-        console.log(sessionStorage.getItem("mem_num"));
         var photo = board.member.photo;
         if(photo == null){
           photo = 'allstardefault.png';
@@ -287,7 +264,6 @@ function clickUpdate(event) {
               + "</p><p class='lvs'><span class='lv'>"+ board.event.name + "</span></p></div></div>")
               .prependTo(aside);
         
-          
         $("#mInfo").click(clickMemInfo);
         $("#deleteBtn").click(clickDel);
         $("#updateb").click(clickUpdate);
@@ -305,8 +281,7 @@ function clickUpdate(event) {
      }
     });
     
-        console.log('boardBno = '+ no);
-          $.getJSON('../boarComm/ajax/list.do?bno=' +no, function(resultObj) {
+          $.getJSON('/allstar/boarComm/ajax/list.do?bno=' +no, function(resultObj) {
              for (var boarComm of resultObj.boarComms) {
               var photo = boarComm.member.photo;
               if(photo == null){
@@ -345,11 +320,7 @@ function clickUpdate(event) {
          
         //변경 버튼을 위한 이벤트 리스너 추가하기
           function updateBod(event) {
-            console.log('수정눌림수정');
-             console.log( $('#bEno').val());
-             console.log( $('#bMno').val());
-            console.log( no);
-              $.post('../board/ajax/update.do', {
+              $.post('allstar/board/ajax/update.do', {
                   no:  no,
                   eno: $('#bEno').val(),
                   mno: $('#bMno').val(),
@@ -359,7 +330,7 @@ function clickUpdate(event) {
               }, function(resultObj) {
                 var ajaxResult = resultObj.ajaxResult;
                 if (ajaxResult.status == "success") {
-                  location.href = "../ui/boardList12.html";
+                  location.href = "boardList12.html";
                 } else {
                     alert("게시물 변경에 실패했습니다.");
                 }
@@ -369,11 +340,11 @@ function clickUpdate(event) {
           //삭제 버튼을 위한 이벤트 리스너 추가하기
           function clickDel(event) {
             console.log($(event.target).attr("boardBno"));
-            $.getJSON('../board/ajax/delete.do?no=' + no,
+            $.getJSON('/allstar/board/ajax/delete.do?no=' + no,
               function(resultObj) {
                 var ajaxResult = resultObj.ajaxResult;
                 if (ajaxResult.status == "success") {
-                  location.href = "../ui/boardList12.html";
+                  location.href = "boardList12.html";
                 } else {
                     alert("게시물 삭제에 실패했습니다.");
                 }
@@ -382,13 +353,12 @@ function clickUpdate(event) {
           
           //댓글 삭제버튼을 위한 이벤트 리스너 추가하기
           function clickDelBC(event) {
-              console.log($(event.target).attr("boardBcno"));
               if (sessionStorage.getItem("mem_num") == $(event.currentTarget).attr("boarCommMno")) {
               $.getJSON('../boarComm/ajax/delete.do?bcno=' + $(event.currentTarget).attr("boardBcno"),
                 function(resultObj) {
                   var ajaxResult = resultObj.ajaxResult;
                   if (ajaxResult.status == "success") {
-                    location.href = '../ui/boardDetail.html?no=' + $(event.currentTarget).attr("boardBno");
+                    location.href = 'boardDetail.html?no=' + $(event.currentTarget).attr("boardBno");
                   } else {
                       alert("댓글 삭제에 실패했습니다.");
                   }
@@ -398,15 +368,10 @@ function clickUpdate(event) {
           }
           }
   function clickNewWrite(event) {
-	  console.log(sessionStorage.getItem("mem_num"));
 	  if (sessionStorage.getItem("mem_num") != undefined) {
-	   /*  $('.bbsReply').hide();
-	    $('#subject').empty();
-	    $('#rightSide').empty(); */
-	    $('#newBoard').empty();  
+	  $('#newBoard').empty();  
 	  $('#newBoard').show();
-	  $.getJSON('../board/ajax/add.do?no=' + -1, function(resultObj) {
-	      console.log("mem_num");
+	  $.getJSON('/allstar/board/ajax/add.do?no=' + -1, function(resultObj) {
 	    var fbevent = resultObj.eno;
 	    var div = $("#newBoard");
 	    $("<div style='margin-top:20px; margin-bottom:5%; height:35px;'>")
@@ -442,15 +407,11 @@ function clickUpdate(event) {
 	/* 새 글 작성 끝 */
  	/* 회원정보보기 시작  */  
   function clickMemInfo(event) {
-		console.log("mno : "+$(event.target).attr("boardMno"));
 		$('#mem_info').empty();
 		$('#mem_info').show();
-		
 	  $.getJSON('/allstar/member/ajax/detail.do?mno=' + $(event.currentTarget).attr("boardMno"), function(resultObj) {
-		  console.log("edddd");
 		  var member = resultObj.members;
 		  var likeEvent = resultObj.likeEvents;
-		  console.log(likeEvent);
 		  var likeStr = '';
 		  for (var le of likeEvent) {
 			  likeStr += le.event.name + ' ';
@@ -563,11 +524,7 @@ function clickUpdate(event) {
 <script>
 //등록 버튼을 위한 이벤트 리스너 추가하기
 $('#addBtn').click(function(event) {
-  console.log("eno = " + $('#feno').val());
-  console.log("mno = " + $('#fmno').val());
-  console.log("title = " + $('#ftitle').val());
-  console.log("content = " +$('#fcontent').val());
-  $.post('../board/ajax/add.do', {
+  $.post('/allstar/board/ajax/add.do', {
     eno: $('#feno').val(),
     mno: $('#fmno').val(),
     title: $('#ftitle').val(),
@@ -576,12 +533,11 @@ $('#addBtn').click(function(event) {
   }, function(resultObj) {
     var ajaxResult = resultObj.ajaxResult;
     if (ajaxResult.status == "success") {
-      location.href = "../ui/boardList12.html";
+      location.href = "boardList12.html";
     } else {
         alert("게시물 등록에 실패했습니다.");
     }
   }, 'json');
- 
 });
 </script>
 <div style="height:150px;"></div>

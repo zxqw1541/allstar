@@ -1,0 +1,123 @@
+@CHARSET "UTF-8";
+@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
+@font-face {
+    font-family: 'nexonFont';
+    src: url("../fonts/NEXON Football Gothic L.otf") format("opentype");
+}
+body {
+  font-family: 'nexonFont';
+}
+
+/* Reserved Class
+-------------------------------------------------------------- */
+
+.blind{width:1px; height:1px; font-size:0; line-height:0; position:absolute; top:0; left:-1000%; overflow:hidden;}
+.show{display:block;}
+.hide{display:none;}
+.fL{float:left;}
+.fR{float:right;}
+.clearFix{zoom:1;}
+.clearFix:after{clear:both; display:block; content:'';}
+.sprBtn{background:url(http://s.nx.com/s2/game/tos/obt/common/spr_btn.png) no-repeat; text-indent:-9999px; display:block;}
+
+/* 레이아웃 ======================================== */
+#wrap{position:relative;}
+.innerWrap{width:1024px; margin:0 auto;}
+#content{}
+body.main #content{padding:0;}
+
+
+/* 단일 사용 클래스 */
+.snbTitSub{font-size:20px; letter-spacing:-2px; padding:0 0 15px 0;}
+
+
+
+/* 공통 게시판 템플릿 ======================================== */
+.boardContents .listHeader{border-bottom:2px solid #bfbfbf; padding:0 0 9px 0;}
+.boardContents .listHeader .tit{margin-top:3px; padding-bottom:0; float:left;}
+.boardContents .listHeader .sort{float:right;}
+.boardContents .listHeader .sort .list{padding:9px 0 0 0; float:left;}
+.boardContents .listHeader .sort .list li{float:left; margin:0 15px 0 0; position:relative;}
+.boardContents .listHeader .sort .list li:last-child{margin-right:0;}
+.boardContents .listHeader .sort .list li.lastChild{margin-right:0;}
+.boardContents .listHeader .sort .list li:after{width:1px; height:12px; background:#aaa; position:absolute; right:0; top:2px; display:block; content:'';}
+.boardContents .listHeader .sort .list li:last-child:after{display:none;}
+.boardContents .listHeader .sort .list li a{color:#888; text-decoration:none; padding:0 15px 0 0;}
+.boardContents .listHeader .sort .list li a:hover, .boardContents .listHeader .sort .list li a.on{color:#0095a4;}
+.boardContents .listHeader .sort select{width:116px; margin:0 0 0 15px; float:left;}
+
+.boardContents .boardList table{width:100%; table-layout:fixed;}
+.boardContents .boardList th{height:1px; line-height:0; /* font-size:0; text-indent:-9999px; overflow:hidden; visibility:hidden; */}
+.boardContents .listType1 .th1{width:10.3%;}
+.boardContents .listType1 .th2{width:50.7%;}
+.boardContents .listType1 .th3{width:17.6%;}
+.boardContents .listType1 .th4{width:10.3%;}
+.boardContents .listType1 .th5{width:10.3%;}
+
+.boardContents .boardList td{border-bottom:1px solid #e5e5e5;}
+.boardContents .boardList td.none{height:100px; font-size:16px; text-align:center;}
+.boardContents .boardList tr.best td{background:#fbfbfb;}
+.boardContents .boardList tr.lastBest td{border-bottom:1px solid #b4b4b4;}
+.boardContents .boardList td.num{font-size:18px; text-align:center; /* text-indent:15px */ font-weight:300; color:#aaa;}
+.boardContents .boardList td.subject a{padding:25px 10px 25px 0; display:block;}
+.boardContents .boardList td.subject a:hover strong{color:#0095a4;}
+.boardContents .boardList td.subject strong{font-size:16px; font-weight:normal; color:#222; margin:0 0 6px 0; display:block;}
+.boardContents .boardList td.subject small{font-size:15px; font-weight:300; color:#cda182; text-decoration:none;}
+.boardContents .boardList td.subject .info{color:#888;}
+.boardContents .boardList td.subject .info .cat{font-size:12px; color:#cda182; margin:0 8px 0 0; padding:0 8px 0 0; position:relative;}
+.boardContents .boardList td.subject .info .cat:after{width:1px; height:12px; background:#bdbdbd; position:absolute; right:0; top:2px; display:block; content:''}
+.boardContents .boardList td.author{text-align:center;}
+.boardContents .boardList td.author .img{width:45px; padding:2px 0 0 0; float:left;}
+.boardContents .boardList td.author .img img{width:35px; display:block;}
+.boardContents .boardList td.author .img img.gm{width:auto;}
+.boardContents .boardList td.author .contents{float:left;}
+.boardContents .boardList td.author .contents .name{width:170px; height:23px; color:#888;}
+.boardContents .boardList td.author .contents .name2{color:#333; padding:10px 0 0 0;}
+.boardContents .boardList td.author .contents .name .nameTeam{color:#444; margin:0 2px 0 0;}
+.boardContents .boardList td.author a:hover .contents .nameTeam, .boardContents .boardList td.author a:hover .contents .nameChar,.boardContents .boardList td.author a:hover .contents .name2{color:#0095a4 !important;}
+.boardContents .boardList td.author .contents .name2 .gm{margin-top:-10px;}
+.boardContents .boardList td.author .contents .lvs{color:#888;}
+.boardContents .boardList td.author .contents .lvs .lv{margin:0 10px 0 0; padding:0 11px 0 0; position:relative;}
+.boardContents .boardList td.author .contents .lvs .lv:after{width:1px; height:12px; background:#ccc; content:''; position:absolute; right:0; top:2px; display:block;}
+.boardContents .boardList td.cnt{text-align:center; color:#888;}
+.boardContents .boardList td.cnt span{width:49.4%; text-align:center; display:inline-block;}
+.boardContents .boardList td.cnt strong{font-size:18px; font-weight:300; color:#aaa; display:block;}
+.boardContents .boardList td.cnt strong.hit{color:#cda182;}
+.boardContents .boardList li.none{height:100px; line-height:100px; font-size:16px; text-align:center; list-style:none; border-bottom:1px solid #e5e5e5;}
+
+.boardContents .searchArea{text-align:center;}
+.boardContents .searchArea *{display:inline-block; vertical-align:middle;}
+.boardContents .searchArea select{width:114px; height:35px; margin:0 12px 0 0;;}
+.boardContents .searchArea .inputTxt{width:231px; height:34px; line-height:34px; margin:0; padding:0 10px; border:0 none; border-bottom:1px solid #d8d8d8;}
+.boardContents .searchArea .btnss{width:72px; height:35px; line-height:35px; text-align:center; color:#fff; background:#666; margin:0; padding:0; border:0; cursor:pointer;}
+
+.paging, .re_paging{line-height:0; font-size:12px; text-align:center; margin:10px 0 40px; overflow:hidden;}
+.paging .page_num, .re_paging .page_num{display:inline;}
+.paging .page_num a, .re_paging .page_num a, .paging .page_num .nowpage, .re_paging .page_num .nowpage{height:35px; line-height:35px; font-size:18px; font-weight:normal; color:#888; vertical-align:top; margin:0 34px 0 0; display:inline-block;}
+.paging .page_num a:hover, .re_paging .page_num a:hover, .paging .page_num .nowpage, .re_paging .page_num .nowpage{font-weight:normal; color:#cda182;}
+.paging .prev, .re_paging .prev, .paging .next, .re_paging .next, .paging .fir, .re_paging .fir, .paging .end, .re_paging .end{width:35px; height:35px; background:url(http://s.nx.com/s2/game/tos/obt/common/spr_btn.png) no-repeat; vertical-align:top; display:inline-block;}
+.paging .prev, .re_paging .prev{background-position:-662px -103px; margin-left:3px; margin-right:34px;}
+.paging .next, .re_paging .next{background-position:-624px -141px; margin-right:3px;}
+.paging .fir, .re_paging .fir{background-position:-624px -103px;}
+.paging .end, .re_paging .end{background-position:-662px -141px;}
+.paging a.fir:hover, .re_paging a.fir:hover{background-position:-783px -103px;}
+.paging a.prev:hover, .re_paging a.prev:hover{background-position:-823px -103px;}
+.paging a.next:hover, .re_paging a.next:hover{background-position:-783px -141px;}
+.paging a.end:hover, .re_paging a.end:hover{background-position:-823px -141px;}
+.paging u, .re_paging u{width:1px; height:1px; font-size:0; line-height:0; position:absolute; top:0; left:-1000%; overflow:hidden;}
+
+
+.boardContents .btn{height:45px; line-height:45px; font-size:15px; text-align:center; text-decoration:none; color:#fff; border:0 none; cursor:pointer; display:block;}
+.boardContents .btnType1{width:96px; background:#907c6e;}
+.boardContents .btnType2{width:96px; background:#888;}
+.boardContents .btnType3{width:96px; background:#444;}
+.boardContents .btnType4{width:96px; height:82px; line-height:82px; background:#907c6e;}
+.boardContents .btnType5{width:100%; height:40px; line-height:40px; background:#cf6418;}
+.boardContents .btnType6{width:129px; height:55px; line-height:55px; color:#666; background:#fff;}
+.boardContents .btnType7{width:96px; background:#9a9897; margin:0 10px 0 0; float:left;}
+.boardContents .btnType8{width:96px; background:#907c6e; float:left;}
+.boardContents .listWrap .btnArea{padding:25px 0 0 0;}
+
+
+
