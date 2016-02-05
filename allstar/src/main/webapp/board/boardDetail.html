@@ -254,8 +254,8 @@ function clickUpdate(event) {
         $("<div class='btnArea'>")
         .html("<p class='btnHome'><a id='mInfo' boardMno='"+ board.member.mno + "'style='margin-left:0%; display:block;' rel='leanModal1' href='#mem_info' class='btn btnType5'>회원정보보기</a></p>"
               + "<div class='btm clearFix' style='margin-left:0%'>"
-              + "<a style='margin-left:0%' rel='leanModal' href='#newWrite' id='newB' class='btn btnType6 btnWrite'>글쓰기</a>"
-              + "<a href='boardList12.html' style='margin-left:0%' id='btnArticleList' class='btn btnType6 btnList'>목록</a>"
+              + "<a style='margin-left:0%' id='newB' class='btn btnType6 btnWrite'>글쓰기</a>"
+              + "<a href='boardList.html' style='margin-left:0%' id='btnArticleList' class='btn btnType6 btnList'>목록</a>"
               + "</div></div>")
               .prependTo(aside);
         $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
@@ -330,7 +330,7 @@ function clickUpdate(event) {
               }, function(resultObj) {
                 var ajaxResult = resultObj.ajaxResult;
                 if (ajaxResult.status == "success") {
-                  location.href = "boardList12.html";
+                  location.href = "boardList.html";
                 } else {
                     alert("게시물 변경에 실패했습니다.");
                 }
@@ -344,7 +344,7 @@ function clickUpdate(event) {
               function(resultObj) {
                 var ajaxResult = resultObj.ajaxResult;
                 if (ajaxResult.status == "success") {
-                  location.href = "boardList12.html";
+                  location.href = "boardList.html";
                 } else {
                     alert("게시물 삭제에 실패했습니다.");
                 }
@@ -478,24 +478,6 @@ function clickUpdate(event) {
 	    });
 	    }
 	});
-	$(document).ready(function() {
-	    if (sessionStorage.getItem("mem_num") != undefined) {
-	        console.log("글쓰기 버튼 활성화.");
-	      $('#newB1').attr({
-	      rel : 'leanModal',
-	      href : '#newWrite'
-	    });
-
-	    }
-	    
-	   if (sessionStorage.getItem("mem_num") == undefined) {
-	          console.log("글쓰기 버튼 비활성화.");
-	        $('#newB1').attr({
-	        rel : '',
-	        href : ''
-	      });
-	      }
-	  });
 </script>
 
 
@@ -533,7 +515,7 @@ $('#addBtn').click(function(event) {
   }, function(resultObj) {
     var ajaxResult = resultObj.ajaxResult;
     if (ajaxResult.status == "success") {
-      location.href = "boardList12.html";
+      location.href = "boardList.html";
     } else {
         alert("게시물 등록에 실패했습니다.");
     }

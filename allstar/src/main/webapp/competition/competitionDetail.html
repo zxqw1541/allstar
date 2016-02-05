@@ -89,7 +89,7 @@
     <button class="modal_close close_btn"></button>
   </div>
   <div id="detail_team_img">
-    <img id="detail_preview_img" src="img/allstardefault.png"/>
+    <img id="detail_preview_img" src="../team/img/allstardefault.png"/>
   </div>
   <div class="txt-fld">
     <label for="fdname">팀명</label>
@@ -139,7 +139,7 @@
   </div>
   <form id='applyCompForm' class="form-horizontal">
   <div id="apply_comp_img">
-    <img id="apply_preview_img" src="img/allstardefault.png"/>
+    <img id="apply_preview_img" src="../team/img/allstardefault.png"/>
   </div>
   <div class="txt-fld">
     <label for="acname">팀명</label>
@@ -225,7 +225,7 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
           + "</div>"
           + "</header>"
           + "<div id='test2' class='viewContents'>"
-          + "  <img src='../competition/img/" + c.poster + "'>"
+          + "  <img src='img/" + c.poster + "'>"
           + "  <pre>" + c.content + "</pre><br>"
           + "  <h2> 대진표</h2><br>"
           + "  <div id='minimal' style='margin-bottom: 250px;'>"
@@ -648,8 +648,8 @@ function getTeamDetail(ttno) {
 <script>
 $(function(){
   
-    $("#header").load("header.html"); 
-    $("#footer").load("footer.html"); 
+    $("#header").load("/allstar/header.html"); 
+    $("#footer").load("/allstar/footer.html"); 
   });
 </script>
 
@@ -824,7 +824,7 @@ $('body').on('click','#enrollTour', function() {
       success : function(result) {
       if (result.ajaxResult.status == "success") {
         alert("대진표 변경 완료!");
-        location.href = "/allstar/ui/competitionDetail.html?no=" + no;
+        location.href = "/allstar/competition/competitionDetail.html?no=" + no;
       } else {
           alert("대진표 변경 실패!");
      }
@@ -907,7 +907,7 @@ $('body').on('click','#sendResult', function() {
 		   success : function(result) {
 		   if (result.ajaxResult.status == "success") {
 		     alert("결과 전송 완료!");
-		     location.href = "/allstar/ui/competitionDetail.html?no=" + no;
+		     location.href = "/allstar/competition/competitionDetail.html?no=" + no;
 		   } else {
 		       alert("결과 전송 실패!");
 		  }

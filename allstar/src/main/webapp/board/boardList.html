@@ -353,7 +353,7 @@ getParameter = function(name) {
 	    }, function(resultObj) {
 	      var ajaxResult = resultObj.ajaxResult;
 	      if (ajaxResult.status == "success") {
-	        location.href = "boardList12.html";
+	        location.href = "boardList.html";
 	      } else {
 	          alert("게시물 변경에 실패했습니다.");
 	      }
@@ -366,7 +366,7 @@ getParameter = function(name) {
 	    function(resultObj) {
 	      var ajaxResult = resultObj.ajaxResult;
 	      if (ajaxResult.status == "success") {
-	        location.href = "boardList12.html";
+	        location.href = "boardList.html";
 	      } else {
 	          alert("게시물 삭제에 실패했습니다.");
 	      }
@@ -498,7 +498,7 @@ $.getJSON(url, function(resultObj) {
 function clickPageNo(event) {
   event.preventDefault();
   if(location.href.indexOf('&') == -1) {
-  location.href = "boardList12.html?pageNo=" + $(event.target).attr("pageno");
+  location.href = "boardList.html?pageNo=" + $(event.target).attr("pageno");
   } else {
     var str = location.href;
     var url = updateURLParameter(location.href, 'pageNo', $(event.target).attr("pageno"));
@@ -508,27 +508,27 @@ function clickPageNo(event) {
 //<<버튼을 클릭했을 때 호출될 함수
 function clickFir() {
   event.preventDefault();
-  location.href = "boardList12.html";
+  location.href = "boardList.html";
 }
 
 //<버튼을 클릭했을 때 호출될 함수
 function clickPrev() {
   event.preventDefault();
   var no = Math.floor((pageNo - 11) / 10) * 10 + parseInt(1);
-  location.href = "boardList12.html?pageNo=" + no;
+  location.href = "boardList.html?pageNo=" + no;
 }
 
 //>버튼을 클릭했을 때 호출될 함수
 function clickNext() {
   event.preventDefault();
   var no = Math.floor((pageNo*1 + parseInt(9)) / 10) * 10 + parseInt(1);
-  location.href = "boardList12.html?pageNo=" + no;
+  location.href = "boardList.html?pageNo=" + no;
 }
 
 //>>버튼을 클릭했을 때 호출될 함수
 function clickEnd() {
   event.preventDefault();
-  location.href = "boardList12.html?pageNo=" + totalPage;
+  location.href = "boardList.html?pageNo=" + totalPage;
 }
 </script>
 
@@ -583,7 +583,7 @@ $('#addBtn').click(function(event) {
   }, function(resultObj) {
     var ajaxResult = resultObj.ajaxResult;
     if (ajaxResult.status == "success") {
-      location.href = "../ui/boardList12.html";
+      location.href = "../ui/boardList.html";
     } else {
         alert("게시물 등록에 실패했습니다.");
     }
@@ -595,10 +595,10 @@ function search() {
   var select = $('#bsearch option:selected').val();
   if (location.href.indexOf('?') == -1) {
     if (select == '1' && location.href.indexOf('search1') == -1) {
-      location.href = "boardList12.html?pageNo=1&search1=" + $("#bcontent").val();
+      location.href = "boardList.html?pageNo=1&search1=" + $("#bcontent").val();
     }
     else if (location.href.indexOf('search2') == -1){
-      location.href = "boardList12.html?pageNo=1&search2=" + $("#bcontent").val();
+      location.href = "boardList.html?pageNo=1&search2=" + $("#bcontent").val();
     }
   } else {
       // 대회명
@@ -789,78 +789,6 @@ function makeSortingURL(url, eventVal, dateVal, replyVal) {
 	}
 	}, 'json');
 	}
-/* board update & delete 시작 */
-function clickUpdate(event) {
-	$('.bbsReply').hide();
-	$('#subject').empty();
-	$('#rightSide').empty();
-	  $.getJSON('../board/ajax/detail.do?no=' + $(event.target).attr("boardBno"), function(resultObj) {
-	      var ajaxResult = resultObj.ajaxResult;
-	      var board = ajaxResult.data;
-	      console.log(sessionStorage.getItem("mem_num"));
-	      var photo = board.member.photo;
-	      if(photo == null){
-	        photo = 'allstardefault.png';
-	      }
-	        var article = $("#subject");
-	          $("<form method='post'>")
-	        		  .html("<header id='test1'class='header'>"
-	                +"<p class='cat1 clearFix'><span class='dep1'>종목별 게시판</span></p>"
-	                +"<div class='inner clearFix'>"
-	                +"<div class='subject'>"
-	                +"<input type='hidden' id='bEno' value='"+ board.eno + "'></input>"
-	                +"<input type='hidden' id='bMno' value='"+ board.mno + "'></input>"
-	                +"<input class='tit' id='bTitle' value='"+board.title+"'  style='border:0px; padding:0px 0px 0px 0px;'>" 
-	                +"<p class='etc'><span class='date'>" + board.createDate + "</span></p>"
-	                +"</div>"
-	                +"<p class='cnt'>"
-	                +"<span class='view'><strong>" + board.views + "</strong>조회</span>"
-	                +"</p></div></header>"
-	                +"<div id='test2' class='viewContents'>"
-	                +"<textarea id='bContent' cols='60' rows='10' style='width:798px; overflow-y: auto;'>" + board.content + "</textarea>"
-	                +"<div id='loading' style='display:none'><img src='http://s.nx.com/s2/game/tos/common/img_loading.gif' alt='' /></div>" 
-	                +"<div>" 
-	                +"<div style='margin:2% 81px 4% 805px;'>" 
-	                +"<button id='updateBtn'  type='button' boardBno='"+ board.no +"' style='margin-bottom: 40px;"
-	                +"font-size:25px; width:170px; height:44px;'>수정</button>" 
-	                +"</div>"
-	                +"</div>")
-	          .appendTo(article);
-	         
-	          var aside = $("#rightSide");
-	          $("<h3 class='blind'>글쓴이 정보</h3><div class='info clearFix'>")
-	          .html("<p class='img'><img src='../member/img/" + photo + "' alt='프로필 사진'>"
-	                + "</p><div class='contents'><p class='name'>" + board.member.id 
-	                + "</p><p class='lvs'><span class='lv'>"+ board.event.name + "</span></p></div></div>")
-	                .appendTo(aside);
-	          $("<div class='btnArea'>")
-	          .html("<p class='btnHome'><a href='#' style='margin-left:0%' onclick='window.open('/barrack/guest.aspx?n8NexonSN=184613159&n8CharacterSN=87990995043730', 'barrack', 'width=1200. height=665, scrollbars=no');' class='btn btnType5'>회원정보보기</a></p>"
-	                + "<div class='btm clearFix' style='margin-left:0%'>"
-	                + "<a href='' style='margin-left:0%' id='btnArticleWrite' class='btn btnType6 btnWrite'>글쓰기</a>"
-	                + "<a href='../ui/boardList12.html' style='margin-left:0%' class='btn btnType6 btnList'>목록</a>"
-	                + "</div></div>")
-	                .appendTo(aside);
-	          $("<div class='history' >")
-	          .html("<ul class='list' style='margin-left: -39px;'>"
-	                + "<li class='prev'>"
-	                + "<a href='http://tos.nexon.com/community/free/view.aspx?n4ArticleSN=88184'>"
-	                + "<span class='nav'>이전<span class='bul sprBtn'></span></span>"
-	                + "<div class='contents'>"
-	                + "<strong class='tit'>test05</strong>"
-	                + "<span class='etc'><span class='date'>2016.01.14</span></span>"
-	                + "</div></a></li>"
-	                + "<li class='next'>"
-	                + "<a href='http://tos.nexon.com/community/free/view.aspx?n4ArticleSN=88182'>" 
-	                + "<span class='nav'>다음<span class='bul sprBtn'></span></span>" 
-	                + "<div class='contents'>" 
-	                + "<strong class='tit'>test07</strong>" 
-	                + "<span class='etc'><span class='date'>2016.01.14</span></span>" 
-	                + "</div></a></li></ul></div>")
-	        .appendTo(aside);
-	          $("#updateBtn").click(updateBod);
-	    });
-}
-/* board update and delete 끝 */
 </script>
 <div style="height:150px;"></div>
 </body>
