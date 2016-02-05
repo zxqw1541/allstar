@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link type="text/css" rel="stylesheet" href="css/header_footer.css" />
-<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link type="text/css" rel="stylesheet" href="../css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="../css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/component.css" />
-<link rel="stylesheet" type="text/css" href="css/competition.css" />
-<link rel="stylesheet" type="text/css" href="css/overlay.css" />
+<link rel="stylesheet" type="text/css" href="../css/competition.css" />
+<link rel="stylesheet" type="text/css" href="../css/overlay.css" />
 <link rel='stylesheet' type='text/css' href='../lib/jquery-bracket/jquery.bracket.min.css'/>
 
 
@@ -338,7 +338,7 @@ function daumMap(site) {
 
 /* 대회 신청 폼 데이터 받기 */
 function getFormData() {
-	$.getJSON('../competition/availteam.do?mno=' + sessionStorage.getItem("mem_num") 
+	$.getJSON('/allstar/competition/availteam.do?mno=' + sessionStorage.getItem("mem_num") 
 		      + '&eno=' + eno, function(resultObj) {
 	   var ajaxResult = resultObj.ajaxResult;
 	   if (ajaxResult.status == "success") {
@@ -478,7 +478,7 @@ $(document).on('click', '#btnArticleJoin' , function(event){
 
 <!-- 댓글 가져오기 -->
 <script>
-$.getJSON('../competition/commlist.do?cno='+ no , function(resultObj) {
+$.getJSON('/allstar/competition/commlist.do?cno='+ no , function(resultObj) {
 	var ajaxResult = resultObj.ajaxResult;
 	if (ajaxResult.status == 'success') {
 		var ul = $('.commList');
@@ -518,7 +518,7 @@ $.getJSON('../competition/commlist.do?cno='+ no , function(resultObj) {
 $('body').on('click','#applyTeamBtn', function() {
 	var ttno = $('#acname option:selected').val();
 	var content = $('#accontent').val();
-	$.getJSON('../competition/joincomp.do?cno=' + no 
+	$.getJSON('/allstar/competition/joincomp.do?cno=' + no 
 		      + '&tno=' + ttno + '&content=' + content, function(resultObj) {
      var ajaxResult = resultObj.ajaxResult;
      if (ajaxResult.status == "success") {
@@ -622,7 +622,7 @@ function applyModal() {
 };
 
 function getTeamDetail(ttno) {
-	$.getJSON('../team/ajax/detail.do?tno=' + ttno, function(resultObj) {
+	$.getJSON('/allstar/team/ajax/detail.do?tno=' + ttno, function(resultObj) {
     var ajaxResult = resultObj.ajaxResult;
     if (ajaxResult.status == "success") {
       var team = ajaxResult.data;
@@ -822,7 +822,7 @@ $('body').on('click','#enrollTour', function() {
   */
   
   $.ajax({
-      url : "../competition/updateTour.do",
+      url : "/allstar/competition/updateTour.do",
       data : data,
       type : "POST",
       dataType: "json",
@@ -905,7 +905,7 @@ $('body').on('click','#sendResult', function() {
   }
 	  
   $.ajax({
-		   url : "../competition/sendResult.do",
+		   url : "/allstar/competition/sendResult.do",
 		   data : data,
 		   type : "POST",
 		   dataType: "json",
