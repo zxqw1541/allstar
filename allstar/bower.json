@@ -12,8 +12,9 @@
     "test",
     "tests"
   ],
-   "dependencies": {
-    "jquery": "1.11.3"
+  "dependencies": {
+    "jquery": "1.11.3",
+    "alertify.js": "alertifyjs#~1.0.8"
   },
   "install": {
     "path": "src/main/webapp/lib",
