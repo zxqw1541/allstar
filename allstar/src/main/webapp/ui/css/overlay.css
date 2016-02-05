@@ -26,7 +26,7 @@
 #add_team .txt-fld { position: relative; width: 450px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
 #add_team .btn-fld { width: 430px; overflow: hidden; padding: 12px 0px 12px 150px; margin-left:-110px;}
 
-#add_team .txt-fld label { display: block; float: left; width: 90px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
+#add_team .txt-fld label { display: block; float: left; width: 120px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: right;  }
 #add_team .txt-fld input { width: 244px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
 /* #add_team .txt-fld input.good_input { background: #DEF5E1 ; } */
 #add_team .txt-fld input.error_input { background: #FDE0E0; }
@@ -34,7 +34,7 @@
 
 #add_team .txtarea-fld { position: relative; width: 735px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
 #add_team .txtarea-fld div {width:700px; }
-#add_team .txtarea-fld label { display: block; float: left; width: 120px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
+#add_team .txtarea-fld label { display: block; float: left; width: 120px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: right;  }
 #add_team .txtarea-fld textarea { width: 494px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
 #add_team_img { float:right; }
 
@@ -76,7 +76,7 @@
 #detail_team .txt-fld { position: relative; width: 450px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
 #detail_team .btn-fld { width: 430px; overflow: hidden; padding: 12px 0px 12px 150px; margin-left:-80px;}
 
-#detail_team .txt-fld label { display: block; float: left; width: 90px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
+#detail_team .txt-fld label { display: block; float: left; width: 120px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: right;  }
 #detail_team .txt-fld input { width: 244px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
 /* #add_team .txt-fld input.good_input { background: #DEF5E1 ; } */
 #detail_team .txt-fld input.error_input { background: #FDE0E0; }
@@ -84,7 +84,7 @@
 
 #detail_team .txtarea-fld { position: relative; width: 735px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
 #detail_team .txtarea-fld div {width:700px; }
-#detail_team .txtarea-fld label { display: block; float: left; width: 120px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
+#detail_team .txtarea-fld label { display: block; float: left; width: 120px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: right;  }
 #detail_team .txtarea-fld textarea { width: 494px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
 #detail_team_img { float:right; }
 #delTeamBtn {
