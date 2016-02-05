@@ -167,6 +167,7 @@ $("<p>")
 		+"<label for='#"+joinTeam.member.id+" '>"+joinTeam.member.id+" "+level+"</label></a>").appendTo(li);
 	}
 	$('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
+	$('.stateChan').click(clickMemDetail);
 });
 
 $.getJSON('/allstar/team/ajax/detail.do?tno=' + tno ,function(resultObj){
@@ -190,11 +191,12 @@ $("<p>")
 	
 });
 
-	$('.stateChan').click(function (event){
+	function clickMemDetail(event){
 	    $('#stateChange').empty();
 	    console.log("memberNo: "+$(event.currentTarget).attr("memberNo"));
 	    var mno=$(event.target).attr("memberNo");
 	  $.getJSON('/allstar/member/ajax/detail.do?mno='+$(event.currentTarget).attr("memberNo"), function(resultObj){
+		  console.log("디테일 호출 : "+$(event.currentTarget).attr("memberNo"))
 	      var member = resultObj.members;
 	      var photo = member.photo;
 	       if(photo == null)
@@ -211,7 +213,7 @@ $("<p>")
 	          .appendTo(div);
 
 	    });
-	});
+	}
 
 	 $(function(){
 		   if (sessionStorage.getItem("loginSession") == undefined) {
