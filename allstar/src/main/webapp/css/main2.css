@@ -1,0 +1,360 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'nexonFont';
+    src: url("../fonts/NEXON Football Gothic L.otf") format("opentype");
+}
+/*--------------------*/
+/* header & footer */
+/*--------------------*/
+#top_header {
+	background-color:black;
+	opacity:0.8; 
+	 z-index:10; 
+	 position:fixed; 
+	 min-width:1024px;  
+	 width:100%;
+	 height:100px; 
+}
+
+header {
+width: 1024px; 
+height:100px; 
+margin-left:auto;
+margin-right:auto; 
+margin-bottom:15px;
+
+position:relative;
+
+}
+
+header img {
+	height:80%;
+	margin-left:15px; 
+	margin-top:10px;
+}
+
+.auth {
+	padding:10px; 
+	float:right;
+}
+
+.auth a {
+	text-decoration: none;
+}
+.auth a:hover{
+	color:#333;
+  text-decoration: none;
+}
+
+
+
+
+
+footer {
+	 min-width:1024px; 
+width: 100%; 
+height:50px;
+position:fixed; 
+bottom:0px;
+  background-color:black;
+}
+
+footer img {
+  height:80%;
+  margin-left:15px; 
+  margin-top:10px;
+}
+
+
+/* -------------------- */
+/* body & container */
+/* -------------------- */
+
+body {
+background: 
+  url("../images/basket_img/streetball2.jpg") top no-repeat,
+  url("../images/basket_img/dunk.jpg") 0px 803px  no-repeat,
+  url("../images/basket_img/basketball_court.jpg") 0px 1603px  no-repeat,
+  url("../images/basket_img/basketball_court2.jpg") 0px 2408px  no-repeat,
+  black 0px 3040px;
+background-size: 100% 810px ;	
+position:relative;
+min-width:1024px;
+font-family: 'nexonFont';
+}
+li {
+	list-style-type: none;
+}
+a {
+	text-decoration: none;
+}
+.container {
+margin-left:auto;
+margin-right:auto;
+z-index:0;
+width: 1024px;
+}
+
+/* ---------------- */
+/* main contents */
+/* ---------------- */
+
+.tournament_slider {
+	
+height: 790px;
+}
+
+.top_event_list {
+padding-top:200px;
+height: 600px;
+z-index:1;
+}
+.eventlist {
+	margin-left:10px;
+	width:960px;
+	height: 40px;
+	background-color: white;
+	opacity: 0.9;
+	padding-bottom:15px;
+}
+.eventlist li{
+	list-style-type: none;
+	
+}
+.eventlist a{
+  float:left;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 20px;
+  color:black;
+}
+
+#eventboard {
+	margin:auto;
+	width:760px;
+  background-color:white; 
+  opacity:0.9;
+}
+
+.newest_team {
+height: 800px;
+}
+
+.tournament_cat {
+height: 800px;
+}
+
+.tournament_cat .button_fld {
+}
+
+.btn {
+width:170px; 
+float:left;
+margin-left:4%;
+text-align:center;
+}
+
+.btn button {
+display:block;
+margin-left: auto;
+margin-right: auto;
+width:80px;
+}
+
+
+#Mainimg {
+	width:940px;
+  height:473px;
+  margin:auto;
+  font-size: 0;
+
+  }
+  #Mainimg img{
+  border:0; vertical-align: middle;
+  width : 184px;
+  height: 473px;
+    border:1px gray solid;
+  }
+  #Mainimginfo {
+  width:940px;
+  height:92px;
+  opacity:0.9; 
+  margin-top:-15px;
+  
+  }
+
+#Mimginfo1 {
+  float:left;
+  width:185px;
+  height:92px;
+  color:#FFFFFF;
+  font-size:13px;
+  text-align:center;
+  line-height:16px;
+  border-right:1px solid black;
+    background-color:#e42d1f;
+  }
+
+#Mimginfo2 {
+  float:left;
+  width:185px;
+  height:92px;
+  color:#FFFFFF;
+  font-size:13px;
+  text-align:center;
+  line-height:16px;
+  border-right:1px solid black;
+    background-color:#8BC34A;
+  }
+
+#Mimginfo3 {
+  float:left;
+  width:185px;
+  height:92px;
+  color:#FFFFFF;
+  font-size:13px;
+  text-align:center;
+  line-height:16px;
+  border-right:1px solid black;
+    background-color:#9C27B0;
+  }
+
+#Mimginfo4 {
+  float:left;
+  width:185px;
+  height:92px;
+  color:#FFFFFF;
+  font-size:13px;
+  text-align:center;
+  line-height:16px;
+  border-right:1px solid black;
+    background-color:#333;
+  }
+
+#Mimginfo5 {
+  float:left;
+  width:185px;
+  height:92px;
+  color:#FFFFFF;
+  font-size:13px;
+  text-align:center;
+  line-height:16px;
+    background-color:#00c0cc;
+  }
+
+#Mimginfo6 {
+  float:left;
+  width:183px;
+  height:92px;
+  color:#FFFFFF;
+  font-size:13px;
+  text-align:center;  
+  line-height:16px;
+  }
+
+/* ------------ */
+/* login form */
+/* ------------ */
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 100px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+      #signup2 {
+          width: 500px;
+     padding-bottom: 2px;
+
+    display:none;
+     
+     
+      }
+      
+       #signup {
+
+     width: 500px;
+     padding-bottom: 2px;
+
+    display:none;
+
+
+    background: #FFF;
+        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+       
+}
+       #signin {
+
+     width: 500px;
+     padding-bottom: 2px;
+
+    display:none;
+
+
+    background: #FFF;
+        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+       
+}
+
+        #test {
+     width: 600px;
+padding: 30px; 
+    display:none;
+
+
+    background: #FFF;
+        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+       
+}
+
+#test p { color: #666; text-shadow: none; }
+
+#signup-header {  padding: 18px 18px 14px 18px; border-bottom: 1px solid #CCC; border-top-left-radius: 5px; -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; border-top-right-radius: 5px; -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px; }
+
+#signup-header  h2 { color: #444; font-size: 2em; font-weight: 700; margin-bottom: 3px; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); }
+#signup-header  p { color: #444; font-size: 1.3em; margin: 0; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); text-shadow: none; }
+
+#signup .txt-fld { position: relative; width: 450px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
+#signup .btn-fld { width: 430px; overflow: hidden; padding: 12px 0px 12px 150px; margin-left:-110px;}
+
+#signup .txt-fld label { display: block; float: left; width: 90px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
+#signup .txt-fld input { width: 244px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
+#signup .txt-fld input.good_input { background: #DEF5E1 ; }
+#signup .txt-fld input.error_input { background: #FDE0E0; }
+
+#signin .txt-fld { position: relative; width: 450px; padding: 14px 20px; border-bottom: 1px solid #EEE; text-align: right; }
+#signin .btn-fld { width: 430px; overflow: hidden; padding: 12px 0px 12px 150px; margin-left:-110px;}
+
+#signin .txt-fld label { display: block; float: left; width: 90px; padding-top: 8px; color: #222; font-size: 1.3em; text-align: left;  }
+#signin .txt-fld input { width: 244px; padding: 8px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1.2em; color: #222; background: #F7F7F7; font-family: "Helvetica Neue"; outline: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #E7E6E6; border-bottom: 1px solid #E7E6E6; }
+#signin .txt-fld input.good_input { background: #DEF5E1 ; }
+#signin .txt-fld input.error_input { background: #FDE0E0; }
+
+
+p.error { position: absolute; bottom: 48px; right: 20px; width: 262px; color: #FFF; font-size: 1.1em; padding-bottom: 5px; background: url(../img/error-arw.png) 20px bottom no-repeat; text-align: left; margin: 0; text-shadow: none; }
+p.error span { display: inline-block; background: #D43636; padding: 6px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;  }
+.txt-fld input:focus, .txt-fld textarea:focus { background-color: #FAF9DC; }
+        
+button {
+  float: right;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  background: black; 
+  border: none;
+  width: auto;
+  overflow: visible;
+  font-size: 1.4em;
+  color: #FFF;
+ padding: 7px 10px;  border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; font-weight: bold; text-shadow: 0 1px 0 rgba(0,0,0,0.4);}
+        
+.modal_close { position: absolute; top: 12px; right: 12px; display: block; width: 14px; height: 14px;  z-index: 2; }
+
+
+
+

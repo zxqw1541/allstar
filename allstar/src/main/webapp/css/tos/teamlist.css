@@ -1,0 +1,112 @@
+@CHARSET "UTF-8";
+@font-face {
+    font-family: 'nexonFont';
+    src: url("../fonts/NEXON Football Gothic L.otf") format("opentype");
+}
+body {
+	font-family: 'nexonFont';
+}
+.m_content {
+	width: 100%;
+	height: 260px;
+	overflow: hidden;
+	padding-top: 25px;
+	/* background: #fff; */
+}
+
+h3.stit {
+	font-size: 14px;
+	line-height: 1.3em;
+	margin-top: 28px;
+	font-weight: bold;
+	color: #fff;
+	height: 30px;
+	padding: 15px 0 0 40px;
+	letter-spacing: -1px;
+	background: #e1e1e1
+		url('//www.afreeca.com/afevent/promotion/lol_ladies_league_winter/img/stit_bg.gif')
+		no-repeat 0 0;
+}
+
+.more {
+	float: right;
+}
+
+.more a {
+	width: 28px;
+	height: 27px;
+	background-position: -483px 0;
+	top: -19px;
+	left: -14px;
+	position: relative;
+}
+
+.list_team {
+	padding: 1px 35px;
+	position: relative;
+	z-index: 1;
+	*padding: 0 0 2px 0;
+	margin: auto;
+	text-align: center;
+	overflow: hidden;
+	width: 977px;
+	height: 235px;
+}
+
+.list_team li {
+	float: left;
+	width: 190px;
+	/* height: 210px; */
+}
+
+.list_team li.on {
+	
+}
+
+.list_team li.on a {
+	position: relative;
+	z-index: 111;
+	width: 190px;
+	height: 230px;
+	background: #fff;
+	border: 2px solid #4147f2;
+	margin: -1px 0 0 0;
+}
+
+.list_team li a:hover {
+	position: relative;
+	z-index: 111;
+	width: 190px;
+	height: 230px;
+	background: #fff;
+	border: 2px solid #4147f2;
+	margin: -1px 0 0 0;
+}
+
+.list_team li a {
+	position: relative;
+	z-index: 11;
+	display: block;
+	width: 190px;
+	height: 230px;
+	background: #f3f3f3;
+	border: 1px solid #cacaca;
+}
+
+.list_team li img {
+	display: block;
+	width: 100px;
+	height: 93px;
+	margin: 6px auto 0 auto;
+}
+
+.list_team li span {
+	display: block;
+	width: 107px;
+	margin: 7px auto 0 auto;
+	color: #434343;
+	font-weight: bold;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
