@@ -3,7 +3,7 @@
 
 @font-face {
     font-family: 'nexonFont';
-    src: url("../fonts/NEXON Football Gothic L.otf") format("opentype");
+    src: url("/allstar/css/fonts/NEXON Football Gothic L.otf") format("opentype");
 }
 body {font-family: 'nexonFont';}
 
