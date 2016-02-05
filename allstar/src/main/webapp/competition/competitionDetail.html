@@ -13,7 +13,7 @@
 
 
 <!-- <link rel="stylesheet" href="css/tos/tos.css" /> -->
-<link rel="stylesheet" type="text/css" href="css/competitionDetail.css" />
+<link rel="stylesheet" type="text/css" href="../css/competitionDetail.css" />
 
 <script src="../lib/alertify.js/alertify.js"></script>
 
@@ -227,21 +227,22 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
           + "</header>"
           + "<div id='test2' class='viewContents'>"
           + "  <img src='img/" + c.poster + "'>"
-          + "  <pre>" + c.content + "</pre><br>"
-          + "  <h2> 대진표</h2><br>"
-          + "  <div id='minimal' style='margin-bottom: 250px;'>"
-          + "    <div class='demo'></div>"
-          + "  </div><br>"      
-          + "  <div id='tour_btn' class='btn-fld1'>"
-          + "    <button id='randomTour' type='button'>랜덤</button>"
-          + "    <button id='enrollTour' type='button'>등록</button></div>"
-          + "    <button id='sendResult' type='button'>결과전송</button></div><br><br><br>"
-          + "  <div id='minimal'>"
-          + "  <h2> 장소</h2><br>"
-          + "  <p>"+ c.baseAddr + "</p>"
-          + "  <div class='div_left_map'>"
-          + "    <div id='map' style='width:750px;height:600px;'></div>"
-          + "  </div>"
+          + "  <pre>" + c.content + "</pre></div>"
+          + "<div>"
+          + "<h2> 대진표</h2><br>"
+          + "<div id='minimal'>"
+          + "  <div class='demo'></div>"
+          + "</div><br>"      
+          + "<div id='tour_btn' class='btn-fld1'>"
+          + "  <button id='randomTour' type='button'>랜덤</button>"
+          + "  <button id='enrollTour' type='button'>등록</button></div>"
+          + "  <button id='sendResult' type='button'>결과전송</button>"
+          + "</div><br><br><br>"
+          + "</div><br>"
+          + "<h2> 장소</h2><br>"
+          + "<p>"+ c.baseAddr + "</p>"
+          + "<div class='div_left_map'>"
+          + "  <div id='map' style='width:750px;height:600px;'></div>"
           + "</div>";
       sub_article.append(detail);
       window.operation = c.operation;
@@ -491,7 +492,7 @@ $.getJSON('/allstar/competition/commlist.do?cno='+ no , function(resultObj) {
             + "<dl>"
             +  "<dt>이름, 작성일</dt>"
             +    "<dd class='nameWrap'>"
-            +      "<p class='img'>"
+            +      "<p class='pimg'>"
             +      "<img src='../member/img/mc_" + comm.member.photo + "'>"
             +      "</p>"
             +      "<div class='contents'>"

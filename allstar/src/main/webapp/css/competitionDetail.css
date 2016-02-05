@@ -112,7 +112,7 @@ body {font-family: 'nexonFont';}
 .viewWrap .listComments li dt{width:1px; height:1px; font-size:0; line-height:0; position:absolute; top:0; left:-1000%; overflow:hidden;}
 .viewWrap .listComments .nameWrap{margin:0 0 3px 0; zoom:1;}
 .viewWrap .listComments .nameWrap:after{clear:both; display:block; content:'';}
-.viewWrap .listComments .nameWrap .img{width:44px; padding:2px 0 0 0; float:left;}
+.viewWrap .listComments .nameWrap .pimg{width:44px; padding:2px 0 0 0; float:left;}
 .viewWrap .listComments .nameWrap .img img{width:35px;}
 .viewWrap .listComments .nameWrap .contents{padding:2px 0 0 0; float:left;}
 .viewWrap .listComments .nameWrap .contents .name{line-height:16px; font-size:14px; font-weight:normal; color:#ad9c90; padding:0;}
@@ -238,3 +238,7 @@ h3.sideInfoTitle{float:left; margin:15px 3px}
 /* 댓글 */
 .cdReply {float:left;}
 .commentWrite {width:800px; margin-left:50px; margin-bottom:50px;}
+
+/* 모달 기본 버튼 */
+.btn-fld button {float: right; font-family:'nexonFont'; background:black; border:none; width:auto; overflow:visible; font-size:1.4em; color:#fff; padding: 7px 10px; -webkit-border-radius:4px; text-shadow: 0 1px 0 rgba(0,0,0,0.4)}
+#detail_team .close_btn {margin-right: 65px} 
