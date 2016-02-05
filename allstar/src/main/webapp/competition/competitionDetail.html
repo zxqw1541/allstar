@@ -255,6 +255,7 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
     	  var ajaxResult = resultObj.ajaxResult;
     	    if (ajaxResult.status == "success") {
     	      confirmMaster(ajaxResult.data);
+    	      modAndDelBtnAdd(ajaxResult.data);
     	    }
     	  });
 
@@ -262,7 +263,6 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
     	function confirmMaster(mno) {
     	  if (mno == sessionStorage.getItem("mem_num")) {
     		  window.master = true;
-    		  window.masterNo = mno;
     		  if (status == '대회중') {
     			  $('#randomTour').css('display' , 'none');
    				  $('#enrollTour').css('display' , '');
@@ -294,7 +294,6 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
     	  } 
     	}
     	
-    	modAndDelBtnAdd(window.masterNo);
       daumMap(c.baseAddr);
     }
 
@@ -876,7 +875,6 @@ $('body').on('click','#sendResult', function() {
 	  }
 	  
 	  var test = $(matchLoseTeam[i]).parent();
-	  console.log(test);
 	  
 	  if (matchLoseTeam[i].innerText.startsWith('undefined') == true) {
 		  var text = matchWinTeam[i];

@@ -161,7 +161,7 @@ p.error { position: absolute; bottom: 48px; right: 20px; width: 262px; color: #F
 p.error span { display: inline-block; background: #D43636; padding: 6px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;  }
 .txt-fld input:focus, .txt-fld textarea:focus { background-color: #FAF9DC; }
         
-button {
+#loginBtn #addBtn {
   float: right;
   font-family: 'nexonFont';
   background: black; 
@@ -172,7 +172,7 @@ button {
   color: #FFF;
  padding: 7px 10px;  border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; font-weight: bold; text-shadow: 0 1px 0 rgba(0,0,0,0.4);}
         
-.modal_close { position: absolute; top: 12px; right: 12px; display: block; width: 14px; height: 14px; background: url(../img/modal_close.png); z-index: 2; }
+.modal_close { position: absolute; top: 12px; right: 12px; display: block; width: 14px; height: 14px; background: url(../images/modal_close.png); z-index: 2; }
 
 
 
