@@ -2,25 +2,25 @@
 <html>
 <head>
 <title></title>
-<link rel="stylesheet" type="text/css" href="css/header_footer.css" />
-<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="css/component.css" />
-<link rel="stylesheet" type="text/css" href="../team/css/main.css">
-<link rel='stylesheet' type='text/css' href="../team/css/style.css" />
-<link rel="stylesheet" type="text/css" href="css/overlay.css" />
+<link rel="stylesheet" type="text/css" href="../css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="../css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="../css/component.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel='stylesheet' type='text/css' href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="../css/overlay.css" />
 
 <meta charset="UTF-8">
 
-<script src="js/jquery-1.11.3.js"></script>
-<script src="js/jquery.leanModal.min.js"></script>
-<script type="text/javascript" src="js/preview.image.js"></script>
+<script src="../lib/jquery/jquery.js"></script>
+<script src="../js/jquery.leanModal.min.js"></script>
+<script type="text/javascript" src="../js/preview.image.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script type="text/javascript" src="js/jquery.session.js"></script>
+<script type="text/javascript" src="../js/jquery.session.js"></script>
 
 <script> 
 $(function(){
-  $("#header").load("header.html"); 
-  $("#footer").load("footer.html"); 
+  $("#header").load("/allstar/header.html"); 
+  $("#footer").load("/allstar/footer.html"); 
 });
 
 $(function() {
@@ -417,8 +417,8 @@ var teamForm;
   </div>
 <!---//End-content---->
 <!----wookmark-scripts---->
-  <script src="../team/js/jquery.imagesloaded.js"></script>
-  <script src="../team/js/jquery.wookmark.js"></script>
+  <script src="js/jquery.imagesloaded.js"></script>
+  <script src="js/jquery.wookmark.js"></script>
   
   
 <script>
@@ -491,7 +491,7 @@ $(document).ready(function() {
               listSize = 0;
               sListSize = 0;
               keyword = 'event';
-              $.getJSON('../team/ajax/all.do', function(resultObj) {
+              $.getJSON('/allstar/team/ajax/all.do', function(resultObj) {
                 listSize = resultObj.size;
               });
              
@@ -561,7 +561,7 @@ $(document).ready(function() {
                                rel: "leanModal",
                                href: "#detail_team"
                              })
-                             .html("<img src= '../team/img/tl_" + emblem + "' width='280'>" +
+                             .html("<img src= 'img/tl_" + emblem + "' width='280'>" +
                                   "<div class='post-info'>" + 
                                   "<div class='post-basic-info'>" + 
                                   "<h3>" + team.name + "</h3><span>" +
@@ -608,7 +608,7 @@ var load_detail_func = function(){
     
     //삭제 추가 코드 넣기
     var tno = $(this).attr('teamList');
-    $.getJSON('../team/ajax/detail.do?tno=' + tno, function(resultObj) {
+    $.getJSON('/allstar/team/ajax/detail.do?tno=' + tno, function(resultObj) {
             var ajaxResult = resultObj.ajaxResult;
             
             if (sessionStorage.getItem("mem_num") == undefined) {
@@ -663,16 +663,15 @@ var load_detail_func = function(){
 	              $("#fdoemblem").val(team.emblem);
               }
               
-              
               $("#fatno").val(team.tno);
               $("#faname").val(team.name);
               $("#faevent").val(team.event.name);
               $("#faaform").val(team.aForm);
               
               if (team.emblem != null)
-                $('#detail_preview_img').attr('src', '../team/img/'+team.emblem);
+                $('#detail_preview_img').attr('src', 'img/'+team.emblem);
               else
-                $('#detail_preview_img').attr('src', '../team/img/allstardefault.png');
+                $('#detail_preview_img').attr('src', 'img/allstardefault.png');
             }
           });
         };
@@ -682,7 +681,7 @@ var load_detail_func = function(){
 <!-- 처음 리스트 출력 -->
   <script>
   var paramFromURL = '';
-  var url = '../team/ajax/list.do';
+  var url = '/allstar/team/ajax/list.do';
   
   if (location.href.indexOf('?') != -1) {
 	  eventFromURL = location.href.split('?')[1];
@@ -696,7 +695,7 @@ var load_detail_func = function(){
   function loadPage() {
     $("#tiles").empty();
     
-    url = '../team/ajax/list.do';
+    url = '/allstar/team/ajax/list.do';
     
     var eVal = $('#tevent option:selected').val();
     var pVal = $('#tplaynum option:selected').val();
@@ -761,7 +760,7 @@ var load_detail_func = function(){
             rel: "leanModal",
             href: "#detail_team"
           })
-            .html("<img src= '../team/img/tl_" + emblem + "' width='280'>" +
+            .html("<img src= 'img/tl_" + emblem + "' width='280'>" +
                   "<div class='post-info'>" + 
                   "<div class='post-basic-info'>" + 
                   "<h3>" + team.name + "</h3><span>" +
@@ -783,7 +782,7 @@ var load_detail_func = function(){
       }
     });
     
-    $.getJSON('../team/ajax/count.do' + $("#saveparam").val(), function(resultObj) {
+    $.getJSON('/allstar/team/ajax/count.do' + $("#saveparam").val(), function(resultObj) {
         sListSize = resultObj.count;
     });
     
@@ -839,7 +838,7 @@ $(function() {
       data.append('aForm', $('#fdaform').val());
     
     $.ajax({
-      url: "../team/ajax/update.do",
+      url: "/allstar/team/ajax/update.do",
       data : data,
       type : "POST",
       dataType : 'json',
@@ -848,7 +847,7 @@ $(function() {
       contentType : false,
       success : function(result) {
         if (result.ajaxResult.status == "success") {
-          location.href = "/allstar/ui/teamList.html";
+          location.href = "teamList.html";
           alert('변경 하였습니다.');
         } else {
           alert('변경하지 못했습니다.');
@@ -871,14 +870,14 @@ $(function() {
     var tno = $('#fdtno').val();
     
     $.ajax({
-      url : "../team/ajax/delete.do?tno="+tno,
+      url : "/allstar/team/ajax/delete.do?tno="+tno,
       type :"GET",
       dataType : "json",
       processData : false,
       contentType : false,
       success : function(result) {
         if (result.ajaxResult.status == "success") {
-          location.href = "/allstar/ui/teamList.html";
+          location.href = "teamList.html";
           alert('삭제 하였습니다.');
         } else {
           alert('삭제하지 못했습니다.');
@@ -966,7 +965,7 @@ $(document).on('click', '#newBtn', function (event) {
           data.append('introduce', $('#fintroduce').val());
 
           $.ajax({
-            url : "../team/ajax/add.do",
+            url : "/allstar/team/ajax/add.do",
             data : data,
             type : "POST",
             dataType: "json",
@@ -975,7 +974,7 @@ $(document).on('click', '#newBtn', function (event) {
             contentType:false,
             success : function(result) {
             if (result.ajaxResult.status == "success") {
-                location.href = "/allstar/ui/teamList.html";
+                location.href = "teamList.html";
             } else {
                 alert("팀 등록에 실패했습니다.");
            }
@@ -1075,7 +1074,7 @@ $(document).on('click', '#newBtn', function (event) {
         data.append('content', $('#faaform').val());
         
         $.ajax({
-          url : "../member/ajax/joint.do",
+          url : "/allstar/team/ajax/joint.do",
           data : data,
           type : "POST",
           dataType: "json",
@@ -1084,10 +1083,10 @@ $(document).on('click', '#newBtn', function (event) {
           success : function(result) {
           if (result.ajaxResult.status == "success") {
         	  alert("신청이 완료되었습니다.");
-              location.href = "/allstar/ui/teamList.html";
+              location.href = "teamList.html";
           } else if (result.ajaxResult.status == "already") {
         	  alert("이미 신청된 팀입니다.");
-        	  location.href = "/allstar/ui/teamList.html";
+        	  location.href = "teamList.html";
           } else {
             alert("가입 신청에 실패했습니다.");
           }
