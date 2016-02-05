@@ -88,7 +88,7 @@ margin: 10px;
 	<h2 style="text-align: center;">내가 개설한 팀</h2>
 		<div class="container demo-3">
 
-      <div id="myTeamInfo_detail" style="display:none;margin:auto;  width: 900px; height:100%;">
+      <div id="myTeamInfo_detail" style="margin:auto;  width: 900px; height:100%;">
 
 <!-- Emblem -->
 <div id="team_top">
@@ -129,7 +129,6 @@ margin: 10px;
       
 		</div>
 		  <div id="stateChange" >
-
 	</div>
 	<div style="height:500px;"></div>
 
@@ -155,7 +154,6 @@ $(function(){
 	
 	
 	  var captain = null;
-	$("#myteams").hide();
 	$("#myTeamInfo_detail").show();
 $.getJSON('../team/ajax/detail.do?tno=' + tno, function(resultObj) {
 	var ajaxResult = resultObj.ajaxResult;
