@@ -16,6 +16,7 @@
 <script type="text/javascript" src="../js/preview.image.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="../js/jquery.session.js"></script>
+<script src="../lib/alertify.js/alertify.js"></script>
 
 <script> 
 $(function(){
@@ -801,24 +802,24 @@ $(function() {
        data.append('file', file)
     });
     if($('#fdtotalnum').val() == "") {
-        alert('인원수를 입력하세요');
-          return;
+      alertify.alert('인원수를 입력하세요');
+      return;
     }
     if($('#fdfee').val() == "") {
-      alert('회비를 입력하세요');
-        return;
+    	alertify.alert('회비를 입력하세요');
+      return;
     }
     if($('#fdpostno').val() == "") {
-      alert('우편번호를 입력하세요');
-        return;
+    	alertify.alert('우편번호를 입력하세요');
+      return;
     }
     if($('#fdaddr').val() == "") {
-      alert('연고지를 입력하세요');
-        return;
+    	alertify.alert('연고지를 입력하세요');
+      return;
     }
     if($('#fdintroduce').val() == "") {
-      alert('팀소개를 입력하세요');
-        return;
+    	alertify.alert('팀소개를 입력하세요');
+      return;
     }
     
     data.append('tno', $('#fdtno').val());
@@ -848,13 +849,13 @@ $(function() {
       success : function(result) {
         if (result.ajaxResult.status == "success") {
           location.href = "teamList.html";
-          alert('변경 하였습니다.');
+          alertify.alert('수정이 완료되었습니다.');
         } else {
-          alert('변경하지 못했습니다.');
+        	alertify.alert('수정 실패입니다.');
         }
       },
       error : function(result) {
-        alert('error');
+    	  alertify.alert('Error');
       }
       
     });
@@ -878,13 +879,13 @@ $(function() {
       success : function(result) {
         if (result.ajaxResult.status == "success") {
           location.href = "teamList.html";
-          alert('삭제 하였습니다.');
+          alertify.alert('삭제가 완료되었습니다.');
         } else {
-          alert('삭제하지 못했습니다.');
+        	alertify.alert('삭제 실패입니다.');
         }
       },
       error : function(result) {
-        alert('error');
+    	  alertify.alert('Error');
       }
     });
   }); 
@@ -906,7 +907,7 @@ $(document).on('click', '#newBtn', function (event) {
 	  $(this).attr('href', '#add_team');
 	} else {
 		$(this).attr('href', '');
-	  alert("로그인 후 이용 가능합니다.");
+		alertify.alert("로그인 후 이용 가능합니다.");
 	  $('#add_team').css('display', 'none');
 	  $('#lean_overlay').css('display', 'none');
 	}
@@ -924,31 +925,31 @@ $(document).on('click', '#newBtn', function (event) {
             data.append('file', file)
           });
           if($('#fname').val() == "") {
-            alert('팀명을 입력하세요');
+        	  alertify.alert('팀명을 입력하세요');
               return;
           }
           if($('#fevent').val() == "") {
-            alert('종목을 선택하세요');
+        	  alertify.alert('종목을 선택하세요');
             return;
           }
           if($('#ftotalnum').val() == "") {
-            alert('인원수를 입력하세요');
+        	  alertify.alert('인원수를 입력하세요');
               return;
           }
           if($('#ffee').val() == "") {
-            alert('회비를 입력하세요');
+        	  alertify.alert('회비를 입력하세요');
               return;
           }
           if($('#fpostno').val() == "") {
-            alert('우편번호를 입력하세요');
+        	  alertify.alert('우편번호를 입력하세요');
               return;
           }
           if($('#faddr').val() == "") {
-            alert('연고지를 입력하세요');
+        	  alertify.alert('연고지를 입력하세요');
               return;
           }
           if($('#fintroduce').val() == "") {
-            alert('팀소개를 입력하세요');
+        	  alertify.alert('팀소개를 입력하세요');
               return;
           }
           if($('#faform').val() != "")
@@ -976,11 +977,11 @@ $(document).on('click', '#newBtn', function (event) {
             if (result.ajaxResult.status == "success") {
                 location.href = "teamList.html";
             } else {
-                alert("팀 등록에 실패했습니다.");
+            	alertify.alert("팀 등록 실패입니다.");
            }
          },
          error : function(result){
-            alert('error');
+        	 alertify.alert('Error');
          }
        });
     });
@@ -1082,17 +1083,16 @@ $(document).on('click', '#newBtn', function (event) {
           contentType:false,
           success : function(result) {
           if (result.ajaxResult.status == "success") {
-        	  alert("신청이 완료되었습니다.");
+        	  alertify.alert("가입 신청이 완료되었습니다.");
               location.href = "teamList.html";
           } else if (result.ajaxResult.status == "already") {
-        	  alert("이미 신청한 팀입니다.");
-        	  location.href = "teamList.html";
+        	  alertify.alert("이미 신청한 팀입니다.");
           } else {
-            alert("가입 신청에 실패했습니다.");
+        	  alertify.alert("가입 신청에 실패하였습니다.");
           }
         },
         error : function(result){
-          alert('error');
+        	alertify.alert('Error');
         }
       });
 	  });
