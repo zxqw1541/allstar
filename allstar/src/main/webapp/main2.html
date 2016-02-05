@@ -4,16 +4,16 @@
 <title>All Star</title>
 <meta charset="utf-8">
 
-<link type="text/css" rel="stylesheet" href="css/main2.css" />
-<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="css/component.css" />
-<link rel="stylesheet" type="text/css" href="css/tos/styles.css" />
-<link rel="stylesheet" type="text/css" href="css/tos/tos.css" />
-<link rel="stylesheet" type="text/css" href="css/tos/teamlist.css" />
+<link type="text/css" rel="stylesheet" href="/allstar/css/main2.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/component.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/tos/styles.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/tos/tos.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/tos/teamlist.css" />
 
-<script src="js/jquery-1.11.3.js"></script>
-<script src="js/jquery.leanModal.min.js"></script>
-<script src="js/modernizr.min.js"></script>
+<script src="/allstar/js/jquery-1.11.3.js"></script>
+<script src="/allstar/js/jquery.leanModal.min.js"></script>
+<script src="/allstar/js/modernizr.min.js"></script>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
@@ -36,7 +36,7 @@ function close_modal(modal_id){
 <div class="tournament_slider" id="tournament_slider">
 <div id='top_header'>
 <header >
-<a href="#tournament_slider"><img src="images/allstar.png" style="float:left;"></a>
+<a href="#tournament_slider"><img src="/allstar/images/allstar.png" style="float:left;"></a>
           <div class="auth">
           <span id="login" style="display:none;">
 		          <a style='margin-right:10px;color:white;' id='go' rel='leanModal' href='#signup'>Login</a>
@@ -236,8 +236,6 @@ function close_modal(modal_id){
           <div class="txt-fld">
             <label for="username">Username</label>
             <input id="id_signin" class="good_input" name="username" type="text" />
-<!--             <button id="check" >체크</button>
-            <iframe id="check_id" ></iframe> -->
           </div>
         
           <div class="txt-fld">
@@ -313,8 +311,8 @@ function close_modal(modal_id){
 <!-- 로그인폼 끝 -->
 
 
-<script type="text/javascript" src="js/jquery.cookie.js"></script>
-<script type="text/javascript" src="js/jquery.session.js"></script>
+<script type="text/javascript" src="/allstar/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/allstar/js/jquery.session.js"></script>
 
 
 
@@ -507,7 +505,7 @@ function close_modal(modal_id){
             $("<li id='team_"+ team.tno+"'>")
             .html(
               "<a href='#' class='detailTeam' teamTno='" + team.tno + "'>"
-                +"<img src='../team/img/"+ emblem +"' alt='"+ team.name +"' >"
+                +"<img src='/allstar/team/img/"+ emblem +"' alt='"+ team.name +"' >"
                 +"<span>"+team.name+"</span>"
                 +"<span>"+team.event.name+"</span>"
                 +"<span>"+team.baseAddr+"</span>"
@@ -558,15 +556,15 @@ function close_modal(modal_id){
     
            </script>
 
-    <script src="js/classie.js"></script>
-    <script src="js/photostack.js"></script> 
+    <script src="/allstar/js/classie.js"></script>
+    <script src="/allstar/js/photostack.js"></script> 
     <script>
     
 
     </script>
     <!-- footer start -->
 <footer>
-<img src="images/allstar.png" >
+<img src="/allstar/images/allstar.png" >
 </footer>
 <!-- footer end -->
 </body>
