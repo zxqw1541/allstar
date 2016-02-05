@@ -211,7 +211,7 @@ $(function(){
 		    	   $("<p>")
 		           .html("<a href='#stateChange' rel='leanModal' teamNo='"+j.tno+"'  class='stateChan'>"
 		        		   +"<img id='"+j.team.name+"' "
-		               +"src='../team/img/"+j.team.emblem+"' >"
+		               +"src='/allstar/team/img/"+j.team.emblem+"' >"
 		               +"<label for='#"+j.team.tno+" '>"+j.team.name+"</label></a>").appendTo(li);
 		         
 		       } 
@@ -226,7 +226,7 @@ $(function(){
            
          
            /* 팀 상세 */
-           $.getJSON('../team/ajax/detailncont.do?tno='+tno+'&cno='+cno, function(resultObj){
+           $.getJSON('/allstar/team/ajax/detailncont.do?tno='+tno+'&cno='+cno, function(resultObj){
              
              var ajaxResult=resultObj.ajaxResult;
              if(ajaxResult.status=='success'){
@@ -253,7 +253,7 @@ $(function(){
 	
 $(function(){
 	   if (sessionStorage.getItem("loginSession") == undefined) {
-	     location.href="main2.html";
+	     location.href="/allstar/main2.html";
 	   }
 	 });
 
@@ -263,8 +263,8 @@ $(function(){
 <!-- insert your code -->
 <div id="footer"></div>
 
-<script type="text/javascript" src="../js/jquery.cookie.js"></script>
-<script type="text/javascript" src="../js/jquery.session.js"></script>
+<script type="text/javascript" src="/allstar/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/allstar/js/jquery.session.js"></script>
 
 
 </body>

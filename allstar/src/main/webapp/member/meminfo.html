@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="../js/preview.image.js"></script>
+<script type="text/javascript" src="/allstar/js/preview.image.js"></script>
 </head>
 <body>
     
@@ -123,8 +123,8 @@
     </form>      
   </section>
   
-<script type="text/javascript" src="../js/jquery.cookie.js"></script>
-<script type="text/javascript" src="../js/jquery.session.js"></script>
+<script type="text/javascript" src="/allstar/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/allstar/js/jquery.session.js"></script>
   <script>
 
   $('#fphoto').remove();
@@ -144,9 +144,9 @@
 	      $("#fdphoto").val(member.photo);
 	      $("#fintroduce").val(member.introduce);
 	      if (member.photo != null && member.photo != '')
-              $('#detail_preview_img').attr('src', '../member/img/'+member.photo);
+              $('#detail_preview_img').attr('src', '/allstar/member/img/'+member.photo);
             else
-              $('#detail_preview_img').attr('src', '../member/img/allstardefault.png');
+              $('#detail_preview_img').attr('src', '/allstar/member/img/allstardefault.png');
 	   console.log(member.gender);
 	   if(member.gender == "남성")
 		   $('#gender_male').prop('checked', true);

@@ -1074,7 +1074,7 @@ $(document).on('click', '#newBtn', function (event) {
         data.append('content', $('#faaform').val());
         
         $.ajax({
-          url : "/allstar/team/ajax/joint.do",
+          url : "/allstar/member/ajax/joint.do",
           data : data,
           type : "POST",
           dataType: "json",
@@ -1085,7 +1085,7 @@ $(document).on('click', '#newBtn', function (event) {
         	  alert("신청이 완료되었습니다.");
               location.href = "teamList.html";
           } else if (result.ajaxResult.status == "already") {
-        	  alert("이미 신청된 팀입니다.");
+        	  alert("이미 신청한 팀입니다.");
         	  location.href = "teamList.html";
           } else {
             alert("가입 신청에 실패했습니다.");
