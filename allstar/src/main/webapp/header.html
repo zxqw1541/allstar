@@ -244,11 +244,16 @@ function close_modal(modal_id){
   // 로그인 끝
   
    
-    $(function() {
+      $(function() {
         $("#addBtn").click(function() {
           var form = $('form')[0];
           var data = new FormData();
-          
+          var pass1 = document.getElementById('pass_signin');
+          var pass2 = document.getElementById('pass_signin2');
+          if(pass1.value != pass2.value){
+            alert("비밀번호가 다릅니다. "); 
+            return;
+          }
           data.append('id', $('#id_signin').val());
           data.append('pwd', $('#pass_signin').val());
           
@@ -259,19 +264,18 @@ function close_modal(modal_id){
              dataType: "json",
              enctype: 'multipart/form-data',
              processData: false, 
-             contentType: false,
-             success : function(resultObj) {
-               console.log(resultObj);
+             contentType:false,
+             success : function(result) {
+               console.log(result.ajaxResult.status);
+                if(result.ajaxResult.status =="success"){
+               console.log(result);
                alert("가입에 성공했습니다.");
-             if (result.ajaxResult.status == "success") {
-                location.href = "javascript:;'";
-               } else {
-                alert("가입에 실패했습니다.");
-               }
-             },
-             error : function(result){
-                alert('error');
-             }
+                location.href = "";
+                }else if(result.ajaxResult.status == "error"){
+                  alert("이미 존재하는 아이디이거나 잘못된 가입 정보입니다. "); 
+                  location.href = "javascript:;";
+                }
+               } 
            });
         });
       });

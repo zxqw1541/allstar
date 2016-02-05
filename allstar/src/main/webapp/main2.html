@@ -379,7 +379,7 @@ function close_modal(modal_id){
             console.log(sessionStorage.getItem("loginSession"));
               var session_photo=sessionStorage.getItem("mem_photo");
               console.log("main login photo : "+session_photo);
-              if(session_photo == null)
+              if(session_photo == 'null')
                   session_photo = 'allstardefault.png';
               var session_id=sessionStorage.getItem("loginSession");
               var span = $("#logout");
@@ -403,7 +403,7 @@ function close_modal(modal_id){
 	    var session_id=sessionStorage.getItem("loginSession");
 	    var session_photo=sessionStorage.getItem("mem_photo");
 	    console.log("main check photo : "+session_photo);
-	    if(session_photo == null)
+	    if(session_photo == 'null')
 	    	session_photo = 'allstardefault.png';
 	    var span = $("#logout");
 	    $("<a href='/allstar/member/Member_info.html'><img src='/allstar/member/img/"+session_photo+"' style='width: 70px; height: 70px;'></a>"
@@ -544,9 +544,10 @@ function close_modal(modal_id){
             	  if(result.ajaxResult.status =="success"){
             	 console.log(result);
                alert("가입에 성공했습니다.");
-                location.href = "javascript:;";
+                location.href = "";
             	  }else if(result.ajaxResult.status == "error"){
             		  alert("이미 존재하는 아이디이거나 잘못된 가입 정보입니다. "); 
+            		  location.href = "javascript:;";
             	  }
                } 
            });
