@@ -1,21 +1,21 @@
 <html>
 <head>
 <title></title>
-<link type="text/css" rel="stylesheet" href="../css/header_footer.css" />
-<link rel="stylesheet" type="text/css" href="../css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="../css/component.css" />
-<link rel="stylesheet" type="text/css" href="../css/tos/sidebar-left.css" />
-<link rel="stylesheet" type="text/css" href="../css/tos/demo.css" />
+<link type="text/css" rel="stylesheet" href="/allstar/css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/component.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/tos/sidebar-left.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/tos/demo.css" />
 
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
   <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
 
-<script src="../js/jquery-1.11.3.js"></script>
-<script src="../js/jquery.leanModal.min.js"></script>
-<script src="../js/modernizr.min.js"></script>
+<script src="/allstar/js/jquery-1.11.3.js"></script>
+<script src="/allstar/js/jquery.leanModal.min.js"></script>
+<script src="/allstar/js/modernizr.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="../js/test/toucheffects.js"></script>
+<script src="/allstar/js/test/toucheffects.js"></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
 <script>
 $(function() {
@@ -29,11 +29,9 @@ function close_modal(modal_id){
 </script>
 <script> 
 $(function(){
-  $("#header").load("header.html"); 
-  $("#footer").load("footer.html"); 
+  $("#header").load("/allstar/header.html"); 
+  $("#footer").load("/allstar/footer.html"); 
   $("#meminfo").load("meminfo.html");
-  $("#mycomp").load("mycompetition.html");
-  $("#joinedcomp").load("joinedcomp.html");
 });
 </script> 
 </head>
@@ -82,8 +80,8 @@ $(function(){
 <!-- insert your code -->
 <div id="footer"></div>
 
-<script type="text/javascript" src="../js/jquery.cookie.js"></script>
-<script type="text/javascript" src="../js/jquery.session.js"></script>
+<script type="text/javascript" src="/allstar/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/allstar/js/jquery.session.js"></script>
 
 <script>
 $('#my_info').click(function(event) {
@@ -98,7 +96,7 @@ $('#my_info').click(function(event) {
 
  $(function(){
 	 if (sessionStorage.getItem("loginSession") == undefined) {
-		 location.href="main2.html";
+		 location.href="/allstar/main2.html";
 	 }
  });
 

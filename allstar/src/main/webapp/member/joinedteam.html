@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="../css/tos/comp.css" />
-<link type="text/css" rel="stylesheet" href="../css/header_footer.css" />
-<link rel="stylesheet" type="text/css" href="../css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="../css/component.css" />
-<link rel="stylesheet" type="text/css" href="../css/tos/sidebar-left.css" />
-<link rel="stylesheet" type="text/css" href="../css/tos/demo.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/tos/comp.css" />
+<link type="text/css" rel="stylesheet" href="/allstar/css/header_footer.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/component.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/tos/sidebar-left.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/tos/demo.css" />
 
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
   <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
 
-<script src="../js/jquery-1.11.3.js"></script>
-<script src="../js/jquery.leanModal.min.js"></script>
-<script src="../js/modernizr.min.js"></script>
+<script src="/allstar/js/jquery-1.11.3.js"></script>
+<script src="/allstar/js/jquery.leanModal.min.js"></script>
+<script src="/allstar/js/modernizr.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="../js/test/toucheffects.js"></script>
+<script src="/allstar/js/test/toucheffects.js"></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
 <script>
 $(function() {
@@ -30,8 +30,8 @@ function close_modal(modal_id){
   $(modal_id).css({"display":"none"})
                         }
 $(function(){
-	  $("#header").load("header.html"); 
-	  $("#footer").load("footer.html"); 
+	  $("#header").load("/allstar/header.html"); 
+	  $("#footer").load("/allstar/footer.html"); 
 });
 </script>
 <style>
@@ -79,7 +79,7 @@ border: 1px black solid;
 }
 </style>
 
-<script src="../js/test/modernizr.custom.js"></script>
+<script src="/allstar/js/test/modernizr.custom.js"></script>
 
 
 </head>
@@ -116,7 +116,7 @@ border: 1px black solid;
 		</div>
 		<!-- /container -->
 		
-		<script src="../js/test/toucheffects.js"></script>
+		<script src="/allstar/js/test/toucheffects.js"></script>
 
 	</div>
 </section>
@@ -135,7 +135,7 @@ border: 1px black solid;
       })
     });
 
-$.getJSON('../member/ajax/memberJoined.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
+$.getJSON('/allstar/member/ajax/memberJoined.do?mno=' +sessionStorage.getItem("mem_num"), function(resultObj) {
 	
 	if(resultObj.status == "success"){
     for (var joinTeam of resultObj.data) {
@@ -161,7 +161,7 @@ $.getJSON('../member/ajax/memberJoined.do?mno=' +sessionStorage.getItem("mem_num
 	    	var ul = $('#myteams');
 	    	$("<li style='margin-left: 120px;'>")
 	    	.html("<figure><div>"
-	    			+"<img src='../team/img/"+emblem+"' style='width:300px;' alt='"+ joinTeam.team.name+"'></div>"
+	    			+"<img src='/allstar/team/img/"+emblem+"' style='width:300px;' alt='"+ joinTeam.team.name+"'></div>"
 	    			+"<figcaption>"
 	    			+"<h3>"+joinTeam.team.name+"</h3>"
 	    			+"<span>팀장 : " + joinTeam.member.name + " </span><br>"
@@ -183,7 +183,7 @@ $.getJSON('../member/ajax/memberJoined.do?mno=' +sessionStorage.getItem("mem_num
 
 $(function(){
 	   if (sessionStorage.getItem("loginSession") == undefined) {
-	     location.href="main2.html";
+	     location.href="/allstar/main2.html";
 	   }
 	 });
     
@@ -192,8 +192,8 @@ $(function(){
 
 <div id="footer"></div>
 
-<script type="text/javascript" src="../js/jquery.cookie.js"></script>
-<script type="text/javascript" src="../js/jquery.session.js"></script>
+<script type="text/javascript" src="/allstar/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/allstar/js/jquery.session.js"></script>
 
 
 </body>
