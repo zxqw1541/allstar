@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/allstar/css/memberinfo/formoid-flat-green.css" type="text/css" />
+<script type="text/javascript" src="/allstar/js/preview.image.js"></script>
+</head>
+<body>
+ 
+<!-- Start Formoid form-->
+ 
+ <img id="detail_preview_img" style='width:100px; float:right;'src="#"/>
+<form id='detail_mem' enctype="multipart/form-data" class="formoid-flat-green" style="background-color:#FFFFFF;font-size:14px;font-family:'Lato', sans-serif;color:#666666;max-width:480px;min-width:150px" method="post">
+<div class="title"><h2>내 정보</h2></div>
+<input id="fdphoto" type="hidden"/>
+  <div class="element-input"><label class="title">이름<span class="required">*</span></label><input id="fname" class="large" type="text" name="input" required="required"/></div>
+  <div class="element-input"><label class="title">이메일<span class="required">*</span></label><input id="femail"  class="large" type="email" name="input1" required="required"/></div>
+  <div class="element-phone"><label class="title">전화번호<span class="required">*</span></label><input  id="ftel"  class="large" type="tel" pattern="[+]?[\.\s\-\(\)\*\#0-9]{3,}" maxlength="24" name="phone" required="required" value=""/></div>
+  <div class="element-file"><label class="title">사진</label><label class="large" ><div class="button">사진선택</div> <div id="deatil_member_div"><input id="fphoto"  type="file" class="file_input" name="file" ></div><div class="file_text">선택된 사진이 없음</div></label></div>
+  <div class="element-input"><label class="title">우편번호</label><input id="fpst_no" class="large" type="text" name="input2" /><input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"></div>
+  <div class="element-input"><label class="title">기본주소</label><input id="fbas_addr"  class="large" type="text" name="input3" /></div>
+  <div class="element-input"><label class="title">영문주소</label><input  id="sample2_addressEnglish"  class="large" type="text" name="input4" /></div>
+  
+  <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+<img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+</div>
+
+<script>
+    var element_layer = document.getElementById('layer');
+
+    function closeDaumPostcode() {
+        element_layer.style.display = 'none';
+    }
+
+    function sample2_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+
+                var fullAddr = data.address; 
+                var extraAddr = ''; 
+
+                if(data.addressType === 'R'){
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+
+                document.getElementById('fpst_no').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('fbas_addr').value = fullAddr;
+                document.getElementById('sample2_addressEnglish').value = data.addressEnglish;
+
+                element_layer.style.display = 'none';
+            },
+            width : '100%',
+            height : '100%'
+        }).embed(element_layer);
+
+        element_layer.style.display = 'block';
+
+        initLayerPosition();
+    }
+
+    function initLayerPosition(){
+        var width = 300; 
+        var height = 460;
+        var borderWidth = 5; 
+
+        element_layer.style.width = width + 'px';
+        element_layer.style.height = height + 'px';
+        element_layer.style.border = borderWidth + 'px solid';
+        element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+    }
+</script>
+  
+  
+  
+  <div class="element-radio"><label class="title">성별</label>   
+   <div class="column column3"><label><input id="gender_male"  type="radio" name="radio" value="남" /><span>남</span></label></div><span class="clearfix"></span>
+    <div class="column column3"><label><input type="radio"  id="gender_female" name="radio" value="여" /><span>여</span></label></div><span class="clearfix"></span>
+    <div class="column column3"><label><input type="radio" id="gender_other" name="radio" value="기타" /><span>기타</span></label></div><span class="clearfix"></span>
+</div>
+  <div class="element-select"><label class="title"> 나이</label><div class="medium"><span><select id="fage"  name="select" >
+    <option value="15">15</option>
+    <option value="16">16</option>
+    <option value="17">17</option>
+    <option value="18">18</option>
+    <option value="19">19</option>
+    <option value="20">20</option>
+    <option value="21">21</option>
+    <option value="22">22</option>
+    <option value="23">23</option>
+    <option value="24">24</option>
+    <option value="25">25</option>
+    <option value="26">26</option>
+    <option value="27">27</option>
+    <option value="28">28</option>
+    <option value="29">29</option>
+    <option value="30">30</option>
+    <option value="31">31</option>
+    <option value="32">32</option>
+    <option value="33">33</option>
+    <option value="34">34</option>
+    <option value="35">35</option>
+    <option value="36">36</option>
+    <option value="37">37</option>
+    <option value="38">38</option>
+    <option value="39">39</option>
+    <option value="40">40</option>
+    <option value="41">41</option>
+    <option value="42">42</option>
+    <option value="43">43</option>
+    <option value="44">44</option>
+    <option value="45">45</option>
+    <option value="46">46</option>
+    <option value="47">47</option>
+    <option value="48">48</option>
+    <option value="49">49</option>
+    <option value="50">50</option>
+    <option value="51">51</option>
+    <option value="52">52</option>
+    <option value="53">53</option>
+    <option value="54">54</option>
+    <option value="55">55</option>
+    <option value="56">56</option>
+    <option value="57">57</option>
+    <option value="58">58</option>
+    <option value="59">59</option>
+    <option value="60">60</option>
+    <option value="61">61</option>
+    <option value="62">62</option>
+    <option value="63">63</option>
+    <option value="64">64</option>
+    <option value="65">65</option>
+    <option value="66">66</option>
+    <option value="67">67</option>
+    <option value="68">68</option>
+    <option value="69">69</option>
+    <option value="70">70</option>
+    <option value="71">71</option>
+    <option value="72">72</option>
+    <option value="73">73</option>
+    <option value="74">74</option>
+    <option value="75">75</option>
+    <option value="76">76</option>
+    <option value="77">77</option>
+    <option value="78">78</option>
+    <option value="79">79</option>
+    <option value="80">80</option></select><i></i></span></div></div>
+  <div class="element-checkbox"><label class="title">관심종목</label>   
+  <div class="column column3"><label><input id="like_basket"  type="checkbox" name="likeEvent" value="2" ><span>농구</span></label><label><input  id="like_table" type="checkbox" name="likeEvent" value="5" ><span>탁구</span></label></div><span class="clearfix"></span>
+    <div class="column column3"><label><input id="like_foot" type="checkbox" name="likeEvent" value="3" ><span>축구</span></label><label><input  id="like_bowl"  type="checkbox" name="likeEvent" value="6"><span>볼링</span></label></div><span class="clearfix"></span>
+    <div class="column column3"><label><input id="like_base" type="checkbox" name="likeEvent" value="4" ><span>야구</span></label></div><span class="clearfix"></span>
+</div>
+  <div class="element-textarea"><label class="title">자기소개</label><textarea id="fintroduce" class="medium" name="textarea" cols="20" rows="5" ></textarea></div>
+<div class="submit"><input id='infoupBtn' type="button" value="내 정보 변경"/></div></form><p class="frmd"><a href="http://formoid.com/v29.php">form builder</a> Formoid.com 2.9</p><script type="text/javascript" src="/allstar/js/memberinfo/formoid-flat-green.js"></script>
+<!-- Stop Formoid form-->
+
+
+  
+<script type="text/javascript" src="/allstar/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/allstar/js/jquery.session.js"></script>
+  <script>
+
+  $('#fphoto').remove();
+  var fphoto = '<input id="fphoto"  type="file" class="file_input" name="file"  >';
+  $('#deatil_member_div').append(fphoto);
+  
+  
+  $.getJSON('/allstar/member/ajax/detail.do?mno=' + $.session.get("mem_num"), function(resultObj) {
+	      var member = resultObj.members;
+	      console.log("age"+member.age);
+	      $("#fname").val(member.name);
+	      $("#femail").val(member.email);
+	      $("#ftel").val(member.tel);
+	      $("#fpst_no").val(member.pst_no);
+	      $("#fbas_addr").val(member.bas_addr);  
+	      $("#faddress").val(member.address);
+	      $("#fage").val(member.age);
+	      $("#fdphoto").val(member.photo);
+	      $("#fintroduce").val(member.introduce);
+	      if (member.photo != null && member.photo != '')
+              $('#detail_preview_img').attr('src', '/allstar/member/img/'+member.photo);
+            else
+              $('#detail_preview_img').attr('src', '/allstar/member/img/allstardefault.png');
+	   console.log(member.gender);
+	   if(member.gender == "남")
+		   $('#gender_male').prop('checked', true);
+	   if(member.gender == "여")
+	       $('#gender_female').prop('checked', true);
+	   if(member.gender == "기타")
+		   $('#gender_other').prop('checked',true);
+	   
+	  });
+  
+	  $.getJSON('/allstar/member/ajax/likeEvent.do?mno=' + $.session.get("mem_num"),function(resultObj){
+		 console.log(resultObj.data);
+		  for (var likeEvent of resultObj.data){
+			  if(likeEvent == 2)
+				  $('#like_basket').prop('checked', true);
+			  if(likeEvent == 3)
+		          $('#like_foot').prop('checked', true);
+			  if(likeEvent == 4)
+		          $('#like_base').prop('checked', true);
+			  if(likeEvent == 5)
+		          $('#like_table').prop('checked', true);
+			  if(likeEvent == 6)
+		          $('#like_bowl').prop('checked', true);
+		  }
+	  });
+	$('#infoupBtn').click(function(event) {
+		var form = $('detail_mem');
+        var data = new FormData();
+        var is_uploadfile = false;
+	     console.log($.session.get("mem_num"));
+	       $.each($("input[name='likeEvent']:checked"), function() {
+	           console.log($("input[name='likeEvent']:checked").val());
+	           });
+	          
+	       var like = [];
+	       like[0]=$("input[id='like_basket']:checked").val();
+	       like[1]=$("input[id='like_foot']:checked").val();
+	       like[2]=$("input[id='like_base']:checked").val();
+	       like[3]=$("input[id='like_table']:checked").val();
+	       like[4]=$("input[id='like_bowl']:checked").val();
+	       
+	       
+	       
+	     $.each($('#fphoto')[0].files, function(i, file) {
+	    	 is_uploadfile = true;
+	         data.append('file', file)
+	       });
+	      
+	     if($('#fdphoto').val() != "" ){
+	       if(!is_uploadfile)
+	       data.append('photo', $('#fdphoto').val());
+	     }
+	     data.append('mno',$.session.get("mem_num"));
+	     data.append('name',$('#fname').val());
+	     data.append('email',$('#femail').val());
+	     data.append('tel',$('#ftel').val());
+	     data.append('pst_no',$('#fpst_no').val());
+	     data.append('bas_addr',$('#fbas_addr').val());
+	     data.append('address',$('#faddress').val());
+	     data.append('gender',$("input[name='radio']:checked").val());
+	     data.append('age',$('#fage').val());
+	     data.append('introduce',$('#fintroduce').val());
+	     data.append('likeList',JSON.stringify(like));
+	     
+	     $.ajax({
+	         url: "/allstar/member/ajax/update.do",
+	         data : data,
+	         type : "POST",
+	         dataType : 'json',
+	         enctype : 'multipart/form-data',
+	         processData : false,
+	         contentType : false,
+	         success : function(result) {
+	           if (result.ajaxResult.status == "success") {
+	             location.href = "/allstar/member/Member_info.html";
+	             alert('변경 하였습니다.');
+	           } else {
+	             alert('변경하지 못했습니다.');
+	           }
+	         },
+	         error : function(result) {
+	           alert('error');
+	         }
+	         
+	       });
+	});
+	  
+  </script>
+</body>
+</html>
