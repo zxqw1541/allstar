@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="/allstar/css/component.css" />
 <link rel="stylesheet" type="text/css" href="/allstar/css/tos/sidebar-left.css" />
 <link rel="stylesheet" type="text/css" href="/allstar/css/tos/demo.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/list.css" />
 
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -21,6 +22,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/allstar/js/test/toucheffects.js"></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
+
 <script>
 $(function() {
     $('a[rel*=leanModal]').leanModal({ closeButton: ".modal_close" });   
@@ -113,16 +115,34 @@ margin: 10px;
 <!-- 팀정보 끝 -->
 <div style="height:20px; width:100%; float:left;"></div>
 <!-- 가입신청현황 -->
-<div id="apply_state" style="float:left;">
-<h2 style="margin-left:50px;">신규/대기중 가입 신청</h2>
+<div id="apply_state"  style="float:left;">
+<div class="holder" >
+<div class="topbar blue">
+<h1 >신규/대기중 가입 신청</h1>
+</div>
+<div class="inbar">
 <ul id="new_apply" >
 </ul>
-<h2 style="margin-left:50px;">보류중인 신청</h2>
+</div>
+</div>
+<div class="holder" >
+<div class="topbar blue">
+<h1 >보류중인 신청</h1>
+</div>
+<div class="inbar">
 <ul id="wait_apply" >
 </ul>
-<h2 style="margin-left:50px;">거절한 신청</h2>
+</div>
+</div>
+<div class="holder" >
+<div class="topbar blue">
+<h1 >거절한 신청</h1>
+</div>
+<div class="inbar">
 <ul id="reject_apply" >
 </ul>
+</div>
+</div>
 </div>
       </div>
       
@@ -180,13 +200,18 @@ $.getJSON('/allstar/team/ajax/detail.do?tno=' + tno, function(resultObj) {
 
 	for(var joinTeam of resultObj.data){
 	  if(joinTeam.state == 1) {
-		  var photo = joinTeam.member.photo;
+		  var level = joinTeam.level;
+		  if(level == 1)
+			  level = "팀장";
+		  else 
+			  level = "";
+			  var photo = joinTeam.member.photo;
 		  if(photo == null)
 			  photo = "allstardefault.png";
 	var div = $("#mem_list") ;
 	$("<figure >")
 	.html("<a href='#stateChange' rel='leanModal' class='stateChan' memberNo='"+ joinTeam.mno +"' teamNo='"+joinTeam.tno+"' ><img src='/allstar/member/img/"+photo+"' >"
-	+"<figcaption>"+joinTeam.member.name+"</figcaption></a>"
+	+"<figcaption>"+joinTeam.member.name+" "+level+"</figcaption></a>"
 	+"</figure>").appendTo(div);
 	}
 	}
@@ -315,8 +340,6 @@ $.getJSON('/allstar/team/ajax/detail.do?tno=' + tno, function(resultObj) {
 		        }, 'json');
 		    }
 });
-	
-	
 });
 
 
