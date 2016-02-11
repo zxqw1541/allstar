@@ -211,6 +211,13 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
         status = '대회종료';
       }
       
+      var tourStyle= '';
+      if (c.joinNum <= 4) {
+    	  tourStyle = 'margin-top:50px;';
+      } else if (c.joinNum > 4 && c.joinNum <= 8) {
+    	  tourStyle = 'margin-top:250px;';
+      }
+      
       var sub_article = $("#subject")
       var detail =
           "<header id='test1'class='header'  style='height:90px'>"
@@ -233,12 +240,12 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
           + "<div id='minimal'>"
           + "  <div class='demo'></div>"
           + "</div><br>"      
-          + "<div id='tour_btn' class='btn-fld1' style='margin-top:50px;'>"
+          + "<div id='tour_btn' class='btn-fld1' style='" + tourStyle + "'>"
           + "  <button id='randomTour' type='button'>랜덤</button>"
           + "  <button id='enrollTour' type='button'>등록</button>"
           + "  <button id='sendResult' type='button'>결과전송</button>"
           + "</div>"
-          + "</div><br>"
+          + "</div><br><br><br>"
           + "<div style='margin-top:20px;'>"
           + "<h2> 장소</h2><br>"
           + "<p>"+ c.baseAddr + "</p>"
