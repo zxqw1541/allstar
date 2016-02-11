@@ -95,7 +95,9 @@ getParameter = function(name) {
     <div class='bbsReply' style='float: left;'>
     </div>
   </div>
+  
 </div>
+<div style='width:100%; height:100px;'></div>
 <script>
 function addComment(event){
 	  $.post('/allstar/boarComm/ajax/add.do', {
@@ -292,13 +294,13 @@ function clickUpdate(event) {
             $("<section class='listComments' style='margin-left: 50px;'>")
             .html("<ul class='list'>"
                  +"<div class='commentWrap'>"
-                 +"<li class='comment1'>"
+                 +"<li class='comment1' style='border-bottom: aquamarine 1px solid;'>"
                  +"<dl>"
                  +"<dt>이름, 작성일</dt>"
                  +"<dd class='nameWrap'>"
                  +"<p class='img'>"
                  +"<img src='../member/img/"+ photo + "'>"
-                 +"</p><button type='button' class='delBC' boarCommMno='" + boarComm.mno + "' boardBno='" + boarComm.bno + "' boardBcno='"+ boarComm.bcno +"'>삭제</button> "
+                 +"</p><button type='button' style='background:#907c6e;' class='delBC' boarCommMno='" + boarComm.mno + "' boardBno='" + boarComm.bno + "' boardBcno='"+ boarComm.bcno +"'>삭제</button> "
                  +"<div class='contents'>"
                  +"<p class='name'>"
                  +"<span class='id'>" + boarComm.member.id + "</span>"
@@ -519,6 +521,6 @@ $('#addBtn').click(function(event) {
   }, 'json');
 });
 </script>
-<div style="height:150px;"></div>
+<div style="height:550px;"></div>
 </body>
 </html>

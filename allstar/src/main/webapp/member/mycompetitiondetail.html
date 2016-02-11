@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="/allstar/css/component.css" />
 <link rel="stylesheet" type="text/css" href="/allstar/css/tos/sidebar-left.css" />
 <link rel="stylesheet" type="text/css" href="/allstar/css/tos/demo.css" />
+<link rel="stylesheet" type="text/css" href="/allstar/css/list.css" />
 
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -37,80 +38,6 @@ $(function(){
 </script>
 <style>
 
-#apply_alert {
-border:1px black solid; 
-width:200px; 
-float:right; 
-height: 20px; 
-margin:10px; 
-padding:10px; 
-text-align:center;
-}
-#team_top img{
-width:300px;
-float:left;
-}
-#mem_list {
-border:1px black solid; 
-width:480px; 
-height: 400px; 
-float:right; 
-margin-top: 125px; 
-overflow-y:auto;
-}
-#mem_list figure{
-width:150px; 
-text-align:center; 
-float: left;
-}
-#mem_list img {
-width:150px; 
-height:140px;
-}
-
-
-#team_information span {
-font-size: 25px;
-margin:30px;
-}
-
-#member_photo {
-width:391px; 
-height:600px; 
- border: 1px black solid; 
-float:right;
-overflow-y: auto;
-}
-
-#member_photo img {
-width:150px;
-height:155px;
-}
-
-#member_photo p {
-width:162px; 
-height:190px; 
-float: left; 
-margin-left: 22px;
-}
-#member_photo label {
-text-align:center;
-    color: indigo;
-    font-size: 20px;
-}
-
-#team_btfld {
-/* border: 1px black solid; */
-width:394px;
-height:280px;
-float:right;
-margin-top: 0px;
-}
-#team_information {
-width:380px; 
-height:923px; 
-/* border: 1px black solid; */
-}
 
 #lean_overlay {
     position: fixed;
@@ -178,8 +105,7 @@ margin: 10px;
     
       <!-- 회원 목록 -->
       <div id="mem_list" >
-        <figure >
-        </figure>
+   
       </div>
       <!-- 회원 목록 끝 -->
     
@@ -187,15 +113,37 @@ margin: 10px;
       <!-- 팀정보 -->
       <div id="info" style="float:left; font-size:20px; padding: 50px;"></div>
       
+      <div style="height:20px; width:100%; float:left;"></div>
       <!-- 가입신청현황 -->
-      <div id="apply_state" style="float:left;">
-        <h2 style="margin-left:50px;">신규/대기중 참가 신청</h2>
-        <ul id="new_apply" ></ul>
-        <h2 style="margin-left:50px;">보류중인 신청</h2>
-        <ul id="wait_apply" ></ul>
-        <h2 style="margin-left:50px;">거절한 신청</h2>
-        <ul id="reject_apply" ></ul>
-      </div>
+      <div id="apply_state"  style="float:left;">
+<div class="holder" >
+<div class="topbar blue">
+<h1 >신규/대기중 가입 신청</h1>
+</div>
+<div class="inbar">
+<ul id="new_apply" >
+</ul>
+</div>
+</div>
+<div class="holder" >
+<div class="topbar blue">
+<h1 >보류중인 신청</h1>
+</div>
+<div class="inbar">
+<ul id="wait_apply" >
+</ul>
+</div>
+</div>
+<div class="holder" >
+<div class="topbar blue">
+<h1 >거절한 신청</h1>
+</div>
+<div class="inbar">
+<ul id="reject_apply" >
+</ul>
+</div>
+</div>
+</div>
     </div>
     <!-- 디테일 화면 끝 -->
     <!-- state 변경 모달 -->
@@ -281,9 +229,10 @@ $(function(){
         // 참가중인 팀
         else if (joinComp.state == 1) {
           // 사진 
-          $("<a href='#stateChange' rel='leanModal' class='stateChan' teamNo='"+joinComp.team.tno+"'>")
-          .html("<figure><img src='/allstar/team/img/" + joinComp.team.emblem + "' >"
-          +"<figcaption>"+joinComp.team.name+"</figcaption>"
+          $("<figure>")
+          .html("<a href='#stateChange' rel='leanModal' class='stateChan' teamNo='"+joinComp.team.tno+"'>"
+        	+"<img src='/allstar/team/img/" + joinComp.team.emblem + "' >"
+          +"<figcaption>"+joinComp.team.name+"</figcaption></a>"
           +"</figure>").appendTo(div);
         }
         // 거절된 팀
@@ -416,7 +365,7 @@ $(function(){
 	 });
 </script>
 
-<div style="height:100px;"></div>
+<div style="height:500px; width:100%; posotion: absolute;"></div>
 
 <!-- insert your code -->
 <div id="footer"></div>
