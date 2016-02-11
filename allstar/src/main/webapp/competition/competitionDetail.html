@@ -233,16 +233,18 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
           + "<div id='minimal'>"
           + "  <div class='demo'></div>"
           + "</div><br>"      
-          + "<div id='tour_btn' class='btn-fld1'>"
+          + "<div id='tour_btn' class='btn-fld1' style='margin-top:50px;'>"
           + "  <button id='randomTour' type='button'>랜덤</button>"
-          + "  <button id='enrollTour' type='button'>등록</button></div>"
+          + "  <button id='enrollTour' type='button'>등록</button>"
           + "  <button id='sendResult' type='button'>결과전송</button>"
-          + "</div><br><br><br>"
+          + "</div>"
           + "</div><br>"
+          + "<div style='margin-top:20px;'>"
           + "<h2> 장소</h2><br>"
           + "<p>"+ c.baseAddr + "</p>"
           + "<div class='div_left_map'>"
           + "  <div id='map' style='width:750px;height:600px;'></div>"
+          + "</div><br>"
           + "</div>";
       sub_article.append(detail);
       window.operation = c.operation;
