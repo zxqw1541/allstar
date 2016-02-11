@@ -260,8 +260,6 @@ function clickUpdate(event) {
               .prependTo(aside);
         
         $("#mInfo").click(clickMemInfo);
-        $("#deleteBtn").click(clickDel);
-        $("#updateb").click(clickUpdate);
         $('#newB').click(clickNewWrite);
         $('a[rel*=leanModal1]').leanModal({ top : 200, closeButton: ".modal_close" });
                       
@@ -280,6 +278,8 @@ function clickUpdate(event) {
         +"<button type='button' boardBno='"+board.no+"' id='replyadd' class='btn btnType4 btnWrite'>등록</button>"
         +"</fieldset>").appendTo(div);
       
+       $("#deleteBtn").click(clickDel);
+       $("#updateb").click(clickUpdate);
       $("#replyadd").click(addComment);
      }
     });
@@ -323,7 +323,7 @@ function clickUpdate(event) {
          
         //변경 버튼을 위한 이벤트 리스너 추가하기
           function updateBod(event) {
-              $.post('allstar/board/ajax/update.do', {
+              $.post('/allstar/board/ajax/update.do', {
                   no:  no,
                   eno: $('#bEno').val(),
                   mno: $('#bMno').val(),
