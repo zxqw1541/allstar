@@ -38,7 +38,7 @@ public class MultipartHelper {
       break;
     case CATE_MEMBER_COMM:
       Thumbnails.of(new File(path + name))
-      .forceSize(35,35)
+      .forceSize(45,45)
       .outputQuality(0.8)
       .toFile(new File(path + "mc_" + name));
       break;
