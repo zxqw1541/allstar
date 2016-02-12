@@ -176,7 +176,7 @@ public class MemberController {
 
     try {
       joinTeamService.register(joinTeam);
-      teamService.changeJoinCount(joinTeam.getTno());
+      /*teamService.changeJoinCount(joinTeam.getTno());*/
     } catch (Exception e) {
       return new AjaxResult("failure", null);
     }
@@ -198,6 +198,9 @@ public class MemberController {
   public AjaxResult changeState(JoinTeam joinTeam) {
     log.debug(joinTeam);
     joinTeamService.changeState(joinTeam);
+    if (joinTeam.getState() == 1) {
+      teamService.changeJoinCount(joinTeam.getTno());
+    }
 
     return new AjaxResult("success", null);
   }

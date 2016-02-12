@@ -118,9 +118,9 @@
 	</select>
 
 	<insert id="insert" parameterType="team">
-		insert into team(eno,name,total_num,fee,meet_day,introduce,
+		insert into team(eno,name,join_num,total_num,fee,meet_day,introduce,
 		            emblem,aform,pst_no,bas_addr)
-		values(#{eno},#{name},#{totalNum},#{fee},#{meetDay},#{introduce},
+		values(#{eno},#{name},1,#{totalNum},#{fee},#{meetDay},#{introduce},
 		            #{emblem},#{aForm},#{postNo},#{baseAddr})
 	</insert>
 
