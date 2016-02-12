@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/allstar/css/memberinfo/formoid-flat-green.css" type="text/css" />
-<script type="text/javascript" src="/allstar/js/preview.image.js"></script>
+<script type="text/javascript" src="/allstar/js/preview.image2.js"></script>
 </head>
 <body>
  
@@ -168,7 +168,7 @@
   <script>
 
   $('#fphoto').remove();
-  var fphoto = '<input id="fphoto"  type="file" class="file_input" name="file"  >';
+  var fphoto = '<input id="fphoto"  type="file" class="file_input" name="file" onchange="fileSelected()" >';
   $('#deatil_member_div').append(fphoto);
   
   
