@@ -9,7 +9,9 @@
  <script type="text/javascript" src="/allstar/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="/allstar/js/jquery.session.js"></script>
 
- <script src="/allstar/js/jquery.leanModal.min.js"></script> 
+ <script src="/allstar/js/jquery.leanModal.min.js"></script>
+ <script src="../lib/alertify.js/alertify.js"></script>
+  
 <script>
 
 $(function() {
@@ -201,7 +203,7 @@ function close_modal(modal_id){
                       .appendTo(span);
               location.reload();
           } else {
-            alert("이메일과 패스워드가 일치하지 않습니다.");
+            alertify.alert("이메일과 패스워드가 일치하지 않습니다.");
           }
         }, 'json');
         
@@ -251,7 +253,7 @@ function close_modal(modal_id){
           var pass1 = document.getElementById('pass_signin');
           var pass2 = document.getElementById('pass_signin2');
           if(pass1.value != pass2.value){
-            alert("비밀번호가 다릅니다. "); 
+        	  alertify.alert("비밀번호가 다릅니다."); 
             return;
           }
           data.append('id', $('#id_signin').val());
@@ -269,11 +271,13 @@ function close_modal(modal_id){
                console.log(result.ajaxResult.status);
                 if(result.ajaxResult.status =="success"){
                console.log(result);
-               alert("가입에 성공했습니다.");
-                location.href = "";
+               alertify.alert("가입에 성공했습니다.", function(){
+	                location.href = "";
+               });
                 }else if(result.ajaxResult.status == "error"){
-                  alert("이미 존재하는 아이디이거나 잘못된 가입 정보입니다. "); 
-                  location.href = "javascript:;";
+                  alertify.alert("이미 존재하는 아이디이거나 잘못된 가입 정보입니다. ", function(){
+	                  location.href = "javascript:;";
+                  });
                 }
                } 
            });
