@@ -22,6 +22,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/allstar/js/test/toucheffects.js"></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5478d3688900c0aff638bba0a0eb1ff3&libraries=services"></script>
+<script src="../lib/alertify.js/alertify.js"></script>
 
 <script>
 $(function() {
@@ -297,11 +298,12 @@ $.getJSON('/allstar/team/ajax/detail.do?tno=' + tno, function(resultObj) {
 	      }, function(resultObj) {
 	        var ajaxResult = resultObj.ajaxResult;
 	        if (ajaxResult.status == "success") {
-	          alert("상태 변경했습니다.");
-	          close_modal('#stateChange');
-	          location.reload();
+	          alertify.alert("상태 변경했습니다.", function(){
+	              close_modal('#stateChange');
+	              location.reload();
+	           });
 	        } else {
-	            alert("변경에 실패했습니다.");
+	        	alertify.alert("변경에 실패했습니다.");
 	        }
 	      }, 'json');
 	  }
@@ -314,11 +316,12 @@ $.getJSON('/allstar/team/ajax/detail.do?tno=' + tno, function(resultObj) {
 		        }, function(resultObj) {
 		          var ajaxResult = resultObj.ajaxResult;
 		          if (ajaxResult.status == "success") {
-		            alert("상태 변경했습니다.");
-		            close_modal('#stateChange');
-		            location.reload();
+	              alertify.alert("상태 변경했습니다.", function(){
+	                  close_modal('#stateChange');
+	                  location.reload();
+	               });
 		          } else {
-		              alert("변경에 실패했습니다.");
+		        	  alertify.alert("변경에 실패했습니다.");
 		          }
 		        }, 'json');
 		    }
@@ -331,11 +334,12 @@ $.getJSON('/allstar/team/ajax/detail.do?tno=' + tno, function(resultObj) {
 		        }, function(resultObj) {
 		          var ajaxResult = resultObj.ajaxResult;
 		          if (ajaxResult.status == "success") {
-		            alert("상태 변경했습니다.");
-		            close_modal('#stateChange');
-		            location.reload();
+	              alertify.alert("상태 변경했습니다.", function(){
+	                  close_modal('#stateChange');
+	                  location.reload();
+	               });
 		          } else {
-		              alert("변경에 실패했습니다.");
+		        	  alertify.alert("변경에 실패했습니다.");
 		          }
 		        }, 'json');
 		    }
