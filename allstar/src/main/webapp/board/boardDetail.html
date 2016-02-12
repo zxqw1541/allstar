@@ -44,6 +44,7 @@ text-align:center;
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../js/jquery.leanModal.min.js"></script>
 <script src="../js/modernizr.min.js"></script>
+<script src="../lib/alertify.js/alertify.js"></script>
 
 <script> 
 $(function(){
@@ -107,10 +108,11 @@ function addComment(event){
 	  },
 	  function(result) {
 		  if(result.ajaxResult.status == "success") {
-			 alert("댓글을 등록하였습니다.");
-		   location.reload();
+		    alertify.alert("댓글을 등록하였습니다.", function(){
+		        location.reload();
+		    });
 		  } else {
-			  alert("댓글 등록에 실패했습니다.");
+			  alertify.alert("댓글 등록에 실패했습니다.");
 		  }
 	  }, 'json');
 }
@@ -333,9 +335,11 @@ function clickUpdate(event) {
               }, function(resultObj) {
                 var ajaxResult = resultObj.ajaxResult;
                 if (ajaxResult.status == "success") {
-                  location.href = "boardList.html";
+                  alertify.alert("게시물이 변경되었습니다.", function(){
+	                  location.href = "boardList.html";
+                  });
                 } else {
-                    alert("게시물 변경에 실패했습니다.");
+                	alertify.alert("게시물 변경에 실패했습니다.");
                 }
               }, 'json');
             }
@@ -347,9 +351,11 @@ function clickUpdate(event) {
               function(resultObj) {
                 var ajaxResult = resultObj.ajaxResult;
                 if (ajaxResult.status == "success") {
-                  location.href = "boardList.html";
+                 alertify.alert("게시물이 삭제되었습니다.", function(){
+                     location.href = "boardList.html";
+                   });
                 } else {
-                    alert("게시물 삭제에 실패했습니다.");
+                	alertify.alert("게시물 삭제에 실패했습니다.");
                 }
             });
           }
@@ -361,13 +367,15 @@ function clickUpdate(event) {
                 function(resultObj) {
                   var ajaxResult = resultObj.ajaxResult;
                   if (ajaxResult.status == "success") {
-                    location.href = 'boardDetail.html?no=' + $(event.currentTarget).attr("boardBno");
+                    alertify.alert("댓글이 삭제되었습니다.", function(){
+	                    location.href = 'boardDetail.html?no=' + $(event.currentTarget).attr("boardBno");
+                    });
                   } else {
-                      alert("댓글 삭제에 실패했습니다.");
+                	  alertify.alert("댓글 삭제에 실패했습니다.");
                   }
               });
           }  else {
-        	  alert('본인이 작성한 댓글만 삭제할 수 있습니다.');
+        	  alertify.alert('본인이 작성한 댓글만 삭제할 수 있습니다.');
           }
           }
   function clickNewWrite(event) {
@@ -404,7 +412,7 @@ function clickUpdate(event) {
 	    .appendTo(div);          
 	  });
 	  } else {
-	          alert("로그인 후 게시글 작성이 가능합니다.");
+		  alertify.alert("로그인 후 게시글 작성이 가능합니다.");
 	  }
 	}
 	/* 새 글 작성 끝 */
@@ -514,9 +522,11 @@ $('#addBtn').click(function(event) {
   }, function(resultObj) {
     var ajaxResult = resultObj.ajaxResult;
     if (ajaxResult.status == "success") {
-      location.href = "boardList.html";
+     alertify.alert("게시물이 등록되었습니다.", function(){
+         location.href = "boardList.html";
+       });
     } else {
-        alert("게시물 등록에 실패했습니다.");
+    	alertify.alert("게시물 등록에 실패했습니다.");
     }
   }, 'json');
 });
