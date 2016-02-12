@@ -101,7 +101,6 @@
   <update id="update" parameterType="Competition">
     update competition set
     	eno = #{eno},
-    	tno = #{tno},
     	name =  #{name},
     	team_num = #{teamNum},
     	join_num = #{joinNum},
