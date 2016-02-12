@@ -269,7 +269,7 @@
 	         success : function(result) {
 	           if (result.ajaxResult.status == "success") {
 	             alertify.alert("변경하였습니다.", function(){
-		             location.href = "/allstar/member/Member_info.html";
+		             location.reload();
 	             });
 	           } else {
 	        	   alertify.alert('변경하지 못했습니다.');
