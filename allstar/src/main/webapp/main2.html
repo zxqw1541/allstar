@@ -230,22 +230,21 @@ function close_modal(modal_id){
       <div id="signup-ct">
         <div id="signup-header">
           <h2>회원가입</h2>
-          <p>회원가입을 하세요</p>
         </div>
         
         <form action="" method="POST">
           <div class="txt-fld">
-            <label for="username">Username</label>
+            <label for="username">아이디</label>
             <input id="id_signin" class="good_input" name="username" type="text" />
           </div>
         
           <div class="txt-fld">
-            <label for="password">Password</label>
+            <label for="password">비밀번호</label>
             <input id="pass_signin" name="password" type="password" >
 
           </div>
                     <div class="txt-fld">
-            <label for="password2">Password 확인</label>
+            <label for="password2">비밀번호 확인</label>
 <input  id="pass_signin2" name="password2" type="password" onkeyup="checkPass(); return false;"><br>
 <span id="confirmMessage" class="confirmMessage"></span>
 
@@ -286,19 +285,19 @@ function close_modal(modal_id){
       <div id="signup-ct">
         <div id="signup-header">
           <h2>로그인</h2>
-          <p>ID 와 비밀번호를 입력하세요.</p>
+          <p>아이디와 비밀번호를 입력하세요.</p>
         </div>
         
         <form action="" method="POST">
             <div id="loading"></div>
           <div class="txt-fld">
-            <label for="username">Username</label>
+            <label for="username">아이디</label>
             <input id="id_input" class="good_input" name="username" type="text" />
 
           </div>
         
           <div class="txt-fld">
-            <label for="password">Password</label>
+            <label for="password">비밀번호</label>
             <input id="pass_input" name="password" type="password" />
 
           </div>
@@ -361,6 +360,19 @@ function close_modal(modal_id){
 
   $('#loginBtn').click( function(event) {
 
+	      var id = document.getElementById('id_input');
+	      var pass = document.getElementById('pass_input');
+	      
+	      if (id.value == '') {
+	          alertify.alert("아이디를 입력해주세요.");
+	          return;
+	      }
+	      
+	      if (pass.value == '') {
+	           alertify.alert("비밀번호를 입력해주세요.");
+	           return;
+	       }
+      
         $.post('/allstar/auth/ajax/login.do', {
           id : $('#id_input').val(),
           password : $('#pass_input').val()
@@ -390,7 +402,7 @@ function close_modal(modal_id){
             console.log("success");
             location.reload();
           } else {
-        	  alertify.alert("이메일과 패스워드가 일치하지 않습니다.");
+        	  alertify.alert("아이디와 패스워드가 일치하지 않습니다.");
           }
         }, 'json');
       });
@@ -525,10 +537,21 @@ function close_modal(modal_id){
           var data = new FormData();
           var pass1 = document.getElementById('pass_signin');
           var pass2 = document.getElementById('pass_signin2');
-          if(pass1.value != pass2.value){
-        	  alertify.alert("비밀번호가 다릅니다. "); 
+          var id = document.getElementById('id_signin');
+          
+          if (id.value == '') {
+              alertify.alert("아이디를 입력해주세요.");
+              return;
+          }
+          
+          if (pass1.value != pass2.value) {
+        	  alertify.alert("비밀번호가 다릅니다."); 
+        	  return;
+          } else if (pass1.value == '' || pass2.value == '') {
+        	  alertify.alert("비밀번호를 입력해주세요.");
         	  return;
           }
+          
           data.append('id', $('#id_signin').val());
           data.append('pwd', $('#pass_signin').val());
           
