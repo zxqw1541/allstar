@@ -70,8 +70,8 @@
       <if test="event == 'null' and date == 'null'"> and b.title like concat('%',#{search1},'%') </if>
     </if>
     <if test="search2 != 'null'">
-      <if test="event != 'null' or date != 'null'"> and m_id like concat('%',#{search2},'%') </if>
-      <if test="event == 'null' and date == 'null'">and  m_id like concat('%',#{search2},'%') </if>
+      <if test="event != 'null' or date != 'null'"> and m.id like concat('%',#{search2},'%') </if>
+      <if test="event == 'null' and date == 'null'">and  m.id like concat('%',#{search2},'%') </if>
     </if>
 
     <if test="date != 'null' or reply != 'null'">order by </if>
@@ -120,8 +120,8 @@
       <if test="event == 'null' and date == 'null'"> and b.title like concat('%',#{search1},'%') </if>
     </if>
     <if test="search2 != 'null'">
-      <if test="event != 'null' or date != 'null'"> and m_id like concat('%',#{search2},'%') </if>
-      <if test="event == 'null' and date == 'null'"> and m_id like concat('%',#{search2},'%') </if>
+      <if test="event != 'null' or date != 'null'"> and m.id like concat('%',#{search2},'%') </if>
+      <if test="event == 'null' and date == 'null'"> and m.id like concat('%',#{search2},'%') </if>
     </if>
   </select>
   

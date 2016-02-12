@@ -44,7 +44,7 @@ text-align:center;
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../js/jquery.leanModal.min.js"></script>
 <script src="../js/modernizr.min.js"></script>
-
+<script src="../lib/alertify.js/alertify.js"></script>
 
 <script> 
 var pageSize = 7;
@@ -234,8 +234,8 @@ getParameter = function(name) {
        }
       $('.namesp').click(clickMemInfo);
       $('#newBtn').click(clickNewWrite);
-       }
-       });
+    }
+  });
   
   if (checkEvent != -1) {
     $("#bevent").val(getParameter('event'));
@@ -253,42 +253,42 @@ getParameter = function(name) {
 	  });
 
   function clickNewWrite(event) {
-	  if (sessionStorage.getItem("mem_num") != undefined) {
+	  if (sessionStorage.getItem("mem_num") == undefined) {
+      alert("로그인 후 게시글 작성이 가능합니다.");
+	  } else {
 	    $('.bbsReply').hide();
 	    $('#subject').empty();
 	    $('#rightSide').empty();
-	  $('#newBoard').empty();
-	  $.getJSON('/allstar/board/ajax/add.do?no=' + -1, function(resultObj) {
-	    var fbevent = resultObj.eno;
-	    var div = $("#newBoard");
-	    $("<div style='margin-top:20px; margin-bottom:5%; height:35px;'>")
-	    .html("<div>"
-	         +"<select id='feno' style='margin-left:81px; margin-right:0px; height:35px;'>"
-	         +"<option value='2'>농구</option>"
-	         +"<option value='3'>축구</option>"
-	         +"<option value='4'>야구</option>"
-	         +"<option value='5'>탁구</option>"
-	         +"<option value='6'>볼링</option>"
-	         +"</select>"
-	         +"<input type='text' id='ftitle' placeholder='제목을 입력하세요.' style='width: 780px; height:35px; border-top:0px; border-left:0px; border-right:0px; border-bottom:1px solid black; padding:0px 0px 0px 0px;'>"
-	         +"</div></div>")
-	    .appendTo(div);
-	    $("<div style='display:none;'>")
-	    .html("<label for='fmno' class='col-sm-2 control-label'>멤버번호</label>"
-	          +"<div class='col-sm-10'>"
-	          +"<input type='text' class='form-control' id='fmno' value='"+sessionStorage.getItem("mem_num")+"' readonly>"
-	          +"</div></div>")
-	    .appendTo(div);
-	    
-	    $("<div>")
-	    .html("<div style='margin-left:81px; maring-right:81px;'>"
-	          +"<textarea id='fcontent' class='form-control' rows='20' cols='60'"
-	          +"placeholder='내용을 입력하세요.' style='width:840px; overflow-y: auto;'></textarea>"
-	          +"</div></div>")
-	    .appendTo(div);          
-	  });
-	  } else {
-	          alert("로그인 후 게시글 작성이 가능합니다.");
+		  $('#newBoard').empty();
+		  $.getJSON('/allstar/board/ajax/add.do?no=' + -1, function(resultObj) {
+		    var fbevent = resultObj.eno;
+		    var div = $("#newBoard");
+		    $("<div style='margin-top:20px; margin-bottom:5%; height:35px;'>")
+		    .html("<div>"
+		         +"<select id='feno' style='margin-left:81px; margin-right:0px; height:35px;'>"
+		         +"<option value='2'>농구</option>"
+		         +"<option value='3'>축구</option>"
+		         +"<option value='4'>야구</option>"
+		         +"<option value='5'>탁구</option>"
+		         +"<option value='6'>볼링</option>"
+		         +"</select>"
+		         +"<input type='text' id='ftitle' placeholder='제목을 입력하세요.' style='width: 780px; height:35px; border-top:0px; border-left:0px; border-right:0px; border-bottom:1px solid black; padding:0px 0px 0px 0px;'>"
+		         +"</div></div>")
+		    .appendTo(div);
+		    $("<div style='display:none;'>")
+		    .html("<label for='fmno' class='col-sm-2 control-label'>멤버번호</label>"
+		          +"<div class='col-sm-10'>"
+		          +"<input type='text' class='form-control' id='fmno' value='"+sessionStorage.getItem("mem_num")+"' readonly>"
+		          +"</div></div>")
+		    .appendTo(div);
+		    
+		    $("<div>")
+		    .html("<div style='margin-left:81px; maring-right:81px;'>"
+		          +"<textarea id='fcontent' class='form-control' rows='20' cols='60'"
+		          +"placeholder='내용을 입력하세요.' style='width:840px; overflow-y: auto;'></textarea>"
+		          +"</div></div>")
+		    .appendTo(div);          
+		  });
 	  }
 	}
 	/* 새 글 작성 끝 */
