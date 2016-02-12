@@ -232,10 +232,6 @@ body {font-family: 'nexonFont';}
 .teamName {float:left;}
 .teamName h2 {width:260px; height:35px; margin-top:10px; overflow:hidden; text-overflow:ellipsis;}
 
-/* 모달 x 버튼 */
-#detail_team-header .modal_close { width:20px; height:20px; background-size:20px; }
-#apply_comp-header .modal_close { width:20px; height:20px; background-size:20px; }
-
 /* 참여정보 글씨 */
 h2.sideInfoTitle{float:left; margin:10px 3px}
 h3.sideInfoTitle{float:left; margin:15px 3px}
@@ -246,4 +242,9 @@ h3.sideInfoTitle{float:left; margin:15px 3px}
 
 /* 모달 기본 버튼 */
 .btn-fld button {float: right; font-family:'nexonFont'; background:black; border:none; width:auto; overflow:visible; font-size:1.4em; color:#fff; padding: 7px 10px; -webkit-border-radius:4px; text-shadow: 0 1px 0 rgba(0,0,0,0.4)}
-#detail_team .close_btn {margin-right: 65px} 
+#detail_team .close_btn {margin-right: 65px}
+
+/* 모달 x 버튼 */
+#detail_team-header .modal_close { width:20px; height:20px; background-size:20px; border:0px; margin-right: 0px;}
+#apply_comp-header .modal_close { width:20px; height:20px; background-size:20px; border:0px;}
+ 
