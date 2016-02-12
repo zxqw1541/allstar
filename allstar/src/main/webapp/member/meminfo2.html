@@ -85,8 +85,8 @@
     <div class="column column3"><label><input type="radio"  id="gender_female" name="radio" value="여" /><span>여</span></label></div><span class="clearfix"></span>
     <div class="column column3"><label><input type="radio" id="gender_other" name="radio" value="기타" /><span>기타</span></label></div><span class="clearfix"></span>
 </div>
-  <div class="element-select"><label class="title"> 나이</label><div class="medium"><span><select id="fage"  name="select" >
-    <option value="15">15</option>
+  <div ><label class="title"> 나이</label><div class="medium"><span><select id="fage"  name="select" >
+    <option  value="15" >15</option>
     <option value="16">16</option>
     <option value="17">17</option>
     <option value="18">18</option>
@@ -189,6 +189,7 @@
             else
               $('#detail_preview_img').attr('src', '/allstar/member/img/allstardefault.png');
 	   console.log(member.gender);
+	   
 	   if(member.gender == "남")
 		   $('#gender_male').prop('checked', true);
 	   if(member.gender == "여")
