@@ -690,7 +690,7 @@ else if(sessionStorage.getItem("mem_num")){
 	    	if (result.ajaxResult.status == "success") {
 	    		var c = result.ajaxResult.data;
 	    		var ul = $('.commList');
-	    		
+	    		/*
 	    		var addedComm = $("<div>").addClass('commentWrap')
 	            .html(
 	                "<li class='comment1'>"
@@ -715,6 +715,10 @@ else if(sessionStorage.getItem("mem_num")){
 	                +"</li>"
 	              );
 	    	  ul.prepend(addedComm);
+	    	  */
+          alertify.alert("댓글을 등록하였습니다.", function(){
+              location.reload();
+          });
 	      }
 	    },
 	    error : function(result){
