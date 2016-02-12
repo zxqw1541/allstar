@@ -241,9 +241,11 @@
 	       });
 	      
 	     if($('#fdphoto').val() != "" ){
-	       if(!is_uploadfile)
-	       data.append('photo', $('#fdphoto').val());
+	       if(!is_uploadfile){
+	    	   data.append('photo', $('#fdphoto').val());
+	       }
 	     }
+	     
 	     data.append('mno',$.session.get("mem_num"));
 	     data.append('name',$('#fname').val());
 	     data.append('email',$('#femail').val());

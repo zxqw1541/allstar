@@ -216,6 +216,10 @@ function close_modal(modal_id){
     $("#out").show();
     $("#login").hide();
     console.log(sessionStorage.getItem("loginSession"));
+    $.getJSON('/allstar/member/ajax/detail.do?mno='+sessionStorage.getItem("mem_num"),function(resultObj){
+    	var member= resultObj.members;
+    	sessionStorage.setItem('mem_photo' ,member.photo); 
+    });
     var session_photo=sessionStorage.getItem("mem_photo");
     if(session_photo == 'null')
         session_photo = 'allstardefault.png';
