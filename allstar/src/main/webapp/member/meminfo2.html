@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/allstar/css/memberinfo/formoid-flat-green.css" type="text/css" />
+
 <script type="text/javascript" src="/allstar/js/preview.image2.js"></script>
+<script src="../lib/alertify.js/alertify.js"></script>
+
 </head>
 <body>
  
@@ -263,14 +266,15 @@
 	         contentType : false,
 	         success : function(result) {
 	           if (result.ajaxResult.status == "success") {
-	             location.href = "/allstar/member/Member_info.html";
-	             alert('변경 하였습니다.');
+	             alertify.alert("변경하였습니다.", function(){
+		             location.href = "/allstar/member/Member_info.html";
+	             });
 	           } else {
-	             alert('변경하지 못했습니다.');
+	        	   alertify.alert('변경하지 못했습니다.');
 	           }
 	         },
 	         error : function(result) {
-	           alert('error');
+	        	 alertify.alert('error');
 	         }
 	         
 	       });
