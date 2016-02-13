@@ -279,7 +279,7 @@ $.getJSON('/allstar/team/ajax/detail.do?tno=' + tno, function(resultObj) {
 	         +"<li><span>이름 : "+member.name+"</span></li>"
 	         +"<li><span>성별 : "+member.gender+"</span></li>"
 	         +"<li><span>나이 : "+member.age+"</span></li>"
-	         +"<li><span>주소 : "+member.baseAddr+"</span></li>"
+	         +"<li><span>주소 : "+member.bas_addr+"</span></li>"
 	         +"<li><span>자기소개 : "+member.introduce+"</span></li>"
 	         +"<button type='button' id='accept' memberNo='"+ member.mno +"' teamNo='"+ $(event.currentTarget).attr("teamNo") +"'>승인</button>"
 	         +"<button type='button' id='wait' memberNo='"+ member.mno +"' teamNo='"+ $(event.currentTarget).attr("teamNo")  +"'>보류</button>"
