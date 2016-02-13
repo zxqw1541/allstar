@@ -78,12 +78,12 @@
     <if test="date == 'new'"> b.cre_dt desc </if>   
     <if test="date == 'old'"> b.cre_dt asc </if>
     <if test="reply == 'high'">
-      <if test="date != 'null'"> ,b.cre_dt desc </if>
-      <if test="date == 'null'"> b.cre_dt </if>
+      <if test="date != 'null'"> ,(select count(*) from boar_comm where bno=b.bno) desc </if>
+      <if test="date == 'null'"> (select count(*) from boar_comm where bno=b.bno) desc </if>
     </if>
     <if test="reply == 'low'">
-      <if test="date != 'null'"> ,b.cre_dt asc </if>
-      <if test="date == 'null'"> b.cre_dt asc </if>
+      <if test="date != 'null'"> ,(select count(*) from boar_comm where bno=b.bno) asc </if>
+      <if test="date == 'null'"> ,(select count(*) from boar_comm where bno=b.bno) asc </if>
     </if>
     
     <if test="date == 'null' and reply == 'null'"> order by </if>

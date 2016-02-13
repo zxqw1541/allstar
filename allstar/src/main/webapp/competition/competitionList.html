@@ -38,6 +38,7 @@
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../js/jquery.leanModal.min.js"></script>
 <script src="../js/modernizr.min.js"></script>
+<script src="../lib/alertify.js/alertify.js"></script>
 
 <script>
 var pageSize = 7;
@@ -167,11 +168,11 @@ $(function() {
 $('#newBtn').on('click', function(event){
     event.preventDefault();
     if (sessionStorage.getItem("mem_num") == undefined) {
-    	alert("로그인 후 이용 가능합니다!");
+    	alertify.alert("로그인이 필요한 서비스 입니다.");
     } else {
 	    location.href = 'competitionForm.html?no=-1';  
     }
-  });
+});
 </script>
 
 <script>

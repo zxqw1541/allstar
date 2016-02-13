@@ -221,6 +221,7 @@
 		var form = $('detail_mem');
         var data = new FormData();
         var is_uploadfile = false;
+        
 	     console.log($.session.get("mem_num"));
 	       $.each($("input[name='likeEvent']:checked"), function() {
 	           console.log($("input[name='likeEvent']:checked").val());
@@ -241,9 +242,16 @@
 	       });
 	      
 	     if($('#fdphoto').val() != "" ){
-	       if(!is_uploadfile)
-	       data.append('photo', $('#fdphoto').val());
+	       if(!is_uploadfile){
+	    	   data.append('photo', $('#fdphoto').val());
+	       }
 	     }
+	     
+	     if ($('#fage').val() == null) {
+	    	 alertify.alert('나이를 선택해주세요');
+	    	 return;
+	     }
+	     
 	     data.append('mno',$.session.get("mem_num"));
 	     data.append('name',$('#fname').val());
 	     data.append('email',$('#femail').val());
@@ -265,21 +273,30 @@
 	         processData : false,
 	         contentType : false,
 	         success : function(result) {
-	           if (result.ajaxResult.status == "success") {
+	         if (result.ajaxResult.status == "success") {
 	             alertify.alert("변경하였습니다.", function(){
+		             location.reload();
+	            	  $.getJSON('/allstar/member/ajax/detail.do?mno=' + $.session.get("mem_num"), function(resultObj) {
+	            	        var member = resultObj.members;
+	            	        $.session.set('mem_photo', member.photo);
+	            	  });
 		             location.href = "/allstar/member/Member_info.html";
 	             });
-	           } else {
+	         } else if (result.ajaxResult.status == "existEmail") {
+	        	 alertify.alert('이미 존재하는 이메일입니다.');
+	         } else if (result.ajaxResult.status == "existTel") {
+	        	 alertify.alert('이미 존재하는 전화번호입니다.');
+	         }
+	         else {
 	        	   alertify.alert('변경하지 못했습니다.');
 	           }
 	         },
 	         error : function(result) {
 	        	 alertify.alert('error');
 	         }
-	         
-	       });
+	     });
+	     
 	});
-	  
   </script>
 </body>
 </html>

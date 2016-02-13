@@ -89,8 +89,8 @@ $(function() {
               </select>
               <select id="breply" onchange="sorting()">
 	              <option value='-1'>댓글</option>
-	              <option value='low'>많은순</option>
-	              <option value='high'>적은순</option>
+	              <option value='high'>많은순</option>
+	              <option value='low'>적은순</option>
               </select>
               </form>
           </div>
@@ -253,9 +253,7 @@ getParameter = function(name) {
 	  });
 
   function clickNewWrite(event) {
-	  if (sessionStorage.getItem("mem_num") == undefined) {
-      alert("로그인 후 게시글 작성이 가능합니다.");
-	  } else {
+	  if (sessionStorage.getItem("mem_num") != undefined) {
 	    $('.bbsReply').hide();
 	    $('#subject').empty();
 	    $('#rightSide').empty();
@@ -289,6 +287,8 @@ getParameter = function(name) {
 		          +"</div></div>")
 		    .appendTo(div);          
 		  });
+	  } else {
+		  alertify.alert("로그인 후 게시글 작성이 가능합니다.");
 	  }
 	}
 	/* 새 글 작성 끝 */
@@ -392,8 +392,7 @@ getParameter = function(name) {
 	 if (sessionStorage.getItem("mem_num") == undefined) {
 	        console.log("글쓰기 버튼 비활성화.");
 	      $('#newBtn').attr({
-	      rel : '',
-	      href : ''
+	      rel : ''
 	    });
 	    }
 	});
@@ -747,11 +746,18 @@ function makeSortingURL(url, eventVal, dateVal, replyVal) {
           if (dateVal != checkOption) {
             if (url.indexOf('date') == checkIndex) url = url + '?date=' + dateVal;
             else url = updateURLParameter(url, 'date', dateVal);
-          }
             if (replyVal != checkOption) {
-              if (url.indexOf('reply') == checkIndex) url = url + '&reply=' + replyVal;
+                if (url.indexOf('reply') == checkIndex) url = url + '&reply=' + replyVal;
+                else url = updateURLParameter(url, 'reply', replyVal);
+            }
+          }
+          else {
+            if (replyVal != checkOption) {
+              if (url.indexOf('reply') == checkIndex) url = url + '?reply=' + replyVal;
               else url = updateURLParameter(url, 'reply', replyVal);
             }
+          }
+        	  
         }
     }else {
           if (eventVal != checkOption) {

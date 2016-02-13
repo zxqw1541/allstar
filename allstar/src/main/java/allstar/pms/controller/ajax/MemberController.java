@@ -63,7 +63,10 @@ public class MemberController {
 
   @RequestMapping(value = "add", method = RequestMethod.POST)
   public AjaxResult add(Member member) throws Exception {
-
+    if (memberService.idRedundancyCheck(member.getId()).size() > 0) {
+      return new AjaxResult("existID", null);
+    }
+    
     if (memberService.register(member) <= 0) {
       return new AjaxResult("error", null);
     }
@@ -85,6 +88,14 @@ public class MemberController {
   @RequestMapping(value = "update", method = RequestMethod.POST)
   public AjaxResult update(String likeList, Member member, MultipartHttpServletRequest uploadedFile) throws Exception {
 
+    if (memberService.emailRedundancyCheck(member.getMno(), member.getEmail()).size() > 0) {
+      return new AjaxResult("existEmail", null);
+    }
+    
+    if (memberService.telRedundancyCheck(member.getMno(), member.getTel()).size() > 0) {
+      return new AjaxResult("existTel", null);
+    }
+    
     log.info("member = " + member);
     if (member.getPhoto() == null) {
       Iterator<String> itr = uploadedFile.getFileNames();

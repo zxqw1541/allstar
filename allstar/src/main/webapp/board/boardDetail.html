@@ -101,6 +101,11 @@ getParameter = function(name) {
 <div style='width:100%; height:100px;'></div>
 <script>
 function addComment(event){
+		if (sessionStorage.getItem("mem_num") == undefined) {
+	    alertify.alert("로그인이 필요한 서비스 입니다.");
+	    return;
+		}
+	   
 	  $.post('/allstar/boarComm/ajax/add.do', {
 	  mno : sessionStorage.getItem("mem_num"),
 	  bno : $(event.target).attr("boardBno"),
@@ -265,25 +270,26 @@ function clickUpdate(event) {
         $('#newB').click(clickNewWrite);
         $('a[rel*=leanModal1]').leanModal({ top : 200, closeButton: ".modal_close" });
                       
-       var div = $(".bbsReply");
-       if (sessionStorage.getItem("mem_num") == board.member.mno) {
-           $("<div class='viewContentsBtm clearFix' style='border:0px; margin-bottom:10px;'>")
-             .html("<p class='btnEtc'>"
-                  +"<a boardBno='"+ board.no +"' href='#updateWrite' id='updateb' class='edit'>수정</a>"
-                  +"<a href='javascript:' id='deleteBtn' boardBno='"+ board.no +"' type='button' class='del'>삭제</a></p>"
-                  +"</div>")
-             .appendTo(div);
-           }
-       $("<fieldset class='commentWrite' style='width:800px; margin-left: 50px;'>")
-        .html("<legend>댓글 쓰기</legend>"
-        +"<textarea cols='50' id='txtComment' placeholder='댓글을 작성하세요.'  rows='4' style='float:left; width:660px;'></textarea>"
-        +"<button type='button' boardBno='"+board.no+"' id='replyadd' class='btn btnType4 btnWrite'>등록</button>"
-        +"</fieldset>").appendTo(div);
-      
-       $("#deleteBtn").click(clickDel);
-       $("#updateb").click(clickUpdate);
-      $("#replyadd").click(addComment);
-     }
+	       var div = $(".bbsReply");
+	       if (sessionStorage.getItem("mem_num") == board.member.mno) {
+	         $("<div class='viewContentsBtm clearFix' style='border:0px; margin-bottom:10px;'>")
+	           .html("<p class='btnEtc'>"
+	                +"<a boardBno='"+ board.no +"' href='#updateWrite' id='updateb' class='edit'>수정</a>"
+	                +"<a href='javascript:' id='deleteBtn' boardBno='"+ board.no +"' type='button' class='del'>삭제</a></p>"
+	                +"</div>")
+	           .appendTo(div);
+	       }
+	       
+	       $("<fieldset class='commentWrite' style='width:800px; margin-left: 50px;'>")
+	        .html("<legend>댓글 쓰기</legend>"
+	        +"<textarea cols='50' id='txtComment' placeholder='댓글을 작성하세요.'  rows='4' style='float:left; width:660px;'></textarea>"
+	        +"<button type='button' boardBno='"+board.no+"' id='replyadd' class='btn btnType4 btnWrite'>등록</button>"
+	        +"</fieldset>").appendTo(div);
+	      
+	       $("#deleteBtn").click(clickDel);
+	       $("#updateb").click(clickUpdate);
+	       $("#replyadd").click(addComment);
+		   }
     });
     
           $.getJSON('/allstar/boarComm/ajax/list.do?bno=' +no, function(resultObj) {
@@ -481,8 +487,7 @@ function clickUpdate(event) {
 	 if (sessionStorage.getItem("mem_num") == undefined) {
 	        console.log("글쓰기 버튼 비활성화.");
 	      $('#newB').attr({
-	      rel : '',
-	      href : ''
+	      rel : ''
 	    });
 	    }
 	});

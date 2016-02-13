@@ -153,8 +153,6 @@ public class CompetitionController {
   @RequestMapping(value = "update", method = RequestMethod.POST)
   public AjaxResult update(Competition competition, MultipartHttpServletRequest uploadedFile) throws Exception {
     
-    /* 필수 데이터 (임시저장) */
-    competition.setTno(100);
     /* --------------- */
     if (uploadedFile != null) {
       Iterator<String> itr = uploadedFile.getFileNames();
