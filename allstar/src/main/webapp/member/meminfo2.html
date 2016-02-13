@@ -270,6 +270,7 @@
 	         success : function(result) {
 	         if (result.ajaxResult.status == "success") {
 	             alertify.alert("변경하였습니다.", function(){
+		             location.reload();
 	            	  $.getJSON('/allstar/member/ajax/detail.do?mno=' + $.session.get("mem_num"), function(resultObj) {
 	            	        var member = resultObj.members;
 	            	        $.session.set('mem_photo', member.photo);
