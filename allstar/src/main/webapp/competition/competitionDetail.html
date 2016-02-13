@@ -145,7 +145,7 @@
   <div class="txt-fld">
     <label for="acname">팀명</label>
     <div>
-        <select id="acname" class="good_input">
+        <select id="acname" class="good_input" onChange='changeAcEmblem(this.value)'>
         </select>
       </div>
   </div>
@@ -177,6 +177,7 @@ function saveFn(data, userData) {
     window.scoreOper = json;
 }
 </script>
+
 
 <script>
 var no = -1;
@@ -355,17 +356,37 @@ function getFormData() {
 	   if (ajaxResult.status == "success") {
 	     var team = ajaxResult.data;
 	     var acname = $("#acname");
+	     var myTeamMap = new Map();
+	     var firstTeam = 1;
 	     for(var t of team) {
 	       if (t.tno == tno)
 	         continue;
+	       console.log(t);
+	       myTeamMap.set(t.tno, t.emblem);
 	       var h = "<option value='" + t.tno + "'>" + t.name + "</option>";
 	       acname.append(h);
+	       if (firstTeam == 1) {
+	    	   if(t.emblem != null)
+	    	     $('#apply_preview_img').attr('src','../team/img/'+t.emblem);
+	    	   firstTeam--; 
+	       }
 	     }
 	     $("#acevent").text(ename);
+	     window.myTeamMap = myTeamMap;
 	   }
 	 });
+	
 }
 </script>
+<script>
+function changeAcEmblem(value) {
+	if (window.myTeamMap.get(value*1) == null)
+		$('#apply_preview_img').attr('src','../team/img/allstardefault.png');
+	else
+	  $('#apply_preview_img').attr('src','../team/img/'+window.myTeamMap.get(value*1));
+}
+</script>
+
 
 <!-- 참여한 팀 섬네일 출력 -->
 <script>
