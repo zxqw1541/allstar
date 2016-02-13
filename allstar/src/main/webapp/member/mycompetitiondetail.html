@@ -113,7 +113,17 @@ margin: 10px;
     
     
       <!-- 팀정보 -->
-      <div id="info" style="float:left; font-size:20px; padding: 50px;"></div>
+      <div class="info_tag" >
+  
+       <span style='display: inherit;'></span>
+    <span style='display: inherit;'>개최팀 </span><br>
+    <span style='display: inherit;'>종목 </span><br>
+    <span style='display: inherit;'>참여현황 </span><br>
+    <span style='display: inherit;'>모집일 </span><br>
+    <span style='display: inherit;'>대회일 </span><br>
+    <span style='display: inherit;'>개최지 </span><br>
+    </div>
+      <div id="info" style="float:left; font-size:20px; "></div>
       
       <div style="height:20px; width:100%; float:left;"></div>
       <!-- 가입신청현황 -->
@@ -193,16 +203,16 @@ $(function(){
             +"<span style='float:left; margin-left: 55px; margin-top: 75px;'><h1>" + c.name + "</h1></span>")
             .appendTo(div);
       
-      div = $("#info").css('width','310px');
+      div = $("#info").css('width','250px');
       $("<span style='display: inherit;'>")
-        .html("개최팀 : "+ c.team.name +" </span><br>"
-            + "<span style='display: inherit;'> 종목 : " + c.event.name + " </span><br>"
-            + "<span style='display: inherit;'> 참여현황 : " + c.joinNum + "/" + c.teamNum + " </span><br>"
-            + "<span style='display: inherit;'> 모집일 : " + c.recruitStartDate + "~" + c.recruitEndDate + "</span><br>"
-            + "<span style='display: inherit;'> 대회일 : " + c.startDate + "~" + c.endDate + " </span><br>"
+        .html("<span style='display: inherit;'>"+ c.team.name +" </span><br>"
+            + "<span style='display: inherit;'>" + c.event.name + " </span><br>"
+            + "<span style='display: inherit;'> " + c.joinNum + "/" + c.teamNum + " </span><br>"
+            + "<span style='display: inherit;'>" + c.recruitStartDate + "~" + c.recruitEndDate + "</span><br>"
+            + "<span style='display: inherit;'>" + c.startDate + "~" + c.endDate + " </span><br>"
             ).appendTo(div);
       $("<span >")
-        .html("개최지 :<br>" + c.baseAddr + "</span>")
+        .html("<span style='display: inherit;'>" + c.baseAddr + "</span>")
         .appendTo(div);
       
     }
@@ -284,12 +294,12 @@ $(function(){
                console.log(team);
                $("<ul>")
                .html("<li><img src='/allstar/team/img/"+team.emblem+"'></li>"
-                   +"<li><span>이름 : "+team.name+"</span></li>"
-                   +"<li><span>인원수 : "+team.joinNum+"</span></li>"
-                   +"<li><span>전적 : "+team.win+"승 "+team.lose+"패</span></li>"
-                   +"<li><span>연고지 : "+team.baseAddr+"</span></li>"
-                   +"<li><span>팀소개 : "+team.introduce+"</span></li>"
-                   +"<li><span>참가내용 : "+ajaxResult.data.content+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB; '>이름  &nbsp;&nbsp; &nbsp; &nbsp; </label><span> : "+team.name+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB;'>인원수  &nbsp; &nbsp; </label><span> : "+team.joinNum+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB;'>전적  &nbsp; &nbsp; &nbsp;&nbsp; </label><span> : "+team.win+"승 "+team.lose+"패</span></li>"
+                   +"<li><label style='font-family:nexonFontB; '>연고지  &nbsp; &nbsp; </label><span> : "+team.baseAddr+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB; '>팀소개  &nbsp; &nbsp; </label><span> : "+team.introduce+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB; '>참가내용&nbsp; </label><span>: "+ajaxResult.data.content+"</span></li>"
                    +"<button type='button' id='accept' teamNo='"+ tno +"' compNo='"+ cno +"'>승인</button>"
                    +"<button type='button' id='wait'   teamNo='"+ tno +"' compNo='"+ cno +"'>보류</button>"
                    +"<button type='button' id='denial' teamNo='"+ tno +"' compNo='"+ cno +"'>거절</button>")
