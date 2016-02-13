@@ -23,7 +23,6 @@
   <div class="element-file"><label class="title">사진</label><label class="large" ><div class="button">사진선택</div> <div id="deatil_member_div"><input id="fphoto"  type="file" class="file_input" name="file" ></div><div class="file_text">선택된 사진이 없음</div></label></div>
   <div class="element-input"><label class="title">우편번호</label><input id="fpst_no" class="large" type="text" name="input2" /><input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"></div>
   <div class="element-input"><label class="title">기본주소</label><input id="fbas_addr"  class="large" type="text" name="input3" /></div>
-  <div class="element-input"><label class="title">영문주소</label><input  id="sample2_addressEnglish"  class="large" type="text" name="input4" /></div>
   
   <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
 <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
@@ -55,7 +54,6 @@
 
                 document.getElementById('fpst_no').value = data.zonecode; //5자리 새우편번호 사용
                 document.getElementById('fbas_addr').value = fullAddr;
-                document.getElementById('sample2_addressEnglish').value = data.addressEnglish;
 
                 element_layer.style.display = 'none';
             },
