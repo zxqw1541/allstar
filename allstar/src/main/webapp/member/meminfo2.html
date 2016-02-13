@@ -247,6 +247,11 @@
 	       }
 	     }
 	     
+	     if ($('#fage').val() == null) {
+	    	 alertify.alert('나이를 선택해주세요');
+	    	 return;
+	     }
+	     
 	     data.append('mno',$.session.get("mem_num"));
 	     data.append('name',$('#fname').val());
 	     data.append('email',$('#femail').val());
