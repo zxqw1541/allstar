@@ -110,10 +110,21 @@ margin: 10px;
 
 
 <!-- 팀정보 -->
-<div id="info" style="float:left; font-size:20px; ">
+<div class="info_tag" >
+  
+    <span style='display: inherit;'></span>
+    <span style='display: inherit;'>팀장 </span><br>
+    <span style='display: inherit;'>정모일 </span><br>
+    <span style='display: inherit;'>종목 </span><br>
+    <span style='display: inherit;'>가입현황 </span><br>
+    <span style='display: inherit;'>전적 </span><br>
+    <span style='display: inherit;'>연고지 </span><br>
+    </div>
+<div id="info" style="float:left; font-size:20px; width:250px;">
 
 </div>
 <!-- 팀정보 끝 -->
+
 <div style="height:20px; width:100%; float:left;"></div>
 <!-- 가입신청현황 -->
 <div id="apply_state"  style="float:left;">
@@ -149,6 +160,7 @@ margin: 10px;
       
       
 		</div>
+		
 		  <div id="stateChange" >
 	</div>
 	<div style="height:500px;"></div>
@@ -223,12 +235,12 @@ $.getJSON('/allstar/team/ajax/detail.do?tno=' + tno, function(resultObj) {
 		  var team = ajaxResult.data;
 		  var div = $("#info");
 		  $("<span style='display: inherit;'>")
-		  .html("<span  style='display: inherit;'>팀장 : "+ captain +" </span><br>"
-				  + "<span style='display: inherit;'> 정모일 : "+team.meetDay+" </span><br>"
-				  +"  <span style='display: inherit;'> 종목 : "+team.event.name+" </span><br>"
-				  +"<span style='display: inherit;'> 가입현황 : "+team.joinNum+"명 / "+team.totalNum+"명 </span><br>"
-				  +"  <span style='display: inherit;'> 전적 : "+team.win+"승 "+team.draw+"무 "+team.lose+"패 </span><br>"
-				  +"<span >연고지 : "+team.baseAddr+"</span><br>"
+		  .html("<span  style='display: inherit;'>"+ captain +" </span><br>"
+				  + "<span style='display: inherit;'>"+team.meetDay+" </span><br>"
+				  +"  <span style='display: inherit;'> "+team.event.name+" </span><br>"
+				  +"<span style='display: inherit;'> "+team.joinNum+"명 / "+team.totalNum+"명 </span><br>"
+				  +"  <span style='display: inherit;'> "+team.win+"승 "+team.draw+"무 "+team.lose+"패 </span><br>"
+				  +"<span >"+team.baseAddr+"</span><br>"
 				  ).appendTo(div);
 	});
 
@@ -275,12 +287,12 @@ $.getJSON('/allstar/team/ajax/detail.do?tno=' + tno, function(resultObj) {
 	     var div = $('#stateChange');
 	     $("<ul>")
 	     .html("<li><img src='/allstar/member/img/"+photo+"'></li>"
-	         +"<li><span>아이디 : "+member.id+"</span></li>"
-	         +"<li><span>이름 : "+member.name+"</span></li>"
-	         +"<li><span>성별 : "+member.gender+"</span></li>"
-	         +"<li><span>나이 : "+member.age+"</span></li>"
-	         +"<li><span>주소 : "+member.bas_addr+"</span></li>"
-	         +"<li><span>자기소개 : "+member.introduce+"</span></li>"
+	         +"<li><label style='font-family:nexonFontB; '>아이디 &nbsp;&nbsp; : </label><span>"+member.id+"</span></li>"
+	         +"<li><label style='font-family:nexonFontB;'>이름 &nbsp; &nbsp; &nbsp; : </label><span>"+member.name+"</span></li>"
+	         +"<li><label style='font-family:nexonFontB;'>성별 &nbsp; &nbsp; &nbsp; : </label><span>"+member.gender+"</span></li>"
+	         +"<li><label style='font-family:nexonFontB;'>나이 &nbsp; &nbsp; &nbsp; : </label><span>"+member.age+"</span></li>"
+	         +"<li><label style='font-family:nexonFontB;'>주소 &nbsp; &nbsp; &nbsp; : </label><span> "+member.bas_addr+"</span></li>"
+	         +"<li><label style='font-family:nexonFontB;'>자기소개 :  </label><span>"+member.introduce+"</span></li>"
 	         +"<button type='button' id='accept' memberNo='"+ member.mno +"' teamNo='"+ $(event.currentTarget).attr("teamNo") +"'>승인</button>"
 	         +"<button type='button' id='wait' memberNo='"+ member.mno +"' teamNo='"+ $(event.currentTarget).attr("teamNo")  +"'>보류</button>"
 	         +"<button type='button' id='denial' memberNo='"+ member.mno +"' teamNo='"+ $(event.currentTarget).attr("teamNo")  +"'>거절</button>")

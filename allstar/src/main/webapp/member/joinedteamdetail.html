@@ -178,12 +178,12 @@ $.getJSON('/allstar/team/ajax/detail.do?tno=' + tno ,function(resultObj){
 		emblem = "allstardefault.png";
 $("<p>")
 .html("<img style='width:350px; height:350px;' src='/allstar/team/img/"+emblem+"'><br> <span></span><br>"
-		+"<span> 팀명 : "+team.name+"</span><br> <span></span><br>"
-		+"<span> 장소 : "+ team.baseAddr +" </span><br> <span></span><br>"
-		+"<span> 정모일 : "+ team.meetDay +" </span><br> <span></span><br>"
-		+"<span> 회비 : "+ team.fee +" </span><br> <span></span><br>"
-		+"<span> 전적 : "+ team.win +" 승 "+team.draw+" 무 "+team.lose+" 패</span><br> <span></span><br>"
-		+"<span> 팀 소개 : "+ team.introduce +" </span><br>"
+		+"<label style='font-family:nexonFontB; font-size:25px;'>팀명 &nbsp; &nbsp; &nbsp; &nbsp; </label><span> &nbsp; "+team.name+"</span><br> <span></span><br>"
+		+"<label style='font-family:nexonFontB; font-size:25px;'>장소 &nbsp; &nbsp; &nbsp; &nbsp; </label><span> &nbsp;"+ team.baseAddr +" </span><br> <span></span><br>"
+		+"<label style='font-family:nexonFontB; font-size:25px;'>정모일 &nbsp; &nbsp; &nbsp; </label><span> &nbsp;"+ team.meetDay +" </span><br> <span></span><br>"
+		+"<label style='font-family:nexonFontB; font-size:25px;'>회비 &nbsp; &nbsp; &nbsp; &nbsp; </label><span> &nbsp; "+ team.fee +" </span><br> <span></span><br>"
+		+"<label style='font-family:nexonFontB; font-size:25px;'>전적 &nbsp; &nbsp; &nbsp; &nbsp; </label><span> &nbsp;"+ team.win +" 승 "+team.draw+" 무 "+team.lose+" 패</span><br> <span></span><br>"
+		+"<label style='font-family:nexonFontB; font-size:25px;'>팀 소개 &nbsp;&nbsp;  </label><span> &nbsp; "+ team.introduce +" </span><br>"
 		+"</p>").appendTo(li);
 });        
 
@@ -204,12 +204,12 @@ $("<p>")
 	      var div = $('#stateChange');
 	      $("<ul>")
 	      .html("<li><img src='/allstar/member/img/"+photo+"'></li>"
-	          +"<li><span>아이디 : "+member.id+"</span></li>"
-	          +"<li><span>이름 : "+member.name+"</span></li>"
-	          +"<li><span>성별 : "+member.gender+"</span></li>"
-	          +"<li><span>나이 : "+member.age+"</span></li>"
-	          +"<li><span>주소 : "+member.baseAddr+"</span></li>"
-	          +"<li><span>자기소개 : "+member.introduce+"</span></li>")
+	          +"<li><label style='font-family:nexonFontB;'>아이디 &nbsp;&nbsp;&nbsp;&nbsp;</label><span> : "+member.id+"</span></li>"
+	          +"<li><label style='font-family:nexonFontB;'>이름 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><span> : "+member.name+"</span></li>"
+	          +"<li><label style='font-family:nexonFontB;'>성별 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><span> : "+member.gender+"</span></li>"
+	          +"<li><label style='font-family:nexonFontB;'>나이 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><span> : "+member.age+"</span></li>"
+	          +"<li><label style='font-family:nexonFontB;'>주소 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><span> : "+member.baseAddr+"</span></li>"
+	          +"<li><label style='font-family:nexonFontB;'>자기소개&nbsp; </label><span> : "+member.introduce+"</span></li>")
 	          .appendTo(div);
 
 	    });

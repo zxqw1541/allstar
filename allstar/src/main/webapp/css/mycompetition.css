@@ -1,4 +1,12 @@
+@font-face {
+    font-family: 'nexonFontB';
+    src: url("/allstar/fonts/NEXON Football Gothic B.otf") format("opentype");
+}
 
+@font-face {
+    font-family: 'nexonFontL';
+    src: url("/allstar/fonts/NEXON Football Gothic L.otf") format("opentype");
+}
 #apply_state{
 float:left;
 }
@@ -11,7 +19,13 @@ padding:10px;
 }
 #apply_state li {
 }
-
+.info_tag {
+  font-family: 'nexonFontB';
+  float:left; 
+  font-size:20px;
+  width:125px; 
+  text-align:left;
+}
 #apply_alert {
 float:right; 
 margin:10px; 
@@ -28,6 +42,7 @@ height: 400px;
 float:right; 
 margin-top: 125px; 
 overflow-y:auto;
+border:black 1px solid; 
 }
 #mem_list figure{
   margin: 30px;

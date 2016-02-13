@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'nexonFontB';
+    src: url("/allstar/fonts/NEXON Football Gothic B.otf") format("opentype");
+}
+
+@font-face {
+    font-family: 'nexonFontL';
+    src: url("/allstar/fonts/NEXON Football Gothic L.otf") format("opentype");
+}
 
 #apply_state{
 float:left;
@@ -40,7 +49,13 @@ width:150px;
 height:140px;
 }
 
-
+.info_tag {
+	font-family: 'nexonFontB';
+	float:left; 
+	font-size:20px;
+	width:125px; 
+	text-align:left;
+}
 
 #team_information span {
 font-size: 25px;

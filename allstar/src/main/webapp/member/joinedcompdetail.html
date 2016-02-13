@@ -189,11 +189,11 @@ $(function(){
 	      emblem = "allstardefault.png";
 	    $("<p>")
 	    .html("<img style='width:350px; height:350px;' src='/allstar/competition/img/"+poster+"'><br> <span></span><br>"
-	        +"<span> 대회명 : "+c.name+"</span><br> <span></span><br>"
-	        + "<span > 종목 : " + c.event.name + " </span><br> <span></span><br>"
-	        + "<span > 참여현황 : " + c.joinNum + "/" + c.teamNum + " </span><br> <span></span><br>"
-	        + "<span > 모집일 : " + c.recruitStartDate + "~" + c.recruitEndDate + "</span><br> <span></span><br>"
-	        + "<span > 대회일 : " + c.startDate + "~" + c.endDate + " </span><br> <span></span><br>").appendTo(li);
+	        +"<label style='font-family:nexonFontB; font-size:25px;'>대회명  &nbsp; &nbsp; </label><span>  "+c.name+"</span><br> <span></span><br>"
+	        + "<label style='font-family:nexonFontB; font-size:25px;'>종목  &nbsp; &nbsp; &nbsp; &nbsp; </label><span > " + c.event.name + " </span><br> <span></span><br>"
+	        + "<label style='font-family:nexonFontB; font-size:25px;'>참여현황  &nbsp; </label><span >  " + c.joinNum + "/" + c.teamNum + " </span><br> <span></span><br>"
+	        + "<label style='font-family:nexonFontB; font-size:25px;'>모집일  &nbsp; &nbsp; </label><span >" + c.recruitStartDate + "~" + c.recruitEndDate + "</span><br> <span></span><br>"
+	        + "<label style='font-family:nexonFontB; font-size:25px;'>대회일  &nbsp; &nbsp; </label><span >  " + c.startDate + "~" + c.endDate + " </span><br> <span></span><br>").appendTo(li);
 	    });      
 	    
    $.getJSON('../competition/jclist.do?cno=' + cno ,function(resultObj){
@@ -235,12 +235,12 @@ $(function(){
                console.log(team);
                $("<ul>")
                .html("<li><img src='../team/img/"+team.emblem+"'></li>"
-                   +"<li><span>이름 : "+team.name+"</span></li>"
-                   +"<li><span>인원수 : "+team.joinNum+"</span></li>"
-                   +"<li><span>전적 : "+team.win+"승 "+team.lose+"패</span></li>"
-                   +"<li><span>연고지 : "+team.baseAddr+"</span></li>"
-                   +"<li><span>팀소개 : "+team.introduce+"</span></li>"
-                   +"<li><span>참가내용 : "+ajaxResult.data.content+"</span></li>")
+                   +"<li><label style='font-family:nexonFontB; '>이름  &nbsp;&nbsp; &nbsp; &nbsp; </label><span> : "+team.name+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB; '>인원수  &nbsp; &nbsp; </label><span> : "+team.joinNum+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB; '>전적  &nbsp;&nbsp; &nbsp; &nbsp; </label><span> : "+team.win+"승 "+team.lose+"패</span></li>"
+                   +"<li><label style='font-family:nexonFontB; '>연고지  &nbsp; &nbsp; </label><span> : "+team.baseAddr+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB; '>팀소개  &nbsp; &nbsp; </label><span> : "+team.introduce+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB; '>참가내용&nbsp; </label><span>: "+ajaxResult.data.content+"</span></li>")
                    .appendTo(div);
 
              }
