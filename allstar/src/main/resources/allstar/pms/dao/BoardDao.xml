@@ -83,10 +83,10 @@
     </if>
     <if test="reply == 'low'">
       <if test="date != 'null'"> ,(select count(*) from boar_comm where bno=b.bno) asc </if>
-      <if test="date == 'null'"> ,(select count(*) from boar_comm where bno=b.bno) asc </if>
+      <if test="date == 'null'"> (select count(*) from boar_comm where bno=b.bno) asc </if>
     </if>
     
-    <if test="date == 'null' and reply == 'null'"> order by </if>
+<!--     <if test="date == 'null' and reply == 'null'"> order by </if>
     
     <choose>
       <when test="keyword == 'views'">b.views </when>
@@ -97,7 +97,7 @@
     <choose>
       <when test="align == 'asc'">asc </when>
       <otherwise>desc </otherwise>
-    </choose>
+    </choose> -->
     
     limit #{startIndex}, #{length}
   </select>
