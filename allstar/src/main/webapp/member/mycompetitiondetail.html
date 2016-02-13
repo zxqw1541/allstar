@@ -226,7 +226,7 @@ $(function(){
           ul = $("#new_apply");
           $("<li data-tno='"+joinComp.team.tno+"'>")
           .html("<a href='#stateChange'  rel='leanModal' teamNo='"+joinComp.team.tno+"' class='stateChan'><span>신청일 : "+joinComp.createDate+"</span>"
-              +"<span>아이디 : "+joinComp.team.name+"</span></a> ").appendTo(ul);
+              +"<span>팀명 : "+joinComp.team.name+"</span></a> ").appendTo(ul);
         }
         // 참가중인 팀
         else if (joinComp.state == 1) {

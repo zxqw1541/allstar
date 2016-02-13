@@ -217,6 +217,8 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
     	  tourStyle = 'margin-top:50px;';
       } else if (c.joinNum > 4 && c.joinNum <= 8) {
     	  tourStyle = 'margin-top:250px;';
+      } else if (c.joinNum > 8 && c.joinNum <= 16) {
+    	  tourStyle = 'margin-top:530px;';
       }
       
       var sub_article = $("#subject")
@@ -270,36 +272,33 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
 
     	//mno, session값 비교(로그인확인)
     	function confirmMaster(mno) {
-    		console.log("1");
+    		if (c.operation == null) {
+    			c.operation = '{"teams":[],"results":[]}'; 
+    		}
+    		
     	  if (mno == sessionStorage.getItem("mem_num")) {
-    		  console.log("2");
     		  window.master = true;
     		  if (status == '대회중') {
-    			  console.log("3");
     			  $('#randomTour').css('display' , 'none');
    				  $('#enrollTour').css('display' , '');
    				  $('#sendResult').css('display' , '');
 		        $('#minimal .demo').bracket({init: JSON.parse(c.operation), save:saveFn});
     		  } else {
-    			  console.log("4");
    				  $('#minimal .demo').bracket({init: JSON.parse(c.operation)});
     			  $('#randomTour').css('display' , 'none');
     			  $('#sendResult').css('display' , 'none');
     			  $('#enrollTour').css('display' , 'none');
     			  if (status == '대회준비중') {
-    				  console.log("5");
     				  $('#randomTour').css('display' , '');
     				  $('#sendResult').css('display' , 'none');
     				  $('#enrollTour').css('display' , '');
     			  } else if (status == '대회종료') {
-    				  console.log("6");
     				  $('#randomTour').css('display' , 'none');
     				  $('#enrollTour').css('display' , '');
     				  $('#sendResult').css('display' , '');
     			  }
     		  }
     	  } else {
-    		  console.log("7");
     		  $('#sendResult').css('display' , 'none');
     		  $('#enrollTour').css('display' , 'none');
     		  $('#randomTour').css('display' , 'none');

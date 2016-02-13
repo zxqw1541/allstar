@@ -15,7 +15,9 @@ public class TournamentHelper {
    */
   @SuppressWarnings("unchecked")
   public static String makeTournament(List<Team> joinTeamList) {
-    
+    System.out.println("=============================================");
+    System.out.println("TeamList => " + joinTeamList);
+    System.out.println("=============================================");
     int realCount = joinTeamList.size();
     int teamCount = makePowerOfTwo(realCount);
     int undefinedCount = 0;
@@ -74,6 +76,10 @@ public class TournamentHelper {
       results.add(rounds);
     }
     jsonroot.put("results", results);
+    
+    System.out.println("=============================================");
+    System.out.println("JSONObject => " + jsonroot);
+    System.out.println("=============================================");
     
     return jsonroot.toJSONString();
   }

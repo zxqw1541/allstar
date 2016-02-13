@@ -184,7 +184,7 @@ public class CompetitionController {
   
   @RequestMapping(value = "updateTour", method = RequestMethod.POST)
   public AjaxResult updateTour(int no, String operation) throws Exception {
-    System.out.println(operation);
+    System.out.println("operation => " + operation);
     if (competitionService.changeTournament(no, operation) <= 0)
       return new AjaxResult("failure", null);
     return new AjaxResult("success", null);
@@ -294,7 +294,7 @@ public class CompetitionController {
       joinCompService.changeState(tno, cno, state);
     }
     else if (state == 1) {
-    // 꽉찼을때
+      // 꽉찼을때
       Competition c = competitionService.getJoinNTeamNum(cno);
       if (c.getJoinNum() >= c.getTeamNum()) {
         return new AjaxResult("full", null);
