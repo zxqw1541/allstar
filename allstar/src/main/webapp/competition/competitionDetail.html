@@ -145,7 +145,7 @@
   <div class="txt-fld">
     <label for="acname">팀명</label>
     <div>
-        <select id="acname" class="good_input">
+        <select id="acname" class="good_input" onChange='changeAcEmblem(this.value)'>
         </select>
       </div>
   </div>
@@ -177,6 +177,7 @@ function saveFn(data, userData) {
     window.scoreOper = json;
 }
 </script>
+
 
 <script>
 var no = -1;
@@ -269,29 +270,36 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
 
     	//mno, session값 비교(로그인확인)
     	function confirmMaster(mno) {
+    		console.log("1");
     	  if (mno == sessionStorage.getItem("mem_num")) {
+    		  console.log("2");
     		  window.master = true;
     		  if (status == '대회중') {
+    			  console.log("3");
     			  $('#randomTour').css('display' , 'none');
    				  $('#enrollTour').css('display' , '');
    				  $('#sendResult').css('display' , '');
 		        $('#minimal .demo').bracket({init: JSON.parse(c.operation), save:saveFn});
     		  } else {
+    			  console.log("4");
    				  $('#minimal .demo').bracket({init: JSON.parse(c.operation)});
     			  $('#randomTour').css('display' , 'none');
     			  $('#sendResult').css('display' , 'none');
     			  $('#enrollTour').css('display' , 'none');
     			  if (status == '대회준비중') {
+    				  console.log("5");
     				  $('#randomTour').css('display' , '');
     				  $('#sendResult').css('display' , 'none');
     				  $('#enrollTour').css('display' , '');
     			  } else if (status == '대회종료') {
+    				  console.log("6");
     				  $('#randomTour').css('display' , 'none');
     				  $('#enrollTour').css('display' , '');
     				  $('#sendResult').css('display' , '');
     			  }
     		  }
     	  } else {
+    		  console.log("7");
     		  $('#sendResult').css('display' , 'none');
     		  $('#enrollTour').css('display' , 'none');
     		  $('#randomTour').css('display' , 'none');
@@ -355,17 +363,37 @@ function getFormData() {
 	   if (ajaxResult.status == "success") {
 	     var team = ajaxResult.data;
 	     var acname = $("#acname");
+	     var myTeamMap = new Map();
+	     var firstTeam = 1;
 	     for(var t of team) {
 	       if (t.tno == tno)
 	         continue;
+	       console.log(t);
+	       myTeamMap.set(t.tno, t.emblem);
 	       var h = "<option value='" + t.tno + "'>" + t.name + "</option>";
 	       acname.append(h);
+	       if (firstTeam == 1) {
+	    	   if(t.emblem != null)
+	    	     $('#apply_preview_img').attr('src','../team/img/'+t.emblem);
+	    	   firstTeam--; 
+	       }
 	     }
 	     $("#acevent").text(ename);
+	     window.myTeamMap = myTeamMap;
 	   }
 	 });
+	
 }
 </script>
+<script>
+function changeAcEmblem(value) {
+	if (window.myTeamMap.get(value*1) == null)
+		$('#apply_preview_img').attr('src','../team/img/allstardefault.png');
+	else
+	  $('#apply_preview_img').attr('src','../team/img/'+window.myTeamMap.get(value*1));
+}
+</script>
+
 
 <!-- 참여한 팀 섬네일 출력 -->
 <script>
@@ -773,13 +801,6 @@ $('body').on('click','#randomTour', function() {
 	if (window.master == true) {
 		$('#minimal .demo').bracket({init: window.newTour});
 	}
-	
-	/*
-	console.log("1 scoreOper ==> " + window.scoreOper);
-  console.log("1 lastOper ==> " + window.lastOperation);
-  console.log("1 windowOper ==> " + window.operation);
-  console.log("1 newTour ==> " + JSON.stringify(window.newTour));
-  */
 });
 
 function shuffleArray(array) {
@@ -820,14 +841,7 @@ $('body').on('click','#enrollTour', function() {
 	  data.append('operation', JSON.stringify(window.newTour));
 	  window.lastOperation = JSON.stringify(window.newTour);
   }
-  
-  /*
-	console.log("2 scoreOper ==> " + window.scoreOper);
-  console.log("2 lastOper ==> " + window.lastOperation);
-  console.log("2 windowOper ==> " + window.operation);
-  console.log("2 newTour ==> " + JSON.stringify(window.newTour));
-  */
-  
+
   $.ajax({
       url : "/allstar/competition/updateTour.do",
       data : data,
@@ -856,13 +870,6 @@ var no = location.href.split('?')[1].split('=')[1];
 
 $('body').on('click','#sendResult', function() {
 
-	/*
-  console.log("3 scoreOper ==> " + window.scoreOper);
-  console.log("3 lastOper ==> " + window.lastOperation);
-  console.log("3 windowOper ==> " + window.operation);
-  console.log("3 newTour ==> " + JSON.stringify(window.newTour));
-  */
-  
   if (window.lastOper == undefined) {
 	  if (window.scoreOper != undefined && window.operation != window.scoreOper) {
 		  alertify.alert("등록 후 전송버튼을 눌러주세요!");

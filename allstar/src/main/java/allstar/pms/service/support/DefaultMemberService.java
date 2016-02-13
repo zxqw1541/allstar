@@ -24,6 +24,26 @@ public class DefaultMemberService implements MemberService{
     return memberDao.selectList(paramMap);
   }
   
+  public  List<Member> idRedundancyCheck(String id) {
+    return memberDao.checkID(id);
+  }
+  
+  public  List<Member> emailRedundancyCheck(int mno, String email) {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("mno", mno);
+    paramMap.put("email", email);
+    
+    return memberDao.checkEmail(paramMap);
+  }
+  
+  public  List<Member> telRedundancyCheck(int mno, String tel) {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("mno", mno);
+    paramMap.put("tel", tel);
+    
+    return memberDao.checkTel(paramMap);
+  }
+  
   public  int register (Member member) {
     return memberDao.insert(member);
   }

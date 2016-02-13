@@ -40,7 +40,6 @@
          introduce
 </sql>
 
-
 	<select id="selectList" resultType="member" parameterType="map">
 		<include refid="select_inc"/>
 		 from member order by
@@ -58,6 +57,18 @@
 		limit #{startIndex}, #{length}
 	</select>
 	
+	<select id="checkID" resultType="member" parameterType="string">
+    select * from member where id=#{id}
+  </select>
+  
+  <select id="checkEmail" resultType="member" parameterType="map">
+    select * from member where email=#{email} and mno!=#{mno}
+  </select>
+  
+  <select id="checkTel" resultType="member" parameterType="map">
+    select * from member where tel=#{tel} and mno!=#{mno}
+  </select>
+  
 	<insert id="insert" parameterType="member">
 		insert into member( id, pwd , name, email, tel , photo, pst_no, 
   address ,bas_addr, gender, age, introduce )

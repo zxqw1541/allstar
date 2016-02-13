@@ -1,7 +1,8 @@
 @CHARSET "UTF-8";
 
 /* 모달 아래 버튼 검게 */
-button { float: right; background:black; border:none; width:auto; overflow:visible; font-size:1.4em; color: #fff; padding: 7px 10px; font-weight:bold; text-shadow: 0 1px 0 rgba(0,0,0,0.4);}
+#regTeamBtn, #applyJoinBtn, #delTeamBtn, #modTeamBtn, #applyBtn
+ { float: right; background:black; border:none; width:auto; overflow:visible; font-size:1.4em; color: #fff; padding: 7px 10px; font-weight:bold; text-shadow: 0 1px 0 rgba(0,0,0,0.4);}
 #regTeamBtn { margin-right:70px;}
 
 /* 모달 x 버튼 */

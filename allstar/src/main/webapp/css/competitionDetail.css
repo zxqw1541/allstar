@@ -248,3 +248,7 @@ h3.sideInfoTitle{float:left; margin:15px 3px}
 #detail_team-header .modal_close { width:20px; height:20px; background-size:20px; border:0px; margin-right: 0px;}
 #apply_comp-header .modal_close { width:20px; height:20px; background-size:20px; border:0px;}
  
+ 
+/* 참가신청 사진  */
+#apply_preview_img { width:150px; top:-9999px; bottom:-9999px; left:-9999px; right:-9999px; position:absolute; margin:auto;}
+#apply_comp_img {float:right; position:relative; width:150px;height:138px; margin-top:10px; margin-right:5px; overflow:hidden;}

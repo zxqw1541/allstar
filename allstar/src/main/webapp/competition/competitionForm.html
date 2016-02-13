@@ -15,6 +15,7 @@
 <link rel="Shortcut Icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 <link rel="icon" href="http://s.nx.com/s2/game/tos/common/farvicon.ico" type="image/x-icon" />
 
+<script src="../lib/alertify.js/alertify.js"></script>
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../js/modernizr.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -258,42 +259,42 @@ $(function() {
           data.append('file', file)
         });
         if($('#fname').val() == "") {
-          alert('대회명을 입력하세요');
+          alertify.alert('대회명을 입력하세요');
             return;
         }
         if($('#fteamNum').val() == "") {
-          alert('인원수를 입력하세요');
+        	alertify.alert('인원수를 입력하세요');
             return;
         }
         if($('#fcost').val() == "") {
-          alert('회비를 입력하세요');
+        	alertify.alert('회비를 입력하세요');
             return;
         }
         if($('#frecruitStartDate').val() == "") {
-            alert('모집시작일을 입력하세요');
+        	alertify.alert('모집시작일을 입력하세요');
               return;
         }
         if($('#frecruitEndDate').val() == "") {
-            alert('모집마감일을 입력하세요');
+        	alertify.alert('모집마감일을 입력하세요');
               return;
         }
         if($('#fstartDate').val() == "") {
-            alert('대회시작일을 입력하세요');
+        	alertify.alert('대회시작일을 입력하세요');
               return;
         }if($('#fendDate').val() == "") {
-            alert('대회마감일을 입력하세요');
+        	alertify.alert('대회마감일을 입력하세요');
             return;
         }
         if($('#fpostno').val() == "") {
-          alert('우편번호를 입력하세요');
+        	alertify.alert('우편번호를 입력하세요');
             return;
         }
         if($('#faddr').val() == "") {
-          alert('연고지를 입력하세요');
+        	alertify.alert('연고지를 입력하세요');
             return;
         }
         if($('#fcontent').val() == "") {
-          alert('팀소개를 입력하세요');
+        	alertify.alert('팀소개를 입력하세요');
             return;
         }
         
@@ -323,14 +324,14 @@ $(function() {
           contentType:false,
           success : function(result) {
           if (result.ajaxResult.status == "success") {
-            alert("수정 완료!");
+        	  alertify.alert("수정 완료!");
             location.href = "competitionDetail.html?no=" + no;
           } else {
-              alert("수정 실패!");
+        	  alertify.alert("수정 실패!");
          }
        },
        error : function(result){
-          alert('error');
+    	   alertify.alert('error');
        }
      });
   });
@@ -348,42 +349,42 @@ $(function() {
           data.append('file', file)
         });
         if($('#fname').val() == "") {
-          alert('대회명을 입력하세요');
+        	alertify.alert('대회명을 입력하세요');
             return;
         }
         if($('#fteamNum').val() == "") {
-          alert('인원수를 입력하세요');
+        	alertify.alert('인원수를 입력하세요');
             return;
         }
         if($('#fcost').val() == "") {
-          alert('회비를 입력하세요');
+        	alertify.alert('회비를 입력하세요');
             return;
         }
         if($('#frecruitStartDate').val() == "") {
-            alert('모집시작일을 입력하세요');
+        	alertify.alert('모집시작일을 입력하세요');
               return;
         }
         if($('#frecruitEndDate').val() == "") {
-            alert('모집마감일을 입력하세요');
+        	alertify.alert('모집마감일을 입력하세요');
               return;
         }
         if($('#fstartDate').val() == "") {
-            alert('대회시작일을 입력하세요');
+        	alertify.alert('대회시작일을 입력하세요');
               return;
         }if($('#fendDate').val() == "") {
-            alert('대회마감일을 입력하세요');
+        	alertify.alert('대회마감일을 입력하세요');
             return;
         }
         if($('#fpostno').val() == "") {
-          alert('우편번호를 입력하세요');
+        	alertify.alert('우편번호를 입력하세요');
             return;
         }
         if($('#faddr').val() == "") {
-          alert('연고지를 입력하세요');
+        	alertify.alert('연고지를 입력하세요');
             return;
         }
         if($('#fcontent').val() == "") {
-          alert('팀소개를 입력하세요');
+        	alertify.alert('팀소개를 입력하세요');
             return;
         }
         
@@ -410,14 +411,14 @@ $(function() {
           contentType:false,
           success : function(result) {
           if (result.ajaxResult.status == "success") {
-            alert("대회를 등록하였습니다.");
+        	  alertify.alert("대회를 등록하였습니다.");
             location.href = "competitionList.html";
           } else {
-              alert("대회등록에 실패했습니다.");
+        	  alertify.alert("대회등록에 실패했습니다.");
          }
        },
        error : function(result){
-          alert('error');
+    	   alertify.alert('error');
        }
      });
   });

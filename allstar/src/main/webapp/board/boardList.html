@@ -89,8 +89,8 @@ $(function() {
               </select>
               <select id="breply" onchange="sorting()">
 	              <option value='-1'>댓글</option>
-	              <option value='low'>많은순</option>
-	              <option value='high'>적은순</option>
+	              <option value='high'>많은순</option>
+	              <option value='low'>적은순</option>
               </select>
               </form>
           </div>
@@ -746,11 +746,18 @@ function makeSortingURL(url, eventVal, dateVal, replyVal) {
           if (dateVal != checkOption) {
             if (url.indexOf('date') == checkIndex) url = url + '?date=' + dateVal;
             else url = updateURLParameter(url, 'date', dateVal);
-          }
             if (replyVal != checkOption) {
-              if (url.indexOf('reply') == checkIndex) url = url + '&reply=' + replyVal;
+                if (url.indexOf('reply') == checkIndex) url = url + '&reply=' + replyVal;
+                else url = updateURLParameter(url, 'reply', replyVal);
+            }
+          }
+          else {
+            if (replyVal != checkOption) {
+              if (url.indexOf('reply') == checkIndex) url = url + '?reply=' + replyVal;
               else url = updateURLParameter(url, 'reply', replyVal);
             }
+          }
+        	  
         }
     }else {
           if (eventVal != checkOption) {
