@@ -282,7 +282,12 @@
 	            	  });
 		             location.href = "/allstar/member/Member_info.html";
 	             });
-	           } else {
+	         } else if (result.ajaxResult.status == "existEmail") {
+	        	 alertify.alert('이미 존재하는 이메일입니다.');
+	         } else if (result.ajaxResult.status == "existTel") {
+	        	 alertify.alert('이미 존재하는 전화번호입니다.');
+	         }
+	         else {
 	        	   alertify.alert('변경하지 못했습니다.');
 	           }
 	         },
