@@ -289,11 +289,17 @@ public class CompetitionController {
   
   @RequestMapping(value="changeState", method=RequestMethod.POST)
   public AjaxResult changeStateJoinComp(int cno, int tno, int state) {
-    
-    if(state != 1) {
-      joinCompService.changeState(tno, cno, state);
-    }
-    else if (state == 1) {
+    int preState = joinCompService.getState(tno, cno);
+        
+    log.debug("--------상태-------------");
+    log.debug(preState);
+
+    //승인 눌렀을 때 
+    if (state == 1) {
+      // 원래 승인상태였으면 패스
+      if (preState == 1)
+        return new AjaxResult("success", null);
+      
       // 꽉찼을때
       Competition c = competitionService.getJoinNTeamNum(cno);
       if (c.getJoinNum() >= c.getTeamNum()) {
@@ -320,8 +326,36 @@ public class CompetitionController {
       log.debug("-------------------------------------------------------");
       /*--------- */
       competitionService.change(competition);
+      return new AjaxResult("success", null);
     }
     
+    
+    // 승인이 아닐때
+    joinCompService.changeState(tno, cno, state);
+    
+    // 승인-> 취소할 때 현재인원 내리고 대진표 다시작성 
+    if (preState == 1) {
+      competitionService.minus1JoinNum(cno);
+      
+      // 대진표 재작성
+      List<Integer> tnoList = joinCompService.getTnoList(cno);
+      List<Team> teamList = new ArrayList<>();
+          
+      for (int i = 0; i < tnoList.size(); i++) {
+        teamList.add(teamService.retrieve(tnoList.get(i)));
+      }
+      
+      Competition competition = competitionService.retrieve(cno);
+      
+      String oper = TournamentHelper.makeTournament(teamList);
+      competition.setOperation(oper);
+      log.debug("-------------------------------------------------------");
+      log.debug("oper = " + oper);
+      log.debug("-------------------------------------------------------");
+      /*--------- */
+      competitionService.change(competition);
+    }
+      
     return new AjaxResult("success", null);
   }
   

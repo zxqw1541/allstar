@@ -25,4 +25,6 @@ public interface JoinCompDao {
   List<Integer> selectTnoListState1(int cno);
   
   List<JoinComp> selectJoinedComp(int mno);
+  
+  int selectState(Map<String, Integer> paramMap);
 }

@@ -168,6 +168,12 @@
     where cno = #{cno}
   </update>
   
+  <update id="minusJoinNumByCno" parameterType="int">
+    update competition set
+      join_num = join_num - 1
+    where cno = #{cno}
+  </update>
+  
   <select id="selectJoinNTeamNum" resultMap="CompetitionMap" parameterType="int">
     select join_num, team_num
     from competition

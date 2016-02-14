@@ -25,6 +25,8 @@ public interface CompetitionDao {
 
   int plusJoinNumByCno(int cno);
   
+  int minusJoinNumByCno(int cno);
+  
   Competition selectJoinNTeamNum(int cno);
   
   int selectMaxCno();
