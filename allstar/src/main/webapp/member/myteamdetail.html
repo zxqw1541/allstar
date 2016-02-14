@@ -279,7 +279,7 @@ $.getJSON('/allstar/team/ajax/detail.do?tno=' + tno, function(resultObj) {
 		 $('#stateChange').empty();
 	   console.log("memberNo: "+$(event.currentTarget).attr("memberNo"));
 	   var mno=$(event.target).attr("memberNo");
-	 $.getJSON('/allstar/member/ajax/detail.do?mno='+$(event.currentTarget).attr("memberNo"), function(resultObj){
+	 $.getJSON('/allstar/member/ajax/joinDetail.do?mno='+$(event.currentTarget).attr("memberNo") + '&tno=' + tno, function(resultObj){
 	     var member = resultObj.members;
 	     var photo = member.photo;
 	      if(photo == null)
@@ -292,7 +292,7 @@ $.getJSON('/allstar/team/ajax/detail.do?tno=' + tno, function(resultObj) {
 	         +"<li><label style='font-family:nexonFontB;'>성별 &nbsp; &nbsp; &nbsp; : </label><span>"+member.gender+"</span></li>"
 	         +"<li><label style='font-family:nexonFontB;'>나이 &nbsp; &nbsp; &nbsp; : </label><span>"+member.age+"</span></li>"
 	         +"<li><label style='font-family:nexonFontB;'>주소 &nbsp; &nbsp; &nbsp; : </label><span> "+member.bas_addr+"</span></li>"
-	         +"<li><label style='font-family:nexonFontB;'>자기소개 :  </label><span>"+member.introduce+"</span></li>"
+	         +"<li><label style='font-family:nexonFontB;'>가입양식 :  </label><span>"+resultObj.aForm+"</span></li>"
 	         +"<button type='button' id='accept' memberNo='"+ member.mno +"' teamNo='"+ $(event.currentTarget).attr("teamNo") +"'>승인</button>"
 	         +"<button type='button' id='wait' memberNo='"+ member.mno +"' teamNo='"+ $(event.currentTarget).attr("teamNo")  +"'>보류</button>"
 	         +"<button type='button' id='denial' memberNo='"+ member.mno +"' teamNo='"+ $(event.currentTarget).attr("teamNo")  +"'>거절</button>")

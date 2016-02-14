@@ -1,6 +1,7 @@
 package allstar.pms.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import allstar.pms.domain.JoinTeam;
 
@@ -14,6 +15,8 @@ public interface JoinTeamDao {
   
   List<JoinTeam> selectCaptain(int mno);
 
+  String selectAformByTeamMember(Map<String,Object> paramMap);
+  
   JoinTeam selectOneByTeamMember(JoinTeam joinTeam);
   
   int updateState(JoinTeam joinTeam);

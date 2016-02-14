@@ -113,6 +113,11 @@
         where jt.tno = #{tno} and jt.mno=#{mno}
     </select>
         
+    <select id="selectAformByTeamMember" resultType="string" parameterType="map">
+       select content
+       from join_team where tno=#{tno} and mno=#{mno}
+    </select>
+        
     <update id="updateState" parameterType="joinTeam">
       update join_team set
       state = #{state} 

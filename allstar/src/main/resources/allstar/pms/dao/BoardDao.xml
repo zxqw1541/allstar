@@ -61,10 +61,6 @@
      <if test="search1 == 'null' and search2 == 'null' and event == 'null' and date == 'null'"> where b.eno > 1</if>
      
     <if test="event != 'null'"> and b.eno=#{event} </if>
-    <if test="date != 'null'">
-      <if test="event != 'null'"> and b.cre_dt like concat('%',#{date},'%') </if>
-      <if test="event == 'null'"> and  b.cre_dt like concat('%',#{date},'%') </if>
-    </if>
     <if test="search1 != 'null'">
       <if test="event != 'null' or date != 'null'"> and b.title like concat('%',#{search1},'%') </if>
       <if test="event == 'null' and date == 'null'"> and b.title like concat('%',#{search1},'%') </if>
@@ -86,18 +82,7 @@
       <if test="date == 'null'"> (select count(*) from boar_comm where bno=b.bno) asc </if>
     </if>
     
-<!--     <if test="date == 'null' and reply == 'null'"> order by </if>
-    
-    <choose>
-      <when test="keyword == 'views'">b.views </when>
-      <otherwise>
-        b.bno
-      </otherwise>
-    </choose>
-    <choose>
-      <when test="align == 'asc'">asc </when>
-      <otherwise>desc </otherwise>
-    </choose> -->
+    <if test="date == 'null' and reply == 'null'"> order by b.cre_dt desc</if>
     
     limit #{startIndex}, #{length}
   </select>

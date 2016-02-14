@@ -14,6 +14,8 @@ public interface JoinTeamService {
   
   List<JoinTeam> getCaptainTeamByMember(int mno);
   
+  String getAform(int tno, int mno);
+  
   JoinTeam retrieve(JoinTeam joinTeam);
  
   void register(JoinTeam joinTeam);

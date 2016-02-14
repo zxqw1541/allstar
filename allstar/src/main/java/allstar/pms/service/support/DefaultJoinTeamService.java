@@ -1,5 +1,6 @@
 package allstar.pms.service.support;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,14 @@ public class DefaultJoinTeamService implements JoinTeamService {
   @Override
   public List<JoinTeam> getCaptainTeamByMember(int mno) {
     return joinTeamDao.selectCaptain(mno);
+  }
+  
+  public String getAform(int tno, int mno) {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("tno", tno);
+    paramMap.put("mno", mno);
+    
+    return joinTeamDao.selectAformByTeamMember(paramMap);
   }
   
   @Override

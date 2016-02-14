@@ -84,6 +84,24 @@ public class MemberController {
     log.debug(member);
     return resultMap;
   }
+  
+  @RequestMapping("joinDetail")
+  public Object joinDetail(int mno, int tno) throws Exception {
+    String Afrom = joinTeamService.getAform(tno, mno);
+    
+    System.out.println("AForm => " + Afrom);
+    
+    List<LikeEvent> likeEvent = likeEventService.getLikeEventListByMno(mno);
+    Member member = memberService.retrieve(mno);
+    HashMap<String, Object> resultMap = new HashMap<>();
+    resultMap.put("likeEvents", likeEvent);
+    resultMap.put("members", member);
+    resultMap.put("aForm", Afrom);
+    log.debug(likeEvent);
+    log.debug(member);
+    return resultMap;
+  }
+
 
   @RequestMapping(value = "update", method = RequestMethod.POST)
   public AjaxResult update(String likeList, Member member, MultipartHttpServletRequest uploadedFile) throws Exception {
