@@ -135,5 +135,11 @@
     delete from join_team 
     where mno = #{mno}
     </delete>
+    
+    <select id="selectStateByTnoMno" resultType="int" parameterType="joinTeam">
+       select state
+       from join_team 
+       where tno = #{tno} and mno=#{mno}
+    </select>
 
 </mapper>
