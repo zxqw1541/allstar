@@ -26,4 +26,6 @@ public interface JoinTeamDao {
   int insert(JoinTeam joinTeam);
 
   int delete(int mno);
+  
+  int selectStateByTnoMno(JoinTeam joinTeam);
 }

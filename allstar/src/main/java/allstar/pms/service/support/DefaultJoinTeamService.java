@@ -71,4 +71,9 @@ public class DefaultJoinTeamService implements JoinTeamService {
   public JoinTeam retrieve(JoinTeam joinTeam) {
     return joinTeamDao.selectOneByTeamMember(joinTeam);
   }
+
+  @Override
+  public int getState(JoinTeam joinTeam) {
+    return joinTeamDao.selectStateByTnoMno(joinTeam);
+  }
 }

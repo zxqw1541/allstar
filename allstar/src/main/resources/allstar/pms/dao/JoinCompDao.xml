@@ -107,4 +107,10 @@
 				order by jt.tno, jc.cno
     </select>
     
+    <select id="selectState" resultType="int" parameterType="Map">
+      select state
+      from join_comp
+      where tno = #{tno} and cno = #{cno} 
+    </select>
+    
 </mapper>

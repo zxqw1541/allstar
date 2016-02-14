@@ -146,6 +146,13 @@
       join_num=join_num+1
     where tno=#{tno}
   </update>
+  
+  <update id="minusCount" parameterType="int">
+    update team set
+      join_num=join_num-1
+    where tno=#{tno}
+  </update>
+	 
 
   <update id="updateTeamScore" parameterType="map">
     update team set

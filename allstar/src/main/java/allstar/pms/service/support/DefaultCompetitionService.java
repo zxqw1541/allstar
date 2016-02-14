@@ -96,4 +96,9 @@ public class DefaultCompetitionService implements CompetitionService {
     return competitionDao.selectCompListByMno(mno);
   }
 
+  @Override
+  public int minus1JoinNum(int cno) {
+    return competitionDao.minusJoinNumByCno(cno);
+  }
+
 }

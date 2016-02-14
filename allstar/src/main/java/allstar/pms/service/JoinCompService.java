@@ -25,4 +25,6 @@ public interface JoinCompService {
   int changeState(int tno, int cno, int state);
   
   List<JoinComp> getJoinedCompList(int mno);
+  
+  int getState(int tno, int cno);
 }

@@ -83,4 +83,9 @@ public class DefaultTeamService implements TeamService {
     paramMap.put("eno", eno);
     return teamDao.selectTeamByMnoEno(paramMap);
   }
+
+  @Override
+  public int changeMinusCount(int tno) {
+    return teamDao.minusCount(tno);
+  }
 }

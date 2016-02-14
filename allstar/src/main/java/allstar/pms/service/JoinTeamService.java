@@ -25,6 +25,8 @@ public interface JoinTeamService {
   int changeState(JoinTeam joinTeam);
 
   int changeLevel(int mno);
+  
+  int getState(JoinTeam joinTeam);
 
 }
 

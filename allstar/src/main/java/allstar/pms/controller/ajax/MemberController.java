@@ -225,10 +225,27 @@ public class MemberController {
 
   @RequestMapping("changeState")
   public AjaxResult changeState(JoinTeam joinTeam) {
+    
     log.debug(joinTeam);
-    joinTeamService.changeState(joinTeam);
+    
+    int preState = joinTeamService.getState(joinTeam);
+    
+    //승인 눌렀을 때 
     if (joinTeam.getState() == 1) {
-      teamService.changeJoinCount(joinTeam.getTno());
+      // 원래 승인상태가 아닐 때 카운트
+      if (preState != 1) {
+        joinTeamService.changeState(joinTeam);
+        teamService.changeJoinCount(joinTeam.getTno());
+      }
+      return new AjaxResult("success", null);
+    }
+    
+    // 승인이 아닐때
+    joinTeamService.changeState(joinTeam);
+    
+    // 승인-> 취소할 때 현재인원 내리기 
+    if (preState == 1) {
+      teamService.changeMinusCount(joinTeam.getTno());
     }
 
     return new AjaxResult("success", null);

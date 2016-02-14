@@ -18,4 +18,5 @@ public interface TeamService {
   Team getEmblemByTno(int tno);
   
   List<Team> getTeamListByTnoEno(int tno, int eno);
+  int changeMinusCount(int tno);
 }
