@@ -93,12 +93,12 @@ getParameter = function(name) {
     </article>
     <aside id="rightSide" class="sideArea">
     </aside>
-    <div class='bbsReply' style='float: left;'>
+    <div class='bbsReply' style='float: left; margin-bottom:100px;'>
     </div>
   </div>
-  
 </div>
 <div style='width:100%; height:100px;'></div>
+
 <script>
 function addComment(event){
 		if (sessionStorage.getItem("mem_num") == undefined) {
@@ -302,7 +302,7 @@ function clickUpdate(event) {
             $("<section class='listComments' style='margin-left: 50px;'>")
             .html("<ul class='list'>"
                  +"<div class='commentWrap'>"
-                 +"<li class='comment1' style='border-bottom: aquamarine 1px solid;'>"
+                 +"<li class='comment1' style='border-bottom: #907c6e 1px solid;'>"
                  +"<dl>"
                  +"<dt>이름, 작성일</dt>"
                  +"<dd class='nameWrap'>"
