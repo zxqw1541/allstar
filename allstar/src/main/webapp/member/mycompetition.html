@@ -201,8 +201,8 @@ $.getJSON('/allstar/competition/complistm.do?mno=' +sessionStorage.getItem("mem_
               +"<h3>" + c.name + "</h3>"
               +"<span>개최팀 : " + c.team.name + "</span><br>"
               +"<span >개최지 : " + c.baseAddr + " </span><br>"
-              +"<span >종목 : "+ c.event.name + " </span><br>"
-              +"<span>내용 : "+ c.content + "</span><br>"
+              +"<span >종목 &nbsp;&nbsp;: "+ c.event.name + " </span><br>"
+              +"<span>내용 &nbsp;&nbsp;: "+ c.content + "</span><br>"
                     +"<a class='mycomp_info' href='mycompetitiondetail.html?cno="+c.no+"' >대회 정보 보기</a>"
               +"</figcaption></figure></li>"
           ).appendTo(ul);

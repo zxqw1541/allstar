@@ -141,7 +141,7 @@ function clickUpdate(event) {
                   +"<div class='subject'>"
                   +"<input type='hidden' id='bEno' value='"+ board.eno + "'></input>"
                   +"<input type='hidden' id='bMno' value='"+ board.mno + "'></input>"
-                  +"<input class='tit' id='bTitle' value='"+board.title+"'  style='border:0px; padding:0px 0px 0px 0px;'>" 
+                  +"<input class='tit' id='bTitle' value='"+board.title+"'  style='width:700px; border:0px; padding:0px 0px 0px 0px;'>" 
                   +"<p class='etc'><span class='date'>" + board.createDate + "</span></p>"
                   +"</div>"
                   +"<p class='cnt'>"
@@ -151,8 +151,8 @@ function clickUpdate(event) {
                   +"<textarea id='bContent' cols='60' rows='10' style='width:798px; overflow-y: auto;'>" + board.content + "</textarea>"
                   +"<div id='loading' style='display:none'><img src='http://s.nx.com/s2/game/tos/common/img_loading.gif' alt='' /></div>" 
                   +"<div>" 
-                  +"<div style='margin:2% 81px 4% 805px;'>" 
-                  +"<button id='updateBtn'  type='button' boardBno='"+ board.no +"' style='margin-bottom: 40px;"
+                  +"<div style='margin:2% 81px 4% 630px;'>" 
+                  +"<button id='updateBtn' class='btn btnType1' type='button' boardBno='"+ board.no +"' style='margin-bottom: 40px;"
                   +"font-size:25px; width:170px; height:44px;'>수정</button>" 
                   +"</div>"
                   +"</div>")
@@ -190,7 +190,7 @@ function clickUpdate(event) {
 	                  + "<a href='boardDetail.html?no="+ prev.no +"'>"
 	                  + "<span class='nav'>이전<span class='bul sprBtn'></span></span>"
 	                  + "<div class='contents'>"
-	                  + "<strong class='tit' style='display:inline;'>" + prev.title + "</strong><small> - " + prev.event.name + "</small><br>" 
+	                  + "<strong class='tit'>" + prev.title + "</strong><small> - " + prev.event.name + "</small><br>" 
 	                  + "<span class='etc'><span class='date'>" + prev.createDate + "</span></span>"
 	                  + "</div></a></li>";
 			  }
@@ -206,7 +206,7 @@ function clickUpdate(event) {
 	                  + "<a href='boardDetail.html?no="+ next.no +"'>" 
 	                  + "<span class='nav'>다음<span class='bul sprBtn'></span></span>" 
 	                  + "<div class='contents'>" 
-	                  + "<strong class='tit' style='display:inline;'>" + next.title + "</strong><small> - " + next.event.name + "</small><br>" 
+	                  + "<strong class='tit'>" + next.title + "</strong><small> - " + next.event.name + "</small><br>" 
 	                  + "<span class='etc'><span class='date'>" + next.createDate + "</span></span>" 
 	                  + "</div></a></li>";
 		     }

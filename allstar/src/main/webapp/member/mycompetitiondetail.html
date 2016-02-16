@@ -294,12 +294,12 @@ $(function(){
                console.log(team);
                $("<ul>")
                .html("<li><img src='/allstar/team/img/"+team.emblem+"'></li>"
-                   +"<li><label style='font-family:nexonFontB; '>이름  &nbsp;&nbsp; &nbsp; &nbsp; </label><span> : "+team.name+"</span></li>"
-                   +"<li><label style='font-family:nexonFontB;'>인원수  &nbsp; &nbsp; </label><span> : "+team.joinNum+"</span></li>"
-                   +"<li><label style='font-family:nexonFontB;'>전적  &nbsp; &nbsp; &nbsp;&nbsp; </label><span> : "+team.win+"승 "+team.lose+"패</span></li>"
-                   +"<li><label style='font-family:nexonFontB; '>연고지  &nbsp; &nbsp; </label><span> : "+team.baseAddr+"</span></li>"
-                   +"<li><label style='font-family:nexonFontB; '>팀소개  &nbsp; &nbsp; </label><span> : "+team.introduce+"</span></li>"
-                   +"<li><label style='font-family:nexonFontB; '>참가내용&nbsp; </label><span>: "+ajaxResult.data.content+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB; '>이름  &nbsp;&nbsp; &nbsp; &nbsp; </label><span>  "+team.name+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB;'>인원수  &nbsp; &nbsp; </label><span>  "+team.joinNum+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB;'>전적  &nbsp; &nbsp; &nbsp;&nbsp; </label><span>  "+team.win+"승 "+team.lose+"패</span></li>"
+                   +"<li><label style='font-family:nexonFontB; '>연고지  &nbsp; &nbsp; </label><span>  "+team.baseAddr+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB; '>팀소개  &nbsp; &nbsp; </label><span>  "+team.introduce+"</span></li>"
+                   +"<li><label style='font-family:nexonFontB; '>참가내용&nbsp; </label><span>   "+ajaxResult.data.content+"</span></li>"
                    +"<button type='button' id='accept' teamNo='"+ tno +"' compNo='"+ cno +"'>승인</button>"
                    +"<button type='button' id='wait'   teamNo='"+ tno +"' compNo='"+ cno +"'>보류</button>"
                    +"<button type='button' id='denial' teamNo='"+ tno +"' compNo='"+ cno +"'>거절</button>")

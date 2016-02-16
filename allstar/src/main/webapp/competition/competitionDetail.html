@@ -212,13 +212,17 @@ $.getJSON('/allstar/competition/detail.do?no=' + no, function(resultObj) {
         status = '대회종료';
       }
       
+      var teamLength = JSON.parse(c.operation).teams.length;
+      
       var tourStyle= '';
-      if (c.joinNum <= 4) {
+      if (teamLength <= 2) {
     	  tourStyle = 'margin-top:50px;';
-      } else if (c.joinNum > 4 && c.joinNum <= 8) {
+      } else if (teamLength > 2 && teamLength <= 4) {
     	  tourStyle = 'margin-top:250px;';
-      } else if (c.joinNum > 8 && c.joinNum <= 16) {
+      } else if (teamLength > 4 && teamLength <= 8) {
     	  tourStyle = 'margin-top:530px;';
+      } else {
+    	  tourStyle = 'margin-top:930px;';
       }
       
       var sub_article = $("#subject")
@@ -367,7 +371,6 @@ function getFormData() {
 	     for(var t of team) {
 	       if (t.tno == tno)
 	         continue;
-	       console.log(t);
 	       myTeamMap.set(t.tno, t.emblem);
 	       var h = "<option value='" + t.tno + "'>" + t.name + "</option>";
 	       acname.append(h);
@@ -606,19 +609,27 @@ $('#btnArticleUpdate').on('click', function(event){
   
 $('#btnArticleRemove').on('click', function(event){
 	  event.preventDefault();
-	  var result = confirm("정말 삭제하시겠습니까?")
+	  var result = '';
+	  alertify.confirm("정말 삭제하시겠습니까?", function (e) {
+		    if (e) {
+		      alert("saldkfasf");
+				  $.getJSON('/allstar/competition/delete.do?no=' + no, function(resultObj) {
+					  var ajaxResult = resultObj.ajaxResult;
+					    if (ajaxResult.status == "success") {
+					    	alertify.alert('삭제되었습니다.', function() {
+						    	location.href = 'competitionList.html';
+					    	});
+					    } else {
+					    	alertify.alert('삭제되지 않았습니다.');	
+					    }
+					  });
+		    } else {
+				  alertify.alert("취소되었습니다.");
+		    }
+		});
+
 	  if (result == true){
-		  $.getJSON('/allstar/competition/delete.do?no=' + no, function(resultObj) {
-			  var ajaxResult = resultObj.ajaxResult;
-			    if (ajaxResult.status == "success") {
-			    	alertify.alert('삭제 성공!');
-			    	location.href = 'competitionList.html';
-			    } else {
-			    	alertify.alert('삭제 실패!');	
-			    }
-			  });
 	  } else {
-		  alertify.alert("취소되었습니다.");
 	  }
 	});
 }
@@ -850,10 +861,11 @@ $('body').on('click','#enrollTour', function() {
       contentType:false,
       success : function(result) {
       if (result.ajaxResult.status == "success") {
-    	  alertify.alert("대진표 변경 완료!");
-        location.href = "/allstar/competition/competitionDetail.html?no=" + no;
+        alertify.alert("대진표가 변경되었습니다.", function(){
+	        location.href = "/allstar/competition/competitionDetail.html?no=" + no;
+        });
       } else {
-    	  alertify.alert("대진표 변경 실패!");
+    	  alertify.alert("대진표가 변경되지 않았습니다.");
      }
    },
    error : function(result){
@@ -896,7 +908,7 @@ $('body').on('click','#sendResult', function() {
 	  
 	  if (matchLoseTeam[i].innerText.startsWith('undefined') == true) {
 		  var text = matchWinTeam[i];
-		  loseTeamDiv.push(text);
+		  winTeamDiv.splice( $.inArray(text,winTeamDiv) ,1 );
 	  }
   }
   
@@ -925,10 +937,11 @@ $('body').on('click','#sendResult', function() {
 		   contentType:false,
 		   success : function(result) {
 		   if (result.ajaxResult.status == "success") {
-			   alertify.alert("결과 전송 완료!");
-		     location.href = "/allstar/competition/competitionDetail.html?no=" + no;
+        alertify.alert("결과를 전송하였습니다.", function(){
+			     location.href = "/allstar/competition/competitionDetail.html?no=" + no;
+         });
 		   } else {
-			   alertify.alert("결과 전송 실패!");
+			   alertify.alert("결과를 전송하지 못하였습니다.");
 		  }
 		},
 		error : function(result){
